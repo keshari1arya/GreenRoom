@@ -10,7 +10,7 @@ public abstract class BaseAuditableEntity : BaseEntity
 
     public string? LastModifiedBy { get; set; }
 
-    public DateTimeOffset Deleted { get; set; }
+    // public DateTimeOffset Deleted { get; set; }
 
-    public string? DeletedBy { get; set; }
+    // public string? DeletedBy { get; set; }
 }

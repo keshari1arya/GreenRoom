@@ -21,6 +21,7 @@ public class DeleteTodoItemTests : BaseTestFixture
     [Test]
     public async Task ShouldDeleteTodoItem()
     {
+        var userId = await RunAsDefaultUserAsync();
         var listId = await SendAsync(new CreateTodoListCommand
         {
             Title = "New List"

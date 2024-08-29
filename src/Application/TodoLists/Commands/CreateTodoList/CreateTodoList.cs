@@ -1,5 +1,6 @@
 ﻿using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Domain.Entities;
+using GreenRoom.Domain.ValueObjects;
 
 namespace GreenRoom.Application.TodoLists.Commands.CreateTodoList;
 
@@ -19,9 +20,10 @@ public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListComman
 
     public async Task<int> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
     {
-        var entity = new TodoList();
-
-        entity.Title = request.Title;
+        var entity = new TodoList
+        {
+            Title = request.Title,
+        };
 
         _context.TodoLists.Add(entity);
 

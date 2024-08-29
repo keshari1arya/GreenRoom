@@ -55,12 +55,6 @@ public class AuditableEntityWithMultiTenancyInterceptor : SaveChangesInterceptor
                 entry.Entity.LastModified = utcNow;
             }
 
-            if (entry.State == EntityState.Deleted)
-            {
-                entry.State = EntityState.Modified;
-                entry.Entity.DeletedBy = _user.Id;
-                entry.Entity.Deleted = utcNow;
-            }
         }
     }
 }

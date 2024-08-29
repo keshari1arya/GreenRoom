@@ -15,8 +15,5 @@ public class TodoListConfiguration : IEntityTypeConfiguration<TodoList>
 
         builder
             .OwnsOne(b => b.Colour);
-
-        builder
-            .HasQueryFilter(t => t.DeletedBy == null);
     }
 }
