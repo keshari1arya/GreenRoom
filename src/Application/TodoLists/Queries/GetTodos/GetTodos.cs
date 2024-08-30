@@ -12,13 +12,11 @@ public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
-    private readonly IMultiTenancyService _multiTenancyService;
 
-    public GetTodosQueryHandler(IApplicationDbContext context, IMapper mapper, IMultiTenancyService multiTenancyService)
+    public GetTodosQueryHandler(IApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
-        _multiTenancyService = multiTenancyService;
     }
 
     public async Task<TodosVm> Handle(GetTodosQuery request, CancellationToken cancellationToken)
