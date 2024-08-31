@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,22 +27,34 @@ import { SidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { HeaderComponent } from './layouts/full/header/header.component';
 import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
+import { TokenInterceptor } from './core/interceptors/token-interceptor.service';
+import { AssetManagementModule } from './pages/asset-management/asset-management.module';
 
-@NgModule({ declarations: [
-        AppComponent,
-        FullComponent,
-        BlankComponent,
-        SidebarComponent,
-        HeaderComponent,
-        BrandingComponent,
-        AppNavItemComponent,
-    ],
-    exports: [TablerIconsModule],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        TablerIconsModule.pick(TablerIcons)], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    FullComponent,
+    BlankComponent,
+    SidebarComponent,
+    HeaderComponent,
+    BrandingComponent,
+    AppNavItemComponent,
+  ],
+  exports: [TablerIconsModule],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    TablerIconsModule.pick(TablerIcons),
+    // AssetManagementModule,
+  ],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
+})
 export class AppModule {}

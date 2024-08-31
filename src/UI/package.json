@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "api-gen": "npx ts-node src/scripts/api-gen.ts",
+    "dev": "npx yarn &&npx yarn api-gen && npx yarn start"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +25,7 @@
     "angular-tabler-icons": "^3.1.0",
     "apexcharts": "^3.49.0",
     "ng-apexcharts": "1.10.0",
+    "ng-openapi-gen": "^0.51.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.10"

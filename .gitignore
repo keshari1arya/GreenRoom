@@ -481,3 +481,5 @@ $RECYCLE.BIN/
 
 # Angular
 .angular/
+openapi-generated/
+dist/

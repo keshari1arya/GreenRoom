@@ -2,6 +2,14 @@ import { NavItem } from './nav-item/nav-item';
 
 export const navItems: NavItem[] = [
   {
+    navCap: 'Assets',
+  },
+  {
+    displayName: 'Assets',
+    iconName: 'image',
+    route: '/assets',
+  },
+  {
     navCap: 'Home',
   },
   {
