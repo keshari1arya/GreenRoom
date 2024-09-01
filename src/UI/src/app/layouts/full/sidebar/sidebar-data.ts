@@ -6,7 +6,7 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Assets',
-    iconName: 'image',
+    iconName: 'files',
     route: '/assets',
   },
   {
