@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { FolderDto } from 'src/app/lib/openapi-generated/models';
-import { FoldersService } from 'src/app/lib/openapi-generated/services';
+import { Store } from '@ngrx/store';
+import {
+  assetManagementFeature,
+  IAssetManagementState,
+} from '../states/asset-management.feature';
+import { assetManagementActions } from '../states/asset-management.actions';
 
 @Component({
   selector: 'app-asset-list-shell',
@@ -9,9 +14,12 @@ import { FoldersService } from 'src/app/lib/openapi-generated/services';
   styleUrl: './asset-list-shell.component.scss',
 })
 export class AssetListShellComponent implements OnInit {
-  constructor(private folderService: FoldersService) {}
-  folders$: Observable<Array<FolderDto>> = of(Array<FolderDto>());
+  constructor(private store: Store<IAssetManagementState>) {
+    this.folders$ = this.store.select(assetManagementFeature.selectFolders);
+  }
+
+  folders$: Observable<Array<FolderDto>> = of([]);
   ngOnInit(): void {
-    this.folders$ = this.folderService.getFolders();
+    this.store.dispatch(assetManagementActions.getFolders({ folderId: null }));
   }
 }

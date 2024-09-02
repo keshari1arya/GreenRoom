@@ -29,6 +29,11 @@ import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
 import { TokenInterceptor } from './core/interceptors/token-interceptor.service';
 import { AssetManagementModule } from './pages/asset-management/asset-management.module';
+import { EffectsModule } from '@ngrx/effects';
+import { AssetManagementEffects } from './pages/asset-management/states/asset-management.effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -50,7 +55,13 @@ import { AssetManagementModule } from './pages/asset-management/asset-management
     ReactiveFormsModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
-    // AssetManagementModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot(),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

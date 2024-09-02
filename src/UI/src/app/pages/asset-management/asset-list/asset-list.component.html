@@ -3,7 +3,10 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <mat-card-title>{{ folderName }}</mat-card-title>
-        <div class="table-responsive m-t-16">
+        <div
+          class="table-responsive m-t-16"
+          *ngIf="folders && folders.length > 0"
+        >
           <table mat-table [dataSource]="folders" class="w-100">
             <!-- Position Column -->
             <ng-container matColumnDef="name">

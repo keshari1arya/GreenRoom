@@ -7,7 +7,7 @@ import { FolderDto } from 'src/app/lib/openapi-generated/models';
   styleUrls: ['./asset-list.component.scss'],
 })
 export class AssetListComponent implements OnInit {
-  @Input() folders: FolderDto[] = [];
+  @Input() folders: FolderDto[] | undefined | null = [];
   constructor() {}
   ngOnInit(): void {}
 
