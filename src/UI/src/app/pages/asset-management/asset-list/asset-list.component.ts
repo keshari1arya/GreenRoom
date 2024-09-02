@@ -1,7 +1,5 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FolderDto } from 'src/app/lib/openapi-generated/models';
-import { FoldersService } from 'src/app/lib/openapi-generated/services';
 
 @Component({
   selector: 'app-asset-list',
@@ -9,14 +7,9 @@ import { FoldersService } from 'src/app/lib/openapi-generated/services';
   styleUrls: ['./asset-list.component.scss'],
 })
 export class AssetListComponent implements OnInit {
-  folders: FolderDto[] = [];
-  constructor(private folderService: FoldersService) {}
-  ngOnInit(): void {
-    this.folderService.getFolders().subscribe((res) => {
-      this.folders = res;
-      console.log(res);
-    });
-  }
+  @Input() folders: FolderDto[] = [];
+  constructor() {}
+  ngOnInit(): void {}
 
   folderName = 'Home';
 

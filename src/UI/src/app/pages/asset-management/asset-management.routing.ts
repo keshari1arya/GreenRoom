@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AssetListComponent } from './asset-list/asset-list.component';
+import { AssetListShellComponent } from './asset-list-shell/asset-list-shell.component';
 
 export const AssetManagementRoutes: Routes = [
   {
@@ -7,7 +7,7 @@ export const AssetManagementRoutes: Routes = [
     children: [
       {
         path: '',
-        component: AssetListComponent,
+        component: AssetListShellComponent,
       },
     ],
   },

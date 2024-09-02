@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router';
 import { AssetManagementRoutes } from './asset-management.routing';
 import { AssetListComponent } from './asset-list/asset-list.component';
 import { MaterialModule } from 'src/app/material.module';
+import { AssetListShellComponent } from './asset-list-shell/asset-list-shell.component';
 
 @NgModule({
-  declarations: [AssetListComponent],
+  declarations: [AssetListComponent, AssetListShellComponent],
   imports: [
     CommonModule,
     MaterialModule,
