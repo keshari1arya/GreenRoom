@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     private store: Store) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token')) {
+    if (this.authenticationService.token()) {
       this.router.navigate(['/']);
     }
     // form validation

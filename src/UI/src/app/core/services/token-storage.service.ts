@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'token';
 // const USER_KEY = 'currentUser';
 
+
+// TODO: Implement the token storage service or remove it if not needed
 @Injectable({
   providedIn: 'root'
 })

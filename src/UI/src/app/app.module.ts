@@ -32,7 +32,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
-import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { FilemanagerEffects } from './store/filemanager/filemanager.effects';
 import { rootReducer } from './store';
 import { OrderEffects } from './store/orders/order.effects';
@@ -52,67 +51,63 @@ import { OrdersEffects } from './store/Crypto/crypto.effects';
 import { CustomerEffects } from './store/customer/customer.effects';
 import { MailEffects } from './store/Email/email.effects';
 
-if (environment.defaultauth === 'firebase') {
-  initFirebaseBackend(environment.firebaseConfig);
-} else {
-  // tslint:disable-next-line: no-unused-expression
-  FakeBackendInterceptor;
-}
+
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
-@NgModule({ declarations: [
-        AppComponent,
-        CyptolandingComponent,
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFireAuthModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient]
-            }
-        }),
-        LayoutsModule,
-        AppRoutingModule,
-        ExtrapagesModule,
-        AccordionModule.forRoot(),
-        TabsModule.forRoot(),
-        TooltipModule.forRoot(),
-        SharedModule,
-        ScrollToModule.forRoot(),
-        SlickCarouselModule,
-        ToastrModule.forRoot(),
-        StoreModule.forRoot(rootReducer),
-        StoreDevtoolsModule.instrument({
-            maxAge: 25, // Retains last 25 states
-            logOnly: environment.production, // Restrict extension to log-only mode
-        }),
-        EffectsModule.forRoot([
-            FilemanagerEffects,
-            OrderEffects,
-            AuthenticationEffects,
-            CartEffects,
-            ProjectEffects,
-            usersEffects,
-            userslistEffects,
-            JoblistEffects,
-            CandidateEffects,
-            InvoiceDataEffects,
-            ChatEffects,
-            tasklistEffects,
-            OrdersEffects,
-            CustomerEffects,
-            MailEffects
-        ])], providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
-        provideHttpClient(withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    CyptolandingComponent,
+  ],
+  bootstrap: [AppComponent], imports: [BrowserModule,
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+    LayoutsModule,
+    AppRoutingModule,
+    ExtrapagesModule,
+    AccordionModule.forRoot(),
+    TabsModule.forRoot(),
+    TooltipModule.forRoot(),
+    SharedModule,
+    ScrollToModule.forRoot(),
+    SlickCarouselModule,
+    ToastrModule.forRoot(),
+    StoreModule.forRoot(rootReducer),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    EffectsModule.forRoot([
+      FilemanagerEffects,
+      OrderEffects,
+      AuthenticationEffects,
+      CartEffects,
+      ProjectEffects,
+      usersEffects,
+      userslistEffects,
+      JoblistEffects,
+      CandidateEffects,
+      InvoiceDataEffects,
+      ChatEffects,
+      tasklistEffects,
+      OrdersEffects,
+      CustomerEffects,
+      MailEffects
+    ])], providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      provideHttpClient(withInterceptorsFromDi()),
+    ]
+})
 export class AppModule { }
