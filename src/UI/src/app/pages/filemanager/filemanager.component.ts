@@ -1,10 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { AssetDto, FolderDto } from "src/app/lib/openapi-generated/models";
 import { RootReducerState } from "src/app/store";
 import { selectAssets, selectData, selectFolders } from "src/app/store/filemanager/filemanager-selector";
-import { fetchAssetsByFolderIdData, fetchFoldersByParentIdData, fetchRecentFilesData } from "src/app/store/filemanager/filemanager.actions";
+import { addFolder, fetchAssetsByFolderIdData, fetchFoldersByParentIdData, fetchRecentFilesData, trashFolder } from "src/app/store/filemanager/filemanager.actions";
 
 @Component({
   selector: "app-filemanager",
@@ -20,10 +22,16 @@ export class FileManagerComponent implements OnInit {
   Recentfile: any;
   folders: FolderDto[] = [];
   assets: AssetDto[] = [];
+  modalRef?: BsModalRef;
+  createFolderForm = this.formBuilder.group({
+    folderName: [""],
+  });
 
   constructor(
     public router: Router,
-    private store: Store<{ data: RootReducerState }>
+    private store: Store<{ data: RootReducerState }>,
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -117,4 +125,26 @@ export class FileManagerComponent implements OnInit {
     }
   }
 
+  openModal(template: TemplateRef<any>) {
+    const config: any = {
+      backdrop: true,
+      ignoreBackdropClick: true
+    };
+    this.modalRef = this.modalService.show(template, config);
+  }
+  onCreateFolderFormSubmit() {
+    this.store.dispatch(addFolder({
+      folder: {
+        body: {
+          name: this.createFolderForm.value.folderName,
+        }
+      }
+    }));
+    this.createFolderForm.reset();
+    this.modalRef?.hide();
+  }
+
+  trashFolder(folderId: number) {
+    this.store.dispatch(trashFolder({ folderId }));
+  }
 }

@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { fetchAssetsByFolderIdData, fetchAssetsByFolderIdFail, fetchAssetsByFolderIdSuccess, fetchFoldersByParentIdData, fetchFoldersByParentIdFail, fetchFoldersByParentIdSuccess, fetchRecentFilesData, fetchRecentFilesFail, fetchRecentFilesSuccess } from './filemanager.actions';
+import { addFolder, addFolderFail, addFolderSuccess, fetchAssetsByFolderIdData, fetchAssetsByFolderIdFail, fetchAssetsByFolderIdSuccess, fetchFoldersByParentIdData, fetchFoldersByParentIdFail, fetchFoldersByParentIdSuccess, fetchRecentFilesData, fetchRecentFilesFail, fetchRecentFilesSuccess } from './filemanager.actions';
 import { AssetDto, FolderDto } from 'src/app/lib/openapi-generated/models';
 
 
@@ -46,6 +46,15 @@ export const FilemanageReducer = createReducer(
         return { ...state, assets, loading: false };
     }),
     on(fetchAssetsByFolderIdFail, (state, { error }) => {
+        return { ...state, error, loading: false };
+    }),
+    on(addFolder, (state) => {
+        return { ...state, loading: true, error: null };
+    }),
+    on(addFolderSuccess, (state) => {
+        return { ...state, loading: false };
+    }),
+    on(addFolderFail, (state, { error }) => {
         return { ...state, error, loading: false };
     })
 );

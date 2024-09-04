@@ -40,7 +40,7 @@ public class CreateFolderCommandHandler : IRequestHandler<CreateFolderCommand, i
             Name = request.Name,
             ParentId = request.ParentFolderId,
             Thumbnail = request.ThumbnailUrl,
-            Path = request.Path
+            Path = request.Path ?? "/", // TODO: Implement path generation
         };
 
         _context.Folders.Add(entity);

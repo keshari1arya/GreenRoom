@@ -46,13 +46,15 @@
                         down and fade in from the top of the page.</p>
 
                     <div>
-                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openModal(content)">Standard modal</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target="#myModal" (click)="openModal(content)">Standard modal</button>
 
                         <!-- sample modal content -->
                         <ng-template #content role="document" let-modal>
                             <div class="modal-header">
                                 <h5 class="modal-title" id="myModalLabel">Default Modal Heading</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    (click)="modalRef.hide()"></button>
                             </div>
                             <div class="modal-body">
                                 <h5>Overflowing text to show scroll behavior</h5>
@@ -86,7 +88,8 @@
                                     consectetur ac, vestibulum at eros.</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal" (click)="modalRef.hide()">Close</button>
+                                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal"
+                                    (click)="modalRef.hide()">Close</button>
                                 <button type="button" class="btn btn-primary waves-effect waves-light">Save
                                     changes</button>
                             </div>
@@ -108,15 +111,18 @@
                         viewport, available via modifier classes that are placed on a <code>.modal-fullscreen</code>.
                     </p>
                     <div>
-                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen" (click)="fullscreen.show()">Fullscreen
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalFullscreen" (click)="fullscreen.show()">Fullscreen
                             modal</button>
                         <!-- sample modal content -->
-                        <div bsModal #fullscreen="bs-modal" class="modal fade exampleModalFullscreen" aria-labelledby="exampleModalFullscreenLabel" role="document">
+                        <div bsModal #fullscreen="bs-modal" class="modal fade exampleModalFullscreen"
+                            aria-labelledby="exampleModalFullscreenLabel" role="document">
                             <div class="modal-dialog modal-fullscreen">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalFullscreenLabel">Fullscreen Modal</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="fullscreen.hide()"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close" (click)="fullscreen.hide()"></button>
                                     </div>
                                     <div class="modal-body">
                                         <h5>Overflowing text to show scroll behavior</h5>
@@ -150,7 +156,8 @@
                                             consectetur ac, vestibulum at eros.</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal" (click)="fullscreen.hide()">Close</button>
+                                        <button type="button" class="btn btn-secondary waves-effect"
+                                            data-bs-dismiss="modal" (click)="fullscreen.hide()">Close</button>
                                         <button type="button" class="btn btn-primary waves-effect waves-light">Save
                                             changes</button>
                                     </div>
@@ -180,15 +187,18 @@
 
                     <div class="d-flex flex-wrap gap-2">
                         <!-- Extra Large modal button -->
-                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" (click)="extraLarge(exlargeModal)">Extra large
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-xl" (click)="extraLarge(exlargeModal)">Extra large
                             modal</button>
 
                         <!-- Large modal button -->
-                        <button type="button" class="btn btn-light waves-effect" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" (click)="largeModal(largeDataModal)">Large
+                        <button type="button" class="btn btn-light waves-effect" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-lg" (click)="largeModal(largeDataModal)">Large
                             modal</button>
 
                         <!-- Small modal button -->
-                        <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm" (click)="smallModal(smallDataModal)">Small
+                        <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-sm" (click)="smallModal(smallDataModal)">Small
                             modal</button>
                     </div>
 
@@ -197,7 +207,8 @@
                         <ng-template #exlargeModal let-modal>
                             <div class="modal-header">
                                 <h5 class="modal-title" id="myExtraLargeModalLabel">Extra large modal</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    (click)="modalRef?.hide()"></button>
                             </div>
                             <div class="modal-body">
                                 <p>Cras mattis consectetur purus sit amet fermentum.
@@ -219,7 +230,8 @@
                         <ng-template #largeDataModal let-modal>
                             <div class="modal-header">
                                 <h5 class="modal-title" id="myLargeModalLabel">Large modal</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    (click)="modalRef?.hide()"></button>
                             </div>
                             <div class="modal-body">
                                 <p>Cras mattis consectetur purus sit amet fermentum.
@@ -241,7 +253,8 @@
                         <ng-template #smallDataModal let-modal>
                             <div class="modal-header">
                                 <h5 class="modal-title" id="mySmallModalLabel">Small modal</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    (click)="modalRef?.hide()"></button>
                             </div>
                             <div class="modal-body">
                                 <p>Cras mattis consectetur purus sit amet fermentum.
@@ -278,7 +291,8 @@
 
                     <div>
                         <!-- center modal -->
-                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center" (click)="centerDataModal.show()">Center
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-center" (click)="centerDataModal.show()">Center
                             modal</button>
 
                         <div bsModal #centerDataModal="bs-modal" class="modal fade" tabindex="-1">
@@ -286,7 +300,8 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Center modal</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="centerDataModal?.hide()"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close" (click)="centerDataModal?.hide()"></button>
                                     </div>
                                     <div class="modal-body">
                                         <p>Cras mattis consectetur purus sit amet fermentum.
@@ -326,7 +341,8 @@
                         by adding <code>.modal-dialog-scrollable</code> to <code>.modal-dialog</code>.</p>
 
                     <!-- Scrollable modal button -->
-                    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable" (click)="scrollable.show()">Scrollable
+                    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalScrollable" (click)="scrollable.show()">Scrollable
                         modal</button>
 
                     <!-- Scrollable modal -->
@@ -335,7 +351,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalScrollableTitle">Scrollable Modal</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="scrollable.hide()"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        (click)="scrollable.hide()"></button>
                                 </div>
                                 <div class="modal-body  modal-dialog-scrollable">
                                     <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
@@ -412,7 +429,8 @@
                                         auctor fringilla.</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" (click)="scrollable.hide()">Close</button>
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                                        (click)="scrollable.hide()">Close</button>
                                     <button type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
@@ -434,7 +452,8 @@
                         outside it. Click the button below to try it.</p>
                     <div>
                         <!-- Static Backdrop modal Button -->
-                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="StaticModal(StaticDataModal)">
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" (click)="StaticModal(StaticDataModal)">
                             Static backdrop modal
                         </button>
 
@@ -443,14 +462,16 @@
                         <ng-template #StaticDataModal let-modal>
                             <div class="modal-header">
                                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    (click)="modalRef?.hide()"></button>
                             </div>
                             <div class="modal-body">
                                 <p>I will not close if you click outside me. Don't even try to press escape
                                     key.</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal" (click)="modalRef?.hide()">Close</button>
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                                    (click)="modalRef?.hide()">Close</button>
                                 <button type="button" class="btn btn-primary">Understood</button>
                             </div>
                         </ng-template>
@@ -477,7 +498,8 @@
                     </p>
 
                     <div>
-                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#firstmodal" (click)="first.show()">Open First
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target="#firstmodal" (click)="first.show()">Open First
                             Modal</button>
                         <!-- First modal dialog -->
                         <div bsModal #first="bs-modal" class="modal fade" id="firstmodal">
@@ -485,14 +507,17 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Modal 1</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="first.hide()"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close" (click)="first.hide()"></button>
                                     </div>
                                     <div class="modal-body">
                                         <p>Show a second modal and hide this one with the button below.</p>
                                     </div>
                                     <div class="modal-footer">
                                         <!-- Toogle to second dialog -->
-                                        <button class="btn btn-primary" data-bs-target="#secondmodal" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="first.hide()" (click)="seconde.show()">Open
+                                        <button class="btn btn-primary" data-bs-target="#secondmodal"
+                                            data-bs-toggle="modal" data-bs-dismiss="modal" (click)="first.hide()"
+                                            (click)="seconde.show()">Open
                                             Second
                                             Modal</button>
                                     </div>
@@ -505,14 +530,17 @@
                                 <div class="modal-content">
                                     <div class="modal-header ">
                                         <h5 class="modal-title">Modal 2</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="seconde.hide()"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close" (click)="seconde.hide()"></button>
                                     </div>
                                     <div class="modal-body">
                                         <p>Hide this modal and show the first with the button below.</p>
                                     </div>
                                     <div class="modal-footer">
                                         <!-- Toogle to first dialog, `data-bs-dismiss` attribute can be omitted - clicking on link will close dialog anyway -->
-                                        <button class="btn btn-primary" data-bs-target="#firstmodal" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="seconde.hide()" (click)="first.show()">Back to
+                                        <button class="btn btn-primary" data-bs-target="#firstmodal"
+                                            data-bs-toggle="modal" data-bs-dismiss="modal" (click)="seconde.hide()"
+                                            (click)="first.show()">Back to
                                             First</button>
                                     </div>
                                 </div>
@@ -541,20 +569,28 @@
 
                     <div>
                         <div class="d-flex flex-wrap gap-3">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="varyingModal(varying,'Mary')">Open modal for &#64;mdo</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat" (click)="varyingModal(varying,'Jennifer')">Open modal for &#64;fat</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" (click)="varyingModal(varying,'Roderick')">Open modal for &#64;getbootstrap</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                                (click)="varyingModal(varying,'Mary')">Open modal for &#64;mdo</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@fat"
+                                (click)="varyingModal(varying,'Jennifer')">Open modal for &#64;fat</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"
+                                (click)="varyingModal(varying,'Roderick')">Open modal for &#64;getbootstrap</button>
                         </div>
 
                         <ng-template #varying role="document" let-modal>
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    (click)="modalRef?.hide()"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                    <input type="text" class="form-control" id="recipient-name" value="@mdo" [(ngModel)]="name">
+                                    <input type="text" class="form-control" id="recipient-name" value="@mdo"
+                                        [(ngModel)]="name">
                                 </div>
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">Message:</label>
@@ -562,7 +598,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modalRef?.hide()">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    (click)="modalRef?.hide()">Close</button>
                                 <button type="button" class="btn btn-primary">Send message</button>
                             </div>
                         </ng-template>

@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, mergeMap, map } from "rxjs/operators";
 import {
+    addFolder,
+    addFolderFail,
+    addFolderSuccess,
     fetchAssetsByFolderIdData,
     fetchAssetsByFolderIdFail,
     fetchAssetsByFolderIdSuccess,
@@ -11,6 +14,9 @@ import {
     fetchRecentFilesData,
     fetchRecentFilesFail,
     fetchRecentFilesSuccess,
+    trashFolder,
+    trashFolderFail,
+    trashFolderSuccess,
 } from "./filemanager.actions";
 import { of } from "rxjs";
 import { CrudService } from "src/app/core/services/crud.service";
@@ -50,6 +56,36 @@ export class FilemanagerEffects {
                 this.assetsService.getAssets({ FolderId: param.folderId }).pipe(
                     map((assets) => fetchAssetsByFolderIdSuccess({ assets })),
                     catchError((error) => of(fetchAssetsByFolderIdFail({ error })))
+                )
+            )
+        )
+    );
+
+    createFolder$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(addFolder),
+            mergeMap((param) =>
+                this.folderService.createFolder(param.folder).pipe(
+                    map((folderId) => {
+                        addFolderSuccess({ folderId });
+                        return fetchFoldersByParentIdData({ parentId: null });
+                    }),
+                    catchError((error) => of(addFolderFail({ error })))
+                )
+            )
+        )
+    );
+
+    deleteFolder$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(trashFolder),
+            mergeMap((param) =>
+                this.folderService.trashFolder({ body: { ids: [param.folderId] } }).pipe(
+                    map(() => {
+                        trashFolderSuccess();
+                        return fetchFoldersByParentIdData({ parentId: null });
+                    }),
+                    catchError((error) => of(trashFolderFail({ error })))
                 )
             )
         )

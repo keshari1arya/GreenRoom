@@ -30,7 +30,7 @@ public class GetFoldersQueryHandler : IRequestHandler<GetFoldersQuery, IEnumerab
     public async Task<IEnumerable<FolderDto>> Handle(GetFoldersQuery request, CancellationToken cancellationToken)
     {
         var folders = await _context.Folders
-            .Where(x => x.ParentId == request.FolderId)
+            .Where(x => x.ParentId == request.FolderId && !x.IsTrashed)
             .ProjectTo<FolderDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return folders;
