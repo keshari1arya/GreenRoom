@@ -1,61 +1,36 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { BlankComponent } from './layouts/blank/blank.component';
-import { FullComponent } from './layouts/full/full.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+
+import { AuthGuard } from "./core/guards/auth.guard";
+import { LayoutComponent } from "./layouts/layout.component";
+import { CyptolandingComponent } from "./cyptolanding/cyptolanding.component";
+import { Page404Component } from "./extrapages/page404/page404.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: FullComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: '/dashboard',
-        pathMatch: 'full',
-      },
-      {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./pages/pages.module').then((m) => m.PagesModule),
-      },
-      {
-        path: 'ui-components',
-        loadChildren: () =>
-          import('./pages/ui-components/ui-components.module').then(
-            (m) => m.UicomponentsModule
-          ),
-      },
-      {
-        path: 'extra',
-        loadChildren: () =>
-          import('./pages/extra/extra.module').then((m) => m.ExtraModule),
-      },
-      {
-        path: 'assets',
-        loadChildren: () =>
-          import('./pages/asset-management/asset-management.module').then(
-            (m) => m.AssetManagementModule
-          ),
-      },
-    ],
+    path: "auth",
+    loadChildren: () =>
+      import("./account/account.module").then((m) => m.AccountModule),
   },
   {
-    path: '',
-    component: BlankComponent,
-    children: [
-      {
-        path: 'authentication',
-        loadChildren: () =>
-          import('./pages/authentication/authentication.module').then(
-            (m) => m.AuthenticationModule
-          ),
-      },
-    ],
+    path: "",
+    component: LayoutComponent,
+    loadChildren: () =>
+      import("./pages/pages.module").then((m) => m.PagesModule),
+    canActivate: [AuthGuard],
   },
+  {
+    path: "pages",
+    loadChildren: () =>
+      import("./extrapages/extrapages.module").then((m) => m.ExtrapagesModule),
+    canActivate: [AuthGuard],
+  },
+  { path: "crypto-ico-landing", component: CyptolandingComponent },
+  { path: "**", component: Page404Component },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: "top" })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

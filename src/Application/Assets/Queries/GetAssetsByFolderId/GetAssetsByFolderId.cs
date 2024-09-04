@@ -42,6 +42,7 @@ public class AssetDto
     public int SizeInKB { get; set; }
     public string? Path { get; set; }
     public string? ContentType { get; set; }
+    public DateTimeOffset LastModified { get; set; }
 
     private class Mapping : Profile
     {
