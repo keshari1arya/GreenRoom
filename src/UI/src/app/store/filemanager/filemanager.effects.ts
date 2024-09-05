@@ -14,6 +14,9 @@ import {
   fetchRecentFilesData,
   fetchRecentFilesFail,
   fetchRecentFilesSuccess,
+  pathToRoot,
+  pathToRootFail,
+  pathToRootSuccess,
   trashFolder,
   trashFolderFail,
   trashFolderSuccess,
@@ -23,7 +26,7 @@ import {CrudService} from 'src/app/core/services/crud.service';
 import {AssetsService, FoldersService} from 'src/app/lib/openapi-generated/services';
 
 @Injectable()
-export class FilemanagerEffects {
+export class FileManagerEffects {
   fetchData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchRecentFilesData),
@@ -65,9 +68,9 @@ export class FilemanagerEffects {
       ofType(addFolder),
       mergeMap((param) =>
         this.folderService.createFolder(param.folder).pipe(
-          map((folderId) => {
-            addFolderSuccess({folderId});
-            return fetchFoldersByParentIdData({parentId: null});
+          map((createdFolderId) => {
+            addFolderSuccess({folderId: createdFolderId});
+            return fetchFoldersByParentIdData({parentId: param.folder.body.parentFolderId});
           }),
           catchError((error) => of(addFolderFail({error}))),
         ),
@@ -85,6 +88,25 @@ export class FilemanagerEffects {
             return fetchFoldersByParentIdData({parentId: null});
           }),
           catchError((error) => of(trashFolderFail({error}))),
+        ),
+      ),
+    ),
+  );
+
+  pathToRoot$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(pathToRoot),
+      mergeMap((param) =>
+        this.folderService.getFolderPathToRoot({folderId: param.folderId}).pipe(
+          map((path) => {
+            return pathToRootSuccess({path});
+          }),
+          catchError((error) => {
+            console.log(error);
+
+            pathToRootSuccess({path: []});
+            return of(pathToRootFail({error}));
+          }),
         ),
       ),
     ),

@@ -37,7 +37,7 @@ import {
 } from '@angular/common/http';
 import {ErrorInterceptor} from './core/helpers/error.interceptor';
 import {JwtInterceptor} from './core/helpers/jwt.interceptor';
-import {FilemanagerEffects} from './store/filemanager/filemanager.effects';
+import {FileManagerEffects} from './store/filemanager/filemanager.effects';
 import {rootReducer} from './store';
 import {OrderEffects} from './store/orders/order.effects';
 import {AuthenticationEffects} from './store/Authentication/authentication.effects';
@@ -91,7 +91,7 @@ export function createTranslateLoader(http: HttpClient): any {
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([
-      FilemanagerEffects,
+      FileManagerEffects,
       OrderEffects,
       AuthenticationEffects,
       CartEffects,

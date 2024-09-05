@@ -26,9 +26,14 @@ public class TrashFoldersCommandHandler : IRequestHandler<TrashFoldersCommand>
 
     public async Task Handle(TrashFoldersCommand request, CancellationToken cancellationToken)
     {
-        var entities = _context.Folders
+        var folders = _context.Folders
             .Where(x => request.ids.Contains(x.Id));
-        await entities.ForEachAsync(x => x.IsTrashed = true);
+        await folders.ForEachAsync(x => x.IsTrashed = true);
+
+        var assets = _context.Assets
+            .Where(x => x.FolderId != null && request.ids.Contains(x.FolderId.Value));
+        await assets.ForEachAsync(x => x.IsTrashed = true);
+
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

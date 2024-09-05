@@ -1,20 +1,24 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {AssetDto, FolderDto} from 'src/app/lib/openapi-generated/models';
+import {Observable, of} from 'rxjs';
+import {AssetDto, FolderDto, PathToRootDto} from 'src/app/lib/openapi-generated/models';
 import {RootReducerState} from 'src/app/store';
 import {
   selectAssets,
   selectData,
   selectFolders,
+  selectPathToRoot,
 } from 'src/app/store/filemanager/filemanager-selector';
 import {
   addFolder,
   fetchAssetsByFolderIdData,
   fetchFoldersByParentIdData,
   fetchRecentFilesData,
+  pathToRoot,
+  pathToRootSuccess,
   trashFolder,
 } from 'src/app/store/filemanager/filemanager.actions';
 
@@ -24,44 +28,37 @@ import {
   styleUrls: ['./filemanager.component.scss'],
 })
 export class FileManagerComponent implements OnInit {
+  folders$: Observable<FolderDto[]> = of([]);
+  assets$: Observable<AssetDto[]> = of([]);
+  pathToRoot$: Observable<PathToRootDto[]> = of([]);
+
   // bread crumb items
   breadCrumbItems: Array<{}>;
   radialoptions: any;
   public isCollapsed: boolean = false;
   dismissible = true;
-  Recentfile: any;
-  folders: FolderDto[] = [];
-  assets: AssetDto[] = [];
+
   modalRef?: BsModalRef;
   createFolderForm = this.formBuilder.group({
     folderName: [''],
   });
+  currentFolderId: number | null = null;
 
   constructor(
-    public router: Router,
     private store: Store<{data: RootReducerState}>,
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.breadCrumbItems = [{label: 'Apps'}, {label: 'File Manager', active: true}];
 
-    this.store.dispatch(fetchRecentFilesData());
-    this.store.dispatch(fetchFoldersByParentIdData({parentId: null}));
-    this.store.dispatch(fetchAssetsByFolderIdData({folderId: null}));
+    this.currentFolderId = this.route.snapshot.queryParams.folderId || null;
 
-    this.store.select(selectData).subscribe((data) => {
-      this.Recentfile = data;
-    });
-
-    this.store.select(selectFolders).subscribe((data) => {
-      this.folders = data;
-    });
-
-    this.store.select(selectAssets).subscribe((data) => {
-      this.assets = data;
-    });
+    this.folders$ = this.store.select(selectFolders);
+    this.assets$ = this.store.select(selectAssets);
+    this.pathToRoot$ = this.store.select(selectPathToRoot);
 
     this.radialoptions = {
       series: [76],
@@ -106,6 +103,11 @@ export class FileManagerComponent implements OnInit {
       },
       labels: ['Storage'],
     };
+
+    this.openFolder(this.currentFolderId);
+    if (this.currentFolderId) {
+      this.store.dispatch(pathToRoot({folderId: this.currentFolderId}));
+    }
   }
 
   getIconByExtension(name: string): string {
@@ -155,5 +157,15 @@ export class FileManagerComponent implements OnInit {
 
   trashFolder(folderId: number) {
     this.store.dispatch(trashFolder({folderId}));
+  }
+
+  openFolder(folderId: number) {
+    this.store.dispatch(fetchFoldersByParentIdData({parentId: folderId}));
+    this.store.dispatch(fetchAssetsByFolderIdData({folderId}));
+    if (folderId) {
+      this.store.dispatch(pathToRoot({folderId}));
+    } else {
+      this.store.dispatch(pathToRootSuccess({path: []}));
+    }
   }
 }

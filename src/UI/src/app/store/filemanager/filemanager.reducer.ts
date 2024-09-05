@@ -12,26 +12,30 @@ import {
   fetchRecentFilesData,
   fetchRecentFilesFail,
   fetchRecentFilesSuccess,
+  pathToRoot,
+  pathToRootSuccess,
 } from './filemanager.actions';
-import {AssetDto, FolderDto} from 'src/app/lib/openapi-generated/models';
+import {AssetDto, FolderDto, PathToRootDto} from 'src/app/lib/openapi-generated/models';
 
-export interface FilemanagerState {
+export interface FileManagerState {
+  loading: boolean;
+  error: any;
   folders: FolderDto[];
   assets: AssetDto[];
   recentFiles: any[];
-  loading: boolean;
-  error: any;
+  pathToRoot: PathToRootDto[];
 }
 
-export const initialState: FilemanagerState = {
+export const initialState: FileManagerState = {
   folders: [],
   recentFiles: [],
   loading: false,
   error: null,
   assets: [],
+  pathToRoot: [],
 };
 
-export const FilemanageReducer = createReducer(
+export const FileManageReducer = createReducer(
   initialState,
   on(fetchRecentFilesData, (state) => {
     return {...state, loading: true, error: null};
@@ -42,8 +46,8 @@ export const FilemanageReducer = createReducer(
   on(fetchRecentFilesFail, (state, {error}) => {
     return {...state, error, loading: false};
   }),
-  on(fetchFoldersByParentIdData, (state) => {
-    return {...state, loading: true, error: null};
+  on(fetchFoldersByParentIdData, (state, param) => {
+    return {...state, loading: true, error: null, currentFolderId: param.parentId};
   }),
   on(fetchFoldersByParentIdSuccess, (state, {folders}) => {
     return {...state, folders, loading: false};
@@ -69,9 +73,15 @@ export const FilemanageReducer = createReducer(
   on(addFolderFail, (state, {error}) => {
     return {...state, error, loading: false};
   }),
+  on(pathToRoot, (state) => {
+    return {...state, loading: true, error: null};
+  }),
+  on(pathToRootSuccess, (state, {path}) => {
+    return {...state, loading: false, pathToRoot: path};
+  }),
 );
 
 // Selector
-export function reducer(state: FilemanagerState | undefined, action: Action) {
-  return FilemanageReducer(state, action);
+export function reducer(state: FileManagerState | undefined, action: Action) {
+  return FileManageReducer(state, action);
 }

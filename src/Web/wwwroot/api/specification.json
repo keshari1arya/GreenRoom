@@ -368,6 +368,47 @@
         ]
       }
     },
+    "/api/Folders/PathToRoot/{folderId}": {
+      "get": {
+        "tags": [
+          "Folders"
+        ],
+        "operationId": "GetFolderPathToRoot",
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PathToRootDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -1352,6 +1393,20 @@
           },
           "name": {
             "type": "string"
+          }
+        }
+      },
+      "PathToRootDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "folderId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "folderName": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

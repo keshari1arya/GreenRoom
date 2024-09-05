@@ -1,5 +1,5 @@
 import {ActionReducerMap} from '@ngrx/store';
-import {FilemanageReducer, FilemanagerState} from './filemanager/filemanager.reducer';
+import {FileManageReducer, FileManagerState} from './filemanager/filemanager.reducer';
 import {EcoOrderState, OrderReducer} from './orders/order.reducer';
 import {AuthenticationState, authenticationReducer} from './Authentication/authentication.reducer';
 import {CartReducer, CartState} from './Cart/cart.reducer';
@@ -19,7 +19,7 @@ import {MailReducer, MailState} from './Email/email.reducer';
 export interface RootReducerState {
   layout: LayoutState;
   auth: AuthenticationState;
-  Filelist: FilemanagerState;
+  Filelist: FileManagerState;
   EcoOrderList: EcoOrderState;
   CartList: CartState;
   Projectlist: projectState;
@@ -38,7 +38,7 @@ export interface RootReducerState {
 export const rootReducer: ActionReducerMap<RootReducerState> = {
   layout: layoutReducer,
   auth: authenticationReducer,
-  Filelist: FilemanageReducer,
+  Filelist: FileManageReducer,
   EcoOrderList: OrderReducer,
   CartList: CartReducer,
   Projectlist: projectReducer,

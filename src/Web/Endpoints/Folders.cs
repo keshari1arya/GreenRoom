@@ -4,7 +4,9 @@ using GreenRoom.Application.Folders.Commands.MoveFolders;
 using GreenRoom.Application.Folders.Commands.RenameFolder;
 using GreenRoom.Application.Folders.Commands.RestoreFolders;
 using GreenRoom.Application.Folders.Commands.TrashFolders;
+using GreenRoom.Application.Folders.Queries.GetFolderPathToRoot;
 using GreenRoom.Application.Folders.Queries.GetFolders;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GreenRoom.Web.Endpoints;
 
@@ -19,7 +21,8 @@ public class Folders : EndpointGroupBase
             .MapPut(MoveFolder, "Move")
             .MapPut(TrashFolder, "Trash")
             .MapPut(RestoreFolder, "Restore")
-            .MapPut(RenameFolder, "Rename");
+            .MapPut(RenameFolder, "Rename")
+            .MapGet(GetFolderPathToRoot, "PathToRoot/{folderId}");
     }
 
     private Task<IEnumerable<FolderDto>> GetFolders(ISender sender, [AsParameters] GetFoldersQuery query)
@@ -50,5 +53,9 @@ public class Folders : EndpointGroupBase
     private Task RenameFolder(ISender sender, RenameFolderCommand command)
     {
         return sender.Send(command);
+    }
+    private Task<IEnumerable<PathToRootDto>> GetFolderPathToRoot(ISender sender, [FromRoute] int? folderId)
+    {
+        return sender.Send(new GetFolderPathToRootQuery(folderId));
     }
 }

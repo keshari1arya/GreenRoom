@@ -1,4 +1,4 @@
-export interface Filemanager {
+export interface FileManager {
   id?: string;
   name?: string;
   date?: string;

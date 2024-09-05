@@ -1,13 +1,13 @@
 import {createAction, props} from '@ngrx/store';
-import {Filemanager} from './filemanager.model';
-import {AssetDto, FolderDto} from 'src/app/lib/openapi-generated/models';
+import {FileManager} from './filemanager.model';
+import {AssetDto, FolderDto, PathToRootDto} from 'src/app/lib/openapi-generated/models';
 import {CreateFolder$Params} from 'src/app/lib/openapi-generated/fn/folders/create-folder';
 
 // fetch
 export const fetchRecentFilesData = createAction('[Data] fetch RecentFiles');
 export const fetchRecentFilesSuccess = createAction(
   '[Data] fetch RecentFiles success',
-  props<{recentFiles: Filemanager[]}>(),
+  props<{recentFiles: FileManager[]}>(),
 );
 export const fetchRecentFilesFail = createAction(
   '[Data fetch RecentFiles failed]',
@@ -54,3 +54,11 @@ export const addFolderFail = createAction('[Data add Folder failed]', props<{err
 export const trashFolder = createAction('[Data] trash Folder', props<{folderId: number}>());
 export const trashFolderSuccess = createAction('[Data] trash Folder success');
 export const trashFolderFail = createAction('[Data trash Folder failed]', props<{error: string}>());
+
+// Path to root
+export const pathToRoot = createAction('[Data] path to root', props<{folderId?: number}>());
+export const pathToRootSuccess = createAction(
+  '[Data] path to root success',
+  props<{path: PathToRootDto[]}>(),
+);
+export const pathToRootFail = createAction('[Data path to root failed]', props<{error: string}>());
