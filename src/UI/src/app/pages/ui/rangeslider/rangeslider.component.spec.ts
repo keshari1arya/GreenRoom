@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { RangesliderComponent } from './rangeslider.component';
+import {RangesliderComponent} from './rangeslider.component';
 
 describe('RangesliderComponent', () => {
   let component: RangesliderComponent;
@@ -8,9 +8,8 @@ describe('RangesliderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RangesliderComponent ]
-    })
-    .compileComponents();
+      declarations: [RangesliderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

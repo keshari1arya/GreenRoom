@@ -2,24 +2,19 @@
 // Forms.scss
 //
 
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
+[type='tel'],
+[type='url'],
+[type='email'],
+[type='number'] {
   &::placeholder {
-    text-align: left
-      /*rtl: right*/
-    ;
+    text-align: left /*rtl: right*/;
   }
 }
 
 .form-check {
   position: relative;
-  text-align: left
-    /*rtl: right*/
-  ;
+  text-align: left /*rtl: right*/;
 }
-
 
 // checkbox input right
 
@@ -39,12 +34,9 @@
   }
 }
 
-
-
 // checkbox
 
 .form-checkbox-outline {
-
   .form-check-input {
     border-width: 2px;
     background-color: var(--#{$prefix}secondary-bg);
@@ -54,17 +46,16 @@
     }
 
     &:checked {
-      background-color: var(--#{$prefix}secondary-bg)  !important;
+      background-color: var(--#{$prefix}secondary-bg) !important;
 
-      &[type=checkbox] {
+      &[type='checkbox'] {
         background-image: none;
-
       }
 
       &:after {
         position: absolute;
         content: '\F012C';
-        font-family: "Material Design Icons";
+        font-family: 'Material Design Icons';
         top: -4px !important;
         left: 1px;
         /*rtl: -4px */
@@ -87,11 +78,10 @@
     }
 
     &:checked {
-      background-color: var(--#{$prefix}secondary-bg)  !important;
+      background-color: var(--#{$prefix}secondary-bg) !important;
 
-      &[type=checkbox] {
+      &[type='checkbox'] {
         background-image: none;
-
       }
 
       &:after {
@@ -107,12 +97,9 @@
   }
 }
 
-
-
 // checkbox color
 
-@each $color,
-$value in $theme-colors {
+@each $color, $value in $theme-colors {
   .form-check-#{$color} {
     .form-check-input {
       &:checked {
@@ -161,7 +148,6 @@ $value in $theme-colors {
     vertical-align: middle;
   }
 }
-
 
 .form-switch-lg {
   padding-left: 2.75rem;

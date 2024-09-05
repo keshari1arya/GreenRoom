@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { MaskComponent } from './mask.component';
+import {MaskComponent} from './mask.component';
 
 describe('MaskComponent', () => {
   let component: MaskComponent;
@@ -8,9 +8,8 @@ describe('MaskComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MaskComponent ]
-    })
-    .compileComponents();
+      declarations: [MaskComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { InboxComponent } from './inbox.component';
+import {InboxComponent} from './inbox.component';
 
 describe('InboxComponent', () => {
   let component: InboxComponent;
@@ -8,9 +8,8 @@ describe('InboxComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ InboxComponent ]
-    })
-    .compileComponents();
+      declarations: [InboxComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

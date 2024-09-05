@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-colors',
   templateUrl: './colors.component.html',
-  styleUrls: ['./colors.component.scss']
+  styleUrls: ['./colors.component.scss'],
 })
 
 /**
@@ -13,9 +13,9 @@ export class ColorsComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Colors', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Colors', active: true}];
   }
 }

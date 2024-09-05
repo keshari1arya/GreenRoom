@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ProjectgridComponent } from './projectgrid.component';
+import {ProjectgridComponent} from './projectgrid.component';
 
 describe('ProjectgridComponent', () => {
   let component: ProjectgridComponent;
@@ -8,9 +8,8 @@ describe('ProjectgridComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectgridComponent ]
-    })
-    .compileComponents();
+      declarations: [ProjectgridComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

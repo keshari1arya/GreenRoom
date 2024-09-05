@@ -10,23 +10,42 @@
               <div class="mb-4">
                 <div class="mb-3">
                   <div class="dropdown" dropdown>
-                    <button class="btn btn-light dropdown-toggle w-100" dropdownToggle type="button"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button
+                      class="btn btn-light dropdown-toggle w-100"
+                      dropdownToggle
+                      type="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
                       <i class="mdi mdi-plus me-1"></i> Create New
                     </button>
                     <div class="dropdown-menu" *dropdownMenu>
-                      <a class="dropdown-item" href="javascript: void(0);" (click)="openModal(createFolderModal)"><i
-                          class="bx bx-folder me-1"></i> Folder</a>
-                      <a class="dropdown-item" href="javascript: void(0);"><i class="bx bx-file me-1"></i> File</a>
+                      <a
+                        class="dropdown-item"
+                        href="javascript: void(0);"
+                        (click)="openModal(createFolderModal)"
+                        ><i class="bx bx-folder me-1"></i> Folder</a
+                      >
+                      <a class="dropdown-item" href="javascript: void(0);"
+                        ><i class="bx bx-file me-1"></i> File</a
+                      >
                     </div>
                   </div>
                 </div>
                 <ul class="list-unstyled categories-list">
                   <li>
                     <div class="custom-accordion">
-                      <a class="text-body fw-medium py-1 d-flex align-items-center" (click)="isCollapsed = !isCollapsed"
-                        [attr.aria-expanded]="!isCollapsed" data-toggle="collapse" href="javascript:void(0);"
-                        role="button" aria-expanded="false" aria-controls="categories-collapse">
+                      <a
+                        class="text-body fw-medium py-1 d-flex align-items-center"
+                        (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed"
+                        data-toggle="collapse"
+                        href="javascript:void(0);"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="categories-collapse"
+                      >
                         <i class="mdi mdi-folder font-size-16 text-warning me-2"></i>
                         Files
                         <i class="mdi mdi-chevron-up accor-down-icon ms-auto"></i>
@@ -35,22 +54,26 @@
                         <div class="card border-0 shadow-none ps-2 mb-0">
                           <ul class="list-unstyled mb-0">
                             <li>
-                              <a href="javascript: void(0);" class="d-flex align-items-center"><span
-                                  class="me-auto">Design</span></a>
+                              <a href="javascript: void(0);" class="d-flex align-items-center"
+                                ><span class="me-auto">Design</span></a
+                              >
                             </li>
                             <li>
-                              <a href="javascript: void(0);" class="d-flex align-items-center"><span
-                                  class="me-auto">Development</span>
-                                <i class="mdi mdi-pin ms-auto"></i></a>
+                              <a href="javascript: void(0);" class="d-flex align-items-center"
+                                ><span class="me-auto">Development</span>
+                                <i class="mdi mdi-pin ms-auto"></i
+                              ></a>
                             </li>
                             <li>
-                              <a href="javascript: void(0);" class="d-flex align-items-center"><span
-                                  class="me-auto">Project A</span></a>
+                              <a href="javascript: void(0);" class="d-flex align-items-center"
+                                ><span class="me-auto">Project A</span></a
+                              >
                             </li>
                             <li>
-                              <a href="javascript: void(0);" class="d-flex align-items-center"><span
-                                  class="me-auto">Admin</span>
-                                <i class="mdi mdi-pin ms-auto"></i></a>
+                              <a href="javascript: void(0);" class="d-flex align-items-center"
+                                ><span class="me-auto">Admin</span>
+                                <i class="mdi mdi-pin ms-auto"></i
+                              ></a>
                             </li>
                           </ul>
                         </div>
@@ -91,7 +114,8 @@
                   <li>
                     <a href="javascript: void(0);" class="text-body d-flex align-items-center">
                       <i class="mdi mdi-cog text-muted font-size-16 me-2"></i>
-                      <span class="me-auto">Setting</span><span class="badge bg-success rounded-pill ms-2">01</span>
+                      <span class="me-auto">Setting</span
+                      ><span class="badge bg-success rounded-pill ms-2">01</span>
                     </a>
                   </li>
                 </ul>
@@ -133,24 +157,30 @@
                     <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
                       <div class="search-box mb-2 me-2">
                         <div class="position-relative">
-                          <input type="text" class="form-control bg-light border-light rounded"
-                            placeholder="Search..." />
+                          <input
+                            type="text"
+                            class="form-control bg-light border-light rounded"
+                            placeholder="Search..."
+                          />
                           <i class="bx bx-search-alt search-icon"></i>
                         </div>
                       </div>
 
                       <div class="dropdown mb-0" dropdown>
-                        <a class="btn btn-link text-muted dropdown-toggle mt-n2" dropdownToggle role="button"
-                          data-toggle="dropdown" aria-haspopup="true">
+                        <a
+                          class="btn btn-link text-muted dropdown-toggle mt-n2"
+                          dropdownToggle
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                        >
                           <i class="mdi mdi-dots-vertical font-size-20"></i>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
                           <a class="dropdown-item" href="javascript: void(0);">Share Files</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Share with
-                            me</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Other
-                            Actions</a>
+                          <a class="dropdown-item" href="javascript: void(0);">Share with me</a>
+                          <a class="dropdown-item" href="javascript: void(0);">Other Actions</a>
                         </div>
                       </div>
                     </form>
@@ -165,8 +195,13 @@
                         <div class="">
                           <div class="float-end ms-2">
                             <div class="dropdown mb-2" dropdown>
-                              <a class="font-size-16 text-muted dropdown-toggle" dropdownToggle role="button"
-                                data-toggle="dropdown" aria-haspopup="true">
+                              <a
+                                class="font-size-16 text-muted dropdown-toggle"
+                                dropdownToggle
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                              >
                                 <i class="mdi mdi-dots-horizontal"></i>
                               </a>
 
@@ -175,8 +210,12 @@
                                 <a class="dropdown-item" href="javascript: void(0);">Edit</a>
                                 <a class="dropdown-item" href="javascript: void(0);">Rename</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript: void(0);"
-                                  (click)="trashFolder(folder.id)">Remove</a>
+                                <a
+                                  class="dropdown-item"
+                                  href="javascript: void(0);"
+                                  (click)="trashFolder(folder.id)"
+                                  >Remove</a
+                                >
                               </div>
                             </div>
                           </div>
@@ -192,9 +231,7 @@
                                   {{ folder.name }}
                                 </a>
                               </h5>
-                              <p class="text-muted text-truncate mb-0">
-                                12 Files
-                              </p>
+                              <p class="text-muted text-truncate mb-0">12 Files</p>
                             </div>
                             <div class="align-self-end ms-2">
                               <p class="text-muted mb-0">6GB</p>
@@ -229,32 +266,42 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @for(data of assets;track $index){
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark fw-medium">
-                            <i class="{{
-                                getIconByExtension(data.name)
-                              }} font-size-16 align-middle text-primary me-2"></i>{{ data.name }}</a>
-                        </td>
-                        <td>{{ data.lastModified | date }}</td>
-                        <td>{{ getFileSize(data.sizeInKB) }}</td>
-                        <td>
-                          <div class="dropdown" dropdown>
-                            <a class="font-size-16 text-muted dropdown-toggle" role="button" dropdownToggle
-                              data-toggle="dropdown" aria-haspopup="true">
-                              <i class="mdi mdi-dots-horizontal"></i>
-                            </a>
+                      @for (data of assets; track $index) {
+                        <tr>
+                          <td>
+                            <a href="javascript: void(0);" class="text-dark fw-medium">
+                              <i
+                                class="{{
+                                  getIconByExtension(data.name)
+                                }} font-size-16 align-middle text-primary me-2"
+                              ></i
+                              >{{ data.name }}</a
+                            >
+                          </td>
+                          <td>{{ data.lastModified | date }}</td>
+                          <td>{{ getFileSize(data.sizeInKB) }}</td>
+                          <td>
+                            <div class="dropdown" dropdown>
+                              <a
+                                class="font-size-16 text-muted dropdown-toggle"
+                                role="button"
+                                dropdownToggle
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                              >
+                                <i class="mdi mdi-dots-horizontal"></i>
+                              </a>
 
-                            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-                              @for(item of data.actions;track $index){
-                              <a class="dropdown-item" href="javascript: void(0);">{{ item
-                                }}</a>
-                              }
+                              <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                                @for (item of data.actions; track $index) {
+                                  <a class="dropdown-item" href="javascript: void(0);">{{
+                                    item
+                                  }}</a>
+                                }
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
+                          </td>
+                        </tr>
                       }
                     </tbody>
                   </table>
@@ -273,9 +320,17 @@
         <div class="text-center">
           <h5 class="font-size-15 mb-4">Storage</h5>
           <!-- <div class="apex-charts" id="radial-chart"></div> -->
-          <apx-chart dir="ltr" class="apex-charts" [chart]="radialoptions.chart" [series]="radialoptions.series"
-            [labels]="radialoptions.labels" [colors]="radialoptions.colors" [grid]="radialoptions.grid"
-            [plotOptions]="radialoptions.plotOptions" [stroke]="radialoptions.stroke">
+          <apx-chart
+            dir="ltr"
+            class="apex-charts"
+            [chart]="radialoptions.chart"
+            [series]="radialoptions.series"
+            [labels]="radialoptions.labels"
+            [colors]="radialoptions.colors"
+            [grid]="radialoptions.grid"
+            [plotOptions]="radialoptions.plotOptions"
+            [stroke]="radialoptions.stroke"
+          >
           </apx-chart>
 
           <p class="text-muted mt-4">48.02 GB (76%) of 64 GB used</p>
@@ -407,13 +462,18 @@
   <form [formGroup]="createFolderForm" (ngSubmit)="onCreateFolderFormSubmit()">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-        (click)="modalRef?.hide()"></button>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="modalRef?.hide()"
+      ></button>
     </div>
     <div class="modal-body">
       <div class="mb-3">
         <label for="name" class="col-form-label">Name:</label>
-        <input type="text" class="form-control" formControlName="folderName" id="folderName">
+        <input type="text" class="form-control" formControlName="folderName" id="folderName" />
       </div>
       <!-- <div class="mb-3">
         <label for="message-text" class="col-form-label">Message:</label>
@@ -421,7 +481,14 @@
       </div> -->
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modalRef?.hide()">Close</button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        (click)="modalRef?.hide()"
+      >
+        Close
+      </button>
       <button type="submit" class="btn btn-primary">Create</button>
     </div>
   </form>

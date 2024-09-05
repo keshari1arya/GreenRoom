@@ -1,25 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ToastrService } from 'ngx-toastr';
+import {Component, OnInit} from '@angular/core';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  styleUrls: ['./notification.component.scss'],
 })
 
 /**
  * Notification Component
  */
 export class NotificationComponent implements OnInit {
-
   modalRef?: BsModalRef;
   message: any;
   title: any;
   newestOnTop: any;
   progressbar: any;
   toastType: any = 'success';
-  easeToast:any = 'ease-in'
+  easeToast: any = 'ease-in';
   // bread crumb items
   breadCrumbItems: Array<{}>;
   closeButton: any;
@@ -27,10 +26,13 @@ export class NotificationComponent implements OnInit {
   timeouttoast: number = 5000;
   extended: number = 1000;
 
-  constructor(public toastService: ToastrService, private modalService: BsModalService) { }
+  constructor(
+    public toastService: ToastrService,
+    private modalService: BsModalService,
+  ) {}
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Notifications', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Notifications', active: true}];
   }
 
   /**
@@ -39,37 +41,65 @@ export class NotificationComponent implements OnInit {
   showStandard() {
     var text = this.title ? this.title : 'Welcome';
     var msg = this.message ? this.message : '';
-    var newestontop = this.newestOnTop == true ? true : false
-    var progress = this.progressbar == true ? true : false
-    var closebtn = this.closeButton == true ? true : false
+    var newestontop = this.newestOnTop == true ? true : false;
+    var progress = this.progressbar == true ? true : false;
+    var closebtn = this.closeButton == true ? true : false;
     // var position = this.position == this.position ? this.position : 'toast-top-right'
 
-      if (this.toastType == 'success') {
-        this.toastService.success(text, msg, { timeOut: this.timeouttoast, newestOnTop: newestontop, progressBar: progress, closeButton: closebtn,positionClass:this.position,easing:this.easeToast,extendedTimeOut:this.extended });
-      }
-  
-      if (this.toastType == 'info') {
-        this.toastService.info(text, msg, { timeOut: this.timeouttoast, newestOnTop: newestontop, progressBar: progress, closeButton: closebtn,positionClass:this.position,easing:this.easeToast ,extendedTimeOut:this.extended});
-      }
-  
-      if (this.toastType == 'warning') {
-        this.toastService.warning(text, msg, { timeOut: this.timeouttoast, newestOnTop: newestontop, progressBar: progress, closeButton: closebtn,positionClass:this.position,easing:this.easeToast,extendedTimeOut:this.extended });
-      }
-  
-      if (this.toastType == 'error') {
-        this.toastService.error(text, msg, { timeOut: this.timeouttoast, newestOnTop: newestontop, progressBar: progress, closeButton: closebtn,positionClass:this.position,easing:this.easeToast,extendedTimeOut:this.extended });
-      }
-   
-  
+    if (this.toastType == 'success') {
+      this.toastService.success(text, msg, {
+        timeOut: this.timeouttoast,
+        newestOnTop: newestontop,
+        progressBar: progress,
+        closeButton: closebtn,
+        positionClass: this.position,
+        easing: this.easeToast,
+        extendedTimeOut: this.extended,
+      });
+    }
+
+    if (this.toastType == 'info') {
+      this.toastService.info(text, msg, {
+        timeOut: this.timeouttoast,
+        newestOnTop: newestontop,
+        progressBar: progress,
+        closeButton: closebtn,
+        positionClass: this.position,
+        easing: this.easeToast,
+        extendedTimeOut: this.extended,
+      });
+    }
+
+    if (this.toastType == 'warning') {
+      this.toastService.warning(text, msg, {
+        timeOut: this.timeouttoast,
+        newestOnTop: newestontop,
+        progressBar: progress,
+        closeButton: closebtn,
+        positionClass: this.position,
+        easing: this.easeToast,
+        extendedTimeOut: this.extended,
+      });
+    }
+
+    if (this.toastType == 'error') {
+      this.toastService.error(text, msg, {
+        timeOut: this.timeouttoast,
+        newestOnTop: newestontop,
+        progressBar: progress,
+        closeButton: closebtn,
+        positionClass: this.position,
+        easing: this.easeToast,
+        extendedTimeOut: this.extended,
+      });
+    }
   }
 
-
   closetoast() {
-    this.toastService.clear()
+    this.toastService.clear();
   }
 
   closelasttoast() {
-    this.toastService.remove(this.toastService.currentlyActive)
+    this.toastService.remove(this.toastService.currentlyActive);
   }
-
 }

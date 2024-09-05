@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { CreatetaskComponent } from './createtask.component';
+import {CreatetaskComponent} from './createtask.component';
 
 describe('CreatetaskComponent', () => {
   let component: CreatetaskComponent;
@@ -8,9 +8,8 @@ describe('CreatetaskComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreatetaskComponent ]
-    })
-    .compileComponents();
+      declarations: [CreatetaskComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

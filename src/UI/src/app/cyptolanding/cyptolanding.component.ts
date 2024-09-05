@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {interval} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-cyptolanding',
   templateUrl: './cyptolanding.component.html',
-  styleUrls: ['./cyptolanding.component.scss']
+  styleUrls: ['./cyptolanding.component.scss'],
 })
 
 /**
  * Crypto landing page
  */
 export class CyptolandingComponent implements OnInit {
-
   // set the currenr year
   year: number = new Date().getFullYear();
   currentSection: any = 'home';
@@ -22,23 +21,22 @@ export class CyptolandingComponent implements OnInit {
     slidesToShow: 4,
     slidesToScroll: 1,
     arrows: false,
-    dots: true
+    dots: true,
   };
   // Team config
   config = {
     slidesToShow: 4,
     slidesToScroll: 1,
     arrows: false,
-    dots: false
+    dots: false,
   };
   // About config
   aboutConfig = {
     slidesToShow: 4,
     slidesToScroll: 1,
     arrows: false,
-    dots: false
+    dots: false,
   };
-
 
   private _trialEndsAt;
 
@@ -48,17 +46,18 @@ export class CyptolandingComponent implements OnInit {
   _minutes: number;
   _seconds: number;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit() {
-    this._trialEndsAt = "2023-12-31";
+    this._trialEndsAt = '2023-12-31';
 
-    interval(3000).pipe(
-      map((x) => {
-        this._diff = Date.parse(this._trialEndsAt) - Date.parse(new Date().toString());
-      })).subscribe((x) => {
+    interval(3000)
+      .pipe(
+        map((x) => {
+          this._diff = Date.parse(this._trialEndsAt) - Date.parse(new Date().toString());
+        }),
+      )
+      .subscribe((x) => {
         this._days = this.getDays(this._diff);
         this._hours = this.getHours(this._diff);
         this._minutes = this.getMinutes(this._diff);
@@ -91,9 +90,9 @@ export class CyptolandingComponent implements OnInit {
   windowScroll() {
     const navbar = document.getElementById('navbar');
     if (document.body.scrollTop >= 50 || document.documentElement.scrollTop >= 50) {
-      navbar.classList.add('nav-sticky')
+      navbar.classList.add('nav-sticky');
     } else {
-      navbar.classList.remove('nav-sticky')
+      navbar.classList.remove('nav-sticky');
     }
   }
 

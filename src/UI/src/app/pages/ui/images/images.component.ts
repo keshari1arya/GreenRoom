@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-images',
   templateUrl: './images.component.html',
-  styleUrls: ['./images.component.scss']
+  styleUrls: ['./images.component.scss'],
 })
 
 /**
@@ -13,9 +13,9 @@ export class ImagesComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Images', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Images', active: true}];
   }
 }

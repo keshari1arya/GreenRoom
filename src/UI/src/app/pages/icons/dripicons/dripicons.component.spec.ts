@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { DripiconsComponent } from './dripicons.component';
+import {DripiconsComponent} from './dripicons.component';
 
 describe('DripiconsComponent', () => {
   let component: DripiconsComponent;
@@ -8,9 +8,8 @@ describe('DripiconsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DripiconsComponent ]
-    })
-    .compileComponents();
+      declarations: [DripiconsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

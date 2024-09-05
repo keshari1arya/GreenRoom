@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
+import {Component, OnInit, ViewChild, EventEmitter, Output, Input} from '@angular/core';
 
 @Component({
   selector: 'app-advancedform',
   templateUrl: './advancedform.component.html',
-  styleUrls: ['./advancedform.component.scss']
+  styleUrls: ['./advancedform.component.scss'],
 })
 
 /**
@@ -12,7 +12,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angu
 export class AdvancedformComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  constructor() { }
+  constructor() {}
 
   // Component colorpicker
   componentcolor: string;
@@ -24,7 +24,7 @@ export class AdvancedformComponent implements OnInit {
   hidden: boolean;
   selected: any;
 
-  date: { year: number, month: number };
+  date: {year: number; month: number};
   // Select2 Dropdown
   selectValue: string[];
 
@@ -32,10 +32,10 @@ export class AdvancedformComponent implements OnInit {
   @Input() toDate: Date;
   @Output() dateRangeSelected: EventEmitter<{}> = new EventEmitter();
 
-  @ViewChild('dp', { static: true }) datePicker: any;
+  @ViewChild('dp', {static: true}) datePicker: any;
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Advanced', active: true }];
+    this.breadCrumbItems = [{label: 'Forms'}, {label: 'Advanced', active: true}];
     // Component color value of color picker
     this.componentcolor = '#3bafda';
     this.presetcolor = '#2889e9';
@@ -45,10 +45,29 @@ export class AdvancedformComponent implements OnInit {
 
     // Select dropdown value
     // tslint:disable-next-line: max-line-length
-    this.selectValue = ['Alaska', 'Hawaii', 'California', 'Nevada', 'Oregon', 'Washington', 'Arizona', 'Colorado', 'Idaho', 'Montana', 'Nebraska', 'New Mexico', 'North Dakota', 'Utah', 'Wyoming', 'Alabama', 'Arkansas', 'Illinois', 'Iowa'];
+    this.selectValue = [
+      'Alaska',
+      'Hawaii',
+      'California',
+      'Nevada',
+      'Oregon',
+      'Washington',
+      'Arizona',
+      'Colorado',
+      'Idaho',
+      'Montana',
+      'Nebraska',
+      'New Mexico',
+      'North Dakota',
+      'Utah',
+      'Wyoming',
+      'Alabama',
+      'Arkansas',
+      'Illinois',
+      'Iowa',
+    ];
 
     this.selected = '';
     this.hidden = true;
   }
-
 }

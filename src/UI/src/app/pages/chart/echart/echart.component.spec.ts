@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { EchartComponent } from './echart.component';
+import {EchartComponent} from './echart.component';
 
 describe('EchartComponent', () => {
   let component: EchartComponent;
@@ -8,9 +8,8 @@ describe('EchartComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EchartComponent ]
-    })
-    .compileComponents();
+      declarations: [EchartComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FileManagerComponent } from "./filemanager.component";
+import {FileManagerComponent} from './filemanager.component';
 
-describe("FilemanagerComponent", () => {
+describe('FilemanagerComponent', () => {
   let component: FileManagerComponent;
   let fixture: ComponentFixture<FileManagerComponent>;
 
@@ -18,7 +18,7 @@ describe("FilemanagerComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

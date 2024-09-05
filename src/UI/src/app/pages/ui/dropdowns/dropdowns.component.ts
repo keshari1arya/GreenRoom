@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-dropdowns',
   templateUrl: './dropdowns.component.html',
-  styleUrls: ['./dropdowns.component.scss']
+  styleUrls: ['./dropdowns.component.scss'],
 })
 
 /**
@@ -14,9 +14,9 @@ export class DropdownsComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   isDropup = true;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Dropdowns', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Dropdowns', active: true}];
   }
 }

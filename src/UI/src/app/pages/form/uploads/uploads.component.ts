@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import {Component, OnInit} from '@angular/core';
+import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 
 @Component({
   selector: 'app-uploads',
   templateUrl: './uploads.component.html',
-  styleUrls: ['./uploads.component.scss']
+  styleUrls: ['./uploads.component.scss'],
 })
 
 /**
@@ -15,17 +15,17 @@ export class UploadsComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   files: File[] = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form File Upload', active: true }];
+    this.breadCrumbItems = [{label: 'Forms'}, {label: 'Form File Upload', active: true}];
   }
 
   // file upload
   public dropzoneConfig: DropzoneConfigInterface = {
     clickable: true,
     addRemoveLinks: true,
-    previewsContainer: false
+    previewsContainer: false,
   };
 
   uploadedFiles: any[] = [];
@@ -42,5 +42,4 @@ export class UploadsComponent implements OnInit {
   removeFile(event: any) {
     this.uploadedFiles.splice(this.uploadedFiles.indexOf(event), 1);
   }
-
 }

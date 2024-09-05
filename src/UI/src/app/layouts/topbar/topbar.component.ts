@@ -1,28 +1,28 @@
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { AuthenticationService } from '../../core/services/auth.service';
-import { environment } from '../../../environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import { LanguageService } from '../../core/services/language.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
-import { Observable, map } from 'rxjs';
-import { changesLayout } from 'src/app/store/layouts/layout.actions';
-import { getLayoutMode } from 'src/app/store/layouts/layout.selector';
-import { RootReducerState } from 'src/app/store';
+import {Component, OnInit, Output, EventEmitter, Inject} from '@angular/core';
+import {Router} from '@angular/router';
+import {DOCUMENT} from '@angular/common';
+import {AuthenticationService} from '../../core/services/auth.service';
+import {environment} from '../../../environments/environment';
+import {CookieService} from 'ngx-cookie-service';
+import {LanguageService} from '../../core/services/language.service';
+import {TranslateService} from '@ngx-translate/core';
+import {Store} from '@ngrx/store';
+import {Observable, map} from 'rxjs';
+import {changesLayout} from 'src/app/store/layouts/layout.actions';
+import {getLayoutMode} from 'src/app/store/layouts/layout.selector';
+import {RootReducerState} from 'src/app/store';
 
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss']
+  styleUrls: ['./topbar.component.scss'],
 })
 
 /**
  * Topbar component
  */
 export class TopbarComponent implements OnInit {
-  mode: any
+  mode: any;
   element: any;
   cookieValue: any;
   flagvalue: any;
@@ -39,16 +39,16 @@ export class TopbarComponent implements OnInit {
     private authService: AuthenticationService,
     public languageService: LanguageService,
     public translate: TranslateService,
-    public _cookiesService: CookieService, public store: Store<RootReducerState>) {
-
-  }
+    public _cookiesService: CookieService,
+    public store: Store<RootReducerState>,
+  ) {}
 
   listLang: any = [
-    { text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en' },
-    { text: 'Spanish', flag: 'assets/images/flags/spain.jpg', lang: 'es' },
-    { text: 'German', flag: 'assets/images/flags/germany.jpg', lang: 'de' },
-    { text: 'Italian', flag: 'assets/images/flags/italy.jpg', lang: 'it' },
-    { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },
+    {text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en'},
+    {text: 'Spanish', flag: 'assets/images/flags/spain.jpg', lang: 'es'},
+    {text: 'German', flag: 'assets/images/flags/germany.jpg', lang: 'de'},
+    {text: 'Italian', flag: 'assets/images/flags/italy.jpg', lang: 'it'},
+    {text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru'},
   ];
 
   openMobileMenu: boolean;
@@ -60,17 +60,19 @@ export class TopbarComponent implements OnInit {
     // this.initialAppState = initialState;
     this.store.select('layout').subscribe((data) => {
       this.theme = data.DATA_LAYOUT;
-    })
+    });
     this.openMobileMenu = false;
     this.element = document.documentElement;
 
     this.cookieValue = this._cookiesService.get('lang');
-    const val = this.listLang.filter(x => x.lang === this.cookieValue);
-    this.countryName = val.map(element => element.text);
+    const val = this.listLang.filter((x) => x.lang === this.cookieValue);
+    this.countryName = val.map((element) => element.text);
     if (val.length === 0) {
-      if (this.flagvalue === undefined) { this.valueset = 'assets/images/flags/us.jpg'; }
+      if (this.flagvalue === undefined) {
+        this.valueset = 'assets/images/flags/us.jpg';
+      }
     } else {
-      this.flagvalue = val.map(element => element.flag);
+      this.flagvalue = val.map((element) => element.flag);
     }
   }
 
@@ -111,8 +113,10 @@ export class TopbarComponent implements OnInit {
   fullscreen() {
     document.body.classList.toggle('fullscreen-enable');
     if (
-      !document.fullscreenElement && !this.element.mozFullScreenElement &&
-      !this.element.webkitFullscreenElement) {
+      !document.fullscreenElement &&
+      !this.element.mozFullScreenElement &&
+      !this.element.webkitFullscreenElement
+    ) {
       if (this.element.requestFullscreen) {
         this.element.requestFullscreen();
       } else if (this.element.mozRequestFullScreen) {
@@ -143,9 +147,9 @@ export class TopbarComponent implements OnInit {
 
   changeLayout(layoutMode: string) {
     this.theme = layoutMode;
-    this.store.dispatch(changesLayout({ layoutMode }));
+    this.store.dispatch(changesLayout({layoutMode}));
     this.store.select(getLayoutMode).subscribe((layout) => {
-      document.documentElement.setAttribute('data-layout', layout)
-    })
+      document.documentElement.setAttribute('data-layout', layout);
+    });
   }
 }

@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
 })
 
 /**
  * Categories Component
  */
 export class CategoriesComponent implements OnInit {
-
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Jobs' }, { label: 'Job Categories', active: true }];
+    this.breadCrumbItems = [{label: 'Jobs'}, {label: 'Job Categories', active: true}];
   }
-
 }

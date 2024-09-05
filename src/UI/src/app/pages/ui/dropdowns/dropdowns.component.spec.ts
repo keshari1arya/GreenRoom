@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { DropdownsComponent } from './dropdowns.component';
+import {DropdownsComponent} from './dropdowns.component';
 
 describe('DropdownsComponent', () => {
   let component: DropdownsComponent;
@@ -8,9 +8,8 @@ describe('DropdownsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DropdownsComponent ]
-    })
-    .compileComponents();
+      declarations: [DropdownsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

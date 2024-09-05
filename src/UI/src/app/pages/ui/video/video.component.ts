@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.scss']
+  styleUrls: ['./video.component.scss'],
 })
 export class VideoComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Video', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Video', active: true}];
   }
 }

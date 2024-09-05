@@ -1,29 +1,37 @@
-import { Component, OnInit, AfterViewInit, Inject, ViewChild, Input, ElementRef } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Inject,
+  ViewChild,
+  Input,
+  ElementRef,
+} from '@angular/core';
+import {Router, NavigationEnd} from '@angular/router';
 import MetisMenu from 'metismenujs';
-import { CookieService } from 'ngx-cookie-service';
-import { LanguageService } from '../../core/services/language.service';
+import {CookieService} from 'ngx-cookie-service';
+import {LanguageService} from '../../core/services/language.service';
 
-import { EventService } from '../../core/services/event.service';
-import { AuthenticationService } from '../../core/services/auth.service';
+import {EventService} from '../../core/services/event.service';
+import {AuthenticationService} from '../../core/services/auth.service';
 
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 
-import { MENU } from './menu';
-import { MenuItem } from './menu.model';
-import { environment } from '../../../environments/environment';
+import {MENU} from './menu';
+import {MenuItem} from './menu.model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-horizontaltopbar',
   templateUrl: './horizontaltopbar.component.html',
-  styleUrls: ['./horizontaltopbar.component.scss']
+  styleUrls: ['./horizontaltopbar.component.scss'],
 })
 
 /**
  * Horizontal Topbar and navbar specified
  */
 export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
-  menu: any
+  menu: any;
   element: any;
   cookieValue: any;
   flagvalue: any;
@@ -35,11 +43,11 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
   menuItems: MenuItem[] = [];
 
   listLang: any = [
-    { text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en' },
-    { text: 'Spanish', flag: 'assets/images/flags/spain.jpg', lang: 'es' },
-    { text: 'German', flag: 'assets/images/flags/germany.jpg', lang: 'de' },
-    { text: 'Italian', flag: 'assets/images/flags/italy.jpg', lang: 'it' },
-    { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },
+    {text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en'},
+    {text: 'Spanish', flag: 'assets/images/flags/spain.jpg', lang: 'es'},
+    {text: 'German', flag: 'assets/images/flags/germany.jpg', lang: 'de'},
+    {text: 'Italian', flag: 'assets/images/flags/italy.jpg', lang: 'it'},
+    {text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru'},
   ];
 
   // tslint:disable-next-line: max-line-length
@@ -51,13 +59,14 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
 
     public languageService: LanguageService,
     // tslint:disable-next-line: variable-name
-    public _cookiesService: CookieService) {
-    router.events.subscribe(event => {
+    public _cookiesService: CookieService,
+  ) {
+    router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.activateMenu();
         this.menuItems.forEach((element) => {
-          element.isCollapsed = false
-        })
+          element.isCollapsed = false;
+        });
       }
     });
   }
@@ -68,12 +77,14 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
     this.initialize();
 
     this.cookieValue = this._cookiesService.get('lang');
-    const val = this.listLang.filter(x => x.lang === this.cookieValue);
-    this.countryName = val.map(element => element.text);
+    const val = this.listLang.filter((x) => x.lang === this.cookieValue);
+    this.countryName = val.map((element) => element.text);
     if (val.length === 0) {
-      if (this.flagvalue === undefined) { this.valueset = 'assets/images/flags/us.jpg'; }
+      if (this.flagvalue === undefined) {
+        this.valueset = 'assets/images/flags/us.jpg';
+      }
     } else {
-      this.flagvalue = val.map(element => element.flag);
+      this.flagvalue = val.map((element) => element.flag);
     }
   }
 
@@ -104,9 +115,9 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
           element.isCollapsed = !element.isCollapsed;
         } else {
           // Close all other items of other parent items
-          element.isCollapsed = false
+          element.isCollapsed = false;
         }
-      })
+      });
     }
   }
 
@@ -115,9 +126,8 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
     this._activateMenuDropdown();
   }
 
-
   ngOnChanges() {
-    if (!this.isCondensed && this.sideMenu || this.isCondensed) {
+    if ((!this.isCondensed && this.sideMenu) || this.isCondensed) {
       setTimeout(() => {
         this.menu = new MetisMenu(this.sideMenu.nativeElement);
       });
@@ -147,7 +157,6 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
    * Activates the menu
    */
   private activateMenu() {
-
     const resetParent = (el: any) => {
       const parent = el.parentElement;
       if (parent) {
@@ -166,12 +175,10 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
               const parent5 = parent4.parentElement;
               if (parent5) {
                 parent5.classList.remove('active');
-                const menuelement = document.getElementById("topnav-menu-content")
+                const menuelement = document.getElementById('topnav-menu-content');
                 if (menuelement !== null) {
                   if (menuelement.classList.contains('show'))
-                    document
-                      .getElementById("topnav-menu-content")
-                      .classList.remove("show");
+                    document.getElementById('topnav-menu-content').classList.remove('show');
                 }
               }
             }
@@ -242,8 +249,10 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
   fullscreen() {
     document.body.classList.toggle('fullscreen-enable');
     if (
-      !document.fullscreenElement && !this.element.mozFullScreenElement &&
-      !this.element.webkitFullscreenElement) {
+      !document.fullscreenElement &&
+      !this.element.mozFullScreenElement &&
+      !this.element.webkitFullscreenElement
+    ) {
       if (this.element.requestFullscreen) {
         this.element.requestFullscreen();
       } else if (this.element.mozRequestFullScreen) {
@@ -317,8 +326,12 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
             parent3El.classList.add('mm-active');
             const childAnchor = parent3El.querySelector('.has-arrow');
             const childDropdown = parent3El.querySelector('.has-dropdown');
-            if (childAnchor) { childAnchor.classList.add('mm-active'); }
-            if (childDropdown) { childDropdown.classList.add('mm-active'); }
+            if (childAnchor) {
+              childAnchor.classList.add('mm-active');
+            }
+            if (childDropdown) {
+              childDropdown.classList.add('mm-active');
+            }
             const parent4El = parent3El.parentElement;
             if (parent4El && parent4El.id !== 'side-menu') {
               parent4El.classList.add('mm-show');
@@ -326,13 +339,14 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
               if (parent5El && parent5El.id !== 'side-menu') {
                 parent5El.classList.add('mm-active');
                 const childanchor = parent5El.querySelector('.is-parent');
-                if (childanchor && parent5El.id !== 'side-menu') { childanchor.classList.add('mm-active'); }
+                if (childanchor && parent5El.id !== 'side-menu') {
+                  childanchor.classList.add('mm-active');
+                }
               }
             }
           }
         }
       }
     }
-
   }
 }

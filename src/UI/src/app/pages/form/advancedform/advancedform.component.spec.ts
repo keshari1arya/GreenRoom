@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { AdvancedformComponent } from './advancedform.component';
+import {AdvancedformComponent} from './advancedform.component';
 
 describe('AdvancedformComponent', () => {
   let component: AdvancedformComponent;
@@ -8,9 +8,8 @@ describe('AdvancedformComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdvancedformComponent ]
-    })
-    .compileComponents();
+      declarations: [AdvancedformComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

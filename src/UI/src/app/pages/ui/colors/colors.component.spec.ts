@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ColorsComponent } from './colors.component';
+import {ColorsComponent} from './colors.component';
 
 describe('ColorsComponent', () => {
   let component: ColorsComponent;
@@ -8,9 +8,8 @@ describe('ColorsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ColorsComponent ]
-    })
-    .compileComponents();
+      declarations: [ColorsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

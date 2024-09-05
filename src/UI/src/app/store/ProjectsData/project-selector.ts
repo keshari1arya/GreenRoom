@@ -1,20 +1,19 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { projectState } from './project.reducer';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {projectState} from './project.reducer';
 
 export const selectDataState = createFeatureSelector<projectState>('Projectlist');
 
 export const selectData = createSelector(
-    selectDataState,
-    (state: projectState) => state.projectdata
+  selectDataState,
+  (state: projectState) => state.projectdata,
 );
 
 export const selectDataLoading = createSelector(
-    selectDataState,
-    (state: projectState) => state.loading
+  selectDataState,
+  (state: projectState) => state.loading,
 );
 
 export const selectDataError = createSelector(
-    selectDataState,
-    (state: projectState) => state.error
+  selectDataState,
+  (state: projectState) => state.error,
 );
-

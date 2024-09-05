@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { revenueBarChart, statData } from './data';
+import {revenueBarChart, statData} from './data';
 
-import { ChartType } from './profile.model';
+import {ChartType} from './profile.model';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 
 /**
@@ -18,11 +18,11 @@ export class ProfileComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   revenueBarChart: ChartType;
-  statData:any;
-  constructor() { }
+  statData: any;
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Contacts' }, { label: 'Profile', active: true }];
+    this.breadCrumbItems = [{label: 'Contacts'}, {label: 'Profile', active: true}];
 
     // fetches the data
     this._fetchData();

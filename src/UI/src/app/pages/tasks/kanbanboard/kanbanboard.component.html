@@ -15,23 +15,41 @@
               <a class="dropdown-item" href="javascript: void(0);">Edit</a>
               <a class="dropdown-item" href="javascript: void(0);">Delete</a>
             </div>
-          </div> <!-- end dropdown -->
+          </div>
+          <!-- end dropdown -->
 
           <h4 class="card-title mb-4">Upcoming</h4>
-          <div id="upcoming-task" class="pb-1 task-list" dndDropzone dndEffectAllowed="move" (dndDrop)="onDrop($event, upcomingTasks,'upcoming-task')">
+          <div
+            id="upcoming-task"
+            class="pb-1 task-list"
+            dndDropzone
+            dndEffectAllowed="move"
+            (dndDrop)="onDrop($event, upcomingTasks, 'upcoming-task')"
+          >
             <div class="dndPlaceholder" dndPlaceholderRef></div>
-            @for(task of upcomingTasks;track $index){
-            <ng-container>
-              <div [dndDraggable]="task" dndEffectAllowed="move" (dndMoved)="onDragged(task, upcomingTasks)">
-                <ng-template [ngTemplateOutlet]="TaskContent" [ngTemplateOutletContext]="{task:task, index: $index}">
-                </ng-template>
-              </div>
-            </ng-container>
+            @for (task of upcomingTasks; track $index) {
+              <ng-container>
+                <div
+                  [dndDraggable]="task"
+                  dndEffectAllowed="move"
+                  (dndMoved)="onDragged(task, upcomingTasks)"
+                >
+                  <ng-template
+                    [ngTemplateOutlet]="TaskContent"
+                    [ngTemplateOutletContext]="{task: task, index: $index}"
+                  >
+                  </ng-template>
+                </div>
+              </ng-container>
             }
 
             <div class="text-center d-grid">
-              <a href="javascript: void(0);" class="btn btn-primary" (click)="addnewTask('upcoming')"><i class="mdi mdi-plus me-1"></i>
-                Add New</a>
+              <a
+                href="javascript: void(0);"
+                class="btn btn-primary"
+                (click)="addnewTask('upcoming')"
+                ><i class="mdi mdi-plus me-1"></i> Add New</a
+              >
             </div>
           </div>
         </div>
@@ -50,22 +68,40 @@
               <a class="dropdown-item" href="javascript: void(0);">Edit</a>
               <a class="dropdown-item" href="javascript: void(0);">Delete</a>
             </div>
-          </div> <!-- end dropdown -->
+          </div>
+          <!-- end dropdown -->
 
           <h4 class="card-title mb-4">In Progress</h4>
-          <div id="Progress-task" class="pb-1 task-list" dndDropzone dndEffectAllowed="move" (dndDrop)="onDrop($event, inprogressTasks,'Progress-task')">
+          <div
+            id="Progress-task"
+            class="pb-1 task-list"
+            dndDropzone
+            dndEffectAllowed="move"
+            (dndDrop)="onDrop($event, inprogressTasks, 'Progress-task')"
+          >
             <div class="dndPlaceholder" dndPlaceholderRef></div>
-            @for(task of inprogressTasks;track $index){
-            <ng-container>
-              <div [dndDraggable]="task" dndEffectAllowed="move" (dndMoved)="onDragged(task, inprogressTasks)">
-                <ng-template [ngTemplateOutlet]="TaskContent" [ngTemplateOutletContext]="{task:task, $index}">
-                </ng-template>
-              </div>
-            </ng-container>
+            @for (task of inprogressTasks; track $index) {
+              <ng-container>
+                <div
+                  [dndDraggable]="task"
+                  dndEffectAllowed="move"
+                  (dndMoved)="onDragged(task, inprogressTasks)"
+                >
+                  <ng-template
+                    [ngTemplateOutlet]="TaskContent"
+                    [ngTemplateOutletContext]="{task: task, $index}"
+                  >
+                  </ng-template>
+                </div>
+              </ng-container>
             }
             <div class="text-center d-grid">
-              <a href="javascript: void(0);" class="btn btn-primary" (click)="addnewTask('inprogress')"><i class="mdi mdi-plus me-1"></i>
-                Add New</a>
+              <a
+                href="javascript: void(0);"
+                class="btn btn-primary"
+                (click)="addnewTask('inprogress')"
+                ><i class="mdi mdi-plus me-1"></i> Add New</a
+              >
             </div>
           </div>
         </div>
@@ -83,23 +119,41 @@
               <a class="dropdown-item" href="javascript: void(0);">Edit</a>
               <a class="dropdown-item" href="javascript: void(0);">Delete</a>
             </div>
-          </div> <!-- end dropdown -->
+          </div>
+          <!-- end dropdown -->
 
           <h4 class="card-title mb-4">Completed</h4>
-          <div id="completed-task" class="pb-1 task-list" dndDropzone dndEffectAllowed="move" (dndDrop)="onDrop($event, completedTasks,'completed-task')">
+          <div
+            id="completed-task"
+            class="pb-1 task-list"
+            dndDropzone
+            dndEffectAllowed="move"
+            (dndDrop)="onDrop($event, completedTasks, 'completed-task')"
+          >
             <div class="dndPlaceholder" dndPlaceholderRef></div>
-            @for(task of completedTasks;track $index){
-            <ng-container>
-              <div [dndDraggable]="task" dndEffectAllowed="move" (dndMoved)="onDragged(task, completedTasks)">
-                <ng-template [ngTemplateOutlet]="TaskContent" [ngTemplateOutletContext]="{task:task,  $index}">
-                </ng-template>
-              </div>
-            </ng-container>
+            @for (task of completedTasks; track $index) {
+              <ng-container>
+                <div
+                  [dndDraggable]="task"
+                  dndEffectAllowed="move"
+                  (dndMoved)="onDragged(task, completedTasks)"
+                >
+                  <ng-template
+                    [ngTemplateOutlet]="TaskContent"
+                    [ngTemplateOutletContext]="{task: task, $index}"
+                  >
+                  </ng-template>
+                </div>
+              </ng-container>
             }
 
             <div class="text-center d-grid">
-              <a href="javascript: void(0);" class="btn btn-primary" (click)="addnewTask('completed')"><i class="mdi mdi-plus me-1"></i>
-                Add New</a>
+              <a
+                href="javascript: void(0);"
+                class="btn btn-primary"
+                (click)="addnewTask('completed')"
+                ><i class="mdi mdi-plus me-1"></i> Add New</a
+              >
             </div>
           </div>
         </div>
@@ -109,87 +163,142 @@
 </div>
 
 <!-- Task  -->
-<ng-template #TaskContent let-task='task' let-i='index'>
+<ng-template #TaskContent let-task="task" let-i="index">
   <div class="card task-box">
     <div class="card-body">
       <div class="dropdown float-end" dropdown>
-        <a href="javascript:void(0);" class="dropdown-toggle arrow-none" data-bs-toggle="dropdown" aria-expanded="false" dropdownToggle>
+        <a
+          href="javascript:void(0);"
+          class="dropdown-toggle arrow-none"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          dropdownToggle
+        >
           <i class="mdi mdi-dots-vertical m-0 text-muted h5"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-          <a class="dropdown-item edittask-details" href="javascript:void(0);" id="taskedit" data-id="#uptask-2" (click)="updateTask(i)">Edit</a>
-          <a class="dropdown-item deletetask" href="javascript:void(0);" data-id="#uptask-2" (click)="delete($event)">Delete</a>
+          <a
+            class="dropdown-item edittask-details"
+            href="javascript:void(0);"
+            id="taskedit"
+            data-id="#uptask-2"
+            (click)="updateTask(i)"
+            >Edit</a
+          >
+          <a
+            class="dropdown-item deletetask"
+            href="javascript:void(0);"
+            data-id="#uptask-2"
+            (click)="delete($event)"
+            >Delete</a
+          >
         </div>
       </div>
       <div class="float-end ms-2">
-        <span class="badge rounded-pill badge-soft-secondary font-size-12" [ngClass]=" { 
+        <span
+          class="badge rounded-pill badge-soft-secondary font-size-12"
+          [ngClass]="{
             'badge-soft-secondary': task.task === 'Waiting',
             'badge-soft-success': task.task === 'Complete',
             'badge-soft-primary': task.task === 'Approved',
-            'badge-soft-warning': task.task === 'Pending' }">{{task.task}}</span>
+            'badge-soft-warning': task.task === 'Pending',
+          }"
+          >{{ task.task }}</span
+        >
       </div>
       <div>
-        <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">{{task.title}}</a>
+        <h5 class="font-size-15">
+          <a href="javascript: void(0);" class="text-dark">{{ task.title }}</a>
         </h5>
-        <p class="text-muted mb-4">{{task.date}}</p>
+        <p class="text-muted mb-4">{{ task.date }}</p>
       </div>
 
       <div class="avatar-group float-start">
         <div class="avatar-group-item">
           <a href="javascript: void(0);" class="d-inline-block">
-            <img src="{{ task.user[0]}}" class="rounded-circle avatar-xs" alt="">
+            <img src="{{ task.user[0] }}" class="rounded-circle avatar-xs" alt="" />
           </a>
         </div>
-        @if(task.user[1]){
-        <div class="avatar-group-item">
-          <a href="javascript: void(0);" class="d-inline-block">
-            <img src="{{ task.user[1]}}" class="rounded-circle avatar-xs" alt="">
-          </a>
-        </div>}
+        @if (task.user[1]) {
+          <div class="avatar-group-item">
+            <a href="javascript: void(0);" class="d-inline-block">
+              <img src="{{ task.user[1] }}" class="rounded-circle avatar-xs" alt="" />
+            </a>
+          </div>
+        }
       </div>
 
       <div class="text-end">
-        <h5 class="font-size-15 mb-1">$ {{task.budget}}</h5>
+        <h5 class="font-size-15 mb-1">$ {{ task.budget }}</h5>
         <p class="mb-0 text-muted">Budget</p>
       </div>
     </div>
   </div>
 </ng-template>
 
-<div bsModal #modalForm="bs-modal" id="modalForm" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #modalForm="bs-modal"
+  id="modalForm"
+  class="modal fade bs-example-modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title add-task-title">Add New Task</h5>
-        <h5 class="modal-title update-task-title" style="display: none;">Update Task</h5>
+        <h5 class="modal-title update-task-title" style="display: none">Update Task</h5>
         <button type="button" class="btn-close" (click)="modalForm.hide()"></button>
       </div>
       <div class="modal-body">
         <form (ngSubmit)="submitForm()" [formGroup]="taskForm" id="NewtaskForm" role="form">
           <div class="form-group mb-3">
-            <label for="taskname" class="col-form-label">Task Name<span class="text-danger">*</span></label>
+            <label for="taskname" class="col-form-label"
+              >Task Name<span class="text-danger">*</span></label
+            >
             <div class="col-lg-12">
-              <input id="taskname" name="taskname" type="text" class="form-control validate" formControlName="title" placeholder="Enter Task Name..." required>
+              <input
+                id="taskname"
+                name="taskname"
+                type="text"
+                class="form-control validate"
+                formControlName="title"
+                placeholder="Enter Task Name..."
+                required
+              />
             </div>
           </div>
           <div class="form-group mb-3">
             <label class="col-form-label">Task Description</label>
             <div class="col-lg-12">
-              <textarea id="taskdesc" class="form-control" name="taskdesc" formControlName="taskdesc"></textarea>
+              <textarea
+                id="taskdesc"
+                class="form-control"
+                name="taskdesc"
+                formControlName="taskdesc"
+              ></textarea>
             </div>
           </div>
 
           <div class="form-group mb-3">
             <label class="col-form-label">Add Team Member<span class="text-danger">*</span></label>
             <ul class="list-unstyled user-list validate" id="taskassignee">
-              @for(data of memberLists;track $index){
-              <li>
-                <div class="form-check form-check-primary mb-2 d-flex align-items-center">
-                  <input class="form-check-input" type="checkbox" [checked]="data.checked == true" (change)="selectMember($index)">
-                  <label class="form-check-label ms-2">{{data.name}}</label>
-                  <img src="{{data.profile}}" class="rounded-circle avatar-xs m-1" alt="">
-                </div>
-              </li>
+              @for (data of memberLists; track $index) {
+                <li>
+                  <div class="form-check form-check-primary mb-2 d-flex align-items-center">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      [checked]="data.checked == true"
+                      (change)="selectMember($index)"
+                    />
+                    <label class="form-check-label ms-2">{{ data.name }}</label>
+                    <img src="{{ data.profile }}" class="rounded-circle avatar-xs m-1" alt="" />
+                  </div>
+                </li>
               }
             </ul>
           </div>
@@ -208,9 +317,19 @@
           </div>
 
           <div class="form-group mb-4">
-            <label for="taskbudget" class="col-form-label">Budget<span class="text-danger">*</span></label>
+            <label for="taskbudget" class="col-form-label"
+              >Budget<span class="text-danger">*</span></label
+            >
             <div class="col-lg-12">
-              <input id="taskbudget" name="taskbudget" type="number" placeholder="Enter Task Budget..." formControlName="budget" class="form-control" required>
+              <input
+                id="taskbudget"
+                name="taskbudget"
+                type="number"
+                placeholder="Enter Task Budget..."
+                formControlName="budget"
+                class="form-control"
+                required
+              />
             </div>
           </div>
           <div class="row">
@@ -221,6 +340,9 @@
           </div>
         </form>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

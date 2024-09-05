@@ -17,7 +17,11 @@
             <div class="col-md-6">
               <div class="p-3">
                 <h5 class="font-size-14 mb-3 mt-0">Min-Max</h5>
-                <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
+                <ngx-slider
+                  [(value)]="value"
+                  [(highValue)]="highValue"
+                  [options]="options"
+                ></ngx-slider>
               </div>
             </div>
           </div>
@@ -41,13 +45,21 @@
             <div class="col-md-6">
               <div class="p-3">
                 <h5 class="font-size-14 mb-3 mt-0">Slider with custom display function</h5>
-                <ngx-slider [(value)]="value1" [(highValue)]="maxVal" [options]="option1"></ngx-slider>
+                <ngx-slider
+                  [(value)]="value1"
+                  [(highValue)]="maxVal"
+                  [options]="option1"
+                ></ngx-slider>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3">
                 <h5 class="font-size-14 mb-3 mt-0">Slider with ticks</h5>
-                <ngx-slider [(value)]="tickvalue" [(highValue)]="tickhighValue" [options]="tickoptions"></ngx-slider>
+                <ngx-slider
+                  [(value)]="tickvalue"
+                  [(highValue)]="tickhighValue"
+                  [options]="tickoptions"
+                ></ngx-slider>
               </div>
             </div>
           </div>
@@ -56,8 +68,11 @@
             <div class="col-md-6">
               <div class="p-3">
                 <h5 class="font-size-14 mb-3 mt-0">Slider with draggable range</h5>
-                <ngx-slider [(value)]="draggableminValue" [(highValue)]="draggablemaxValue"
-                  [options]="draggableoptions"></ngx-slider>
+                <ngx-slider
+                  [(value)]="draggableminValue"
+                  [(highValue)]="draggablemaxValue"
+                  [options]="draggableoptions"
+                ></ngx-slider>
               </div>
             </div>
             <div class="col-md-6">
@@ -66,7 +81,6 @@
                 <ngx-slider [(value)]="logscale" [options]="logscaleoptions"></ngx-slider>
               </div>
             </div>
-
           </div>
 
           <div class="row">

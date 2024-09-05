@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss']
+  styleUrls: ['./timeline.component.scss'],
 })
 
 /**
@@ -13,10 +13,10 @@ export class TimelineComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Utility' }, { label: 'Timeline', active: true }];
+    this.breadCrumbItems = [{label: 'Utility'}, {label: 'Timeline', active: true}];
   }
 
   // Timeline config
@@ -24,7 +24,6 @@ export class TimelineComponent implements OnInit {
     slidesToShow: 4,
     slidesToScroll: 1,
     arrows: false,
-    dots: true
+    dots: true,
   };
-
 }

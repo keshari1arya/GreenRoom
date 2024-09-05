@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../../core/services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../../../core/services/auth.service';
 
-import { Store } from '@ngrx/store';
-import { ActivatedRoute, Router } from '@angular/router';
-import { login } from 'src/app/store/Authentication/authentication.actions';
+import {Store} from '@ngrx/store';
+import {ActivatedRoute, Router} from '@angular/router';
+import {login} from 'src/app/store/Authentication/authentication.actions';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 
 /**
  * Login component
  */
 export class LoginComponent implements OnInit {
-
   loginForm: UntypedFormGroup;
   submitted: any = false;
   error: any = '';
@@ -32,7 +31,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private store: Store) { }
+    private store: Store,
+  ) {}
 
   ngOnInit() {
     if (this.authenticationService.token()) {
@@ -46,7 +46,9 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   /**
    * Form submit
@@ -58,12 +60,12 @@ export class LoginComponent implements OnInit {
     const password = this.f['password'].value; // Get the password from the form
 
     // Login Api
-    this.store.dispatch(login({ email: email, password: password }));
+    this.store.dispatch(login({email: email, password: password}));
   }
 
   /**
- * Password Hide/Show
- */
+   * Password Hide/Show
+   */
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }

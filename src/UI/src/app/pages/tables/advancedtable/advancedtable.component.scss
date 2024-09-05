@@ -129,13 +129,12 @@
     font-weight: 600;
     color: #464646;
     text-transform: uppercase;
-    padding: .75rem 8px;
+    padding: 0.75rem 8px;
   }
-
 
   .cnstr-record th {
     white-space: nowrap;
-    padding: .45rem .2rem;
+    padding: 0.45rem 0.2rem;
     font-size: 13px;
     border-bottom-width: 0px !important;
   }
@@ -151,7 +150,7 @@
   }
 
   .cnstr-record select.form-control {
-    padding-left: .05rem;
+    padding-left: 0.05rem;
   }
 
   .cnstr-record .table td,
@@ -160,7 +159,7 @@
   }
 
   .cnstr-record .table td {
-    padding: .3rem;
+    padding: 0.3rem;
   }
 
   .cnstr-record .table td h4 {
@@ -234,5 +233,4 @@
   .mw-100 {
     max-width: 100%;
   }
-
 }

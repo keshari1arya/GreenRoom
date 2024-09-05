@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { KanbanboardComponent } from './kanbanboard.component';
+import {KanbanboardComponent} from './kanbanboard.component';
 
 describe('KanbanboardComponent', () => {
   let component: KanbanboardComponent;
@@ -8,9 +8,8 @@ describe('KanbanboardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ KanbanboardComponent ]
-    })
-    .compileComponents();
+      declarations: [KanbanboardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

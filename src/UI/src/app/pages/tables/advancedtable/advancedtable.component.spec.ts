@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { AdvancedtableComponent } from './advancedtable.component';
+import {AdvancedtableComponent} from './advancedtable.component';
 
 describe('AdvancedtableComponent', () => {
   let component: AdvancedtableComponent;
@@ -8,9 +8,8 @@ describe('AdvancedtableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdvancedtableComponent ]
-    })
-    .compileComponents();
+      declarations: [AdvancedtableComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

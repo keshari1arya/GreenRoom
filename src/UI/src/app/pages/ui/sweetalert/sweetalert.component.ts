@@ -1,24 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sweetalert',
   templateUrl: './sweetalert.component.html',
-  styleUrls: ['./sweetalert.component.scss']
+  styleUrls: ['./sweetalert.component.scss'],
 })
 
 /**
  * UI sweetalert component
  */
 export class SweetalertComponent implements OnInit {
-
   // bread crum items
   breadCrumbItems: Array<{}>;
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'SweetAlert 2', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'SweetAlert 2', active: true}];
   }
   basicMessage() {
     Swal.fire('Any fool can use a computer!');
@@ -38,20 +37,20 @@ export class SweetalertComponent implements OnInit {
       icon: 'success',
       title: 'Your work has been saved',
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     });
   }
 
   confirm() {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
       cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Yes, delete it!'
-    }).then(result => {
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
       if (result.value) {
         Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
       }
@@ -62,36 +61,28 @@ export class SweetalertComponent implements OnInit {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger ms-2'
+        cancelButton: 'btn btn-danger ms-2',
       },
-      buttonsStyling: false
+      buttonsStyling: false,
     });
 
     swalWithBootstrapButtons
       .fire({
         title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
+        text: "You won't be able to revert this!",
         icon: 'warning',
         confirmButtonText: 'Yes, delete it!',
         cancelButtonText: 'No, cancel!',
-        showCancelButton: true
+        showCancelButton: true,
       })
-      .then(result => {
+      .then((result) => {
         if (result.value) {
-          swalWithBootstrapButtons.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          );
+          swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success');
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
-          );
+          swalWithBootstrapButtons.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
         }
       });
   }
@@ -101,7 +92,7 @@ export class SweetalertComponent implements OnInit {
       text: 'Modal with a custom image.',
       imageUrl: 'assets/images/logo-dark.png',
       imageHeight: 20,
-      confirmButtonColor: '#556ee6'
+      confirmButtonColor: '#556ee6',
     });
   }
   timer() {
@@ -113,22 +104,20 @@ export class SweetalertComponent implements OnInit {
 
       didOpen: () => {
         timerInterval = setInterval(() => {
-          const content = Swal.getHtmlContainer()
+          const content = Swal.getHtmlContainer();
           if (content) {
-            const b = content.querySelector('b')
+            const b = content.querySelector('b');
             if (b) {
-              b.textContent = Swal.getTimerLeft() + ''
+              b.textContent = Swal.getTimerLeft() + '';
             }
           }
         }, 100);
       },
       willClose: () => {
         clearInterval(timerInterval);
-      }
+      },
     }).then((result) => {
-      if (
-        result.dismiss === Swal.DismissReason.timer
-      ) {
+      if (result.dismiss === Swal.DismissReason.timer) {
         console.log('I was closed by the timer');
       }
     });
@@ -147,7 +136,7 @@ export class SweetalertComponent implements OnInit {
       confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
       confirmButtonAriaLabel: 'Thumbs up, great!',
       cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
-      cancelButtonAriaLabel: 'Thumbs down'
+      cancelButtonAriaLabel: 'Thumbs down',
     });
   }
   customBackground() {
@@ -157,7 +146,7 @@ export class SweetalertComponent implements OnInit {
       padding: 100,
       confirmButtonColor: '#556ee6',
       background:
-        '#fff url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/geometry.png)'
+        '#fff url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/geometry.png)',
     });
   }
   ajax() {
@@ -169,7 +158,7 @@ export class SweetalertComponent implements OnInit {
       showLoaderOnConfirm: true,
       confirmButtonColor: '#556ee6',
       cancelButtonColor: '#f46a6a',
-      preConfirm: email => {
+      preConfirm: (email) => {
         // eslint-disable-next-line no-unused-vars
         return new Promise<void>((resolve, reject) => {
           setTimeout(() => {
@@ -181,37 +170,36 @@ export class SweetalertComponent implements OnInit {
           }, 2000);
         });
       },
-      allowOutsideClick: false
-    }).then(email => {
+      allowOutsideClick: false,
+    }).then((email) => {
       Swal.fire({
         title: 'Ajax request finished!',
-        html: 'Submitted email: ' + email
+        html: 'Submitted email: ' + email,
       });
     });
   }
 
   async dynamicQueue() {
-    const ipAPI = '//api.ipify.org?format=json'
+    const ipAPI = '//api.ipify.org?format=json';
     const inputValue = fetch(ipAPI)
-      .then(response => response.json())
-      .then(data => data.ip)
+      .then((response) => response.json())
+      .then((data) => data.ip);
 
-    const { value: ipAddress } = await Swal.fire({
+    const {value: ipAddress} = await Swal.fire({
       title: 'Your public IP',
-      confirmButtonColor: "#556ee6",
+      confirmButtonColor: '#556ee6',
       confirmButtonText: 'Show my public IP',
-      text: 'Your public IP will be received ' +
-        'via AJAX request',
+      text: 'Your public IP will be received ' + 'via AJAX request',
       showLoaderOnConfirm: true,
       inputValidator: (value) => {
         if (!value) {
-          return 'You need to write something!'
+          return 'You need to write something!';
         }
-      }
+      },
     });
 
     if (ipAddress) {
-      Swal.fire(`Your IP address is ${ipAddress}`)
+      Swal.fire(`Your IP address is ${ipAddress}`);
     }
   }
 }

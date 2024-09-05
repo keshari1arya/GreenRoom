@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { BoxiconsComponent } from './boxicons.component';
+import {BoxiconsComponent} from './boxicons.component';
 
 describe('BoxiconsComponent', () => {
   let component: BoxiconsComponent;
@@ -8,9 +8,8 @@ describe('BoxiconsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BoxiconsComponent ]
-    })
-    .compileComponents();
+      declarations: [BoxiconsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

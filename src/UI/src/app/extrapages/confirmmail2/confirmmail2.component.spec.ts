@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { Confirmmail2Component } from './confirmmail2.component';
+import {Confirmmail2Component} from './confirmmail2.component';
 
 describe('Confirmmail2Component', () => {
   let component: Confirmmail2Component;
@@ -8,9 +8,8 @@ describe('Confirmmail2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Confirmmail2Component ]
-    })
-    .compileComponents();
+      declarations: [Confirmmail2Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {

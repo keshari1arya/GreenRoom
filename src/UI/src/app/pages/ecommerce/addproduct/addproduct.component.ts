@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-
+import {Component, OnInit} from '@angular/core';
+import {UntypedFormBuilder, Validators, UntypedFormGroup} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 
 @Component({
   selector: 'app-addproduct',
   templateUrl: './addproduct.component.html',
-  styleUrls: ['./addproduct.component.scss']
+  styleUrls: ['./addproduct.component.scss'],
 })
 
 /**
  * Ecommerce add-product component
  */
 export class AddproductComponent implements OnInit {
-
-  constructor(public formBuilder: UntypedFormBuilder, private http: HttpClient) { }
+  constructor(
+    public formBuilder: UntypedFormBuilder,
+    private http: HttpClient,
+  ) {}
   /**
    * Returns form
    */
@@ -32,7 +33,7 @@ export class AddproductComponent implements OnInit {
   files: File[] = [];
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Add Product', active: true }];
+    this.breadCrumbItems = [{label: 'Ecommerce'}, {label: 'Add Product', active: true}];
 
     this.productForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
@@ -57,17 +58,16 @@ export class AddproductComponent implements OnInit {
     formData.append('price', this.productForm.get('price').value);
     // formData.append('image', this.file, this.image);
 
-    this.http.post<any>(`http://localhost:8000/api/products`, formData)
-      .subscribe((data) => {
-        return data;
-      });
+    this.http.post<any>(`http://localhost:8000/api/products`, formData).subscribe((data) => {
+      return data;
+    });
   }
 
   // file upload
   public dropzoneConfig: DropzoneConfigInterface = {
     clickable: true,
     addRemoveLinks: true,
-    previewsContainer: false
+    previewsContainer: false,
   };
 
   uploadedFiles: any[] = [];
@@ -84,5 +84,4 @@ export class AddproductComponent implements OnInit {
   removeFile(event: any) {
     this.uploadedFiles.splice(this.uploadedFiles.indexOf(event), 1);
   }
-
 }

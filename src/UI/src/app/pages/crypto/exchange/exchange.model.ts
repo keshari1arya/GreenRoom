@@ -1,12 +1,12 @@
 export interface ChartType {
-    series?: any;
-    chart?: any;
-    plotOptions?: any;
-    xaxis?: any;
-    yaxis?: any;
+  series?: any;
+  chart?: any;
+  plotOptions?: any;
+  xaxis?: any;
+  yaxis?: any;
 }
 
 export interface Notification {
-    date: string;
-    text: string;
+  date: string;
+  text: string;
 }

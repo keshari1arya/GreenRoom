@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ChartistComponent } from './chartist.component';
+import {ChartistComponent} from './chartist.component';
 
 describe('ChartistComponent', () => {
   let component: ChartistComponent;
@@ -8,9 +8,8 @@ describe('ChartistComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartistComponent ]
-    })
-    .compileComponents();
+      declarations: [ChartistComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

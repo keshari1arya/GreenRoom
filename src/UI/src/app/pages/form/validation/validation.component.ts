@@ -1,24 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { MustMatch } from './validation.mustmatch';
+import {Component, OnInit} from '@angular/core';
+import {UntypedFormBuilder, Validators, UntypedFormGroup} from '@angular/forms';
+import {MustMatch} from './validation.mustmatch';
 
 @Component({
   selector: 'app-validation',
   templateUrl: './validation.component.html',
-  styleUrls: ['./validation.component.scss']
+  styleUrls: ['./validation.component.scss'],
 })
 
 /**
  * Forms Validation component
  */
 export class ValidationComponent implements OnInit {
-
   validationform: UntypedFormGroup; // bootstrap validation form
   tooltipvalidationform: UntypedFormGroup; // bootstrap tooltip validation form
   typeValidationForm: UntypedFormGroup; // type validation form
   rangeValidationForm: UntypedFormGroup; // range validation form
 
-  constructor(public formBuilder: UntypedFormBuilder) { }
+  constructor(public formBuilder: UntypedFormBuilder) {}
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
@@ -29,8 +28,7 @@ export class ValidationComponent implements OnInit {
   rangesubmit: boolean;
 
   ngOnInit() {
-
-    this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
+    this.breadCrumbItems = [{label: 'Forms'}, {label: 'Form Validation', active: true}];
 
     /**
      * Bootstrap validation form data
@@ -54,24 +52,28 @@ export class ValidationComponent implements OnInit {
       state: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
     });
 
-
     /**
      * Type validation form
      */
-    this.typeValidationForm = this.formBuilder.group({
-      text: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      url: ['', [Validators.required, Validators.pattern('https?://.+')]],
-      digits: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      number: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      alphanum: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
-      textarea: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmpwd: ['', Validators.required]
-    }, {
+    this.typeValidationForm = this.formBuilder.group(
+      {
+        text: ['', [Validators.required]],
+        email: [
+          '',
+          [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')],
+        ],
+        url: ['', [Validators.required, Validators.pattern('https?://.+')]],
+        digits: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+        number: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+        alphanum: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
+        textarea: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmpwd: ['', Validators.required],
+      },
+      {
         validator: MustMatch('password', 'confirmpwd'),
-      });
-
+      },
+    );
 
     /**
      * Range validation form

@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { login } from 'src/app/store/Authentication/authentication.actions';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import {Component, OnInit} from '@angular/core';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {login} from 'src/app/store/Authentication/authentication.actions';
+import {ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-login2',
   templateUrl: './login2.component.html',
-  styleUrls: ['./login2.component.scss']
+  styleUrls: ['./login2.component.scss'],
 })
 /**
  * Login-2 component
  */
 export class Login2Component implements OnInit {
-
   constructor(
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
-    public store: Store) { }
+    public store: Store,
+  ) {}
   loginForm: UntypedFormGroup;
   submitted: any = false;
   error: any = '';
@@ -27,7 +27,7 @@ export class Login2Component implements OnInit {
   year: number = new Date().getFullYear();
 
   ngOnInit(): void {
-    document.body.classList.add("auth-body-bg");
+    document.body.classList.add('auth-body-bg');
     this.loginForm = this.formBuilder.group({
       email: ['administrator@localhost', [Validators.required, Validators.email]],
       password: ['Administrator1!', [Validators.required]],
@@ -40,11 +40,13 @@ export class Login2Component implements OnInit {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    dots: true
+    dots: true,
   };
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   /**
    * Form submit
@@ -57,7 +59,6 @@ export class Login2Component implements OnInit {
     const password = this.f['password'].value; // Get the password from the form
 
     // Login Api
-    this.store.dispatch(login({ email: email, password: password }));
+    this.store.dispatch(login({email: email, password: password}));
   }
-
 }

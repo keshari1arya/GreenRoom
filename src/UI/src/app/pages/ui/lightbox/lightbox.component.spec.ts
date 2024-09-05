@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LightboxComponent } from './lightbox.component';
+import {LightboxComponent} from './lightbox.component';
 
 describe('LightboxComponent', () => {
   let component: LightboxComponent;
@@ -8,9 +8,8 @@ describe('LightboxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LightboxComponent ]
-    })
-    .compileComponents();
+      declarations: [LightboxComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

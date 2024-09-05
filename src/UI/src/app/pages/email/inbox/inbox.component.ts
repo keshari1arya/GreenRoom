@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Component, OnInit} from '@angular/core';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
-import { Store } from '@ngrx/store';
-import { fetchmailData } from 'src/app/store/Email/email.action';
-import { selectData } from 'src/app/store/Email/email.selector';
+import {Store} from '@ngrx/store';
+import {fetchmailData} from 'src/app/store/Email/email.action';
+import {selectData} from 'src/app/store/Email/email.selector';
 
 @Component({
   selector: 'app-inbox',
   templateUrl: './inbox.component.html',
-  styleUrls: ['./inbox.component.scss']
+  styleUrls: ['./inbox.component.scss'],
 })
 
 /**
  * Email Inbox component
  */
 export class InboxComponent implements OnInit {
-
   modalRef?: BsModalRef;
 
   public Editor = ClassicEditor;
@@ -31,25 +30,27 @@ export class InboxComponent implements OnInit {
   pageSize: number = 15;
   // total number of records
   totalRecords: number = 0;
-  returnedArray: any
+  returnedArray: any;
   // start and end index
   startIndex: number = 1;
   endIndex: number = 15;
 
-  constructor(private modalService: BsModalService, public store: Store) {
-  }
+  constructor(
+    private modalService: BsModalService,
+    public store: Store,
+  ) {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Email' }, { label: 'Inbox', active: true }];
+    this.breadCrumbItems = [{label: 'Email'}, {label: 'Inbox', active: true}];
     // this.emailData = emailData;
 
     // Fetch data
     this.store.dispatch(fetchmailData());
-    this.store.select(selectData).subscribe(data => {
-      this.emailData = data
-      this.returnedArray = data
+    this.store.select(selectData).subscribe((data) => {
+      this.emailData = data;
+      this.returnedArray = data;
       // this.customersData = this.returnedArray.slice(0, 8)
-    })
+    });
     this.totalRecords = this.emailData.length;
   }
 
@@ -60,7 +61,7 @@ export class InboxComponent implements OnInit {
   markUnread() {
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.emailIds.length; i++) {
-      const obj = this.emailData.find(o => o.id === this.emailIds[i]);
+      const obj = this.emailData.find((o) => o.id === this.emailIds[i]);
       const index = this.emailData.indexOf(obj);
       this.emailData[index].unread = true;
     }
@@ -76,11 +77,11 @@ export class InboxComponent implements OnInit {
   }
 
   deleteMail() {
-    const found = this.emailData.some(r => this.emailIds.indexOf(r.id) >= 0);
+    const found = this.emailData.some((r) => this.emailIds.indexOf(r.id) >= 0);
     if (found) {
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < this.emailIds.length; i++) {
-        const obj = this.emailData.find(o => o.id === this.emailIds[i]);
+        const obj = this.emailData.find((o) => o.id === this.emailIds[i]);
         this.emailData.splice(this.emailData.indexOf(obj), 1);
       }
     }
@@ -90,13 +91,13 @@ export class InboxComponent implements OnInit {
   confirm() {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
       cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Yes, delete it!'
-    }).then(result => {
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
       if (result.value) {
         this.deleteMail();
         Swal.fire('Deleted!', 'Mail has been deleted.', 'success');
@@ -117,22 +118,20 @@ export class InboxComponent implements OnInit {
   }
 
   /**
-   * Category Filtering  
+   * Category Filtering
    */
   categoryFilter(e: any, name: any) {
     var removeClass = document.querySelectorAll('.mail-list a');
     removeClass.forEach((element: any) => {
       element.classList.remove('active');
     });
-    e.target.closest('.mail-list a').classList.add('active')
+    e.target.closest('.mail-list a').classList.add('active');
     if (name == 'all') {
-      this.emailData = this.returnedArray
-    }
-    else {
+      this.emailData = this.returnedArray;
+    } else {
       this.emailData = this.returnedArray.filter((email: any) => {
         return email.category === name;
       });
     }
   }
-
 }

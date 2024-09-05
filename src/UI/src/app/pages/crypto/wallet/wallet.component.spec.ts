@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { WalletComponent } from './wallet.component';
+import {WalletComponent} from './wallet.component';
 
 describe('WalletComponent', () => {
   let component: WalletComponent;
@@ -8,9 +8,8 @@ describe('WalletComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WalletComponent ]
-    })
-    .compileComponents();
+      declarations: [WalletComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

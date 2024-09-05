@@ -1,5 +1,6 @@
 {
-  "transactions": [{
+  "transactions": [
+    {
       "id": "#SK2540",
       "name": "Neal Matthews",
       "date": "07 Oct, 2019",
@@ -55,83 +56,97 @@
     }
   ],
 
-  "statData": [{
-    "icon": "bx bx-copy-alt",
-    "title": "Orders",
-    "value": "1,235"
-  }, {
-    "icon": "bx bx-archive-in",
-    "title": "Revenue",
-    "value": "$35, 723"
-  }, {
-    "icon": "bx bx-purchase-tag-alt",
-    "title": "Average Price",
-    "value": "$16.2"
-  }],
+  "statData": [
+    {
+      "icon": "bx bx-copy-alt",
+      "title": "Orders",
+      "value": "1,235"
+    },
+    {
+      "icon": "bx bx-archive-in",
+      "title": "Revenue",
+      "value": "$35, 723"
+    },
+    {
+      "icon": "bx bx-purchase-tag-alt",
+      "title": "Average Price",
+      "value": "$16.2"
+    }
+  ],
 
-  "sassEarning": [{
-    "name": "This month",
-    "amount": "$2453.35",
-    "revenue": "0.4",
-    "time": "From previous period",
-    "month": "Last month",
-    "previousamount": "$2281.04",
-    "series": [{
-      "name": "series1",
-      "data": [31, 40, 36, 51, 49, 72, 69, 56, 68, 82, 68, 76]
-    }]
-  }],
+  "sassEarning": [
+    {
+      "name": "This month",
+      "amount": "$2453.35",
+      "revenue": "0.4",
+      "time": "From previous period",
+      "month": "Last month",
+      "previousamount": "$2281.04",
+      "series": [
+        {
+          "name": "series1",
+          "data": [31, 40, 36, 51, 49, 72, 69, 56, 68, 82, 68, 76]
+        }
+      ]
+    }
+  ],
 
-  "sassTopSelling": [{
-    "title": "Product A",
-    "amount": "$ 6385",
-    "revenue": "0.6",
-    "list": [{
-        "name": "Product A",
-        "text": "Neque quis est",
-        "sales": 37,
-        "chartVariant": "#556ee6"
-      },
-      {
-        "name": "Product B",
-        "text": "Quis autem iure",
-        "sales": 72,
-        "chartVariant": "#34c38f"
-      },
-      {
-        "name": "Product C",
-        "text": "Sed aliquam mauris.",
-        "sales": 54,
-        "chartVariant": "#f46a6a"
-      }
-    ]
-  }],
+  "sassTopSelling": [
+    {
+      "title": "Product A",
+      "amount": "$ 6385",
+      "revenue": "0.6",
+      "list": [
+        {
+          "name": "Product A",
+          "text": "Neque quis est",
+          "sales": 37,
+          "chartVariant": "#556ee6"
+        },
+        {
+          "name": "Product B",
+          "text": "Quis autem iure",
+          "sales": 72,
+          "chartVariant": "#34c38f"
+        },
+        {
+          "name": "Product C",
+          "text": "Sed aliquam mauris.",
+          "sales": 54,
+          "chartVariant": "#f46a6a"
+        }
+      ]
+    }
+  ],
 
-  "cryptoWalletBalance": [{
-    "text": "Available Balance",
-    "amount": "$ 6134.39",
-    "subamount": "+ 0.0012.23 ( 0.2 % )",
-    "income": "$ 2632.46",
-    "expense": "$ 924.38",
-    "chartSeries": [76, 67, 61],
-    "balancelist": [{
-        "text": "Ethereum",
-        "coin": "4.5701 ETH",
-        "amount": "$ 1123.64",
-        "color":"primary"
-      },
-      {
-        "text": "Bitcoin",
-        "coin": "0.4412 BTC",
-        "amount": "$ 4025.32",
-        "color":"warning"
-      },
-      {
-        "text": "Litecoin",
-        "coin": "35.3811 LTC",
-        "amount": "$ 2263.09",
-        "color":"info"
-      }
-    ]
-  }]
+  "cryptoWalletBalance": [
+    {
+      "text": "Available Balance",
+      "amount": "$ 6134.39",
+      "subamount": "+ 0.0012.23 ( 0.2 % )",
+      "income": "$ 2632.46",
+      "expense": "$ 924.38",
+      "chartSeries": [76, 67, 61],
+      "balancelist": [
+        {
+          "text": "Ethereum",
+          "coin": "4.5701 ETH",
+          "amount": "$ 1123.64",
+          "color": "primary"
+        },
+        {
+          "text": "Bitcoin",
+          "coin": "0.4412 BTC",
+          "amount": "$ 4025.32",
+          "color": "warning"
+        },
+        {
+          "text": "Litecoin",
+          "coin": "35.3811 LTC",
+          "amount": "$ 2263.09",
+          "color": "info"
+        }
+      ]
+    }
+  ]
 }

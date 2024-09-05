@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { HorizontaltopbarComponent } from './horizontaltopbar.component';
+import {HorizontaltopbarComponent} from './horizontaltopbar.component';
 
 describe('HorizontaltopbarComponent', () => {
   let component: HorizontaltopbarComponent;
@@ -8,9 +8,8 @@ describe('HorizontaltopbarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HorizontaltopbarComponent ]
-    })
-    .compileComponents();
+      declarations: [HorizontaltopbarComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

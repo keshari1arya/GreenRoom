@@ -33,7 +33,7 @@
   font-size: var(--#{$prefix}font-xs);
 }
 
-dropzone>.dropzone.dz-wrapper .dz-message {
+dropzone > .dropzone.dz-wrapper .dz-message {
   background-color: transparent !important;
   border: none !important;
   overflow: inherit !important;
@@ -45,7 +45,7 @@ dropzone>.dropzone.dz-wrapper .dz-message {
   margin: 0px !important;
 }
 
-dropzone>.dropzone.dz-wrapper {
+dropzone > .dropzone.dz-wrapper {
   min-height: 76px !important;
   border: none !important;
 }

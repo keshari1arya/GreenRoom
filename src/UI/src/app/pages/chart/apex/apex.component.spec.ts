@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ApexComponent } from './apex.component';
+import {ApexComponent} from './apex.component';
 
 describe('ApexComponent', () => {
   let component: ApexComponent;
@@ -8,9 +8,8 @@ describe('ApexComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApexComponent ]
-    })
-    .compileComponents();
+      declarations: [ApexComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

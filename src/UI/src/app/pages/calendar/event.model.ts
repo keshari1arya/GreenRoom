@@ -1,5 +1,5 @@
 // Event Data
 export interface Event {
-    name: string;
-    value: string;
+  name: string;
+  value: string;
 }

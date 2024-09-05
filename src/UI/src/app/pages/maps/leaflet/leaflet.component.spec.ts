@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LeafletComponent } from './leaflet.component';
+import {LeafletComponent} from './leaflet.component';
 
 describe('LeafletComponent', () => {
   let component: LeafletComponent;
@@ -8,9 +8,8 @@ describe('LeafletComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LeafletComponent ]
-    })
-    .compileComponents();
+      declarations: [LeafletComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LeafletComponent);
     component = fixture.componentInstance;

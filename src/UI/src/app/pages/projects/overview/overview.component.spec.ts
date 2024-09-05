@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { OverviewComponent } from './overview.component';
+import {OverviewComponent} from './overview.component';
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
@@ -8,9 +8,8 @@ describe('OverviewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverviewComponent ]
-    })
-    .compileComponents();
+      declarations: [OverviewComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

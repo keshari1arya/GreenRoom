@@ -1,5 +1,5 @@
 {
-    "search.exclude": {
-        "**/babel-webpack": true
-    }
+  "search.exclude": {
+    "**/babel-webpack": true
+  }
 }

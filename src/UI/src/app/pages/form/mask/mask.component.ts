@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-mask',
   templateUrl: './mask.component.html',
-  styleUrls: ['./mask.component.scss']
+  styleUrls: ['./mask.component.scss'],
 })
 
 /**
@@ -13,9 +13,9 @@ export class MaskComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Mask', active: true }];
+    this.breadCrumbItems = [{label: 'Forms'}, {label: 'Mask', active: true}];
   }
 }

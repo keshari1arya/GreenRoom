@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { VerticalComponent } from './vertical.component';
+import {VerticalComponent} from './vertical.component';
 
 describe('VerticalComponent', () => {
   let component: VerticalComponent;
@@ -8,9 +8,8 @@ describe('VerticalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ VerticalComponent ]
-    })
-    .compileComponents();
+      declarations: [VerticalComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

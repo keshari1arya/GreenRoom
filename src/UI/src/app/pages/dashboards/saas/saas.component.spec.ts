@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { SaasComponent } from './saas.component';
+import {SaasComponent} from './saas.component';
 
 describe('SaasComponent', () => {
   let component: SaasComponent;
@@ -8,9 +8,8 @@ describe('SaasComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SaasComponent ]
-    })
-    .compileComponents();
+      declarations: [SaasComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,5 +1,4 @@
 <div class="container-fluid">
-
   <!-- start page title -->
   <app-page-title title="Chartjs chart" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   <!-- end page title -->
@@ -25,7 +24,15 @@
           </div>
           <div class="chartjs-chart">
             <!-- Line Chart -->
-            <canvas class="chartjs-chart" height="300" baseChart [data]="lineAreaChart.data" [options]="lineAreaChart.options" [type]="'line'"> </canvas>
+            <canvas
+              class="chartjs-chart"
+              height="300"
+              baseChart
+              [data]="lineAreaChart.data"
+              [options]="lineAreaChart.options"
+              [type]="'line'"
+            >
+            </canvas>
           </div>
         </div>
       </div>
@@ -50,7 +57,14 @@
           </div>
           <div class="chartjs-chart">
             <!-- Bar Chart -->
-            <canvas class="chartjs-chart" baseChart [data]="barChart.data" [type]="'bar'" [options]="barChart.options" height="300">
+            <canvas
+              class="chartjs-chart"
+              baseChart
+              [data]="barChart.data"
+              [type]="'bar'"
+              [options]="barChart.options"
+              height="300"
+            >
             </canvas>
           </div>
         </div>
@@ -79,7 +93,13 @@
           </div>
           <div class="chartjs-chart">
             <!-- Line Chart -->
-            <canvas class="chartjs-chart" baseChart [data]="pieChart.data" [type]="'pie'" [options]="pieChart.options">
+            <canvas
+              class="chartjs-chart"
+              baseChart
+              [data]="pieChart.data"
+              [type]="'pie'"
+              [options]="pieChart.options"
+            >
             </canvas>
           </div>
         </div>
@@ -105,7 +125,13 @@
           </div>
           <div class="">
             <!-- Bar Chart -->
-            <canvas class="chartjs-chart" baseChart [data]="donutChart.data" [type]="'doughnut'" [options]="donutChart.options">
+            <canvas
+              class="chartjs-chart"
+              baseChart
+              [data]="donutChart.data"
+              [type]="'doughnut'"
+              [options]="donutChart.options"
+            >
             </canvas>
           </div>
         </div>
@@ -134,7 +160,14 @@
           </div>
           <div class="chartjs-chart">
             <!-- Polar Chart Chart -->
-            <canvas baseChart [type]="'polarArea'" height="300"  class="chartjs-chart" [data]="polarChart.data" [options]="polarChart.options"></canvas>
+            <canvas
+              baseChart
+              [type]="'polarArea'"
+              height="300"
+              class="chartjs-chart"
+              [data]="polarChart.data"
+              [options]="polarChart.options"
+            ></canvas>
           </div>
         </div>
       </div>
@@ -159,7 +192,13 @@
           </div>
           <div class="chartjs-chart">
             <!-- Radar Chart -->
-            <canvas baseChart [data]="radarChart.data" [type]="'radar'" [options]="radarChart.options" class="chartjs-chart">
+            <canvas
+              baseChart
+              [data]="radarChart.data"
+              [type]="'radar'"
+              [options]="radarChart.options"
+              class="chartjs-chart"
+            >
             </canvas>
           </div>
         </div>

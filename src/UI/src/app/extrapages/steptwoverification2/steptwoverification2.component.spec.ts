@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { Steptwoverification2Component } from './steptwoverification2.component';
+import {Steptwoverification2Component} from './steptwoverification2.component';
 
 describe('Steptwoverification2Component', () => {
   let component: Steptwoverification2Component;
@@ -8,9 +8,8 @@ describe('Steptwoverification2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Steptwoverification2Component ]
-    })
-    .compileComponents();
+      declarations: [Steptwoverification2Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {

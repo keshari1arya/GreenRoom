@@ -1,20 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
-import { ChartType } from '../../saas.model';
+import {ChartType} from '../../saas.model';
 
 @Component({
   selector: 'app-sellingchart',
   templateUrl: './sellingchart.component.html',
-  styleUrls: ['./sellingchart.component.scss']
+  styleUrls: ['./sellingchart.component.scss'],
 })
 export class SellingchartComponent implements OnInit {
-
   @Input() Chartcolor;
   @Input() value;
 
   chartData: ChartType;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.chartData = {
@@ -24,27 +23,27 @@ export class SellingchartComponent implements OnInit {
         width: 60,
         height: 60,
         sparkline: {
-          enabled: true
-        }
+          enabled: true,
+        },
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       colors: [this.Chartcolor],
       plotOptions: {
         radialBar: {
           hollow: {
             margin: 0,
-            size: '60%'
+            size: '60%',
           },
           track: {
-            margin: 0
+            margin: 0,
           },
           dataLabels: {
-            show: false
-          }
-        }
-      }
+            show: false,
+          },
+        },
+      },
     };
   }
 }

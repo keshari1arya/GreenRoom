@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { SellingchartComponent } from './sellingchart.component';
+import {SellingchartComponent} from './sellingchart.component';
 
 describe('SellingchartComponent', () => {
   let component: SellingchartComponent;
@@ -8,9 +8,8 @@ describe('SellingchartComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SellingchartComponent ]
-    })
-    .compileComponents();
+      declarations: [SellingchartComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

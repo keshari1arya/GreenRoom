@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { CryptoComponent } from './crypto.component';
+import {CryptoComponent} from './crypto.component';
 
 describe('CryptoComponent', () => {
   let component: CryptoComponent;
@@ -8,9 +8,8 @@ describe('CryptoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CryptoComponent ]
-    })
-    .compileComponents();
+      declarations: [CryptoComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

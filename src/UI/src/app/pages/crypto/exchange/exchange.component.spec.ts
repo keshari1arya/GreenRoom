@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ExchangeComponent } from './exchange.component';
+import {ExchangeComponent} from './exchange.component';
 
 describe('ExchangeComponent', () => {
   let component: ExchangeComponent;
@@ -8,9 +8,8 @@ describe('ExchangeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExchangeComponent ]
-    })
-    .compileComponents();
+      declarations: [ExchangeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

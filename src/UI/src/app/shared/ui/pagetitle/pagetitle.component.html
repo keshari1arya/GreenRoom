@@ -5,15 +5,16 @@
       <h4 class="mb-0 font-size-18">{{ title }}</h4>
       <div class="page-title-right">
         <ol class="breadcrumb m-0">
-          @for(item of breadcrumbItems;track $index){
-          <ng-container>
-            @if(item.active){
-            <li class="breadcrumb-item active">{{ item.label }}
-            </li>
-            }@else{
-            <li class="breadcrumb-item"><a href="javascript: void(0);">{{ item.label }}</a>
-            </li>}
-          </ng-container>
+          @for (item of breadcrumbItems; track $index) {
+            <ng-container>
+              @if (item.active) {
+                <li class="breadcrumb-item active">{{ item.label }}</li>
+              } @else {
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">{{ item.label }}</a>
+                </li>
+              }
+            </ng-container>
           }
         </ol>
       </div>

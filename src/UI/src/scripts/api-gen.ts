@@ -7,8 +7,7 @@ console.log('Input: ' + inputPath);
 console.log('Output: ' + outputPath);
 console.log('Starting...');
 
-const output = execSync(
-  `npx ng-openapi-gen --input ${inputPath} --output ${outputPath}`,
-  { encoding: 'utf8' }
-);
+const output = execSync(`npx ng-openapi-gen --input ${inputPath} --output ${outputPath}`, {
+  encoding: 'utf8',
+});
 console.log(output);

@@ -1,12 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartType } from './jobs.model';
-import { jobViewChart, ApplicationChart, ApprovedChart, RejectedChart, emailSentBarChart, vacancyData, receivedTimeChart, recentJobsData } from './data';
-import { ChartComponent } from 'ng-apexcharts';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChartType} from './jobs.model';
+import {
+  jobViewChart,
+  ApplicationChart,
+  ApprovedChart,
+  RejectedChart,
+  emailSentBarChart,
+  vacancyData,
+  receivedTimeChart,
+  recentJobsData,
+} from './data';
+import {ChartComponent} from 'ng-apexcharts';
 
 @Component({
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
-  styleUrls: ['./jobs.component.scss']
+  styleUrls: ['./jobs.component.scss'],
 })
 
 /**
@@ -14,7 +23,7 @@ import { ChartComponent } from 'ng-apexcharts';
  */
 export class JobsComponent implements OnInit {
   isDropup: boolean = true;
-  constructor() { }
+  constructor() {}
 
   jobViewChart: ChartType;
   ApplicationChart: ChartType;
@@ -28,7 +37,7 @@ export class JobsComponent implements OnInit {
   recentJobsData: any;
   isActive: string;
 
-  @ViewChild("chart", { static: false }) chart: ChartComponent;
+  @ViewChild('chart', {static: false}) chart: ChartComponent;
 
   ngOnInit(): void {
     this._fetchData();
@@ -47,47 +56,56 @@ export class JobsComponent implements OnInit {
   // on click chart render
   weeklyreport() {
     this.isActive = 'week';
-    this.emailSentBarChart.series =
-      [{
+    this.emailSentBarChart.series = [
+      {
         name: 'Series A',
-        data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48]
-      }, {
+        data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48],
+      },
+      {
         name: 'Series B',
-        data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18]
-      }, {
+        data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18],
+      },
+      {
         name: 'Series C',
-        data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22]
-      }];
+        data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22],
+      },
+    ];
   }
 
   monthlyreport() {
     this.isActive = 'month';
-    this.emailSentBarChart.series =
-      [{
+    this.emailSentBarChart.series = [
+      {
         name: 'Series A',
-        data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48]
-      }, {
+        data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48],
+      },
+      {
         name: 'Series B',
-        data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22]
-      }, {
+        data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22],
+      },
+      {
         name: 'Series C',
-        data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18]
-      }];
+        data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18],
+      },
+    ];
   }
 
   yearlyreport() {
     this.isActive = 'year';
-    this.emailSentBarChart.series =
-      [{
+    this.emailSentBarChart.series = [
+      {
         name: 'Series A',
-        data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22]
-      }, {
+        data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22],
+      },
+      {
         name: 'Series B',
-        data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18]
-      }, {
+        data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18],
+      },
+      {
         name: 'Series C',
-        data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48]
-      }];
+        data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48],
+      },
+    ];
   }
 
   // updateOptions(option: any) {

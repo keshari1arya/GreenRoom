@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { productModel, productList } from '../product.model';
-import { Options } from 'ngx-slider-v2';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {productModel, productList} from '../product.model';
+import {Options} from 'ngx-slider-v2';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
 })
 
 /**
  * Ecommerce products component
  */
-
 export class ProductsComponent implements OnInit {
-
   breadCrumbItems: Array<{}>;
   pricevalue: number = 100;
   minVal: number = 100;
@@ -33,12 +31,11 @@ export class ProductsComponent implements OnInit {
   public products: productModel[] = [];
   public productTemp: productModel[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Products', active: true }];
+    this.breadCrumbItems = [{label: 'Ecommerce'}, {label: 'Products', active: true}];
     this.products = Object.assign([], productList);
-
   }
 
   searchFilter(e: any) {
@@ -53,8 +50,7 @@ export class ProductsComponent implements OnInit {
       this.products = productList.filter((product) => {
         return product.discount < percentage;
       });
-    }
-    else {
+    } else {
       this.products = productList.filter((product) => {
         return product.discount >= Math.max.apply(null, this);
       }, this.discountRates);

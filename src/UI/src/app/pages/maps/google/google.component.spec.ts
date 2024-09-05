@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { GoogleComponent } from './google.component';
+import {GoogleComponent} from './google.component';
 
 describe('GoogleComponent', () => {
   let component: GoogleComponent;
@@ -8,9 +8,8 @@ describe('GoogleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ GoogleComponent ]
-    })
-    .compileComponents();
+      declarations: [GoogleComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

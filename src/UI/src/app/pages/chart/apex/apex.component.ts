@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { ChartType } from './apex.model';
+import {ChartType} from './apex.model';
 
 import {
-  linewithDataChart, basicColumChart, columnlabelChart, lineColumAreaChart,
-  basicRadialBarChart, simplePieChart, donutChart, barChart, splineAreaChart, dashedLineChart,dumbbellTimelineCharts,funnelCharts,dumbbellcolumnCharts,rangeareaChart
+  linewithDataChart,
+  basicColumChart,
+  columnlabelChart,
+  lineColumAreaChart,
+  basicRadialBarChart,
+  simplePieChart,
+  donutChart,
+  barChart,
+  splineAreaChart,
+  dashedLineChart,
+  dumbbellTimelineCharts,
+  funnelCharts,
+  dumbbellcolumnCharts,
+  rangeareaChart,
 } from './data';
 
 @Component({
   selector: 'app-apex',
   templateUrl: './apex.component.html',
-  styleUrls: ['./apex.component.scss']
+  styleUrls: ['./apex.component.scss'],
 })
 
 /**
  * Apex-chart component
  */
 export class ApexComponent implements OnInit {
-
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
@@ -36,10 +47,10 @@ export class ApexComponent implements OnInit {
   dumbbellcolumnCharts: ChartType;
   rangeareaChart: ChartType;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Charts' }, { label: 'Apex charts', active: true }];
+    this.breadCrumbItems = [{label: 'Charts'}, {label: 'Apex charts', active: true}];
 
     /**
      * Fethches the chart data

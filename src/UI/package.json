@@ -12,7 +12,9 @@
     "build-prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "api-gen": "npx ts-node src/scripts/api-gen.ts"
+    "api-gen": "npx ts-node src/scripts/api-gen.ts",
+    "format-check": "prettier --check 'src/app/**/*.{json,css,scss,less,md,ts,html}'",
+    "format": "prettier --write 'src/app/**/*.{json,css,scss,less,md,ts,html}'"
   },
   "private": true,
   "dependencies": {
@@ -112,6 +114,7 @@
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
+    "prettier": "^3.3.3",
     "protractor": "~7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "~5.4.5"

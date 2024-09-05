@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { KycapplicationComponent } from './kycapplication.component';
+import {KycapplicationComponent} from './kycapplication.component';
 
 describe('KycapplicationComponent', () => {
   let component: KycapplicationComponent;
@@ -8,9 +8,8 @@ describe('KycapplicationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ KycapplicationComponent ]
-    })
-    .compileComponents();
+      declarations: [KycapplicationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

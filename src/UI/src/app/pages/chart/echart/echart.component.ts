@@ -1,21 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { lineChart, barChart, pieChart, customPieChart, gradientBarChart, gaugeChart, lineBarChart, donughnutChart, bubbleChart ,CandleStickChart} from './data';
+import {
+  lineChart,
+  barChart,
+  pieChart,
+  customPieChart,
+  gradientBarChart,
+  gaugeChart,
+  lineBarChart,
+  donughnutChart,
+  bubbleChart,
+  CandleStickChart,
+} from './data';
 
-import { EChartsOption } from 'echarts';
+import {EChartsOption} from 'echarts';
 
 @Component({
   selector: 'app-echart',
   templateUrl: './echart.component.html',
-  styleUrls: ['./echart.component.scss']
+  styleUrls: ['./echart.component.scss'],
 })
 
 /**
  * E-chart component
  */
 export class EchartComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   lineChart: EChartsOption;
   barChart: EChartsOption;
@@ -26,13 +36,13 @@ export class EchartComponent implements OnInit {
   donughnutChart: EChartsOption;
   bubbleChart: EChartsOption;
   gaugeChart: EChartsOption;
-  CandleStickChart:EChartsOption;
+  CandleStickChart: EChartsOption;
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Charts' }, { label: 'E Chart', active: true }];
+    this.breadCrumbItems = [{label: 'Charts'}, {label: 'E Chart', active: true}];
 
     this._fetchData();
   }
@@ -52,5 +62,4 @@ export class EchartComponent implements OnInit {
     this.gaugeChart = gaugeChart;
     this.CandleStickChart = CandleStickChart;
   }
-
 }

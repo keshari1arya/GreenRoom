@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Component, OnInit} from '@angular/core';
+import {UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators} from '@angular/forms';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 
-import { taskChart, tasks } from './data';
+import {taskChart, tasks} from './data';
 
-import { ChartType, Tasklist } from './list.model';
+import {ChartType, Tasklist} from './list.model';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 
 /**
  * Tasks-list component
  */
 export class ListComponent implements OnInit {
-
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
@@ -32,16 +31,19 @@ export class ListComponent implements OnInit {
   completedTasks: Tasklist[];
   myFiles: string[] = [];
 
-  constructor(private modalService: BsModalService, private formBuilder: UntypedFormBuilder) { }
+  constructor(
+    private modalService: BsModalService,
+    private formBuilder: UntypedFormBuilder,
+  ) {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Tasks' }, { label: 'Task List', active: true }];
+    this.breadCrumbItems = [{label: 'Tasks'}, {label: 'Task List', active: true}];
 
     this.formData = this.formBuilder.group({
       name: ['', [Validators.required]],
       file: new UntypedFormControl('', [Validators.required]),
       taskType: ['', [Validators.required]],
-      status: ['', [Validators.required]]
+      status: ['', [Validators.required]],
     });
 
     this._fetchData();
@@ -55,13 +57,12 @@ export class ListComponent implements OnInit {
 
   _fetchData() {
     // all tasks
-    this.inprogressTasks = tasks.filter(t => t.taskType === 'inprogress');
-    this.upcomingTasks = tasks.filter(t => t.taskType === 'upcoming');
-    this.completedTasks = tasks.filter(t => t.taskType === 'completed');
+    this.inprogressTasks = tasks.filter((t) => t.taskType === 'inprogress');
+    this.upcomingTasks = tasks.filter((t) => t.taskType === 'upcoming');
+    this.completedTasks = tasks.filter((t) => t.taskType === 'completed');
 
     this.taskChart = taskChart;
   }
-
 
   get form() {
     return this.formData.controls;
@@ -78,10 +79,10 @@ export class ListComponent implements OnInit {
         status,
         taskType,
         images: this.myFiles,
-        checked: true
-      })
+        checked: true,
+      });
     }
-    this.modalService.hide()
+    this.modalService.hide();
     this._fetchData();
     this.submitted = false;
   }

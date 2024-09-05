@@ -1,11 +1,11 @@
-import { Component, OnInit,TemplateRef } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-modals',
   templateUrl: './modals.component.html',
-  styleUrls: ['./modals.component.scss']
+  styleUrls: ['./modals.component.scss'],
 })
 
 /**
@@ -15,16 +15,16 @@ export class ModalsComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   modalRef?: BsModalRef;
-  config:any = {
+  config: any = {
     backdrop: true,
-    ignoreBackdropClick: true
+    ignoreBackdropClick: true,
   };
   name: any;
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService) {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Modals', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Modals', active: true}];
   }
 
   /**
@@ -43,17 +43,17 @@ export class ModalsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, this.config);
   }
   openfirstModal(template: TemplateRef<any>) {
-    if (this.modalRef) { 
+    if (this.modalRef) {
       this.modalRef.hide();
     }
     this.modalRef = this.modalService.show(template);
   }
 
   openModal2(template: TemplateRef<any>) {
-    if (this.modalRef) { 
+    if (this.modalRef) {
       this.modalRef.hide();
     }
-    this.modalRef = this.modalService.show(template); 
+    this.modalRef = this.modalService.show(template);
   }
 
   /**
@@ -61,7 +61,7 @@ export class ModalsComponent implements OnInit {
    * @param exlargeModal extra large modal data
    */
   extraLarge(exlargeModal: any) {
-    this.modalRef = this.modalService.show(exlargeModal, { class: 'modal-xl' });
+    this.modalRef = this.modalService.show(exlargeModal, {class: 'modal-xl'});
   }
 
   /**
@@ -69,7 +69,7 @@ export class ModalsComponent implements OnInit {
    * @param largeDataModal large modal data
    */
   largeModal(largeDataModal: any) {
-    this.modalRef = this.modalService.show(largeDataModal, { class: 'modal-lg' });
+    this.modalRef = this.modalService.show(largeDataModal, {class: 'modal-lg'});
   }
 
   /**
@@ -77,13 +77,13 @@ export class ModalsComponent implements OnInit {
    * @param smallDataModal small modal data
    */
   smallModal(smallDataModal: any) {
-    this.modalRef = this.modalService.show(smallDataModal, { class: 'modal-sm' });
+    this.modalRef = this.modalService.show(smallDataModal, {class: 'modal-sm'});
   }
 
   /**
-  * Open center modal
-  * @param centerDataModal center modal data
-  */
+   * Open center modal
+   * @param centerDataModal center modal data
+   */
   centerModal(centerDataModal: any) {
     this.modalRef = this.modalService.show(centerDataModal);
   }
@@ -119,8 +119,8 @@ export class ModalsComponent implements OnInit {
    * Open modal
    * @param content modal content
    */
-  varyingModal(template: TemplateRef<any>,name:any) {
-    this.name = name
+  varyingModal(template: TemplateRef<any>, name: any) {
+    this.name = name;
     this.modalRef = this.modalService.show(template, this.config);
   }
 }

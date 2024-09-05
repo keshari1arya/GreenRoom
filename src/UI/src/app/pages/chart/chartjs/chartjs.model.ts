@@ -1,4 +1,4 @@
-import { ChartConfiguration, ChartTypeRegistry, Plugin } from 'chart.js';
+import {ChartConfiguration, ChartTypeRegistry, Plugin} from 'chart.js';
 
 // Corrected ChartType interface
 export interface ChartType {

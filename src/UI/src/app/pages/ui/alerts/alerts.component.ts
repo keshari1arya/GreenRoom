@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { alertData } from './data';
+import {Component, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {alertData} from './data';
 
-import { AlertColor } from './alerts.model';
+import {AlertColor} from './alerts.model';
 
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss']
+  styleUrls: ['./alerts.component.scss'],
 })
 
 /**
@@ -25,12 +25,12 @@ export class AlertsComponent implements OnInit {
   alertData: AlertColor[];
   alertData2: AlertColor[];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this._success.subscribe(message => this.successMessage = message);
+    this._success.subscribe((message) => (this.successMessage = message));
 
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Alerts', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Alerts', active: true}];
 
     this._fetchData();
   }
@@ -39,7 +39,9 @@ export class AlertsComponent implements OnInit {
     this.alertData = alertData;
   }
 
-  public changeSuccessMessage() { this._success.next(`${new Date()} - Message successfully changed.`); }
+  public changeSuccessMessage() {
+    this._success.next(`${new Date()} - Message successfully changed.`);
+  }
 
   /**
    * Close the alert
@@ -49,5 +51,4 @@ export class AlertsComponent implements OnInit {
   close(alert: AlertColor, alertData: AlertColor[]) {
     alertData.splice(alertData.indexOf(alert), 1);
   }
-
 }

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { BuysellComponent } from './buysell.component';
+import {BuysellComponent} from './buysell.component';
 
 describe('BuysellComponent', () => {
   let component: BuysellComponent;
@@ -8,9 +8,8 @@ describe('BuysellComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BuysellComponent ]
-    })
-    .compileComponents();
+      declarations: [BuysellComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

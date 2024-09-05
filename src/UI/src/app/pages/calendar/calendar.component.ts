@@ -1,13 +1,20 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, TemplateRef, ElementRef } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';;
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+  TemplateRef,
+  ElementRef,
+} from '@angular/core';
+import {UntypedFormBuilder, Validators, UntypedFormGroup} from '@angular/forms';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import interactionPlugin, {Draggable} from '@fullcalendar/interaction';
+import {CalendarOptions, DateSelectArg, EventClickArg, EventApi} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { category, calendarEvents, createEventId } from './data';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {category, calendarEvents, createEventId} from './data';
 
 import Swal from 'sweetalert2';
 
@@ -18,7 +25,6 @@ import Swal from 'sweetalert2';
   encapsulation: ViewEncapsulation.None,
 })
 export class CalendarComponent implements OnInit {
-
   modalRef?: BsModalRef;
 
   // bread crumb items
@@ -37,19 +43,14 @@ export class CalendarComponent implements OnInit {
   formData: UntypedFormGroup;
 
   calendarOptions: CalendarOptions = {
-    plugins: [
-      interactionPlugin,
-      dayGridPlugin,
-      timeGridPlugin,
-      listPlugin,
-    ],
+    plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
     headerToolbar: {
       left: 'dayGridMonth,dayGridWeek,dayGridDay',
       center: 'title',
-      right: 'prevYear,prev,next,nextYear'
+      right: 'prevYear,prev,next,nextYear',
     },
-    initialView: "dayGridMonth",
-    themeSystem: "bootstrap",
+    initialView: 'dayGridMonth',
+    themeSystem: 'bootstrap',
     initialEvents: calendarEvents,
     weekends: true,
     editable: true,
@@ -59,17 +60,18 @@ export class CalendarComponent implements OnInit {
     dateClick: this.openModal.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    eventTimeFormat: { // like '14:30:00'
+    eventTimeFormat: {
+      // like '14:30:00'
       hour: '2-digit',
       minute: '2-digit',
       meridiem: false,
-      hour12: true
-    }
+      hour12: true,
+    },
   };
   currentEvents: EventApi[] = [];
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Skote' }, { label: 'Calendar', active: true }];
+    this.breadCrumbItems = [{label: 'Skote'}, {label: 'Calendar', active: true}];
 
     this.formData = this.formBuilder.group({
       title: ['', [Validators.required]],
@@ -81,7 +83,6 @@ export class CalendarComponent implements OnInit {
       editCategory: [],
     });
     this._fetchData();
-
   }
 
   /**
@@ -92,7 +93,8 @@ export class CalendarComponent implements OnInit {
     var category = clickInfo.event.classNames;
     this.formEditData = this.formBuilder.group({
       editTitle: clickInfo.event.title,
-      editCategory: category instanceof Array ? clickInfo.event.classNames[0] : clickInfo.event.classNames,
+      editCategory:
+        category instanceof Array ? clickInfo.event.classNames[0] : clickInfo.event.classNames,
     });
     this.modalRef = this.modalService.show(this.editmodalShow);
   }
@@ -103,13 +105,12 @@ export class CalendarComponent implements OnInit {
    */
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
-
   }
 
   constructor(
     private modalService: BsModalService,
-    private formBuilder: UntypedFormBuilder
-  ) { }
+    private formBuilder: UntypedFormBuilder,
+  ) {}
 
   get form() {
     return this.formData.controls;
@@ -121,7 +122,7 @@ export class CalendarComponent implements OnInit {
   confirm() {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
@@ -160,9 +161,7 @@ export class CalendarComponent implements OnInit {
     const editTitle = this.formEditData.get('editTitle').value;
     const editCategory = this.formEditData.get('editCategory').value;
 
-    const editId = this.calendarEvents.findIndex(
-      (x) => x.id + '' === this.editEvent.id + ''
-    );
+    const editId = this.calendarEvents.findIndex((x) => x.id + '' === this.editEvent.id + '');
 
     this.editEvent.setProp('title', editTitle);
     this.editEvent.setProp('classNames', editCategory);
@@ -214,7 +213,7 @@ export class CalendarComponent implements OnInit {
         title,
         start: this.newEventDate.date,
         end: this.newEventDate.date,
-        className: className + ' ' + 'text-white'
+        className: className + ' ' + 'text-white',
       });
       this.position();
       this.formData = this.formBuilder.group({

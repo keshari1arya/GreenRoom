@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { UsergridComponent } from './usergrid.component';
+import {UsergridComponent} from './usergrid.component';
 
 describe('UsergridComponent', () => {
   let component: UsergridComponent;
@@ -8,9 +8,8 @@ describe('UsergridComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsergridComponent ]
-    })
-    .compileComponents();
+      declarations: [UsergridComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { icons } from './data'
+import {icons} from './data';
 
 @Component({
   selector: 'app-materialdesign',
   templateUrl: './materialdesign.component.html',
-  styleUrls: ['./materialdesign.component.scss']
+  styleUrls: ['./materialdesign.component.scss'],
 })
 
 /**
@@ -17,15 +17,15 @@ export class MaterialdesignComponent implements OnInit {
   icons: Array<{}>;
   iconsCount: number = 0;
   newIconsCount: number = 0;
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Icons' }, { label: 'MDI', active: true }];
+    this.breadCrumbItems = [{label: 'Icons'}, {label: 'MDI', active: true}];
     setTimeout(() => {
       this.icons = icons;
-      this.icons.push({ name: "blank", hex: "f68c" });
+      this.icons.push({name: 'blank', hex: 'f68c'});
 
-      this.icons.forEach(icon => {
+      this.icons.forEach((icon) => {
         var item = this.getIconItem(icon, this.isNew(icon));
         document.getElementById('icons').appendChild(item);
         if (this.isNew(icon)) {
@@ -45,7 +45,7 @@ export class MaterialdesignComponent implements OnInit {
   getIconItem(icon: any, isNewIcon: any) {
     var div = document.createElement('div'),
       i = document.createElement('i');
-    div.className = "col-xl-3 col-lg-4 col-sm-6";
+    div.className = 'col-xl-3 col-lg-4 col-sm-6';
     i.className = 'mdi mdi-' + icon.name;
     div.appendChild(i);
     var span = document.createElement('span');
@@ -55,8 +55,6 @@ export class MaterialdesignComponent implements OnInit {
   }
 
   isDeprecated(icon) {
-    return typeof icon.deprecated == 'undefined'
-      ? false
-      : icon.deprecated;
+    return typeof icon.deprecated == 'undefined' ? false : icon.deprecated;
   }
 }

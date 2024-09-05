@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { RepeaterComponent } from './repeater.component';
+import {RepeaterComponent} from './repeater.component';
 
 describe('RepeaterComponent', () => {
   let component: RepeaterComponent;
@@ -8,9 +8,8 @@ describe('RepeaterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RepeaterComponent ]
-    })
-    .compileComponents();
+      declarations: [RepeaterComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

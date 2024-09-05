@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ImagecropperComponent } from './imagecropper.component';
+import {ImagecropperComponent} from './imagecropper.component';
 
 describe('ImagecropperComponent', () => {
   let component: ImagecropperComponent;
@@ -8,9 +8,8 @@ describe('ImagecropperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImagecropperComponent ]
-    })
-    .compileComponents();
+      declarations: [ImagecropperComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

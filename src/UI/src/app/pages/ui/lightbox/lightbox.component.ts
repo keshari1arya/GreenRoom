@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Lightbox } from 'ngx-lightbox';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Component, OnInit} from '@angular/core';
+import {Lightbox} from 'ngx-lightbox';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 // import { MapsAPILoader } from '@agm/core';
 
 @Component({
@@ -9,29 +9,28 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./lightbox.component.scss'],
 })
 export class LightboxComponent implements OnInit {
-
   modalRef?: BsModalRef;
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
   albums: any = [];
-  gallery:any = [];
-  images:any = [];
+  gallery: any = [];
+  images: any = [];
   id: any = 'JlvxDa7Sges';
 
   longitude: any = 20.728218;
-  latitude : any = 52.128973;
+  latitude: any = 52.128973;
   markers: any;
   zoom: number = 15;
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Lightbox', active: true }];
-
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Lightbox', active: true}];
   }
-  constructor(private lightbox: Lightbox, private modalService: BsModalService,
+  constructor(
+    private lightbox: Lightbox,
+    private modalService: BsModalService,
     // private mapsAPILoader: MapsAPILoader
   ) {
-
     for (let i = 1; i <= 1; i++) {
       const src = '../../../assets/images/small/img-' + i + '.jpg';
       const caption = 'Image ' + i + ' caption here';
@@ -39,7 +38,7 @@ export class LightboxComponent implements OnInit {
       const album = {
         src,
         caption,
-        thumb
+        thumb,
       };
       this.images.push(album);
     }
@@ -51,7 +50,7 @@ export class LightboxComponent implements OnInit {
       const album = {
         src,
         caption,
-        thumb
+        thumb,
       };
       this.gallery.push(album);
     }
@@ -63,7 +62,7 @@ export class LightboxComponent implements OnInit {
       const album = {
         src,
         caption,
-        thumb
+        thumb,
       };
       this.albums.push(album);
     }
@@ -75,7 +74,7 @@ export class LightboxComponent implements OnInit {
   openImage(index: number): void {
     // open lightbox
     this.lightbox.open(this.images, index, {
-      showZoom: true
+      showZoom: true,
     });
   }
 
@@ -93,7 +92,8 @@ export class LightboxComponent implements OnInit {
   openZoomGallery(index: number): void {
     // open lightbox
     this.lightbox.open(this.gallery, index, {
-      wrapAround: true, showImageNumberLabel: true
+      wrapAround: true,
+      showImageNumberLabel: true,
     });
   }
 
@@ -110,7 +110,7 @@ export class LightboxComponent implements OnInit {
    * @param content modal content
    */
   openModal(content: any) {
-    this.modalRef = this.modalService.show(content, { class: 'modal-lg'});
+    this.modalRef = this.modalService.show(content, {class: 'modal-lg'});
   }
 
   /**
@@ -118,7 +118,7 @@ export class LightboxComponent implements OnInit {
    * @param content modal content
    */
   openYoutubeModal(content: any) {
-    this.modalRef = this.modalService.show(content, { class: 'modal-lg' });
+    this.modalRef = this.modalService.show(content, {class: 'modal-lg'});
   }
 
   /**
@@ -126,7 +126,6 @@ export class LightboxComponent implements OnInit {
    * @param googlemap modal content
    */
   openMapModal(content: any) {
-    this.modalRef = this.modalService.show(content, { class: 'modal-lg' });
+    this.modalRef = this.modalService.show(content, {class: 'modal-lg'});
   }
-
 }

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { EmailreadComponent } from './emailread.component';
+import {EmailreadComponent} from './emailread.component';
 
 describe('EmailreadComponent', () => {
   let component: EmailreadComponent;
@@ -8,9 +8,8 @@ describe('EmailreadComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmailreadComponent ]
-    })
-    .compileComponents();
+      declarations: [EmailreadComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

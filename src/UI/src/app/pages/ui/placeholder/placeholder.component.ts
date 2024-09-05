@@ -1,19 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-placeholder',
   templateUrl: './placeholder.component.html',
-  styleUrls: ['./placeholder.component.scss']
+  styleUrls: ['./placeholder.component.scss'],
 })
 export class PlaceholderComponent implements OnInit {
-
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'UI Elements' }, { label: 'Placeholder', active: true }];
+    this.breadCrumbItems = [{label: 'UI Elements'}, {label: 'Placeholder', active: true}];
   }
-
 }

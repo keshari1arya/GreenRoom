@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { FontawesomeComponent } from './fontawesome.component';
+import {FontawesomeComponent} from './fontawesome.component';
 
 describe('FontawesomeComponent', () => {
   let component: FontawesomeComponent;
@@ -8,9 +8,8 @@ describe('FontawesomeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FontawesomeComponent ]
-    })
-    .compileComponents();
+      declarations: [FontawesomeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

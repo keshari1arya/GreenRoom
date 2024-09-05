@@ -1,20 +1,19 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CandidateState } from './candidate.reducer';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {CandidateState} from './candidate.reducer';
 
 export const selectDataState = createFeatureSelector<CandidateState>('CandidateList');
 
 export const selectData = createSelector(
-    selectDataState,
-    (state: CandidateState) => state.candidateList
+  selectDataState,
+  (state: CandidateState) => state.candidateList,
 );
 
 export const selectDataLoading = createSelector(
-    selectDataState,
-    (state: CandidateState) => state.loading
+  selectDataState,
+  (state: CandidateState) => state.loading,
 );
 
 export const selectDataError = createSelector(
-    selectDataState,
-    (state: CandidateState) => state.error
+  selectDataState,
+  (state: CandidateState) => state.error,
 );
-

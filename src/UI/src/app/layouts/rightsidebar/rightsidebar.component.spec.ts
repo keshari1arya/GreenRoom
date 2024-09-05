@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { RightsidebarComponent } from './rightsidebar.component';
+import {RightsidebarComponent} from './rightsidebar.component';
 
 describe('RightsidebarComponent', () => {
   let component: RightsidebarComponent;
@@ -8,9 +8,8 @@ describe('RightsidebarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RightsidebarComponent ]
-    })
-    .compileComponents();
+      declarations: [RightsidebarComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

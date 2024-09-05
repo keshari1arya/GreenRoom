@@ -1,29 +1,29 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FilemanagerState } from './filemanager.reducer';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {FilemanagerState} from './filemanager.reducer';
 
 export const selectDataState = createFeatureSelector<FilemanagerState>('Filelist');
 
 export const selectData = createSelector(
-    selectDataState,
-    (state: FilemanagerState) => state.recentFiles
+  selectDataState,
+  (state: FilemanagerState) => state.recentFiles,
 );
 
 export const selectDataLoading = createSelector(
-    selectDataState,
-    (state: FilemanagerState) => state.loading
+  selectDataState,
+  (state: FilemanagerState) => state.loading,
 );
 
 export const selectDataError = createSelector(
-    selectDataState,
-    (state: FilemanagerState) => state.error
+  selectDataState,
+  (state: FilemanagerState) => state.error,
 );
 
 export const selectFolders = createSelector(
-    selectDataState,
-    (state: FilemanagerState) => state.folders
-)
+  selectDataState,
+  (state: FilemanagerState) => state.folders,
+);
 
 export const selectAssets = createSelector(
-    selectDataState,
-    (state: FilemanagerState) => state.assets
-)
+  selectDataState,
+  (state: FilemanagerState) => state.assets,
+);

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { TypographyComponent } from './typography.component';
+import {TypographyComponent} from './typography.component';
 
 describe('TypographyComponent', () => {
   let component: TypographyComponent;
@@ -8,9 +8,8 @@ describe('TypographyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TypographyComponent ]
-    })
-    .compileComponents();
+      declarations: [TypographyComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

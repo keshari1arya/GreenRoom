@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss']
+  styleUrls: ['./editor.component.scss'],
 })
 
 /**
  * Form-editor component
  */
 export class EditorComponent implements OnInit {
+  // bread crumb items
+  breadCrumbItems: Array<{}>;
 
- // bread crumb items
- breadCrumbItems: Array<{}>;
+  public Editor = ClassicEditor;
 
- public Editor = ClassicEditor;
+  constructor() {}
 
- constructor() { }
-
- ngOnInit() {
-   this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Editor', active: true }];
- }
+  ngOnInit() {
+    this.breadCrumbItems = [{label: 'Forms'}, {label: 'Form Editor', active: true}];
+  }
 }

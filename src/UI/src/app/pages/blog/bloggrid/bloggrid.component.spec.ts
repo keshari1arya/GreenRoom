@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BloggridComponent } from './bloggrid.component';
+import {BloggridComponent} from './bloggrid.component';
 
 describe('BloggridComponent', () => {
   let component: BloggridComponent;
@@ -8,9 +8,8 @@ describe('BloggridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BloggridComponent ]
-    })
-    .compileComponents();
+      declarations: [BloggridComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

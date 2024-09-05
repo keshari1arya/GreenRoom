@@ -8,14 +8,33 @@
           <div class="d-flex align-items-center">
             <h5 class="mb-0 card-title flex-grow-1">Jobs Lists</h5>
             <div class="flex-shrink-0 d-flex gap-1">
-              <a href="javascript:void(0);" class="btn btn-primary" (click)="openModal(content)">Add New Job</a>
-              <a href="javascript:void(0);" class="btn btn-light"><i class="mdi mdi-refresh"></i></a>
+              <a href="javascript:void(0);" class="btn btn-primary" (click)="openModal(content)"
+                >Add New Job</a
+              >
+              <a href="javascript:void(0);" class="btn btn-light"
+                ><i class="mdi mdi-refresh"></i
+              ></a>
               <div class="dropdown d-inline-block" dropdown>
-                <button type="menu" class="btn btn-success" id="*dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" dropdownToggle><i class="mdi mdi-dots-vertical"></i></button>
-                <ul class="dropdown-menu dropdown-menu dropdown-menu-end show" aria-labelledby="*dropdownMenuButton1" *dropdownMenu>
+                <button
+                  type="menu"
+                  class="btn btn-success"
+                  id="*dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  dropdownToggle
+                >
+                  <i class="mdi mdi-dots-vertical"></i>
+                </button>
+                <ul
+                  class="dropdown-menu dropdown-menu dropdown-menu-end show"
+                  aria-labelledby="*dropdownMenuButton1"
+                  *dropdownMenu
+                >
                   <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
                   <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);">Something else here</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -24,10 +43,22 @@
         <div class="card-body border-bottom">
           <div class="row g-3">
             <div class="col-xxl-4 col-lg-6">
-              <input type="search" class="form-control" id="searchInput" placeholder="Search for ..." [(ngModel)]="term" (ngModelChange)="searchJob()">
+              <input
+                type="search"
+                class="form-control"
+                id="searchInput"
+                placeholder="Search for ..."
+                [(ngModel)]="term"
+                (ngModelChange)="searchJob()"
+              />
             </div>
             <div class="col-xxl-2 col-lg-6">
-              <select class="form-select" id="idStatus" aria-label="Default select example" (click)="selectstatus()">
+              <select
+                class="form-select"
+                id="idStatus"
+                aria-label="Default select example"
+                (click)="selectstatus()"
+              >
                 <option value="">Select Status</option>
                 <option value="Active">Active</option>
                 <option value="New">New</option>
@@ -35,7 +66,12 @@
               </select>
             </div>
             <div class="col-xxl-2 col-lg-4">
-              <select class="form-select" id="idType" aria-label="Default select example" (click)="selectType()">
+              <select
+                class="form-select"
+                id="idType"
+                aria-label="Default select example"
+                (click)="selectType()"
+              >
                 <option value="">Select Type</option>
                 <option value="Full Time">Full Time</option>
                 <option value="Part Time">Part Time</option>
@@ -45,17 +81,24 @@
             </div>
             <div class="col-xxl-2 col-lg-4">
               <div id="datepicker1">
-                <input type="text" placeholder="Datepicker" class="form-control " bsDatepicker [bsConfig]="{ showWeekNumbers: false }">
-
-              </div><!-- input-group -->
+                <input
+                  type="text"
+                  placeholder="Datepicker"
+                  class="form-control"
+                  bsDatepicker
+                  [bsConfig]="{showWeekNumbers: false}"
+                />
+              </div>
+              <!-- input-group -->
             </div>
             <div class="col-xxl-2 col-lg-4">
-              <button type="button" class="btn btn-soft-secondary w-100"><i class="mdi mdi-filter-outline align-middle"></i> Filter</button>
+              <button type="button" class="btn btn-soft-secondary w-100">
+                <i class="mdi mdi-filter-outline align-middle"></i> Filter
+              </button>
             </div>
           </div>
         </div>
         <div class="card-body">
-
           <div class="table-responsive">
             <table class="table align-middle dt-responsive nowrap w-100 table-check" id="job-list">
               <thead>
@@ -74,49 +117,91 @@
                 </tr>
               </thead>
               <tbody>
-                @for(data of lists;track $index){
-                <tr>
-                  <th scope="row">{{data.id}}</th>
-                  <td>{{data.title}}</td>
-                  <td>{{data.name}}</td>
-                  <td>{{data.location}}</td>
-                  <td>{{data.experience}}</td>
-                  <td>{{data.position}}</td>
-                  <td><span class="badge badge-soft-{{data.type_color}}" [ngClass]="{'badge-soft-success': data.type === 'Full Time','badge-soft-danger': data.type === 'Part Time','badge-soft-info': data.type === 'Freelance','badge-soft-warning': data.type === 'Internship'}">{{data.type}}</span></td>
-                  <td>02 Nov 2023</td>
-                  <td> 25 Nov 2023</td>
-                  <td><span class="badge" [ngClass]="{ 'bg-success': data.status === 'Active', 'bg-info': data.status === 'New', 'bg-danger': data.status === 'Close'}">{{data.status}}</span></td>
-                  <td>
-                    <ul class="list-unstyled hstack gap-1 mb-0">
-                      <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                        <a routerLink="/jobs/details" class="btn btn-sm btn-soft-primary"><i class="mdi mdi-eye-outline"></i></a>
-                      </li>
-                      <li data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                        <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a>
-                      </li>
-                      <li data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-                        <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>}
+                @for (data of lists; track $index) {
+                  <tr>
+                    <th scope="row">{{ data.id }}</th>
+                    <td>{{ data.title }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.location }}</td>
+                    <td>{{ data.experience }}</td>
+                    <td>{{ data.position }}</td>
+                    <td>
+                      <span
+                        class="badge badge-soft-{{ data.type_color }}"
+                        [ngClass]="{
+                          'badge-soft-success': data.type === 'Full Time',
+                          'badge-soft-danger': data.type === 'Part Time',
+                          'badge-soft-info': data.type === 'Freelance',
+                          'badge-soft-warning': data.type === 'Internship',
+                        }"
+                        >{{ data.type }}</span
+                      >
+                    </td>
+                    <td>02 Nov 2023</td>
+                    <td>25 Nov 2023</td>
+                    <td>
+                      <span
+                        class="badge"
+                        [ngClass]="{
+                          'bg-success': data.status === 'Active',
+                          'bg-info': data.status === 'New',
+                          'bg-danger': data.status === 'Close',
+                        }"
+                        >{{ data.status }}</span
+                      >
+                    </td>
+                    <td>
+                      <ul class="list-unstyled hstack gap-1 mb-0">
+                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                          <a routerLink="/jobs/details" class="btn btn-sm btn-soft-primary"
+                            ><i class="mdi mdi-eye-outline"></i
+                          ></a>
+                        </li>
+                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                          <a
+                            href="javascript:void(0);"
+                            class="btn btn-sm btn-soft-info"
+                            (click)="editDataGet(data.id, content)"
+                            ><i class="mdi mdi-pencil-outline"></i
+                          ></a>
+                        </li>
+                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+                          <a
+                            href="javascript:void(0);"
+                            data-bs-toggle="modal"
+                            class="btn btn-sm btn-soft-danger"
+                            (click)="delete($event)"
+                            ><i class="mdi mdi-delete-outline"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                }
               </tbody>
             </table>
           </div>
-          @if(joblist?.length > 0){
-          <div class="row justify-content-between align-items-center">
-            <div class="col-auto me-auto">
-              <p class="text-muted mb-0">Showing <b>{{lists?.length}}</b> of <b>{{joblist?.length}}</b> entries</p>
-            </div>
-            <div class="col-auto">
-              <div class="text-md-right float-md-end pagination-rounded">
-                <ul class="pagination pagination-rounded justify-content-end mb-2">
-                  <pagination [totalItems]="joblist?.length" [itemsPerPage]="8" (pageChanged)="pageChanged($event)"></pagination>
-                </ul>
+          @if (joblist?.length > 0) {
+            <div class="row justify-content-between align-items-center">
+              <div class="col-auto me-auto">
+                <p class="text-muted mb-0">
+                  Showing <b>{{ lists?.length }}</b> of <b>{{ joblist?.length }}</b> entries
+                </p>
               </div>
+              <div class="col-auto">
+                <div class="text-md-right float-md-end pagination-rounded">
+                  <ul class="pagination pagination-rounded justify-content-end mb-2">
+                    <pagination
+                      [totalItems]="joblist?.length"
+                      [itemsPerPage]="8"
+                      (pageChanged)="pageChanged($event)"
+                    ></pagination>
+                  </ul>
+                </div>
+              </div>
+              <!--end col-->
             </div>
-            <!--end col-->
-          </div>}
+          }
           <!--end row-->
         </div>
       </div>
@@ -208,97 +293,175 @@
 <ng-template #content role="document" let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Add Jobs</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal" (click)="modalRef?.hide()"></button>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      id="close-modal"
+      (click)="modalRef?.hide()"
+    ></button>
   </div>
   <form (ngSubmit)="saveUser()" [formGroup]="jobListForm">
     <div class="modal-body">
       <input type="hidden" name="id" value="" formControlName="id" />
       <div class="mb-3">
         <label for="customername-field" class="form-label">Jobs Title</label>
-        <input type="text" id="customername-field" class="form-control" placeholder="Enter Name" required formControlName="title" [ngClass]="{ 'is-invalid': submitted && form['title'].errors }" />
-        @if(submitted && form['title'].errors){
-        <div class="invalid-feedback" align="left">
-          @if(form['title'].errors['required']){
-          <div>Jobs Title is required</div>
-          }
-        </div>
+        <input
+          type="text"
+          id="customername-field"
+          class="form-control"
+          placeholder="Enter Name"
+          required
+          formControlName="title"
+          [ngClass]="{'is-invalid': submitted && form['title'].errors}"
+        />
+        @if (submitted && form['title'].errors) {
+          <div class="invalid-feedback" align="left">
+            @if (form['title'].errors['required']) {
+              <div>Jobs Title is required</div>
+            }
+          </div>
         }
       </div>
 
       <div class="mb-3">
         <label for="customername-field" class="form-label">Company Name</label>
-        <input type="text" id="customername-field" class="form-control" placeholder="Enter Name" required formControlName="name" [ngClass]="{ 'is-invalid': submitted && form['name'].errors }" />
-        @if(submitted && form['name'].errors){
-        <div class="invalid-feedback" align="left">
-          @if(form['name'].errors['required']){
-          <div>Company Name is required</div>}
-        </div>}
+        <input
+          type="text"
+          id="customername-field"
+          class="form-control"
+          placeholder="Enter Name"
+          required
+          formControlName="name"
+          [ngClass]="{'is-invalid': submitted && form['name'].errors}"
+        />
+        @if (submitted && form['name'].errors) {
+          <div class="invalid-feedback" align="left">
+            @if (form['name'].errors['required']) {
+              <div>Company Name is required</div>
+            }
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="customername-field" class="form-label">Location</label>
-        <input type="text" id="customername-field" class="form-control" placeholder="Enter Location" required formControlName="location" [ngClass]="{ 'is-invalid': submitted && form['location'].errors }" />
-        @if(submitted && form['location'].errors){
-        <div class="invalid-feedback" align="left">
-          @if(form['location'].errors['required']){
-          <div>Location is required</div>}
-        </div>}
+        <input
+          type="text"
+          id="customername-field"
+          class="form-control"
+          placeholder="Enter Location"
+          required
+          formControlName="location"
+          [ngClass]="{'is-invalid': submitted && form['location'].errors}"
+        />
+        @if (submitted && form['location'].errors) {
+          <div class="invalid-feedback" align="left">
+            @if (form['location'].errors['required']) {
+              <div>Location is required</div>
+            }
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="customername-field" class="form-label">Experience</label>
-        <input type="text" id="customername-field" class="form-control" placeholder="Enter Experience" required formControlName="experience" [ngClass]="{ 'is-invalid': submitted && form['experience'].errors }" />
-        @if(submitted && form['experience'].errors){
-        <div class="invalid-feedback" align="left">
-          @if(form['experience'].errors['required']){
-          <div>Experience is required</div>}
-        </div>}
+        <input
+          type="text"
+          id="customername-field"
+          class="form-control"
+          placeholder="Enter Experience"
+          required
+          formControlName="experience"
+          [ngClass]="{'is-invalid': submitted && form['experience'].errors}"
+        />
+        @if (submitted && form['experience'].errors) {
+          <div class="invalid-feedback" align="left">
+            @if (form['experience'].errors['required']) {
+              <div>Experience is required</div>
+            }
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="customername-field" class="form-label">Position</label>
-        <input type="text" id="customername-field" class="form-control" placeholder="Enter Position" required formControlName="position" [ngClass]="{ 'is-invalid': submitted && form['position'].errors }" />
-        @if(submitted && form['position'].errors){
-        <div class="invalid-feedback" align="left">
-          @if(form['position'].errors['required']){
-          <div>Position is required</div>}
-        </div>}
+        <input
+          type="text"
+          id="customername-field"
+          class="form-control"
+          placeholder="Enter Position"
+          required
+          formControlName="position"
+          [ngClass]="{'is-invalid': submitted && form['position'].errors}"
+        />
+        @if (submitted && form['position'].errors) {
+          <div class="invalid-feedback" align="left">
+            @if (form['position'].errors['required']) {
+              <div>Position is required</div>
+            }
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="payment-field" class="form-label">Type</label>
-        <select class="form-control" data-trigger name="payment-method" id="payment-field" formControlName="type" [ngClass]="{ 'is-invalid': submitted && form['type'].errors }">
+        <select
+          class="form-control"
+          data-trigger
+          name="payment-method"
+          id="payment-field"
+          formControlName="type"
+          [ngClass]="{'is-invalid': submitted && form['type'].errors}"
+        >
           <option value="">Type</option>
           <option value="Full Time">Full Time</option>
           <option value="Part Time">Part Time</option>
         </select>
-        @if(submitted && form['type'].errors){
-        <div class="invalid-feedback" align="left">
-          @if(form['type'].errors['required']){
-          <div>Type is required</div>
-          }
-        </div>}
+        @if (submitted && form['type'].errors) {
+          <div class="invalid-feedback" align="left">
+            @if (form['type'].errors['required']) {
+              <div>Type is required</div>
+            }
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="payment-field" class="form-label">Status</label>
-        <select class="form-control" data-trigger name="payment-method" id="payment-field" formControlName="status" [ngClass]="{ 'is-invalid': submitted && form['status'].errors }">
+        <select
+          class="form-control"
+          data-trigger
+          name="payment-method"
+          id="payment-field"
+          formControlName="status"
+          [ngClass]="{'is-invalid': submitted && form['status'].errors}"
+        >
           <option value="">Status</option>
           <option value="Active">Active</option>
           <option value="New">New</option>
           <option value="Close">Close</option>
         </select>
-        @if(submitted && form['status'].errors){
-        <div class="invalid-feedback" align="left">
-          @if(form['status'].errors['required']){
-          <div>Status is required</div>}
-        </div>}
+        @if (submitted && form['status'].errors) {
+          <div class="invalid-feedback" align="left">
+            @if (form['status'].errors['required']) {
+              <div>Status is required</div>
+            }
+          </div>
+        }
       </div>
-
     </div>
     <div class="modal-footer">
       <div class="hstack gap-2 justify-content-end">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal" (click)=" modalRef?.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-light"
+          data-bs-dismiss="modal"
+          (click)="modalRef?.hide()"
+        >
+          Close
+        </button>
         <button type="submit" class="btn btn-success" id="add-btn">Add Order</button>
       </div>
     </div>
