@@ -409,6 +409,43 @@
         ]
       }
     },
+    "/api/StorageManagements": {
+      "post": {
+        "tags": [
+          "StorageManagements"
+        ],
+        "operationId": "GenerateUrlToUploadFile",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateUrlToUploadFileCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -1407,6 +1444,22 @@
           "folderName": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "GenerateUrlToUploadFileCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fileName": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "expiryInSeconds": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

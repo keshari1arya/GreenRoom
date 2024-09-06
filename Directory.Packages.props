@@ -35,5 +35,6 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageVersion Include="Respawn" Version="6.1.0" />
     <PackageVersion Include="Testcontainers.MsSql" Version="3.6.0" />
+    <PackageVersion Include="AWSSDK.S3" Version="3.7.402.6" />
   </ItemGroup>
 </Project>

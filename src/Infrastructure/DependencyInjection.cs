@@ -1,8 +1,14 @@
-﻿using GreenRoom.Application.Common.Interfaces;
+﻿using Amazon;
+using Amazon.Runtime;
+using Amazon.S3;
+using GreenRoom.Application.Common.Configurations;
+using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Interfaces;
 using GreenRoom.Domain.Constants;
 using GreenRoom.Infrastructure.Data;
 using GreenRoom.Infrastructure.Data.Interceptors;
 using GreenRoom.Infrastructure.Identity;
+using GreenRoom.Infrastructure.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -20,6 +26,10 @@ public static class DependencyInjection
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityWithMultiTenancyInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        services.AddFileStorage(configuration);
+
+        services.AddScoped<IStorageManagementService, AwsS3Service>();
 
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
@@ -52,5 +62,26 @@ public static class DependencyInjection
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
         return services;
+    }
+
+    private static void AddFileStorage(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<AwsS3Settings>(configuration.GetSection("AwsS3Settings"));
+        services.AddScoped<IAmazonS3>(provider =>
+        {
+            var awsS3Settings = configuration.GetSection("AwsS3Settings").Get<AwsS3Settings>();
+            if (awsS3Settings == null)
+            {
+                throw new InvalidOperationException("AWS S3 settings not found.");
+            }
+
+            var credentials = new BasicAWSCredentials(awsS3Settings!.AccessKey, awsS3Settings.Secret);
+            var config = new AmazonS3Config
+            {
+                RegionEndpoint = RegionEndpoint.GetBySystemName(awsS3Settings.Region),
+                ServiceURL = awsS3Settings.InstanceUrl
+            };
+            return new AmazonS3Client(credentials, config);
+        });
     }
 }
