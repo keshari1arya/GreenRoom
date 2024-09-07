@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Minio;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -27,7 +28,7 @@ public static class DependencyInjection
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityWithMultiTenancyInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
-        services.AddFileStorage(configuration);
+        services.AddAwsS3Storage(configuration);
 
         services.AddScoped<IStorageManagementService, AwsS3Service>();
 
@@ -64,7 +65,7 @@ public static class DependencyInjection
         return services;
     }
 
-    private static void AddFileStorage(this IServiceCollection services, IConfiguration configuration)
+    private static void AddAwsS3Storage(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<AwsS3Settings>(configuration.GetSection("AwsS3Settings"));
         services.AddScoped<IAmazonS3>(provider =>
@@ -78,8 +79,8 @@ public static class DependencyInjection
             var credentials = new BasicAWSCredentials(awsS3Settings!.AccessKey, awsS3Settings.Secret);
             var config = new AmazonS3Config
             {
-                RegionEndpoint = RegionEndpoint.GetBySystemName(awsS3Settings.Region),
-                ServiceURL = awsS3Settings.InstanceUrl
+                ServiceURL = awsS3Settings.InstanceUrl,
+                UseHttp = true
             };
             return new AmazonS3Client(credentials, config);
         });

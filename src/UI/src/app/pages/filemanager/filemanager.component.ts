@@ -1,14 +1,14 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {Observable, of} from 'rxjs';
+import {FileManagementService} from 'src/app/core/services/file-management.service';
 import {AssetDto, FolderDto, PathToRootDto} from 'src/app/lib/openapi-generated/models';
 import {RootReducerState} from 'src/app/store';
 import {
   selectAssets,
-  selectData,
   selectFolders,
   selectPathToRoot,
 } from 'src/app/store/filemanager/filemanager-selector';
@@ -16,7 +16,6 @@ import {
   addFolder,
   fetchAssetsByFolderIdData,
   fetchFoldersByParentIdData,
-  fetchRecentFilesData,
   pathToRoot,
   pathToRootSuccess,
   trashFolder,
@@ -49,6 +48,7 @@ export class FileManagerComponent implements OnInit {
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    private fileManagementService: FileManagementService,
   ) {}
 
   ngOnInit(): void {
@@ -166,6 +166,20 @@ export class FileManagerComponent implements OnInit {
       this.store.dispatch(pathToRoot({folderId}));
     } else {
       this.store.dispatch(pathToRootSuccess({path: []}));
+    }
+  }
+
+  selectedFile: File | null = null;
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  onUpload() {
+    if (this.selectedFile) {
+      // Call your backend to get the pre-signed URL
+      this.fileManagementService.uploadFile(this.selectedFile, this.currentFolderId);
+      this.modalRef?.hide();
+      this.openFolder(this.currentFolderId);
     }
   }
 }

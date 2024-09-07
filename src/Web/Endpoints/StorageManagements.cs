@@ -8,10 +8,10 @@ public class StorageManagements : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(GenerateUrlToUploadFile);
+            .MapPost(GenerateUrlToUploadFile, "GeneratePresignedUrl");
     }
 
-    private Task<string> GenerateUrlToUploadFile(ISender sender, GenerateUrlToUploadFileCommand command)
+    private Task<PreSignedUrlDto> GenerateUrlToUploadFile(ISender sender, GenerateUrlToUploadFileCommand command)
     {
         return sender.Send(command);
     }

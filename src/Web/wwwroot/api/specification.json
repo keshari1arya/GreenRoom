@@ -409,7 +409,7 @@
         ]
       }
     },
-    "/api/StorageManagements": {
+    "/api/StorageManagements/GeneratePresignedUrl": {
       "post": {
         "tags": [
           "StorageManagements"
@@ -433,7 +433,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/PreSignedUrlDto"
                 }
               }
             }
@@ -1444,6 +1444,15 @@
           "folderName": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "PreSignedUrlDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string"
           }
         }
       },

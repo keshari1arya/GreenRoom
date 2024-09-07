@@ -24,8 +24,11 @@ public class AwsS3Service : IStorageManagementService
             Key = fileName,
             Verb = HttpVerb.PUT,
             Expires = DateTime.Now.AddSeconds(expiryInSeconds),
-            ContentType = contentType
+            ContentType = contentType,
         };
+
+        // create the bucket first if it doesn't exist
+         _s3Client.PutBucketAsync(_settings.BucketName).Wait();
 
         return _s3Client.GetPreSignedURL(request);
     }

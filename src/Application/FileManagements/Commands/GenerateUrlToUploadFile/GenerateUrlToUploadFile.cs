@@ -6,7 +6,7 @@ public record GenerateUrlToUploadFileCommand(
     string FileName,
     string ContentType,
     int ExpiryInSeconds
-) : IRequest<string>;
+) : IRequest<PreSignedUrlDto>;
 
 public class GenerateUrlToUploadFileCommandValidator : AbstractValidator<GenerateUrlToUploadFileCommand>
 {
@@ -18,7 +18,7 @@ public class GenerateUrlToUploadFileCommandValidator : AbstractValidator<Generat
     }
 }
 
-public class GenerateUrlToUploadFileCommandHandler : IRequestHandler<GenerateUrlToUploadFileCommand, string>
+public class GenerateUrlToUploadFileCommandHandler : IRequestHandler<GenerateUrlToUploadFileCommand, PreSignedUrlDto>
 {
     private readonly IStorageManagementService _fileManagementService;
 
@@ -27,9 +27,15 @@ public class GenerateUrlToUploadFileCommandHandler : IRequestHandler<GenerateUrl
         _fileManagementService = fileManagementService;
     }
 
-    public async Task<string> Handle(GenerateUrlToUploadFileCommand request, CancellationToken cancellationToken)
+    public async Task<PreSignedUrlDto> Handle(GenerateUrlToUploadFileCommand request, CancellationToken cancellationToken)
     {
         var bucketName = "bucketName";
-        return await Task.FromResult(_fileManagementService.GenerateUrlToUpload(bucketName, request.FileName!, request.ContentType!, request.ExpiryInSeconds));
+        var url = _fileManagementService.GenerateUrlToUpload(bucketName, request.FileName, request.ContentType, request.ExpiryInSeconds);
+        return await Task.FromResult(new PreSignedUrlDto { Url = url });
     }
+}
+
+public class PreSignedUrlDto
+{
+    public string Url { get; set; } = string.Empty;
 }
