@@ -2,13 +2,27 @@
 
 The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/GreenRoom) version 8.0.5.
 
+## Prerequisite
+
+node 20 or higher (install using nvm, recommended)
+dotnet sdk 8 or higher
+docker (latest)
+docker compose
+
+
 ## Build
 
 Run `dotnet build -tl` to build the solution.
 
 ## Run
+On the root folder to run database and localstack (for mocking aws in local machine):
+```bash
+docker-compose up -d
+```
 
-To run the web application:
+
+
+### API:
 
 ```bash
 cd .\src\Web\
@@ -16,6 +30,14 @@ dotnet watch run
 ```
 
 Navigate to https://localhost:5001. The application will automatically reload if you change any of the source files.
+
+### UI:
+```bash
+cd .\src\UI\
+yarn dev
+```
+
+For more options go to package.json 
 
 ## Code Styles & Formatting
 
@@ -47,12 +69,18 @@ dotnet new install Clean.Architecture.Solution.Template::8.0.5
 
 ## Test
 
+### API
+
 The solution contains unit, integration, and functional tests.
 
 To run the tests:
 ```bash
 dotnet test
 ```
+
+### UI
+
+Goto up app and run ng test
 
 ## Help
 To learn more about the template go to the [project website](https://github.com/jasontaylordev/CleanArchitecture). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.

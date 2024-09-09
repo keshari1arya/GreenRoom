@@ -1,8 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {firstValueFrom, Observable, switchMap} from 'rxjs';
+import { Store } from '@ngrx/store';
+import {Observable} from 'rxjs';
 import {PreSignedUrlDto} from 'src/app/lib/openapi-generated/models';
 import {AssetsService, StorageManagementsService} from 'src/app/lib/openapi-generated/services';
+import { RootReducerState } from 'src/app/store';
+import { fetchAssetsByFolderIdData } from 'src/app/store/filemanager/filemanager.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +15,7 @@ export class FileManagementService {
     private storageManagementService: StorageManagementsService,
     private assetService: AssetsService,
     private http: HttpClient,
+    private store: Store<{data: RootReducerState}>,
   ) {}
 
   // This method will be used to download the file
@@ -49,6 +53,7 @@ export class FileManagementService {
             },
           })
           .subscribe((res) => {
+            this.store.dispatch(fetchAssetsByFolderIdData({folderId}));
             console.log('Asset created successfully', res);
           });
       });

@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
-using Minio;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -71,12 +70,9 @@ public static class DependencyInjection
         services.AddScoped<IAmazonS3>(provider =>
         {
             var awsS3Settings = configuration.GetSection("AwsS3Settings").Get<AwsS3Settings>();
-            if (awsS3Settings == null)
-            {
-                throw new InvalidOperationException("AWS S3 settings not found.");
-            }
+            Guard.Against.Null(awsS3Settings, "AwsS3Settings not found in configuration");
 
-            var credentials = new BasicAWSCredentials(awsS3Settings!.AccessKey, awsS3Settings.Secret);
+            var credentials = new BasicAWSCredentials(awsS3Settings.AccessKey, awsS3Settings.Secret);
             var config = new AmazonS3Config
             {
                 ServiceURL = awsS3Settings.InstanceUrl,

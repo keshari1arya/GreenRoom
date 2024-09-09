@@ -483,3 +483,4 @@ $RECYCLE.BIN/
 .angular/
 openapi-generated/
 dist/
+.localstack-volume/
