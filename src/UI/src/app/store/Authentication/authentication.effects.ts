@@ -1,6 +1,6 @@
 import { Injectable, Inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, catchError, exhaustMap, tap } from "rxjs/operators";
+import { map, exhaustMap, tap } from "rxjs/operators";
 import { of } from "rxjs";
 import { AuthenticationService } from "../../core/services/auth.service";
 import {
@@ -10,10 +10,8 @@ import {
   logoutSuccess,
   Register,
   RegisterSuccess,
-  RegisterFailure,
 } from "./authentication.actions";
 import { ActivatedRoute, Router } from "@angular/router";
-import { environment } from "src/environments/environment";
 import { UserProfileService } from "src/app/core/services/user.service";
 import { User } from "./auth.models";
 
@@ -49,6 +47,8 @@ export class AuthenticationEffects {
             const returnUrl =
               this.route.snapshot.queryParams["returnUrl"] || "/";
             this.router.navigateByUrl(returnUrl);
+
+            // TODO: FIX THIS
             const userTemp = new User();
             return loginSuccess({ user: userTemp });
           })
