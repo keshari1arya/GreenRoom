@@ -29,7 +29,7 @@ public class GetAssetsByFolderIdQueryHandler : IRequestHandler<GetAssetsByFolder
     public async Task<IEnumerable<AssetDto>> Handle(GetAssetsByFolderIdQuery request, CancellationToken cancellationToken)
     {
         return await _context.Assets
-            .Where(x => x.FolderId == request.FolderId)
+            .Where(x => x.FolderId == request.FolderId && !x.IsTrashed)
             .ProjectTo<AssetDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
     }

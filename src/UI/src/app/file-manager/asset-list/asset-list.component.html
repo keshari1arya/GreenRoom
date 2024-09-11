@@ -1,0 +1,54 @@
+<div class="table-responsive">
+  <table class="table align-middle table-nowrap table-hover mb-0">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Date modified</th>
+        <th scope="col" colspan="2">Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of assets; track $index) {
+      <tr>
+        <td>
+          <a href="javascript: void(0);" class="text-dark fw-medium">
+            <i
+              class="{{
+                getIconByExtension(data.name)
+              }} font-size-16 align-middle text-primary me-2"
+            ></i>
+            <span class="d-inline-block text-truncate mw-50">
+              {{ data.name }}
+            </span>
+          </a>
+        </td>
+        <td>{{ data.lastModified | date }}</td>
+        <td>{{ getFileSize(data.sizeInKB) }}</td>
+        <td>
+          <div class="dropdown" dropdown>
+            <a
+              class="font-size-16 text-muted dropdown-toggle"
+              role="button"
+              dropdownToggle
+              data-toggle="dropdown"
+              aria-haspopup="true"
+            >
+              <i class="mdi mdi-dots-horizontal"></i>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <!-- @for (item of data.actions; track $index) {
+                <a
+                  class="dropdown-item"
+                  href="javascript: void(0);"
+                  >{{ item }}</a
+                >
+                } -->
+            </div>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

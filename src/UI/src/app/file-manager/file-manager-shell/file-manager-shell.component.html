@@ -1,1 +1,10 @@
-<app-file-manager-view> </app-file-manager-view>
+<app-file-manager
+  [folders]="folders$ | async"
+  [assets]="assets$ | async"
+  [pathToRoot]="pathToRoot$ | async"
+  (setCurrentFolderIdEvent)="setCurrentFolderId($event)"
+  (addFolderEvent)="addFolder($event)"
+  (trashFolderEvent)="trashFolder($event)"
+  (fileUploadEvent)="fileUpload($event)"
+>
+</app-file-manager>
