@@ -248,7 +248,13 @@
                             </div>
                             <div class="avatar-xs me-3 mb-3">
                               <div class="avatar-title bg-transparent rounded">
-                                <i class="bx bxs-folder font-size-24 text-warning"></i>
+                                <a
+                                    [routerLink]="[]"
+                                    [queryParams]="{folderId: folder.id}"
+                                    (click)="openFolder(folder.id)"
+                                  >
+                                  <i class="bx bxs-folder font-size-24 text-warning"></i>
+                                </a>
                               </div>
                             </div>
                             <div class="d-flex">

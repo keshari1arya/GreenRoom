@@ -160,6 +160,7 @@ export class FileManagerComponent implements OnInit {
   }
 
   openFolder(folderId: number) {
+    this.currentFolderId = folderId;
     this.store.dispatch(fetchFoldersByParentIdData({parentId: folderId}));
     this.store.dispatch(fetchAssetsByFolderIdData({folderId}));
     if (folderId) {
