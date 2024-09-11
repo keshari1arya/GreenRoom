@@ -1,11 +1,6 @@
 import { Injectable, Inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import {
-  map,
-  catchError,
-  exhaustMap,
-  tap,
-} from "rxjs/operators";
+import { map, catchError, exhaustMap, tap } from "rxjs/operators";
 import { of } from "rxjs";
 import { AuthenticationService } from "../../core/services/auth.service";
 import {
@@ -27,20 +22,20 @@ export class AuthenticationEffects {
   Register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(Register),
-      exhaustMap(({ email, username, password }) => {        
-          return this.AuthenticationService.register({
-            email,
-            username,
-            password,
-          }).pipe(
-            map((user) => {
-              this.router.navigate(["/auth/login"]);
+      exhaustMap(({ email, username, password }) => {
+        return this.AuthenticationService.register({
+          email,
+          username,
+          password,
+        }).pipe(
+          map((user) => {
+            this.router.navigate(["/auth/login"]);
 
-              // TODO: Remove this when the backend is ready
-              const userTemp = new User();
-              return RegisterSuccess({ user: userTemp });
-            })
-          );        
+            // TODO: Remove this when the backend is ready
+            const userTemp = new User();
+            return RegisterSuccess({ user: userTemp });
+          })
+        );
       })
     )
   );
@@ -51,9 +46,11 @@ export class AuthenticationEffects {
       exhaustMap(({ email, password }) => {
         return this.AuthenticationService.login(email, password).pipe(
           map((user) => {
-            const returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
-            this.router.navigate([returnUrl]);
-            return loginSuccess({ user });
+            const returnUrl =
+              this.route.snapshot.queryParams["returnUrl"] || "/";
+            this.router.navigateByUrl(returnUrl);
+            const userTemp = new User();
+            return loginSuccess({ user: userTemp });
           })
         );
       })
