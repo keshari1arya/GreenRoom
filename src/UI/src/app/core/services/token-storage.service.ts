@@ -1,14 +1,13 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-const TOKEN_KEY = 'token';
-// const USER_KEY = 'currentUser';
+const TOKEN_KEY = 'auth-token';
+const USER_KEY = 'currentUser';
 
-// TODO: Implement the token storage service or remove it if not needed
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TokenStorageService {
-  constructor() {}
+  constructor() { }
 
   signOut(): void {
     window.sessionStorage.clear();
@@ -20,16 +19,16 @@ export class TokenStorageService {
   }
 
   public getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem('token');
   }
 
   public saveUser(user: any): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, JSON.stringify(user));
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   public getUser(): any {
-    const user = window.localStorage.getItem(TOKEN_KEY);
+    const user = window.localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
     }

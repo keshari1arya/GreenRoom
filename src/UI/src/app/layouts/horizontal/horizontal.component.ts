@@ -1,23 +1,25 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 // import { TOPBAR } from "../layouts.model";
-import {EventService} from '../../core/services/event.service';
+import { EventService } from '../../core/services/event.service';
 
 @Component({
   selector: 'app-horizontal',
   templateUrl: './horizontal.component.html',
-  styleUrls: ['./horizontal.component.scss'],
+  styleUrls: ['./horizontal.component.scss']
 })
 
 /**
  * Horizontal-layout component
  */
 export class HorizontalComponent implements OnInit, AfterViewInit {
+
   topbar: string;
   isCondensed: boolean;
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
+
     // this.topbar = TOPBAR;
 
     this.eventService.subscribe('changeTopbar', (topbar) => {
@@ -34,7 +36,8 @@ export class HorizontalComponent implements OnInit, AfterViewInit {
     this.changeTopbar(this.topbar);
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+  }
 
   /**
    * on settings button clicked from topbar
@@ -45,24 +48,24 @@ export class HorizontalComponent implements OnInit, AfterViewInit {
 
   changeTopbar(topbar: string) {
     switch (topbar) {
-      case 'light':
-        document.body.setAttribute('data-topbar', 'light');
+      case "light":
+        document.body.setAttribute("data-topbar", "light");
         break;
-      case 'dark':
-        document.body.setAttribute('data-topbar', 'dark');
+      case "dark":
+        document.body.setAttribute("data-topbar", "dark");
         break;
-      case 'colored':
-        document.body.setAttribute('data-topbar', 'colored');
+      case "colored":
+        document.body.setAttribute("data-topbar", "colored");
         break;
       default:
-        document.body.setAttribute('data-topbar', 'dark');
+        document.body.setAttribute("data-topbar", "dark");
         break;
     }
   }
 
   /**
-   * On mobile toggle button clicked
-   */
+ * On mobile toggle button clicked
+ */
   onToggleMobileMenu() {
     this.isCondensed = !this.isCondensed;
     document.body.classList.toggle('sidebar-enable');
@@ -72,4 +75,5 @@ export class HorizontalComponent implements OnInit, AfterViewInit {
       document.body.classList.remove('vertical-collpsed');
     }
   }
+
 }

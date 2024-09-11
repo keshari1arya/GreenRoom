@@ -1,4 +1,4 @@
-//
+// 
 // structure-rtl.scss
 //
 
@@ -8,8 +8,8 @@
   padding: 0 0 0 calc(#{$grid-gutter-width} / 2);
 }
 
-.app-search {
-  .form-control {
+.app-search{
+  .form-control{
     padding-right: 40px;
     padding-left: 20px;
   }
@@ -50,13 +50,14 @@
       ul.sub-menu {
         li {
           a {
-            padding: 0.4rem 3.5rem 0.4rem 1.5rem;
+            padding: .4rem 3.5rem .4rem 1.5rem;
           }
 
           ul.sub-menu {
+
             li {
               a {
-                padding: 0.4rem 4.5rem 0.4rem 1.5rem;
+                padding: .4rem 4.5rem .4rem 1.5rem;
                 font-size: 13.5px;
               }
             }
@@ -80,9 +81,9 @@
 
   .vertical-menu {
     #sidebar-menu {
-      > ul {
-        > li {
-          > a {
+      >ul {
+        >li {
+          >a {
             i {
               margin-left: 0;
               margin-right: 4px;
@@ -95,14 +96,14 @@
           }
 
           &:hover {
-            > ul {
+            >ul {
               left: 0;
               right: 70px;
             }
           }
         }
 
-        ul li:hover > ul {
+        ul li:hover>ul {
           left: auto;
           right: 190px;
         }
@@ -112,6 +113,7 @@
 }
 
 @media (max-width: 992px) {
+
   .main-content {
     margin-right: 0 !important;
   }
@@ -146,9 +148,10 @@
   }
 }
 
+
 // Compact sidebar
 
-body[data-sidebar-size='small'] {
+body[data-sidebar-size=small] {
   #sidebar-menu {
     ul {
       li {
@@ -159,6 +162,7 @@ body[data-sidebar-size='small'] {
             }
 
             ul.sub-menu {
+
               li {
                 a {
                   padding-right: 1.5rem;
@@ -183,7 +187,7 @@ body[data-sidebar-size='small'] {
       margin-right: $sidebar-collapsed-width;
     }
 
-    body[data-sidebar-size='small'].vertical-collpsed .footer {
+    body[data-sidebar-size=small].vertical-collpsed .footer {
       left: 70px;
     }
   }
@@ -196,7 +200,7 @@ body[data-sidebar-size='small'] {
 
 // Horizontal layout
 
-body[data-layout='horizontal'] {
+body[data-layout=horizontal] {
   .main-content {
     margin-right: 0 !important;
   }
@@ -273,8 +277,8 @@ body[data-layout='horizontal'] {
   }
 }
 
-.topnav-menu {
-  .navbar-nav {
+.topnav-menu{
+  .navbar-nav{
     padding-right: 0;
   }
 }

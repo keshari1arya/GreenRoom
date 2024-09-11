@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {CyptolandingComponent} from './cyptolanding.component';
+import { CyptolandingComponent } from './cyptolanding.component';
 
 describe('CyptolandingComponent', () => {
   let component: CyptolandingComponent;
@@ -8,8 +8,9 @@ describe('CyptolandingComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CyptolandingComponent],
-    }).compileComponents();
+      declarations: [ CyptolandingComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {

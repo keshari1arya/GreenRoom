@@ -5,8 +5,18 @@
 >
   <div class="container">
     <a class="navbar-logo" routerLink="/">
-      <img src="assets/images/logo-dark.png" alt="" height="19" class="logo logo-dark" />
-      <img src="assets/images/logo-light.png" alt="" height="19" class="logo logo-light" />
+      <img
+        src="assets/images/logo-dark.png"
+        alt=""
+        height="19"
+        class="logo logo-dark"
+      />
+      <img
+        src="assets/images/logo-light.png"
+        alt=""
+        height="19"
+        class="logo logo-light"
+      />
     </a>
 
     <button
@@ -26,7 +36,7 @@
             class="nav-link"
             href="javascript: void(0);"
             [ngxScrollTo]="'home'"
-            [ngClass]="{'active': currentSection === 'home'}"
+            [ngClass]="{ active: currentSection === 'home' }"
             >Home</a
           >
         </li>
@@ -35,7 +45,7 @@
             class="nav-link"
             href="javascript: void(0);"
             [ngxScrollTo]="'about'"
-            [ngClass]="{'active': currentSection === 'about'}"
+            [ngClass]="{ active: currentSection === 'about' }"
             >About</a
           >
         </li>
@@ -45,7 +55,7 @@
             href="javascript: void(0);"
             [ngxScrollTo]="'features'"
             [ngxScrollToOffset]="5"
-            [ngClass]="{'active': currentSection === 'features'}"
+            [ngClass]="{ active: currentSection === 'features' }"
             >Features</a
           >
         </li>
@@ -55,7 +65,7 @@
             href="javascript: void(0);"
             [ngxScrollTo]="'roadmap'"
             [ngxScrollToOffset]="5"
-            [ngClass]="{'active': currentSection === 'roadmap'}"
+            [ngClass]="{ active: currentSection === 'roadmap' }"
             >Roadmap</a
           >
         </li>
@@ -65,7 +75,7 @@
             href="javascript: void(0);"
             [ngxScrollTo]="'team'"
             [ngxScrollToOffset]="5"
-            [ngClass]="{'active': currentSection === 'team'}"
+            [ngClass]="{ active: currentSection === 'team' }"
             >Team</a
           >
         </li>
@@ -75,7 +85,7 @@
             href="javascript: void(0);"
             [ngxScrollTo]="'news'"
             [ngxScrollToOffset]="5"
-            [ngClass]="{'active': currentSection === 'news'}"
+            [ngClass]="{ active: currentSection === 'news' }"
             >News</a
           >
         </li>
@@ -84,20 +94,26 @@
             class="nav-link"
             href="javascript: void(0);"
             [ngxScrollTo]="'faqs'"
-            [ngClass]="{'active': currentSection === 'faqs'}"
+            [ngClass]="{ active: currentSection === 'faqs' }"
             >FAQs</a
           >
         </li>
       </ul>
 
       <div class="my-2 ms-lg-2">
-        <a href="javascript: void(0);" class="btn btn-outline-success w-xs">Sign in</a>
+        <a href="javascript: void(0);" class="btn btn-outline-success w-xs"
+          >Sign in</a
+        >
       </div>
     </div>
   </div>
 </nav>
 
-<div appScrollspy [spiedTags]="['SECTION']" (sectionChange)="onSectionChange($event)">
+<div
+  appScrollspy
+  [spiedTags]="['SECTION']"
+  (sectionChange)="onSectionChange($event)"
+>
   <section class="section hero-section bg-ico-hero" id="home">
     <div class="bg-overlay bg-primary"></div>
     <div class="container">
@@ -105,16 +121,20 @@
         <div class="col-lg-5">
           <div class="text-white-50">
             <h1 class="text-white fw-semibold mb-3 hero-title">
-              Skote - Ico Landing for a cryptocurrency business
+              Greenroom - Ico Landing for a cryptocurrency business
             </h1>
             <p class="font-size-14">
-              It will be as simple as occidental in fact to an English person, it will seem like
-              simplified as a skeptical Cambridge
+              It will be as simple as occidental in fact to an English person,
+              it will seem like simplified as a skeptical Cambridge
             </p>
 
             <div class="button-items mt-4 d-flex gap-2">
-              <a href="javascript: void(0);" class="btn btn-success">Get Whitepaper</a>
-              <a href="javascript: void(0);" class="btn btn-light">How it work</a>
+              <a href="javascript: void(0);" class="btn btn-success"
+                >Get Whitepaper</a
+              >
+              <a href="javascript: void(0);" class="btn btn-light"
+                >How it work</a
+              >
             </div>
           </div>
         </div>
@@ -127,16 +147,25 @@
               <div class="text-center">
                 <h5>Time left to Ico :</h5>
                 <div class="mt-4">
-                  <div inputDate="December 31, 2022" class="counter-number ico-countdown">
+                  <div
+                    inputDate="December 31, 2022"
+                    class="counter-number ico-countdown"
+                  >
                     <div class="coming-box">{{ _days }}<span>Days</span></div>
                     <div class="coming-box">{{ _hours }}<span>Hours</span></div>
-                    <div class="coming-box">{{ _minutes }}<span>Minutes</span></div>
-                    <div class="coming-box">{{ _seconds }}<span>Seconds</span></div>
+                    <div class="coming-box">
+                      {{ _minutes }}<span>Minutes</span>
+                    </div>
+                    <div class="coming-box">
+                      {{ _seconds }}<span>Seconds</span>
+                    </div>
                   </div>
                 </div>
 
                 <div class="mt-4">
-                  <button type="button" class="btn btn-success w-md">Get Token</button>
+                  <button type="button" class="btn btn-success w-md">
+                    Get Token
+                  </button>
                 </div>
 
                 <div class="mt-5">
@@ -199,7 +228,8 @@
                     <p class="text-muted">Bitcoin</p>
                     <h5>$ 9134.39</h5>
                     <p class="text-muted text-truncate mb-0">
-                      + 0.0012.23 ( 0.2 % ) <i class="mdi mdi-arrow-up ms-1 text-success"></i>
+                      + 0.0012.23 ( 0.2 % )
+                      <i class="mdi mdi-arrow-up ms-1 text-success"></i>
                     </p>
                   </div>
                 </div>
@@ -223,7 +253,8 @@
                     <p class="text-muted">Ethereum</p>
                     <h5>$ 245.44</h5>
                     <p class="text-muted text-truncate mb-0">
-                      - 004.12 ( 0.1 % ) <i class="mdi mdi-arrow-down ms-1 text-danger"></i>
+                      - 004.12 ( 0.1 % )
+                      <i class="mdi mdi-arrow-down ms-1 text-danger"></i>
                     </p>
                   </div>
                 </div>
@@ -247,7 +278,8 @@
                     <p class="text-muted">Litecoin</p>
                     <h5>$ 63.61</h5>
                     <p class="text-muted text-truncate mb-0">
-                      + 0.0001.12 ( 0.1 % ) <i class="mdi mdi-arrow-up ms-1 text-success"></i>
+                      + 0.0001.12 ( 0.1 % )
+                      <i class="mdi mdi-arrow-up ms-1 text-success"></i>
                     </p>
                   </div>
                 </div>
@@ -278,14 +310,21 @@
           <div class="text-muted">
             <h4>Best ICO for your cryptocurrency business</h4>
             <p>
-              If several languages coalesce, the grammar of the resulting that of the individual new
-              common language will be more simple and regular than the existing.
+              If several languages coalesce, the grammar of the resulting that
+              of the individual new common language will be more simple and
+              regular than the existing.
             </p>
-            <p class="mb-4">It would be necessary to have uniform pronunciation.</p>
+            <p class="mb-4">
+              It would be necessary to have uniform pronunciation.
+            </p>
 
             <div class="button-items d-flex gap-2">
-              <a href="javascript: void(0);" class="btn btn-success">Read More</a>
-              <a href="javascript: void(0);" class="btn btn-outline-primary">How It work</a>
+              <a href="javascript: void(0);" class="btn btn-success"
+                >Read More</a
+              >
+              <a href="javascript: void(0);" class="btn btn-outline-primary"
+                >How It work</a
+              >
             </div>
 
             <div class="row mt-4">
@@ -315,10 +354,16 @@
                       <i class="mdi mdi-bitcoin h2 text-success"></i>
                     </div>
                     <h5>Lending</h5>
-                    <p class="text-muted mb-0">At vero eos et accusamus et iusto blanditiis</p>
+                    <p class="text-muted mb-0">
+                      At vero eos et accusamus et iusto blanditiis
+                    </p>
                   </div>
-                  <div class="card-footer bg-transparent border-top text-center">
-                    <a href="javascript: void(0);" class="text-primary">Learn more</a>
+                  <div
+                    class="card-footer bg-transparent border-top text-center"
+                  >
+                    <a href="javascript: void(0);" class="text-primary"
+                      >Learn more</a
+                    >
                   </div>
                 </div>
               </div>
@@ -329,10 +374,16 @@
                       <i class="mdi mdi-wallet-outline h2 text-success"></i>
                     </div>
                     <h5>Wallet</h5>
-                    <p class="text-muted mb-0">Quis autem vel eum iure reprehenderit</p>
+                    <p class="text-muted mb-0">
+                      Quis autem vel eum iure reprehenderit
+                    </p>
                   </div>
-                  <div class="card-footer bg-transparent border-top text-center">
-                    <a href="javascript: void(0);" class="text-primary">Learn more</a>
+                  <div
+                    class="card-footer bg-transparent border-top text-center"
+                  >
+                    <a href="javascript: void(0);" class="text-primary"
+                      >Learn more</a
+                    >
                   </div>
                 </div>
               </div>
@@ -346,7 +397,11 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <ngx-slick-carousel dir="ltr" class="events navs-carousel" [config]="aboutConfig">
+          <ngx-slick-carousel
+            dir="ltr"
+            class="events navs-carousel"
+            [config]="aboutConfig"
+          >
             <div ngxSlickItem>
               <div class="item">
                 <div class="client-images">
@@ -452,14 +507,19 @@
               <h4 class="mb-0">Lending</h4>
             </div>
             <p class="text-muted">
-              If several languages coalesce, the grammar of the resulting language is more simple
-              and regular than of the individual will be more simple and regular than the existing.
+              If several languages coalesce, the grammar of the resulting
+              language is more simple and regular than of the individual will be
+              more simple and regular than the existing.
             </p>
             <div class="text-muted mt-4">
               <p class="mb-2">
-                <i class="mdi mdi-circle-medium text-success me-1"></i>Donec pede justo vel aliquet
+                <i class="mdi mdi-circle-medium text-success me-1"></i>Donec
+                pede justo vel aliquet
               </p>
-              <p><i class="mdi mdi-circle-medium text-success me-1"></i>Aenean et nisl sagittis</p>
+              <p>
+                <i class="mdi mdi-circle-medium text-success me-1"></i>Aenean et
+                nisl sagittis
+              </p>
             </div>
           </div>
         </div>
@@ -474,14 +534,19 @@
               <h4 class="mb-0">Wallet</h4>
             </div>
             <p class="text-muted">
-              It will be as simple as Occidental; in fact, it will be Occidental. To an English
-              person, it will seem like simplified English, as a skeptical Cambridge friend.
+              It will be as simple as Occidental; in fact, it will be
+              Occidental. To an English person, it will seem like simplified
+              English, as a skeptical Cambridge friend.
             </p>
             <div class="text-muted mt-4">
               <p class="mb-2">
-                <i class="mdi mdi-circle-medium text-success me-1"></i>Donec pede justo vel aliquet
+                <i class="mdi mdi-circle-medium text-success me-1"></i>Donec
+                pede justo vel aliquet
               </p>
-              <p><i class="mdi mdi-circle-medium text-success me-1"></i>Aenean et nisl sagittis</p>
+              <p>
+                <i class="mdi mdi-circle-medium text-success me-1"></i>Aenean et
+                nisl sagittis
+              </p>
             </div>
           </div>
         </div>
@@ -517,7 +582,11 @@
       <div class="row mt-4">
         <div class="col-lg-12">
           <div class="hori-timeline">
-            <ngx-slick-carousel dir="ltr" [config]="slideConfig" class="events navs-carousel">
+            <ngx-slick-carousel
+              dir="ltr"
+              [config]="slideConfig"
+              class="events navs-carousel"
+            >
               <div ngxSlickItem>
                 <div class="item event-list">
                   <div>
@@ -526,12 +595,15 @@
                       <h5 class="mb-4">ICO Platform Idea</h5>
                     </div>
                     <div class="event-down-icon">
-                      <i class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"></i>
+                      <i
+                        class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"
+                      ></i>
                     </div>
 
                     <div class="mt-3 px-3">
                       <p class="text-muted">
-                        It will be as simple as occidental in fact it will be Cambridge
+                        It will be as simple as occidental in fact it will be
+                        Cambridge
                       </p>
                     </div>
                   </div>
@@ -545,12 +617,15 @@
                       <h5 class="mb-4">Research on project</h5>
                     </div>
                     <div class="event-down-icon">
-                      <i class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"></i>
+                      <i
+                        class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"
+                      ></i>
                     </div>
 
                     <div class="mt-3 px-3">
                       <p class="text-muted">
-                        To an English person, it will seem like simplified English existence.
+                        To an English person, it will seem like simplified
+                        English existence.
                       </p>
                     </div>
                   </div>
@@ -564,12 +639,15 @@
                       <h5 class="mb-4">ICO & Token Design</h5>
                     </div>
                     <div class="event-down-icon">
-                      <i class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"></i>
+                      <i
+                        class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"
+                      ></i>
                     </div>
 
                     <div class="mt-3 px-3">
                       <p class="text-muted">
-                        For science, music, sport, etc, Europe uses the same vocabulary.
+                        For science, music, sport, etc, Europe uses the same
+                        vocabulary.
                       </p>
                     </div>
                   </div>
@@ -583,7 +661,9 @@
                       <h5 class="mb-4">ICO Launch Platform</h5>
                     </div>
                     <div class="event-down-icon">
-                      <i class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"></i>
+                      <i
+                        class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"
+                      ></i>
                     </div>
 
                     <div class="mt-3 px-3">
@@ -602,12 +682,15 @@
                       <h5 class="mb-4">Token sale round 1</h5>
                     </div>
                     <div class="event-down-icon">
-                      <i class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"></i>
+                      <i
+                        class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"
+                      ></i>
                     </div>
 
                     <div class="mt-3 px-3">
                       <p class="text-muted">
-                        It will be as simple as occidental in fact it will be Cambridge
+                        It will be as simple as occidental in fact it will be
+                        Cambridge
                       </p>
                     </div>
                   </div>
@@ -621,12 +704,15 @@
                       <h5 class="mb-4">Token sale round 2</h5>
                     </div>
                     <div class="event-down-icon">
-                      <i class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"></i>
+                      <i
+                        class="bx bx-down-arrow-circle h1 text-primary down-arrow-icon"
+                      ></i>
                     </div>
 
                     <div class="mt-3 px-3">
                       <p class="text-muted">
-                        To an English person, it will seem like simplified English existence.
+                        To an English person, it will seem like simplified
+                        English existence.
                       </p>
                     </div>
                   </div>
@@ -657,13 +743,21 @@
       <!-- end row -->
 
       <div class="col-lg-12">
-        <ngx-slick-carousel dir="ltr" [config]="config" class="events navs-carousel">
+        <ngx-slick-carousel
+          dir="ltr"
+          [config]="config"
+          class="events navs-carousel"
+        >
           <div ngxSlickItem style="width: 264px; margin-right: 24px">
             <div class="item">
               <div class="card text-center team-box">
                 <div class="card-body">
                   <div>
-                    <img src="assets/images/users/avatar-2.jpg" alt="" class="rounded" />
+                    <img
+                      src="assets/images/users/avatar-2.jpg"
+                      alt=""
+                      class="rounded"
+                    />
                   </div>
 
                   <div class="mt-3">
@@ -698,7 +792,11 @@
               <div class="card text-center team-box">
                 <div class="card-body">
                   <div>
-                    <img src="assets/images/users/avatar-3.jpg" alt="" class="rounded" />
+                    <img
+                      src="assets/images/users/avatar-3.jpg"
+                      alt=""
+                      class="rounded"
+                    />
                   </div>
 
                   <div class="mt-3">
@@ -733,7 +831,11 @@
               <div class="card text-center team-box">
                 <div class="card-body">
                   <div>
-                    <img src="assets/images/users/avatar-8.jpg" alt="" class="rounded" />
+                    <img
+                      src="assets/images/users/avatar-8.jpg"
+                      alt=""
+                      class="rounded"
+                    />
                   </div>
                   <div class="mt-3">
                     <h5>Vickie Sample</h5>
@@ -767,7 +869,11 @@
               <div class="card text-center team-box">
                 <div class="card-body">
                   <div>
-                    <img src="assets/images/users/avatar-5.jpg" alt="" class="rounded" />
+                    <img
+                      src="assets/images/users/avatar-5.jpg"
+                      alt=""
+                      class="rounded"
+                    />
                   </div>
 
                   <div class="mt-3">
@@ -802,7 +908,11 @@
               <div class="card text-center team-box">
                 <div class="card-body">
                   <div>
-                    <img src="assets/images/users/avatar-1.jpg" alt="" class="rounded w-100" />
+                    <img
+                      src="assets/images/users/avatar-1.jpg"
+                      alt=""
+                      class="rounded w-100"
+                    />
                   </div>
 
                   <div class="mt-3">
@@ -862,13 +972,20 @@
                 alt=""
                 class="rounded img-fluid mx-auto d-block w-100"
               />
-              <div class="badge bg-success blog-badge font-size-11">Cryptocurrency</div>
+              <div class="badge bg-success blog-badge font-size-11">
+                Cryptocurrency
+              </div>
             </div>
 
             <div class="mt-4 text-muted">
-              <p class="mb-2"><i class="bx bx-calendar me-1"></i> 04 Mar, 2020</p>
+              <p class="mb-2">
+                <i class="bx bx-calendar me-1"></i> 04 Mar, 2020
+              </p>
               <h5 class="mb-3">Donec pede justo, fringilla vele</h5>
-              <p>If several languages coalesce, the grammar of the resulting language</p>
+              <p>
+                If several languages coalesce, the grammar of the resulting
+                language
+              </p>
 
               <div>
                 <a href="javascript: void(0);">Read more</a>
@@ -885,13 +1002,19 @@
                 alt=""
                 class="rounded img-fluid mx-auto d-block w-100"
               />
-              <div class="badge bg-success blog-badge font-size-11">Cryptocurrency</div>
+              <div class="badge bg-success blog-badge font-size-11">
+                Cryptocurrency
+              </div>
             </div>
 
             <div class="mt-4 text-muted">
-              <p class="mb-2"><i class="bx bx-calendar me-1"></i> 12 Feb, 2020</p>
+              <p class="mb-2">
+                <i class="bx bx-calendar me-1"></i> 12 Feb, 2020
+              </p>
               <h5 class="mb-3">Aenean ut eros et nisl</h5>
-              <p>Everyone realizes why a new common language would be desirable</p>
+              <p>
+                Everyone realizes why a new common language would be desirable
+              </p>
 
               <div>
                 <a href="javascript: void(0);">Read more</a>
@@ -908,14 +1031,19 @@
                 alt=""
                 class="rounded img-fluid mx-auto d-block w-100"
               />
-              <div class="badge bg-success blog-badge font-size-11">Cryptocurrency</div>
+              <div class="badge bg-success blog-badge font-size-11">
+                Cryptocurrency
+              </div>
             </div>
 
             <div class="mt-4 text-muted">
-              <p class="mb-2"><i class="bx bx-calendar me-1"></i> 06 Jan, 2020</p>
+              <p class="mb-2">
+                <i class="bx bx-calendar me-1"></i> 06 Jan, 2020
+              </p>
               <h5 class="mb-3">In turpis, pellentesque posuere</h5>
               <p>
-                To an English person, it will seem like simplified English, as a skeptical Cambridge
+                To an English person, it will seem like simplified English, as a
+                skeptical Cambridge
               </p>
 
               <div>
@@ -948,7 +1076,10 @@
           <div class="vertical-nav">
             <div class="row">
               <div class="col-lg-12">
-                <tabset [justified]="true" class="nav-pills custom-vertical-tabs">
+                <tabset
+                  [justified]="true"
+                  class="nav-pills custom-vertical-tabs"
+                >
                   <tab class="px-4">
                     <ng-template tabHeading class="accordion-list collapsed">
                       <i class="bx bx-help-circle nav-icon d-block mb-2"></i>
@@ -957,7 +1088,10 @@
                     <div class="card">
                       <div class="card-body">
                         <h4 class="card-title mb-4">General Questions</h4>
-                        <accordion [closeOthers]="true" class="custom-accordion">
+                        <accordion
+                          [closeOthers]="true"
+                          class="custom-accordion"
+                        >
                           <accordion-group
                             heading="What is Lorem Ipsum ?"
                             #faq
@@ -975,10 +1109,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                Everyone realizes why a new common language would be desirable: one
-                                could refuse to pay expensive translators. To achieve this, it would
-                                be necessary to have uniform grammar, pronunciation and more common
-                                words.
+                                Everyone realizes why a new common language
+                                would be desirable: one could refuse to pay
+                                expensive translators. To achieve this, it would
+                                be necessary to have uniform grammar,
+                                pronunciation and more common words.
                               </p>
                             </div>
                           </accordion-group>
@@ -999,10 +1134,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                If several languages coalesce, the grammar of the resulting language
-                                is more simple and regular than that of the individual languages.
-                                The new common language will be more simple and regular than the
-                                existing European languages.
+                                If several languages coalesce, the grammar of
+                                the resulting language is more simple and
+                                regular than that of the individual languages.
+                                The new common language will be more simple and
+                                regular than the existing European languages.
                               </p>
                             </div>
                           </accordion-group>
@@ -1023,9 +1159,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                It will be as simple as Occidental; in fact, it will be Occidental.
-                                To an English person, it will seem like simplified English, as a
-                                skeptical Cambridge friend of mine told me what Occidental.
+                                It will be as simple as Occidental; in fact, it
+                                will be Occidental. To an English person, it
+                                will seem like simplified English, as a
+                                skeptical Cambridge friend of mine told me what
+                                Occidental.
                               </p>
                             </div>
                           </accordion-group>
@@ -1046,10 +1184,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                To an English person, it will seem like simplified English, as a
-                                skeptical Cambridge friend of mine told me what Occidental is. The
-                                European languages are members of the same family. Their separate
-                                existence is a myth.
+                                To an English person, it will seem like
+                                simplified English, as a skeptical Cambridge
+                                friend of mine told me what Occidental is. The
+                                European languages are members of the same
+                                family. Their separate existence is a myth.
                               </p>
                             </div>
                           </accordion-group>
@@ -1088,10 +1227,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                If several languages coalesce, the grammar of the resulting language
-                                is more simple and regular than that of the individual languages.
-                                The new common language will be more simple and regular than the
-                                existing European languages.
+                                If several languages coalesce, the grammar of
+                                the resulting language is more simple and
+                                regular than that of the individual languages.
+                                The new common language will be more simple and
+                                regular than the existing European languages.
                               </p>
                             </div>
                           </accordion-group>
@@ -1112,10 +1252,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                Everyone realizes why a new common language would be desirable: one
-                                could refuse to pay expensive translators. To achieve this, it would
-                                be necessary to have uniform grammar, pronunciation and more common
-                                words.
+                                Everyone realizes why a new common language
+                                would be desirable: one could refuse to pay
+                                expensive translators. To achieve this, it would
+                                be necessary to have uniform grammar,
+                                pronunciation and more common words.
                               </p>
                             </div>
                           </accordion-group>
@@ -1137,10 +1278,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                To an English person, it will seem like simplified English, as a
-                                skeptical Cambridge friend of mine told me what Occidental is. The
-                                European languages are members of the same family. Their separate
-                                existence is a myth.
+                                To an English person, it will seem like
+                                simplified English, as a skeptical Cambridge
+                                friend of mine told me what Occidental is. The
+                                European languages are members of the same
+                                family. Their separate existence is a myth.
                               </p>
                             </div>
                           </accordion-group>
@@ -1161,9 +1303,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                It will be as simple as Occidental; in fact, it will be Occidental.
-                                To an English person, it will seem like simplified English, as a
-                                skeptical Cambridge friend of mine told me what Occidental.
+                                It will be as simple as Occidental; in fact, it
+                                will be Occidental. To an English person, it
+                                will seem like simplified English, as a
+                                skeptical Cambridge friend of mine told me what
+                                Occidental.
                               </p>
                             </div>
                           </accordion-group>
@@ -1202,10 +1346,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                To an English person, it will seem like simplified English, as a
-                                skeptical Cambridge friend of mine told me what Occidental is. The
-                                European languages are members of the same family. Their separate
-                                existence is a myth.
+                                To an English person, it will seem like
+                                simplified English, as a skeptical Cambridge
+                                friend of mine told me what Occidental is. The
+                                European languages are members of the same
+                                family. Their separate existence is a myth.
                               </p>
                             </div>
                           </accordion-group>
@@ -1227,10 +1372,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                Everyone realizes why a new common language would be desirable: one
-                                could refuse to pay expensive translators. To achieve this, it would
-                                be necessary to have uniform grammar, pronunciation and more common
-                                words.
+                                Everyone realizes why a new common language
+                                would be desirable: one could refuse to pay
+                                expensive translators. To achieve this, it would
+                                be necessary to have uniform grammar,
+                                pronunciation and more common words.
                               </p>
                             </div>
                           </accordion-group>
@@ -1252,10 +1398,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                If several languages coalesce, the grammar of the resulting language
-                                is more simple and regular than that of the individual languages.
-                                The new common language will be more simple and regular than the
-                                existing European languages.
+                                If several languages coalesce, the grammar of
+                                the resulting language is more simple and
+                                regular than that of the individual languages.
+                                The new common language will be more simple and
+                                regular than the existing European languages.
                               </p>
                             </div>
                           </accordion-group>
@@ -1277,9 +1424,11 @@
                             </span>
                             <div class="card-body p-0">
                               <p class="mb-0">
-                                It will be as simple as Occidental; in fact, it will be Occidental.
-                                To an English person, it will seem like simplified English, as a
-                                skeptical Cambridge friend of mine told me what Occidental.
+                                It will be as simple as Occidental; in fact, it
+                                will be Occidental. To an English person, it
+                                will seem like simplified English, as a
+                                skeptical Cambridge friend of mine told me what
+                                Occidental.
                               </p>
                             </div>
                           </accordion-group>
@@ -1346,14 +1495,22 @@
             <h5 class="mb-3 footer-list-title">Latest News</h5>
             <div class="blog-post">
               <a href="javascript: void(0);" class="post">
-                <div class="badge badge-soft-success font-size-11 mb-3">Cryptocurrency</div>
+                <div class="badge badge-soft-success font-size-11 mb-3">
+                  Cryptocurrency
+                </div>
                 <h5 class="post-title">Donec pede justo aliquet nec</h5>
-                <p class="mb-0"><i class="bx bx-calendar me-1"></i> 04 Mar, 2020</p>
+                <p class="mb-0">
+                  <i class="bx bx-calendar me-1"></i> 04 Mar, 2020
+                </p>
               </a>
               <a href="javascript: void(0);" class="post">
-                <div class="badge badge-soft-success font-size-11 mb-3">Cryptocurrency</div>
+                <div class="badge badge-soft-success font-size-11 mb-3">
+                  Cryptocurrency
+                </div>
                 <h5 class="post-title">In turpis, Pellentesque</h5>
-                <p class="mb-0"><i class="bx bx-calendar me-1"></i> 12 Mar, 2020</p>
+                <p class="mb-0">
+                  <i class="bx bx-calendar me-1"></i> 12 Mar, 2020
+                </p>
               </a>
             </div>
           </div>
@@ -1369,10 +1526,12 @@
             <img src="assets/images/logo-light.png" alt="" height="20" />
           </div>
 
-          <p class="mb-2">{{ year }} © Skote. Design & Develop by Themesbrand</p>
+          <p class="mb-2">
+            {{ year }} © Greenroom. Design & Develop by Themesbrand
+          </p>
           <p>
-            It will be as simple as occidental in fact, it will be to an english person, it will
-            seem like simplified English, as a skeptical
+            It will be as simple as occidental in fact, it will be to an english
+            person, it will seem like simplified English, as a skeptical
           </p>
         </div>
       </div>

@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {AuthenticationService} from '../../../core/services/auth.service';
-import {environment} from '../../../../environments/environment';
+import { AuthenticationService } from '../../../core/services/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-recoverpwd2',
   templateUrl: './recoverpwd2.component.html',
-  styleUrls: ['./recoverpwd2.component.scss'],
+  styleUrls: ['./recoverpwd2.component.scss']
 })
 export class Recoverpwd2Component implements OnInit {
+
   // set the currenr year
   year: number = new Date().getFullYear();
 
@@ -20,12 +21,7 @@ export class Recoverpwd2Component implements OnInit {
   success: any = '';
   loading: any = false;
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-  ) {}
+  constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.resetForm = this.formBuilder.group({
@@ -34,9 +30,7 @@ export class Recoverpwd2Component implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() {
-    return this.resetForm.controls;
-  }
+  get f() { return this.resetForm.controls; }
 
   /**
    * On submit form
@@ -49,17 +43,26 @@ export class Recoverpwd2Component implements OnInit {
     if (this.resetForm.invalid) {
       return;
     }
-    if (environment.defaultauth === 'firebase') {
-      this.authenticationService.forgotPassword(this.f.email.value).catch((error) => {
-        this.error = error ? error : '';
-      });
-    }
+
+    // TODO: FIX THIS
+    this.authenticationService.forgotPassword(this.f.email.value).subscribe(
+      (data) => {
+        this.success = 'Password reset link sent to your email.';
+        this.error = '';
+        this.loading = false;
+      },
+      (error) => {
+        this.error = error;
+        this.success = '';
+        this.loading = false;
+      }
+    );
   }
   // swiper config
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    dots: true,
+    dots: true
   };
 }

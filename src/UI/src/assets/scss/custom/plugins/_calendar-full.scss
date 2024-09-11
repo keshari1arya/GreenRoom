@@ -2,10 +2,13 @@
   Calendar
 ===================*/
 
+
 .fc td,
 .fc th {
   border: $table-border-width solid $table-border-color;
 }
+
+
 
 .fc {
   .fc-toolbar {
@@ -16,6 +19,7 @@
     }
 
     @media (max-width: 767.98px) {
+
       .fc-left,
       .fc-right,
       .fc-center {
@@ -26,7 +30,7 @@
         margin: 10px 0;
       }
 
-      > * > * {
+      >*>* {
         float: none;
       }
 
@@ -38,6 +42,7 @@
     .btn {
       text-transform: capitalize;
     }
+
   }
 
   .fc-col-header-cell-cushion {
@@ -59,11 +64,13 @@
   padding: 6px 8px !important;
 }
 
+
 .fc-toolbar-chunk {
   .fc-button-group {
     .fc-button {
       background-color: var(--#{$prefix}primary);
       border-color: var(--#{$prefix}primary);
+      ;
       box-shadow: none;
 
       &:hover,
@@ -82,6 +89,7 @@
 }
 
 .fc {
+
   .fc-button-primary:not(:disabled).fc-button-active,
   .fc-button-primary:not(:disabled):active {
     background-color: var(--#{$prefix}primary) !important;
@@ -109,6 +117,7 @@
 }
 
 .fc-unthemed {
+
   .fc-content,
   .fc-divider,
   .fc-list-heading td,
@@ -184,20 +193,22 @@
   }
 }
 
+
 .fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end.bg-dark {
   .fc-content {
     color: $light;
   }
 }
 
+
 // RTL
-[dir='rtl'] {
+[dir="rtl"] {
   .fc-header-toolbar {
     direction: ltr !important;
   }
 
-  .fc-toolbar > * > :not(:first-child) {
-    margin-left: 0.75em;
+  .fc-toolbar>*>:not(:first-child) {
+    margin-left: .75em;
   }
 }
 
@@ -229,6 +240,6 @@
 }
 
 .fc-theme-standard .fc-popover {
-  background: var(--#{$prefix}secondary-bg);
-  border: 1px solid var(--#{$prefix}border-color);
+    background: var(--#{$prefix}secondary-bg);
+    border: 1px solid var(--#{$prefix}border-color);
 }

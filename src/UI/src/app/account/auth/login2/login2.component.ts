@@ -1,13 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import {login} from 'src/app/store/Authentication/authentication.actions';
-import {ActivatedRoute} from '@angular/router';
-import {Store} from '@ngrx/store';
+import { Component, OnInit } from "@angular/core";
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from "@angular/forms";
+import { AuthenticationService } from "../../../core/services/auth.service";
+import { login } from "src/app/store/Authentication/authentication.actions";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Store } from "@ngrx/store";
 
 @Component({
-  selector: 'app-login2',
-  templateUrl: './login2.component.html',
-  styleUrls: ['./login2.component.scss'],
+  selector: "app-login2",
+  templateUrl: "./login2.component.html",
+  styleUrls: ["./login2.component.scss"],
 })
 /**
  * Login-2 component
@@ -16,23 +21,28 @@ export class Login2Component implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
-    public store: Store,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    public store: Store
   ) {}
   loginForm: UntypedFormGroup;
   submitted: any = false;
-  error: any = '';
+  error: any = "";
   returnUrl: string;
 
   // set the currenr year
   year: number = new Date().getFullYear();
 
   ngOnInit(): void {
-    document.body.classList.add('auth-body-bg');
+    document.body.classList.add("auth-body-bg");
     this.loginForm = this.formBuilder.group({
-      email: ['administrator@localhost', [Validators.required, Validators.email]],
-      password: ['Administrator1!', [Validators.required]],
+      email: [
+        "administrator@localhost",
+        [Validators.required, Validators.email],
+      ],
+      password: ["Administrator1!", [Validators.required]],
     });
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
   }
 
   // swiper config
@@ -55,10 +65,10 @@ export class Login2Component implements OnInit {
     this.submitted = true;
     this.submitted = true;
 
-    const email = this.f['email'].value; // Get the username from the form
-    const password = this.f['password'].value; // Get the password from the form
+    const email = this.f["email"].value; // Get the username from the form
+    const password = this.f["password"].value; // Get the password from the form
 
     // Login Api
-    this.store.dispatch(login({email: email, password: password}));
+    this.store.dispatch(login({ email: email, password: password }));
   }
 }

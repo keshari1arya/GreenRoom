@@ -1,17 +1,19 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
-import {EventService} from '../core/services/event.service';
-import {RootReducerState} from '../store';
-import {Store} from '@ngrx/store';
-import {LayoutState} from '../store/layouts/layouts.reducer';
-import {Observable, map} from 'rxjs';
+import { EventService } from '../core/services/event.service';
+import { RootReducerState } from '../store';
+import { Store } from '@ngrx/store';
+import { LayoutState } from '../store/layouts/layouts.reducer';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+  styleUrls: ['./layout.component.scss']
 })
+
 export class LayoutComponent implements OnInit, AfterViewInit {
+
   // layout related config
   layoutType: string;
   layoutwidth: string;
@@ -21,12 +23,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   layoutData: LayoutState;
   dataLayout$: Observable<string>;
 
-  constructor(
-    private eventService: EventService,
-    private store: Store<{layout: {DATA_LAYOUT: string}}>,
-    private stores: Store<RootReducerState>,
-  ) {
-    this.dataLayout$ = store.select('layout').pipe(map((data) => data.DATA_LAYOUT));
+  constructor(private eventService: EventService, private store: Store<{ layout: { DATA_LAYOUT: string } }>, private stores: Store<RootReducerState>) {
+    this.dataLayout$ = store.select('layout').pipe(map(data => data.DATA_LAYOUT));
   }
 
   ngOnInit() {
@@ -38,7 +36,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       document.body.setAttribute('data-topbar', data.TOPBAR_TYPE);
 
       switch (data.SIDEBAR_MODE) {
-        case 'light':
+        case "light":
           document.body.setAttribute('data-sidebar', 'light');
           document.body.setAttribute('data-topbar', 'dark');
           document.body.removeAttribute('data-sidebar-size');
@@ -47,7 +45,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           document.body.classList.remove('vertical-collpsed');
           document.body.removeAttribute('data-layout-scrollable');
           break;
-        case 'compact':
+        case "compact":
           document.body.setAttribute('data-sidebar-size', 'small');
           document.body.setAttribute('data-sidebar', 'dark');
           document.body.removeAttribute('data-topbar');
@@ -57,7 +55,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           document.body.classList.remove('vertical-collpsed');
           document.body.removeAttribute('data-layout-scrollable');
           break;
-        case 'dark':
+        case "dark":
           document.body.setAttribute('data-sidebar', 'dark');
           document.body.removeAttribute('data-topbar');
           document.body.removeAttribute('data-layout-size');
@@ -67,15 +65,15 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           document.body.classList.remove('vertical-collpsed');
           document.body.removeAttribute('data-layout-scrollable');
           break;
-        case 'icon':
+        case "icon":
           document.body.classList.add('vertical-collpsed');
           document.body.setAttribute('data-sidebar', 'dark');
           document.body.removeAttribute('data-layout-size');
-          document.body.setAttribute('data-keep-enlarged', 'true');
+          document.body.setAttribute('data-keep-enlarged', "true");
           document.body.removeAttribute('data-topbar');
           document.body.removeAttribute('data-layout-scrollable');
           break;
-        case 'colored':
+        case "colored":
           document.body.classList.remove('sidebar-enable');
           document.body.classList.remove('vertical-collpsed');
           document.body.setAttribute('data-sidebar', 'colored');
@@ -90,35 +88,38 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           break;
       }
       switch (data.LAYOUT_WIDTH) {
-        case 'fluid':
-          document.body.setAttribute('data-layout-size', 'fluid');
-          document.body.classList.remove('vertical-collpsed');
-          document.body.removeAttribute('data-layout-scrollable');
+        case "fluid":
+          document.body.setAttribute("data-layout-size", "fluid");
+          document.body.classList.remove("vertical-collpsed");
+          document.body.removeAttribute("data-layout-scrollable");
           break;
-        case 'boxed':
-          document.body.setAttribute('data-layout-size', 'boxed');
-          document.body.classList.add('vertical-collpsed');
-          document.body.removeAttribute('data-layout-scrollable');
+        case "boxed":
+          document.body.setAttribute("data-layout-size", "boxed");
+          document.body.classList.add("vertical-collpsed");
+          document.body.removeAttribute("data-layout-scrollable");
           break;
-        case 'scrollable':
-          document.body.removeAttribute('data-layout-size');
-          document.body.setAttribute('data-layout-scrollable', 'true');
-          document.body.setAttribute('data-layout-size', 'fluid');
-          document.body.classList.remove('right-bar-enabled', 'vertical-collpsed');
+        case "scrollable":
+          document.body.removeAttribute("data-layout-size");
+          document.body.setAttribute("data-layout-scrollable", "true");
+          document.body.setAttribute("data-layout-size", "fluid");
+          document.body.classList.remove("right-bar-enabled", "vertical-collpsed");
         default:
-          document.body.setAttribute('data-layout-size', 'fluid');
+          document.body.setAttribute("data-layout-size", "fluid");
           break;
       }
-    });
+
+    })
   }
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+  }
 
   /**
    * Check if the vertical layout is requested
    */
   isVerticalLayoutRequested() {
-    this.dataLayout$.subscribe((dataLayout) => {
+    this.dataLayout$.subscribe(dataLayout => {
       document.body.setAttribute('data-layout', dataLayout);
     });
   }
+
 }

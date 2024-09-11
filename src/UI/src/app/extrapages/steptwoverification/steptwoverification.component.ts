@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-steptwoverification',
   templateUrl: './steptwoverification.component.html',
-  styleUrls: ['./steptwoverification.component.scss'],
+  styleUrls: ['./steptwoverification.component.scss']
 })
 export class SteptwoverificationComponent implements OnInit {
-  constructor() {}
+
+  constructor() { }
   config: any = {
     allowNumbersOnly: true,
     length: 4,
@@ -15,11 +16,11 @@ export class SteptwoverificationComponent implements OnInit {
     placeholder: '',
     inputStyles: {
       'width': '80px',
-      'height': '50px',
-    },
+      'height': '50px'
+    }
   };
   ngOnInit(): void {
-    document.body.classList.remove('auth-body-bg');
+    document.body.classList.remove('auth-body-bg')
   }
   // set the currenr year
   year: number = new Date().getFullYear();

@@ -4,9 +4,10 @@
 
 .bootstrap-touchspin {
   &.input-group {
-    & > .input-group-prepend {
-      & > .btn,
-      & > .input-group-text {
+    &>.input-group-prepend {
+
+      &>.btn,
+      &>.input-group-text {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
@@ -14,9 +15,10 @@
   }
 
   &.input-group {
-    & > .input-group-append {
-      & > .btn,
-      & > .input-group-text {
+    &>.input-group-append {
+
+      &>.btn,
+      &>.input-group-text {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }

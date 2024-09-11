@@ -1,15 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import {AuthenticationService} from '../../../core/services/auth.service';
+import { Component, OnInit } from "@angular/core";
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from "@angular/forms";
+import { AuthenticationService } from "../../../core/services/auth.service";
 
-import {Store} from '@ngrx/store';
-import {ActivatedRoute, Router} from '@angular/router';
-import {login} from 'src/app/store/Authentication/authentication.actions';
+import { Store } from "@ngrx/store";
+import { ActivatedRoute, Router } from "@angular/router";
+import { login } from "src/app/store/Authentication/authentication.actions";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 
 /**
@@ -18,7 +22,7 @@ import {login} from 'src/app/store/Authentication/authentication.actions';
 export class LoginComponent implements OnInit {
   loginForm: UntypedFormGroup;
   submitted: any = false;
-  error: any = '';
+  error: any = "";
   returnUrl: string;
   fieldTextType!: boolean;
 
@@ -31,17 +35,20 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private store: Store,
+    private store: Store
   ) {}
 
   ngOnInit() {
-    if (this.authenticationService.token()) {
-      this.router.navigate(['/']);
+    if (localStorage.getItem("currentUser")) {
+      this.router.navigate(["/"]);
     }
     // form validation
     this.loginForm = this.formBuilder.group({
-      email: ['administrator@localhost', [Validators.required, Validators.email]],
-      password: ['Administrator1!', [Validators.required]],
+      email: [
+        "administrator@localhost",
+        [Validators.required, Validators.email],
+      ],
+      password: ["Administrator1!", [Validators.required]],
     });
   }
 
@@ -56,11 +63,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    const email = this.f['email'].value; // Get the username from the form
-    const password = this.f['password'].value; // Get the password from the form
+    const email = this.f["email"].value; // Get the username from the form
+    const password = this.f["password"].value; // Get the password from the form
 
     // Login Api
-    this.store.dispatch(login({email: email, password: password}));
+    this.store.dispatch(login({ email: email, password: password }));
   }
 
   /**

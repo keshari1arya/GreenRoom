@@ -12,6 +12,7 @@ div.dataTables_wrapper {
       text-align: center;
     }
 
+
     input {
       margin-left: 0.5em;
       margin-right: 0;
@@ -23,7 +24,7 @@ div.dataTables_wrapper {
 table {
   &.dataTable {
     border-collapse: collapse !important;
-    &.dtr-inline.collapsed > tbody > tr > td {
+    &.dtr-inline.collapsed>tbody>tr>td {
       position: relative;
 
       &.dtr-control {

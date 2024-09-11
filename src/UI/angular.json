@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "skote": {
+    "greenroom": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -39,7 +39,7 @@
               "polylabel",
               "@ckeditor/ckeditor5-build-classic"
             ],
-            "outputPath": "dist/skote",
+            "outputPath": "dist/greenroom",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -101,14 +101,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "skote:build"
+            "buildTarget": "greenroom:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "skote:build:production"
+              "buildTarget": "greenroom:build:production"
             },
             "development": {
-              "buildTarget": "skote:build:development",
+              "buildTarget": "greenroom:build:development",
               "proxyConfig": "proxy.conf.json"
             }
           },
@@ -117,7 +117,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "skote:build"
+            "buildTarget": "greenroom:build"
           }
         },
         "test": {
@@ -136,11 +136,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "skote:serve"
+            "devServerTarget": "greenroom:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "skote:serve:production"
+              "devServerTarget": "greenroom:serve:production"
             }
           }
         },
@@ -154,31 +154,36 @@
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "skote:serve",
+            "devServerTarget": "greenroom:serve",
             "watch": true,
             "headless": false,
             "testingType": "component"
           },
           "configurations": {
             "development": {
-              "devServerTarget": "skote:serve:development"
+              "devServerTarget": "greenroom:serve:development"
             }
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "skote:serve",
+            "devServerTarget": "greenroom:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "skote:serve:production"
+              "devServerTarget": "greenroom:serve:production"
             }
           }
         }
       }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
     }
   },
   "cli": {

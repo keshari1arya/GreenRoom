@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  defaultauth: 'api',
+  defaultauth: 'fakebackend',
   firebaseConfig: {
     apiKey: '',
     authDomain: '',
@@ -9,6 +9,6 @@ export const environment = {
     storageBucket: '',
     messagingSenderId: '',
     appId: '',
-    measurementId: '',
-  },
+    measurementId: ''
+  }
 };

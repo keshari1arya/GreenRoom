@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 
-import {getFirebaseBackend} from '../../authUtils';
 import {User} from 'src/app/store/Authentication/auth.models';
 import {catchError, from, map} from 'rxjs';
 import {UsersService} from 'src/app/lib/openapi-generated/services';
@@ -55,12 +54,12 @@ export class AuthenticationService {
     // return from(getFirebaseBackend().registerUser(user));
 
     return from(
-      getFirebaseBackend()
-        .registerUser(user)
-        .then((response: any) => {
-          const user = response;
-          return user;
-        }),
+      this.usersService.postApiUsersRegister({
+        body: {
+          email: user.email,
+          password: user.password,
+        },
+      }),
     );
   }
 
@@ -69,11 +68,11 @@ export class AuthenticationService {
    * @param email email
    */
   forgotPassword(email: string) {
-    return getFirebaseBackend()
-      .forgetPassword(email)
-      .then((response: any) => {
-        const message = response.data;
-        return message;
+    return this.usersService
+      .postApiUsersForgotPassword({
+        body: {
+          email,
+        },
       });
   }
 

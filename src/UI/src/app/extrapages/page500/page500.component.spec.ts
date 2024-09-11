@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {Page500Component} from './page500.component';
+import { Page500Component } from './page500.component';
 
 describe('Page500Component', () => {
   let component: Page500Component;
@@ -8,8 +8,9 @@ describe('Page500Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [Page500Component],
-    }).compileComponents();
+      declarations: [ Page500Component ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
