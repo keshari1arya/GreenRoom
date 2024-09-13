@@ -11,6 +11,7 @@ import {
   FolderDto,
   AssetDto,
   PathToRootDto,
+  TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
 
 @Component({
@@ -22,11 +23,13 @@ export class FileManagerViewComponent {
   @Input() folders: FolderDto[] = [];
   @Input() assets: AssetDto[] = [];
   @Input() pathToRoot: PathToRootDto[] = [];
+  @Input() trashedItems: TrashFolderAndFilesDto[] = [];
 
   @Output() setCurrentFolderIdEvent = new EventEmitter<number>();
   @Output() trashFolderEvent = new EventEmitter<number>();
   @Output() addFolderEvent = new EventEmitter<string>();
   @Output() fileUploadEvent = new EventEmitter<File>();
+  @Output() fetchTrashedItemsEvent = new EventEmitter();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -39,6 +42,11 @@ export class FileManagerViewComponent {
     folderName: [""],
   });
   currentFolderId: number | null = null;
+  componentVisibilityStatus = {
+    folders: true,
+    assets: true,
+    trashedItems: false,
+  };
 
   constructor(
     private modalService: BsModalService,
@@ -54,6 +62,8 @@ export class FileManagerViewComponent {
     // this.folders$ = this.store.select(selectFolders);
     // this.assets$ = this.store.select(selectAssets);
     // this.pathToRoot$ = this.store.select(selectPathToRoot);
+
+    this.showComponents(["folders", "assets"]);
 
     this.radialoptions = {
       series: [76],
@@ -122,6 +132,7 @@ export class FileManagerViewComponent {
 
   openFolder(folderId: number) {
     this.setCurrentFolderIdEvent.emit(folderId);
+    this.showComponents(["folders", "assets"]);
   }
 
   selectedFile: File | null = null;
@@ -134,5 +145,31 @@ export class FileManagerViewComponent {
       this.fileUploadEvent.emit(this.selectedFile);
       this.modalRef?.hide();
     }
+  }
+
+  onTrashedItemsClick() {
+    this.isCollapsed = true;
+    this.fetchTrashedItemsEvent.emit();
+    this.showComponents(["trashedItems"]);
+  }
+
+  showComponents(components: string[]) {
+    this.hideAllComponents();
+    components.forEach((component, index) => {
+      if (!Object.keys(this.componentVisibilityStatus).includes(component)) {
+        throw new Error("Invalid component name to show");
+      }
+      this.componentVisibilityStatus[component] = true;
+    });
+  }
+
+  // leftMenuClick(component: string) {
+  //   this.showComponents([component]);
+  // }
+
+  private hideAllComponents() {
+    Object.keys(this.componentVisibilityStatus).forEach((key) => {
+      this.componentVisibilityStatus[key] = false;
+    });
   }
 }

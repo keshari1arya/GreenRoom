@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, mergeMap, map} from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { catchError, mergeMap, map } from "rxjs/operators";
 import {
   addFolder,
   addFolderFail,
@@ -14,16 +14,22 @@ import {
   fetchRecentFilesData,
   fetchRecentFilesFail,
   fetchRecentFilesSuccess,
+  fetchTrashedItems,
+  fetchTrashedItemsFail,
+  fetchTrashedItemsSuccess,
   pathToRoot,
   pathToRootFail,
   pathToRootSuccess,
   trashFolder,
   trashFolderFail,
   trashFolderSuccess,
-} from './file-manager.actions';
-import {of} from 'rxjs';
-import {CrudService} from 'src/app/core/services/crud.service';
-import {AssetsService, FoldersService} from 'src/app/lib/openapi-generated/services';
+} from "./file-manager.actions";
+import { of } from "rxjs";
+import { CrudService } from "src/app/core/services/crud.service";
+import {
+  AssetsService,
+  FoldersService,
+} from "src/app/lib/openapi-generated/services";
 
 @Injectable()
 export class FileManagerEffects {
@@ -31,36 +37,36 @@ export class FileManagerEffects {
     this.actions$.pipe(
       ofType(fetchRecentFilesData),
       mergeMap(() =>
-        this.CrudService.fetchData('/app/recentFiles').pipe(
-          map((recentFiles) => fetchRecentFilesSuccess({recentFiles})),
-          catchError((error) => of(fetchRecentFilesFail({error}))),
-        ),
-      ),
-    ),
+        this.CrudService.fetchData("/app/recentFiles").pipe(
+          map((recentFiles) => fetchRecentFilesSuccess({ recentFiles })),
+          catchError((error) => of(fetchRecentFilesFail({ error })))
+        )
+      )
+    )
   );
 
   fetchFolders$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchFoldersByParentIdData),
       mergeMap((param) =>
-        this.folderService.getFolders({FolderId: param.parentId}).pipe(
-          map((folders) => fetchFoldersByParentIdSuccess({folders})),
-          catchError((error) => of(fetchFoldersByParentIdFail({error}))),
-        ),
-      ),
-    ),
+        this.folderService.getFolders({ FolderId: param.parentId }).pipe(
+          map((folders) => fetchFoldersByParentIdSuccess({ folders })),
+          catchError((error) => of(fetchFoldersByParentIdFail({ error })))
+        )
+      )
+    )
   );
 
   fetchAssets$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchAssetsByFolderIdData),
       mergeMap((param) =>
-        this.assetsService.getAssets({FolderId: param.folderId}).pipe(
-          map((assets) => fetchAssetsByFolderIdSuccess({assets})),
-          catchError((error) => of(fetchAssetsByFolderIdFail({error}))),
-        ),
-      ),
-    ),
+        this.assetsService.getAssets({ FolderId: param.folderId }).pipe(
+          map((assets) => fetchAssetsByFolderIdSuccess({ assets })),
+          catchError((error) => of(fetchAssetsByFolderIdFail({ error })))
+        )
+      )
+    )
   );
 
   createFolder$ = createEffect(() =>
@@ -69,53 +75,71 @@ export class FileManagerEffects {
       mergeMap((param) =>
         this.folderService.createFolder(param.folder).pipe(
           map((createdFolderId) => {
-            addFolderSuccess({folderId: createdFolderId});
-            return fetchFoldersByParentIdData({parentId: param.folder.body.parentFolderId});
+            addFolderSuccess({ folderId: createdFolderId });
+            return fetchFoldersByParentIdData({
+              parentId: param.folder.body.parentFolderId,
+            });
           }),
-          catchError((error) => of(addFolderFail({error}))),
-        ),
-      ),
-    ),
+          catchError((error) => of(addFolderFail({ error })))
+        )
+      )
+    )
   );
 
   deleteFolder$ = createEffect(() =>
     this.actions$.pipe(
       ofType(trashFolder),
       mergeMap((param) =>
-        this.folderService.trashFolder({body: {ids: [param.folderId]}}).pipe(
-          map(() => {
-            trashFolderSuccess();
-            return fetchFoldersByParentIdData({parentId: null});
-          }),
-          catchError((error) => of(trashFolderFail({error}))),
-        ),
-      ),
-    ),
+        this.folderService
+          .trashFolder({ body: { ids: [param.folderId] } })
+          .pipe(
+            map(() => {
+              trashFolderSuccess();
+              return fetchFoldersByParentIdData({ parentId: null });
+            }),
+            catchError((error) => of(trashFolderFail({ error })))
+          )
+      )
+    )
   );
 
   pathToRoot$ = createEffect(() =>
     this.actions$.pipe(
       ofType(pathToRoot),
       mergeMap((param) =>
-        this.folderService.getFolderPathToRoot({folderId: param.folderId}).pipe(
-          map((path) => {
-            return pathToRootSuccess({path});
-          }),
-          catchError((error) => {
-            console.log(error);
+        this.folderService
+          .getFolderPathToRoot({ folderId: param.folderId })
+          .pipe(
+            map((path) => {
+              return pathToRootSuccess({ path });
+            }),
+            catchError((error) => {
+              console.log(error);
 
-            pathToRootSuccess({path: []});
-            return of(pathToRootFail({error}));
-          }),
-        ),
-      ),
-    ),
+              pathToRootSuccess({ path: [] });
+              return of(pathToRootFail({ error }));
+            })
+          )
+      )
+    )
+  );
+
+  fetchTrashedItems$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchTrashedItems),
+      mergeMap(() =>
+        this.folderService.getTrashed().pipe(
+          map((trashedItems) => fetchTrashedItemsSuccess({ trashedItems })),
+          catchError((error) => of(fetchTrashedItemsFail({ error })))
+        )
+      )
+    )
   );
 
   constructor(
     private actions$: Actions,
     private CrudService: CrudService,
     private folderService: FoldersService,
-    private assetsService: AssetsService,
+    private assetsService: AssetsService
   ) {}
 }

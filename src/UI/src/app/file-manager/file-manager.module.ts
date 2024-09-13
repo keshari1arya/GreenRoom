@@ -22,6 +22,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { FileManagerEffects } from "./store/file-manager.effects";
 import { AssetListComponent } from "./asset-list/asset-list.component";
 import { FolderListComponent } from './folder-list/folder-list.component';
+import { TrashedItemsComponent } from './trashed-items/trashed-items.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FolderListComponent } from './folder-list/folder-list.component';
     FileManagerViewComponent,
     AssetListComponent,
     FolderListComponent,
+    TrashedItemsComponent,
   ],
   imports: [
     CommonModule,

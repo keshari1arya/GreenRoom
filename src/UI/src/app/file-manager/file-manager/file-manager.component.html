@@ -44,13 +44,13 @@
                     <div class="custom-accordion">
                       <a
                         class="text-body fw-medium py-1 d-flex align-items-center"
-                        (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         data-toggle="collapse"
                         href="javascript:void(0);"
                         role="button"
                         aria-expanded="false"
                         aria-controls="categories-collapse"
+                        (click)="openFolder(null)"
                       >
                         <i
                           class="mdi mdi-folder font-size-16 text-warning me-2"
@@ -58,6 +58,7 @@
                         Files
                         <i
                           class="mdi mdi-chevron-up accor-down-icon ms-auto"
+                          (click)="isCollapsed = !isCollapsed"
                         ></i>
                       </a>
                       <div
@@ -148,6 +149,7 @@
                   <li>
                     <a
                       href="javascript: void(0);"
+                      (click)="onTrashedItemsClick()"
                       class="text-body d-flex align-items-center"
                     >
                       <i
@@ -199,6 +201,7 @@
         <div class="w-100">
           <div class="card">
             <div class="card-body">
+              @if (componentVisibilityStatus.folders) {
               <div>
                 <div class="row mb-3">
                   <div class="col-xl-3 col-sm-6">
@@ -283,184 +286,222 @@
                 (openFolderEvent)="openFolder($event)"
                 (trashFolderEvent)="trashFolder($event)"
               ></app-folder-list>
-
+              } @if (componentVisibilityStatus.assets) {
               <div class="mt-4">
-                <div class="d-flex flex-wrap">
-                  <h5 class="font-size-16 me-3">Assets</h5>
-
-                  <div class="ms-auto">
-                    <a href="javascript: void(0);" class="fw-medium text-reset"
-                      >View All</a
-                    >
-                  </div>
-                </div>
-                <hr class="mt-2" />
-
                 <app-asset-list [assets]="assets"></app-asset-list>
               </div>
+              } @if (componentVisibilityStatus.trashedItems) {
+              <div class="mt-4">
+                <app-trashed-items
+                  [trashedItems]="trashedItems"
+                ></app-trashed-items>
+              </div>
+              }
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end w-100 -->
+        </div>
+      </div>
+
+      <div class="card filemanager-sidebar ms-lg-2">
+        <div class="card-body">
+          <div class="text-center">
+            <h5 class="font-size-15 mb-4">Storage</h5>
+            <!-- <div class="apex-charts" id="radial-chart"></div> -->
+            <apx-chart
+              dir="ltr"
+              class="apex-charts"
+              [chart]="radialoptions.chart"
+              [series]="radialoptions.series"
+              [labels]="radialoptions.labels"
+              [colors]="radialoptions.colors"
+              [grid]="radialoptions.grid"
+              [plotOptions]="radialoptions.plotOptions"
+              [stroke]="radialoptions.stroke"
+            >
+            </apx-chart>
+
+            <p class="text-muted mt-4">48.02 GB (76%) of 64 GB used</p>
+          </div>
+
+          <div class="mt-4">
+            <div class="card border shadow-none mb-2">
+              <a href="javascript: void(0);" class="text-body">
+                <div class="p-2">
+                  <div class="d-flex">
+                    <div class="avatar-xs align-self-center me-2">
+                      <div
+                        class="avatar-title rounded bg-transparent text-success font-size-20"
+                      >
+                        <i class="mdi mdi-image"></i>
+                      </div>
+                    </div>
+
+                    <div class="overflow-hidden me-auto">
+                      <h5 class="font-size-13 text-truncate mb-1">Images</h5>
+                      <p class="text-muted text-truncate mb-0">176 Files</p>
+                    </div>
+
+                    <div class="ms-2">
+                      <p class="text-muted">6 GB</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="card border shadow-none mb-2">
+              <a href="javascript: void(0);" class="text-body">
+                <div class="p-2">
+                  <div class="d-flex">
+                    <div class="avatar-xs align-self-center me-2">
+                      <div
+                        class="avatar-title rounded bg-transparent text-danger font-size-20"
+                      >
+                        <i class="mdi mdi-play-circle-outline"></i>
+                      </div>
+                    </div>
+
+                    <div class="overflow-hidden me-auto">
+                      <h5 class="font-size-13 text-truncate mb-1">Video</h5>
+                      <p class="text-muted text-truncate mb-0">45 Files</p>
+                    </div>
+
+                    <div class="ms-2">
+                      <p class="text-muted">4.1 GB</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="card border shadow-none mb-2">
+              <a href="javascript: void(0);" class="text-body">
+                <div class="p-2">
+                  <div class="d-flex">
+                    <div class="avatar-xs align-self-center me-2">
+                      <div
+                        class="avatar-title rounded bg-transparent text-info font-size-20"
+                      >
+                        <i class="mdi mdi-music"></i>
+                      </div>
+                    </div>
+
+                    <div class="overflow-hidden me-auto">
+                      <h5 class="font-size-13 text-truncate mb-1">Music</h5>
+                      <p class="text-muted text-truncate mb-0">21 Files</p>
+                    </div>
+
+                    <div class="ms-2">
+                      <p class="text-muted">3.2 GB</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="card border shadow-none mb-2">
+              <a href="javascript: void(0);" class="text-body">
+                <div class="p-2">
+                  <div class="d-flex">
+                    <div class="avatar-xs align-self-center me-2">
+                      <div
+                        class="avatar-title rounded bg-transparent text-primary font-size-20"
+                      >
+                        <i class="mdi mdi-file-document"></i>
+                      </div>
+                    </div>
+
+                    <div class="overflow-hidden me-auto">
+                      <h5 class="font-size-13 text-truncate mb-1">Document</h5>
+                      <p class="text-muted text-truncate mb-0">21 Files</p>
+                    </div>
+
+                    <div class="ms-2">
+                      <p class="text-muted">2 GB</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="card border shadow-none">
+              <a href="javascript: void(0);" class="text-body">
+                <div class="p-2">
+                  <div class="d-flex">
+                    <div class="avatar-xs align-self-center me-2">
+                      <div
+                        class="avatar-title rounded bg-transparent text-warning font-size-20"
+                      >
+                        <i class="mdi mdi-folder"></i>
+                      </div>
+                    </div>
+
+                    <div class="overflow-hidden me-auto">
+                      <h5 class="font-size-13 text-truncate mb-1">Others</h5>
+                      <p class="text-muted text-truncate mb-0">20 Files</p>
+                    </div>
+
+                    <div class="ms-2">
+                      <p class="text-muted">1.4 GB</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
-          <!-- end card -->
-        </div>
-        <!-- end w-100 -->
-      </div>
-    </div>
-
-    <div class="card filemanager-sidebar ms-lg-2">
-      <div class="card-body">
-        <div class="text-center">
-          <h5 class="font-size-15 mb-4">Storage</h5>
-          <!-- <div class="apex-charts" id="radial-chart"></div> -->
-          <apx-chart
-            dir="ltr"
-            class="apex-charts"
-            [chart]="radialoptions.chart"
-            [series]="radialoptions.series"
-            [labels]="radialoptions.labels"
-            [colors]="radialoptions.colors"
-            [grid]="radialoptions.grid"
-            [plotOptions]="radialoptions.plotOptions"
-            [stroke]="radialoptions.stroke"
-          >
-          </apx-chart>
-
-          <p class="text-muted mt-4">48.02 GB (76%) of 64 GB used</p>
-        </div>
-
-        <div class="mt-4">
-          <div class="card border shadow-none mb-2">
-            <a href="javascript: void(0);" class="text-body">
-              <div class="p-2">
-                <div class="d-flex">
-                  <div class="avatar-xs align-self-center me-2">
-                    <div
-                      class="avatar-title rounded bg-transparent text-success font-size-20"
-                    >
-                      <i class="mdi mdi-image"></i>
-                    </div>
-                  </div>
-
-                  <div class="overflow-hidden me-auto">
-                    <h5 class="font-size-13 text-truncate mb-1">Images</h5>
-                    <p class="text-muted text-truncate mb-0">176 Files</p>
-                  </div>
-
-                  <div class="ms-2">
-                    <p class="text-muted">6 GB</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="card border shadow-none mb-2">
-            <a href="javascript: void(0);" class="text-body">
-              <div class="p-2">
-                <div class="d-flex">
-                  <div class="avatar-xs align-self-center me-2">
-                    <div
-                      class="avatar-title rounded bg-transparent text-danger font-size-20"
-                    >
-                      <i class="mdi mdi-play-circle-outline"></i>
-                    </div>
-                  </div>
-
-                  <div class="overflow-hidden me-auto">
-                    <h5 class="font-size-13 text-truncate mb-1">Video</h5>
-                    <p class="text-muted text-truncate mb-0">45 Files</p>
-                  </div>
-
-                  <div class="ms-2">
-                    <p class="text-muted">4.1 GB</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="card border shadow-none mb-2">
-            <a href="javascript: void(0);" class="text-body">
-              <div class="p-2">
-                <div class="d-flex">
-                  <div class="avatar-xs align-self-center me-2">
-                    <div
-                      class="avatar-title rounded bg-transparent text-info font-size-20"
-                    >
-                      <i class="mdi mdi-music"></i>
-                    </div>
-                  </div>
-
-                  <div class="overflow-hidden me-auto">
-                    <h5 class="font-size-13 text-truncate mb-1">Music</h5>
-                    <p class="text-muted text-truncate mb-0">21 Files</p>
-                  </div>
-
-                  <div class="ms-2">
-                    <p class="text-muted">3.2 GB</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="card border shadow-none mb-2">
-            <a href="javascript: void(0);" class="text-body">
-              <div class="p-2">
-                <div class="d-flex">
-                  <div class="avatar-xs align-self-center me-2">
-                    <div
-                      class="avatar-title rounded bg-transparent text-primary font-size-20"
-                    >
-                      <i class="mdi mdi-file-document"></i>
-                    </div>
-                  </div>
-
-                  <div class="overflow-hidden me-auto">
-                    <h5 class="font-size-13 text-truncate mb-1">Document</h5>
-                    <p class="text-muted text-truncate mb-0">21 Files</p>
-                  </div>
-
-                  <div class="ms-2">
-                    <p class="text-muted">2 GB</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="card border shadow-none">
-            <a href="javascript: void(0);" class="text-body">
-              <div class="p-2">
-                <div class="d-flex">
-                  <div class="avatar-xs align-self-center me-2">
-                    <div
-                      class="avatar-title rounded bg-transparent text-warning font-size-20"
-                    >
-                      <i class="mdi mdi-folder"></i>
-                    </div>
-                  </div>
-
-                  <div class="overflow-hidden me-auto">
-                    <h5 class="font-size-13 text-truncate mb-1">Others</h5>
-                    <p class="text-muted text-truncate mb-0">20 Files</p>
-                  </div>
-
-                  <div class="ms-2">
-                    <p class="text-muted">1.4 GB</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
         </div>
       </div>
     </div>
+    <!-- end row -->
   </div>
-  <!-- end row -->
-</div>
 
-<ng-template #createFolderModal role="document" let-modal>
-  <form [formGroup]="createFolderForm" (ngSubmit)="onCreateFolderFormSubmit()">
+  <ng-template #createFolderModal role="document" let-modal>
+    <form
+      [formGroup]="createFolderForm"
+      (ngSubmit)="onCreateFolderFormSubmit()"
+    >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="modalRef?.hide()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="name" class="col-form-label">Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="folderName"
+            id="folderName"
+          />
+        </div>
+        <!-- <div class="mb-3">
+          <label for="message-text" class="col-form-label">Message:</label>
+          <textarea class="form-control" id="message-text"></textarea>
+        </div> -->
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="modalRef?.hide()"
+        >
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #fileUploadModal role="document" let-modal>
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">New message</h5>
       <button
@@ -473,18 +514,16 @@
     </div>
     <div class="modal-body">
       <div class="mb-3">
-        <label for="name" class="col-form-label">Name:</label>
+        <label class="form-label" for="customFile"
+          >Default file input example</label
+        >
         <input
-          type="text"
+          type="file"
           class="form-control"
-          formControlName="folderName"
-          id="folderName"
+          id="customFile"
+          (change)="onFileSelected($event)"
         />
       </div>
-      <!-- <div class="mb-3">
-          <label for="message-text" class="col-form-label">Message:</label>
-          <textarea class="form-control" id="message-text"></textarea>
-        </div> -->
     </div>
     <div class="modal-footer">
       <button
@@ -495,44 +534,7 @@
       >
         Close
       </button>
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button class="btn btn-primary" (click)="onUpload()">Upload</button>
     </div>
-  </form>
-</ng-template>
-
-<ng-template #fileUploadModal role="document" let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="modal"
-      aria-label="Close"
-      (click)="modalRef?.hide()"
-    ></button>
-  </div>
-  <div class="modal-body">
-    <div class="mb-3">
-      <label class="form-label" for="customFile"
-        >Default file input example</label
-      >
-      <input
-        type="file"
-        class="form-control"
-        id="customFile"
-        (change)="onFileSelected($event)"
-      />
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-secondary"
-      data-bs-dismiss="modal"
-      (click)="modalRef?.hide()"
-    >
-      Close
-    </button>
-    <button class="btn btn-primary" (click)="onUpload()">Upload</button>
-  </div>
-</ng-template>
+  </ng-template>
+</div>

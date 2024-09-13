@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { BsModalService } from "ngx-bootstrap/modal";
 import { FileManagementService } from "../service/file-management.service";
 import { FileManagerState } from "../store/file-manager.reducer";
 import { Observable, of } from "rxjs";
@@ -10,16 +8,19 @@ import {
   AssetDto,
   FolderDto,
   PathToRootDto,
+  TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
 import {
   selectFolders,
   selectAssets,
   selectPathToRoot,
+  selectTrashedItems,
 } from "../store/file-manager-selector";
 import {
   addFolder,
   fetchAssetsByFolderIdData,
   fetchFoldersByParentIdData,
+  fetchTrashedItems,
   pathToRoot,
   trashFolder,
 } from "../store/file-manager.actions";
@@ -33,19 +34,19 @@ export class FileManagerShellComponent implements OnInit {
   folders$: Observable<FolderDto[]> = of([]);
   assets$: Observable<AssetDto[]> = of([]);
   pathToRoot$: Observable<PathToRootDto[]> = of([]);
+  trashedItems$: Observable<TrashFolderAndFilesDto[]> = of([]);
 
   currentFolderId: number | null = null;
 
   constructor(
     private store: Store<FileManagerState>,
-    private modalService: BsModalService,
-    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private fileManagementService: FileManagementService
   ) {
     this.folders$ = this.store.select(selectFolders);
     this.assets$ = this.store.select(selectAssets);
     this.pathToRoot$ = this.store.select(selectPathToRoot);
+    this.trashedItems$ = this.store.select(selectTrashedItems);
   }
 
   ngOnInit(): void {
@@ -101,5 +102,9 @@ export class FileManagerShellComponent implements OnInit {
     if (this.currentFolderId) {
       this.store.dispatch(pathToRoot({ folderId: this.currentFolderId }));
     }
+  }
+
+  fetchTrashedItems(): void {
+    this.store.dispatch(fetchTrashedItems());
   }
 }

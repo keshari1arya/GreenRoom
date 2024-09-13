@@ -1,5 +1,6 @@
 
 using GreenRoom.Application.Folders.Commands.CreateFolder;
+using GreenRoom.Application.Folders.Commands.GetTrashed;
 using GreenRoom.Application.Folders.Commands.MoveFolders;
 using GreenRoom.Application.Folders.Commands.RenameFolder;
 using GreenRoom.Application.Folders.Commands.RestoreFolders;
@@ -22,7 +23,8 @@ public class Folders : EndpointGroupBase
             .MapPut(TrashFolder, "Trash")
             .MapPut(RestoreFolder, "Restore")
             .MapPut(RenameFolder, "Rename")
-            .MapGet(GetFolderPathToRoot, "PathToRoot/{folderId}");
+            .MapGet(GetFolderPathToRoot, "PathToRoot/{folderId}")
+            .MapGet(GetTrashed, "Trashed");
     }
 
     private Task<IEnumerable<FolderDto>> GetFolders(ISender sender, [AsParameters] GetFoldersQuery query)
@@ -57,5 +59,10 @@ public class Folders : EndpointGroupBase
     private Task<IEnumerable<PathToRootDto>> GetFolderPathToRoot(ISender sender, [FromRoute] int? folderId)
     {
         return sender.Send(new GetFolderPathToRootQuery(folderId));
+    }
+
+    private Task<TrashFolderAndFilesDto[]> GetTrashed(ISender sender)
+    {
+        return sender.Send(new GetTrashedCommand());
     }
 }

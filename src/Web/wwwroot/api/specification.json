@@ -409,6 +409,34 @@
         ]
       }
     },
+    "/api/Folders/Trashed": {
+      "get": {
+        "tags": [
+          "Folders"
+        ],
+        "operationId": "GetTrashed",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TrashFolderAndFilesDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/StorageManagements/GeneratePresignedUrl": {
       "post": {
         "tags": [
@@ -1444,6 +1472,31 @@
           "folderName": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "TrashFolderAndFilesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "isFolder": {
+            "type": "boolean"
+          },
+          "trashedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "trashedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "sizeInKB": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

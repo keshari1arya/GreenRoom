@@ -2,9 +2,11 @@
   [folders]="folders$ | async"
   [assets]="assets$ | async"
   [pathToRoot]="pathToRoot$ | async"
+  [trashedItems]="trashedItems$ | async"
   (setCurrentFolderIdEvent)="setCurrentFolderId($event)"
   (addFolderEvent)="addFolder($event)"
   (trashFolderEvent)="trashFolder($event)"
   (fileUploadEvent)="fileUpload($event)"
+  (fetchTrashedItemsEvent)="fetchTrashedItems()"
 >
 </app-file-manager>
