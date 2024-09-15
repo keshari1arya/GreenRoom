@@ -1,21 +1,18 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import {
   addFolder,
-  addFolderFail,
   addFolderSuccess,
   fetchAssetsByFolderIdData,
-  fetchAssetsByFolderIdFail,
   fetchAssetsByFolderIdSuccess,
   fetchFoldersByParentIdData,
-  fetchFoldersByParentIdFail,
   fetchFoldersByParentIdSuccess,
   fetchRecentFilesData,
-  fetchRecentFilesFail,
   fetchRecentFilesSuccess,
-  fetchTrashedItems,
   fetchTrashedItemsSuccess,
   pathToRoot,
   pathToRootSuccess,
+  restoreFolderSuccess,
+  setError,
 } from "./file-manager.actions";
 import {
   AssetDto,
@@ -29,14 +26,12 @@ export interface FileManagerState {
   error: any;
   folders: FolderDto[];
   assets: AssetDto[];
-  recentFiles: any[];
   pathToRoot: PathToRootDto[];
   trashedItems: TrashFolderAndFilesDto[];
 }
 
 export const initialState: FileManagerState = {
   folders: [],
-  recentFiles: [],
   loading: false,
   error: null,
   assets: [],
@@ -46,13 +41,7 @@ export const initialState: FileManagerState = {
 
 export const FileManagerReducer = createReducer(
   initialState,
-  on(fetchRecentFilesData, (state) => {
-    return { ...state, loading: true, error: null };
-  }),
-  on(fetchRecentFilesSuccess, (state, { recentFiles }) => {
-    return { ...state, recentFiles, loading: false };
-  }),
-  on(fetchRecentFilesFail, (state, { error }) => {
+  on(setError, (state, { error }) => {
     return { ...state, error, loading: false };
   }),
   on(fetchFoldersByParentIdData, (state, param) => {
@@ -66,26 +55,17 @@ export const FileManagerReducer = createReducer(
   on(fetchFoldersByParentIdSuccess, (state, { folders }) => {
     return { ...state, folders, loading: false };
   }),
-  on(fetchFoldersByParentIdFail, (state, { error }) => {
-    return { ...state, error, loading: false };
-  }),
   on(fetchAssetsByFolderIdData, (state) => {
     return { ...state, loading: true, error: null };
   }),
   on(fetchAssetsByFolderIdSuccess, (state, { assets }) => {
     return { ...state, assets, loading: false };
   }),
-  on(fetchAssetsByFolderIdFail, (state, { error }) => {
-    return { ...state, error, loading: false };
-  }),
   on(addFolder, (state) => {
     return { ...state, loading: true, error: null };
   }),
   on(addFolderSuccess, (state) => {
     return { ...state, loading: false };
-  }),
-  on(addFolderFail, (state, { error }) => {
-    return { ...state, error, loading: false };
   }),
   on(pathToRoot, (state) => {
     return { ...state, loading: true, error: null };
@@ -98,6 +78,9 @@ export const FileManagerReducer = createReducer(
   }),
   on(fetchRecentFilesSuccess, (state, { recentFiles }) => {
     return { ...state, recentFiles, loading: false };
+  }),
+  on(restoreFolderSuccess, (state) => {
+    return { ...state, loading: false };
   })
 );
 

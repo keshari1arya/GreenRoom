@@ -4,11 +4,6 @@ import { FileManagerState } from "./file-manager.reducer";
 export const selectFileManagerState =
   createFeatureSelector<FileManagerState>("fileManager");
 
-export const selectData = createSelector(
-  selectFileManagerState,
-  (state: FileManagerState) => state.recentFiles
-);
-
 export const selectDataLoading = createSelector(
   selectFileManagerState,
   (state: FileManagerState) => state.loading

@@ -5,7 +5,8 @@
   [trashedItems]="trashedItems$ | async"
   (setCurrentFolderIdEvent)="setCurrentFolderId($event)"
   (addFolderEvent)="addFolder($event)"
-  (trashFolderEvent)="trashFolder($event)"
+  (trashFoldersEvent)="trashFolders($event)"
+  (restoreFoldersEvent)="restoreFolders($event)"
   (fileUploadEvent)="fileUpload($event)"
   (fetchTrashedItemsEvent)="fetchTrashedItems()"
 >

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TrashFolderAndFilesDto } from "src/app/lib/openapi-generated/models";
 import { Utility } from "../shared/classes/utility";
 
@@ -10,6 +10,11 @@ import { Utility } from "../shared/classes/utility";
 })
 export class TrashedItemsComponent {
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
+  @Output() restoreFoldersEvent = new EventEmitter<number[]>();
 
   constructor(public utility: Utility) {}
+
+  restoreFolders(folderId: number): void {
+    this.restoreFoldersEvent.emit([folderId]);
+  }
 }

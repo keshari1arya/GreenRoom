@@ -26,7 +26,8 @@ export class FileManagerViewComponent {
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
 
   @Output() setCurrentFolderIdEvent = new EventEmitter<number>();
-  @Output() trashFolderEvent = new EventEmitter<number>();
+  @Output() trashFoldersEvent = new EventEmitter<number[]>();
+  @Output() restoreFoldersEvent = new EventEmitter<number[]>();
   @Output() addFolderEvent = new EventEmitter<string>();
   @Output() fileUploadEvent = new EventEmitter<File>();
   @Output() fetchTrashedItemsEvent = new EventEmitter();
@@ -127,7 +128,7 @@ export class FileManagerViewComponent {
   }
 
   trashFolder(folderId: number) {
-    this.trashFolderEvent.emit(folderId);
+    this.trashFoldersEvent.emit([folderId]);
   }
 
   openFolder(folderId: number) {
@@ -163,9 +164,9 @@ export class FileManagerViewComponent {
     });
   }
 
-  // leftMenuClick(component: string) {
-  //   this.showComponents([component]);
-  // }
+  restoreFolders(folderIds: number[]) {
+    this.restoreFoldersEvent.emit(folderIds);
+  }
 
   private hideAllComponents() {
     Object.keys(this.componentVisibilityStatus).forEach((key) => {

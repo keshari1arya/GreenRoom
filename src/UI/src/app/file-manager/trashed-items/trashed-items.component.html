@@ -58,6 +58,14 @@
                     >{{ item }}</a
                   >
                   } -->
+              @if(item.isFolder) {
+              <a
+                class="dropdown-item"
+                href="javascript: void(0);"
+                (click)="restoreFolders(item.id)"
+                >Restore</a
+              >
+              }
             </div>
           </div>
         </td>

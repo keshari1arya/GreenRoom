@@ -22,6 +22,7 @@ import {
   fetchFoldersByParentIdData,
   fetchTrashedItems,
   pathToRoot,
+  restoreFolders,
   trashFolder,
 } from "../store/file-manager.actions";
 
@@ -52,17 +53,7 @@ export class FileManagerShellComponent implements OnInit {
   ngOnInit(): void {
     this.currentFolderId = this.route.snapshot.queryParams.folderId || null;
 
-    this.store.dispatch(
-      fetchFoldersByParentIdData({ parentId: this.currentFolderId })
-    );
-    this.store.dispatch(
-      fetchAssetsByFolderIdData({ folderId: this.currentFolderId })
-    );
     this.openCurrentFolder();
-
-    if (this.currentFolderId) {
-      this.store.dispatch(pathToRoot({ folderId: this.currentFolderId }));
-    }
   }
 
   setCurrentFolderId(folderId: number): void {
@@ -70,8 +61,8 @@ export class FileManagerShellComponent implements OnInit {
     this.openCurrentFolder();
   }
 
-  trashFolder(folderId: number): void {
-    this.store.dispatch(trashFolder({ folderId }));
+  trashFolders(folderIds: number[]): void {
+    this.store.dispatch(trashFolder({ folderIds }));
   }
 
   addFolder(name: string): void {
@@ -91,6 +82,13 @@ export class FileManagerShellComponent implements OnInit {
     this.openCurrentFolder();
   }
 
+  restoreFolders(folderIds: number[]) {
+    this.store.dispatch(restoreFolders({ folderIds: folderIds }));
+  }
+
+  fetchTrashedItems(): void {
+    this.store.dispatch(fetchTrashedItems());
+  }
   private openCurrentFolder(): void {
     this.store.dispatch(
       fetchFoldersByParentIdData({ parentId: this.currentFolderId })
@@ -102,9 +100,5 @@ export class FileManagerShellComponent implements OnInit {
     if (this.currentFolderId) {
       this.store.dispatch(pathToRoot({ folderId: this.currentFolderId }));
     }
-  }
-
-  fetchTrashedItems(): void {
-    this.store.dispatch(fetchTrashedItems());
   }
 }

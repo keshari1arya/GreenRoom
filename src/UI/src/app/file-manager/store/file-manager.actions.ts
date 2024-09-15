@@ -8,90 +8,83 @@ import {
 } from "src/app/lib/openapi-generated/models";
 import { CreateFolder$Params } from "src/app/lib/openapi-generated/fn/folders/create-folder";
 
-// fetch
-export const fetchRecentFilesData = createAction("[Data] fetch RecentFiles");
-export const fetchRecentFilesSuccess = createAction(
-  "[Data] fetch RecentFiles success",
-  props<{ recentFiles: FileManager[] }>()
+// set error
+export const setError = createAction(
+  "[FileManager] set error",
+  props<{ error: any }>()
 );
-export const fetchRecentFilesFail = createAction(
-  "[Data fetch RecentFiles failed]",
-  props<{ error: string }>()
+
+// fetch
+export const fetchRecentFilesData = createAction(
+  "[FileManager] fetch RecentFiles"
+);
+export const fetchRecentFilesSuccess = createAction(
+  "[FileManager] fetch RecentFiles success",
+  props<{ recentFiles: FileManager[] }>()
 );
 
 // fetch FoldersByParentId
 export const fetchFoldersByParentIdData = createAction(
-  "[Data] fetch FoldersByParentId",
+  "[FileManager] fetch FoldersByParentId",
   props<{ parentId: number | null }>()
 );
 export const fetchFoldersByParentIdSuccess = createAction(
-  "[Data] fetch FoldersByParentId success",
+  "[FileManager] fetch FoldersByParentId success",
   props<{ folders: FolderDto[] }>()
-);
-export const fetchFoldersByParentIdFail = createAction(
-  "[Data fetch FoldersByParentId failed]",
-  props<{ error: string }>()
 );
 
 // fetch AssetsByFolderId
 export const fetchAssetsByFolderIdData = createAction(
-  "[Data] fetch AssetsByFolderId",
+  "[FileManager] fetch AssetsByFolderId",
   props<{ folderId: number | null }>()
 );
 export const fetchAssetsByFolderIdSuccess = createAction(
-  "[Data] fetch AssetsByFolderId success",
+  "[FileManager] fetch AssetsByFolderId success",
   props<{ assets: AssetDto[] }>()
-);
-export const fetchAssetsByFolderIdFail = createAction(
-  "[Data fetch AssetsByFolderId failed]",
-  props<{ error: string }>()
 );
 
 // add Folder
 export const addFolder = createAction(
-  "[Data] add Folder",
+  "[FileManager] add Folder",
   props<{ folder: CreateFolder$Params }>()
 );
 export const addFolderSuccess = createAction(
-  "[Data] add Folder success",
+  "[FileManager] add Folder success",
   props<{ folderId: number }>()
-);
-export const addFolderFail = createAction(
-  "[Data add Folder failed]",
-  props<{ error: string }>()
 );
 
 // trash Folder
 export const trashFolder = createAction(
-  "[Data] trash Folder",
-  props<{ folderId: number }>()
+  "[FileManager] trash Folder",
+  props<{ folderIds: number[] }>()
 );
-export const trashFolderSuccess = createAction("[Data] trash Folder success");
-export const trashFolderFail = createAction(
-  "[Data trash Folder failed]",
-  props<{ error: string }>()
+export const trashFolderSuccess = createAction(
+  "[FileManager] trash Folder success"
+);
+
+// restore folder from trash
+export const restoreFolders = createAction(
+  "[FileManager] restore Folders",
+  props<{ folderIds: number[] }>()
+);
+export const restoreFolderSuccess = createAction(
+  "[FileManager] restore Folders success"
 );
 
 // Path to root
 export const pathToRoot = createAction(
-  "[Data] path to root",
+  "[FileManager] path to root",
   props<{ folderId?: number }>()
 );
 export const pathToRootSuccess = createAction(
-  "[Data] path to root success",
+  "[FileManager] path to root success",
   props<{ path: PathToRootDto[] }>()
 );
-export const pathToRootFail = createAction(
-  "[Data path to root failed]",
-  props<{ error: string }>()
-);
 
-export const fetchTrashedItems = createAction("[Data] fetch TrashedItems");
-export const fetchTrashedItemsSuccess = createAction(
-  "[Data] fetch TrashedItems success",
-  props<{ trashedItems: TrashFolderAndFilesDto[] }>()
+export const fetchTrashedItems = createAction(
+  "[FileManager] fetch TrashedItems"
 );
-export const fetchTrashedItemsFail = createAction(
-  "[Data fetch TrashedItems failed]",
-  props<{ error: string }>()
+export const fetchTrashedItemsSuccess = createAction(
+  "[FileManager] fetch TrashedItems success",
+  props<{ trashedItems: TrashFolderAndFilesDto[] }>()
 );

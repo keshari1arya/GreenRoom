@@ -294,6 +294,7 @@
               <div class="mt-4">
                 <app-trashed-items
                   [trashedItems]="trashedItems"
+                  (restoreFoldersEvent)="restoreFolders($event)"
                 ></app-trashed-items>
               </div>
               }

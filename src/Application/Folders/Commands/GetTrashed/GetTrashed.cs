@@ -39,6 +39,7 @@ public class GetTrashedCommandHandler : IRequestHandler<GetTrashedCommand, Trash
         {
             result.Add(new TrashFolderAndFilesDto
             {
+                Id = folder.Id,
                 Name = folder.Name,
                 IsFolder = true,
                 TrashedAt = folder.LastModified,
@@ -50,6 +51,7 @@ public class GetTrashedCommandHandler : IRequestHandler<GetTrashedCommand, Trash
         {
             result.Add(new TrashFolderAndFilesDto
             {
+                Id = asset.Id,
                 Name = asset.Name,
                 IsFolder = false,
                 TrashedAt = asset.LastModified,
@@ -64,6 +66,7 @@ public class GetTrashedCommandHandler : IRequestHandler<GetTrashedCommand, Trash
 
 public class TrashFolderAndFilesDto
 {
+    public int Id { get; set; }
     public string? Name { get; set; }
     public bool IsFolder { get; set; }
     public DateTimeOffset TrashedAt { get; set; }
