@@ -1,9 +1,9 @@
 import { ActionReducerMap } from "@ngrx/store";
+import { LayoutState, layoutReducer } from "./layouts/layouts.reducer";
 import {
   AuthenticationState,
   authenticationReducer,
-} from "./Authentication/authentication.reducer";
-import { LayoutState, layoutReducer } from "./layouts/layouts.reducer";
+} from "../account/auth/store/authentication.reducer";
 
 export interface RootReducerState {
   layout: LayoutState;

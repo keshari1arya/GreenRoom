@@ -12,14 +12,11 @@ import MetisMenu from "metismenujs";
 import { CookieService } from "ngx-cookie-service";
 import { LanguageService } from "../../core/services/language.service";
 
-import { EventService } from "../../core/services/event.service";
-import { AuthenticationService } from "../../core/services/auth.service";
-
 import { DOCUMENT } from "@angular/common";
 
 import { MENU } from "./menu";
 import { MenuItem } from "./menu.model";
-import { environment } from "../../../environments/environment";
+import { AuthService } from "src/app/core/services/auth.service";
 
 @Component({
   selector: "app-horizontaltopbar",
@@ -54,8 +51,7 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private document: any,
     private router: Router,
-    private eventService: EventService,
-    private authService: AuthenticationService,
+    private authService: AuthService,
 
     public languageService: LanguageService,
     // tslint:disable-next-line: variable-name

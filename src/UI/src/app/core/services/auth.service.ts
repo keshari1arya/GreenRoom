@@ -1,18 +1,15 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import {User} from 'src/app/store/Authentication/auth.models';
-import {catchError, from, map} from 'rxjs';
-import {UsersService} from 'src/app/lib/openapi-generated/services';
-import {AccessTokenResponse} from 'src/app/lib/openapi-generated/models';
-import {TokenStorageService} from './token-storage.service';
+import { catchError, from, map, of } from "rxjs";
+import { UsersService } from "src/app/lib/openapi-generated/services";
+import { AccessTokenResponse } from "src/app/lib/openapi-generated/models";
+import { TokenStorageService } from "./token-storage.service";
 
-@Injectable({providedIn: 'root'})
-export class AuthenticationService {
-  user: User;
-
+@Injectable({ providedIn: "root" })
+export class AuthService {
   constructor(
     private usersService: UsersService,
-    private tokenService: TokenStorageService,
+    private tokenService: TokenStorageService
   ) {}
 
   /**
@@ -20,12 +17,12 @@ export class AuthenticationService {
    */
   public token(): string {
     if (
-      !localStorage.getItem('expiresIn') ||
-      localStorage.getItem('expiresIn') < new Date().getTime().toString()
+      !localStorage.getItem("expiresIn") ||
+      localStorage.getItem("expiresIn") < new Date().getTime().toString()
     ) {
       this.refreshToken();
     }
-    return localStorage.getItem('token');
+    return localStorage.getItem("token");
   }
 
   /**
@@ -35,13 +32,15 @@ export class AuthenticationService {
    */
   login(email: string, password: string) {
     return from(
-      this.usersService.postApiUsersLogin({body: {email: email, password: password}}).pipe(
-        map((response: AccessTokenResponse) => {
-          this.setAuthData(response);
+      this.usersService
+        .postApiUsersLogin({ body: { email: email, password: password } })
+        .pipe(
+          map((response) => {
+            this.setAuthData(response);
 
-          return response;
-        }),
-      ),
+            return response;
+          })
+        )
     );
   }
 
@@ -50,16 +49,16 @@ export class AuthenticationService {
    * @param email email
    * @param password password
    */
-  register(user: User) {
+  register(email: string, password: string) {
     // return from(getFirebaseBackend().registerUser(user));
 
     return from(
       this.usersService.postApiUsersRegister({
         body: {
-          email: user.email,
-          password: user.password,
+          email,
+          password,
         },
-      }),
+      })
     );
   }
 
@@ -68,12 +67,11 @@ export class AuthenticationService {
    * @param email email
    */
   forgotPassword(email: string) {
-    return this.usersService
-      .postApiUsersForgotPassword({
-        body: {
-          email,
-        },
-      });
+    return this.usersService.postApiUsersForgotPassword({
+      body: {
+        email,
+      },
+    });
   }
 
   /**
@@ -95,7 +93,7 @@ export class AuthenticationService {
         map((response: any) => {
           const message = response;
           return message;
-        }),
+        })
       );
   }
 
@@ -104,10 +102,10 @@ export class AuthenticationService {
    */
   logout() {
     // logout the user
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('expiresIn');
-    localStorage.removeItem('tokenType');
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("expiresIn");
+    localStorage.removeItem("tokenType");
   }
 
   /**
@@ -115,7 +113,9 @@ export class AuthenticationService {
    */
   private refreshToken() {
     this.usersService
-      .postApiUsersRefresh({body: {refreshToken: localStorage.getItem('refreshToken')}})
+      .postApiUsersRefresh({
+        body: { refreshToken: localStorage.getItem("refreshToken") },
+      })
       .pipe(
         map((response: AccessTokenResponse) => {
           this.setAuthData(response);
@@ -125,14 +125,14 @@ export class AuthenticationService {
         catchError((error) => {
           this.logout();
           return error;
-        }),
+        })
       );
   }
 
   private setAuthData(response: AccessTokenResponse) {
-    localStorage.setItem('token', response.accessToken);
-    localStorage.setItem('refreshToken', response.refreshToken);
-    localStorage.setItem('expiresIn', response.expiresIn.toString());
-    localStorage.setItem('tokenType', response.tokenType);
+    localStorage.setItem("token", response.accessToken);
+    localStorage.setItem("refreshToken", response.refreshToken);
+    localStorage.setItem("expiresIn", response.expiresIn.toString());
+    localStorage.setItem("tokenType", response.tokenType);
   }
 }

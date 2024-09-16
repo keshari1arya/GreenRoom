@@ -37,9 +37,9 @@ import {
 import { ErrorInterceptor } from "./core/helpers/error.interceptor";
 import { JwtInterceptor } from "./core/helpers/jwt.interceptor";
 import { rootReducer } from "./store";
-import { AuthenticationEffects } from "./store/Authentication/authentication.effects";
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AuthenticationEffects } from "./account/auth/store/authentication.effects";
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, "assets/i18n/", ".json");

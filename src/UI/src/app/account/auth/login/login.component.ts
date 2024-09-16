@@ -1,19 +1,23 @@
 import { Component, OnInit } from "@angular/core";
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { AuthenticationService } from "../../../core/services/auth.service";
 
 import { Store } from "@ngrx/store";
-import { ActivatedRoute, Router } from "@angular/router";
-import { login } from "src/app/store/Authentication/authentication.actions";
+import { Router } from "@angular/router";
+import { AuthActions } from "../store/authentication.actions";
+import { Observable, of } from "rxjs";
+import { getError } from "../store/authentication-selector";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
+  providers: [FormsModule, ReactiveFormsModule],
 })
 
 /**
@@ -22,7 +26,7 @@ import { login } from "src/app/store/Authentication/authentication.actions";
 export class LoginComponent implements OnInit {
   loginForm: UntypedFormGroup;
   submitted: any = false;
-  error: any = "";
+  error$: Observable<string> = of("");
   returnUrl: string;
   fieldTextType!: boolean;
 
@@ -32,17 +36,9 @@ export class LoginComponent implements OnInit {
   // tslint:disable-next-line: max-line-length
   constructor(
     private formBuilder: UntypedFormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private store: Store
-  ) {}
-
-  ngOnInit() {
-    if (localStorage.getItem("currentUser")) {
-      this.router.navigate(["/"]);
-    }
-    // form validation
+  ) {
     this.loginForm = this.formBuilder.group({
       email: [
         "administrator@localhost",
@@ -50,6 +46,13 @@ export class LoginComponent implements OnInit {
       ],
       password: ["Administrator1!", [Validators.required]],
     });
+  }
+
+  ngOnInit() {
+    this.error$ = this.store.select(getError);
+    if (localStorage.getItem("currentUser")) {
+      // this.router.navigate(["/"]);
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -66,8 +69,11 @@ export class LoginComponent implements OnInit {
     const email = this.f["email"].value; // Get the username from the form
     const password = this.f["password"].value; // Get the password from the form
 
-    // Login Api
-    this.store.dispatch(login({ email: email, password: password }));
+    if (this.loginForm.valid) {
+      this.store.dispatch(
+        AuthActions.login({ email: email, password: password })
+      );
+    }
   }
 
   /**

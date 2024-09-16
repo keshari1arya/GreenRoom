@@ -101,26 +101,6 @@
                   >} @if(error){
                   <alert type="danger" [dismissible]="false">{{ error }}</alert>
                   }
-                  <div class="mb-3">
-                    <label for="username">Username</label>
-                    <input
-                      type="text"
-                      formControlName="username"
-                      class="form-control"
-                      id="username"
-                      [ngClass]="{
-                        'is-invalid': submitted && f.username.errors
-                      }"
-                      placeholder="Enter username"
-                    />
-                    @if(submitted && f.username.errors){
-                    <div class="invalid-feedback">
-                      @if(f.username.errors.required){
-                      <div>Userame is required</div>
-                      }
-                    </div>
-                    }
-                  </div>
 
                   <div class="mb-3">
                     <label for="useremail">Email</label>
@@ -159,6 +139,29 @@
                     <div class="invalid-feedback">
                       @if(f.password.errors.required){
                       <div>Password is required</div>
+                      }
+                    </div>
+                    }
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input
+                      type="password"
+                      formControlName="confirmPassword"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.confirmPassword.errors
+                      }"
+                      class="form-control"
+                      id="confirmPassword"
+                      placeholder="Enter password"
+                    />
+                    @if(submitted && f.confirmPassword.errors){
+                    <div class="invalid-feedback">
+                      @if(f.confirmPassword.errors.required){
+                      <div>Confirm Password is required</div>
+                      } @if(f.confirmPassword.errors.mustMatch){
+                      <div>Passwords must match</div>
                       }
                     </div>
                     }

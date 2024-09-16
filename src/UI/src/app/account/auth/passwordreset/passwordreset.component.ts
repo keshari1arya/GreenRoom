@@ -6,7 +6,6 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
-import { AuthenticationService } from "../../../core/services/auth.service";
 import { environment } from "../../../../environments/environment";
 
 @Component({
@@ -29,12 +28,7 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
   year: number = new Date().getFullYear();
 
   // tslint:disable-next-line: max-line-length
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {}
+  constructor(private formBuilder: UntypedFormBuilder) {}
 
   ngOnInit() {
     this.resetForm = this.formBuilder.group({
@@ -61,17 +55,6 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    // TODO: FIX THIS
-
-    this.authenticationService.forgotPassword(this.f.email.value).subscribe(
-      (data) => {
-        this.success = "Password reset link sent to your email";
-        this.loading = false;
-      },
-      (error) => {
-        this.error = error;
-        this.loading = false;
-      }
-    );
+    // TODO: Implement password reset
   }
 }

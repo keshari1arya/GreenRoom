@@ -4,10 +4,9 @@ import {
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { AuthenticationService } from "../../../core/services/auth.service";
-import { login } from "src/app/store/Authentication/authentication.actions";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { AuthActions } from "../store/authentication.actions";
 
 @Component({
   selector: "app-login2",
@@ -21,8 +20,6 @@ export class Login2Component implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService,
     public store: Store
   ) {}
   loginForm: UntypedFormGroup;
@@ -69,6 +66,8 @@ export class Login2Component implements OnInit {
     const password = this.f["password"].value; // Get the password from the form
 
     // Login Api
-    this.store.dispatch(login({ email: email, password: password }));
+    this.store.dispatch(
+      AuthActions.login({ email: email, password: password })
+    );
   }
 }
