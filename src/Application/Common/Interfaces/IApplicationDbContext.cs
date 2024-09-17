@@ -11,6 +11,13 @@ public interface IApplicationDbContext
     DbSet<Folder> Folders { get; }
     DbSet<Asset> Assets { get; }
     DbSet<ShareLink> ShareLinks { get; }
+    DbSet<UserInvitation> UserInvitations { get; }
+    DbSet<Tenant> Tenants { get; }
+    DbSet<TenantUser> TenantUsers { get; }
+    DbSet<Subscription> Subscriptions { get; }
+    DbSet<TenantSubscription> TenantSubscriptions { get; }
+    DbSet<TenantRole> TenantRoles { get; }
+
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     DbSet<T> Set<T>() where T : BaseEntity;

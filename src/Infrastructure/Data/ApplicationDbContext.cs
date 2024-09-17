@@ -21,6 +21,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Folder> Folders => Set<Folder>();
     public DbSet<Asset> Assets => Set<Asset>();
     public DbSet<ShareLink> ShareLinks => Set<ShareLink>();
+    public DbSet<UserInvitation> UserInvitations => Set<UserInvitation>();
+    public DbSet<Tenant> Tenants => Set<Tenant>();
+    public DbSet<TenantUser> TenantUsers => Set<TenantUser>();
+    public DbSet<Subscription> Subscriptions => Set<Subscription>();
+    public DbSet<TenantSubscription> TenantSubscriptions => Set<TenantSubscription>();
+    public DbSet<TenantRole> TenantRoles => Set<TenantRole>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -45,6 +51,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
         builder
             .Entity<ShareLink>()
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+
+        builder
+            .Entity<UserInvitation>()
             .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
     }
 

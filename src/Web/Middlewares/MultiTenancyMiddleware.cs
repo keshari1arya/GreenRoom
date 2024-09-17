@@ -13,12 +13,13 @@ public class MultiTenancyMiddleware : IMiddleware
 
     public Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var user = context.User;
-        if (user.HasClaim(c => c.Type == "tenant"))
+        if (context.Request.Headers.TryGetValue("X-Tenant-Id", out var tenantId)
+            && int.TryParse(tenantId, out var tenant)
+            && tenant > 0)
         {
-            var tenant = user.FindFirst(c => c.Type == "tenant")?.Value;
-            _multiTenancyService.SetCurrentTenant(tenant!);
+            _multiTenancyService.SetCurrentTenant(tenant);
         }
+
         return next(context);
     }
 }

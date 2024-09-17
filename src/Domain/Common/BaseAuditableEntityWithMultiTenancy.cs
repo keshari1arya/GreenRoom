@@ -1,6 +1,8 @@
+using GreenRoom.Domain.Entities.DigitalAssetManager;
+
 namespace GreenRoom.Domain.Common;
 
 public abstract class BaseAuditableEntityWithMultiTenancy : BaseAuditableEntity
 {
-    public string TenantId { get; set; } = string.Empty;
+    public int TenantId { get; set; }
 }

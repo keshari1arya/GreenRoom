@@ -2,6 +2,6 @@ namespace GreenRoom.Application.Common.Interfaces;
 
 public interface IMultiTenancyService
 {
-    string CurrentTenant { get; }
-    void SetCurrentTenant(string tenant);
+    int CurrentTenant { get; }
+    void SetCurrentTenant(int tenantId);
 }

@@ -4,9 +4,9 @@ namespace GreenRoom.Infrastructure.Identity;
 
 public class MultiTenancyService : IMultiTenancyService
 {
-    private string _tenant = string.Empty;
+    private int _tenant;
 
-    public string CurrentTenant
+    public int CurrentTenant
     {
         get => _tenant;
         private set
@@ -19,10 +19,8 @@ public class MultiTenancyService : IMultiTenancyService
         }
     }
 
-    public void SetCurrentTenant(string tenant)
+    public void SetCurrentTenant(int tenant)
     {
-        if (string.IsNullOrWhiteSpace(tenant))
-            throw new ArgumentException("CurrentTenant cannot be null or whitespace.", nameof(tenant));
         CurrentTenant = tenant;
     }
 }

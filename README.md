@@ -6,21 +6,21 @@ The project was generated using the [Clean.Architecture.Solution.Template](https
 
 node 20 or higher (install using nvm, recommended)
 dotnet sdk 8 or higher
+dotnet ef cli (ignore if in visual studio IDE)
 docker (latest)
 docker compose
-
 
 ## Build
 
 Run `dotnet build -tl` to build the solution.
 
 ## Run
+
 On the root folder to run database and localstack (for mocking aws in local machine):
+
 ```bash
 docker-compose up -d
 ```
-
-
 
 ### API:
 
@@ -32,12 +32,13 @@ dotnet watch run
 Navigate to https://localhost:5001. The application will automatically reload if you change any of the source files.
 
 ### UI:
+
 ```bash
 cd .\src\UI\
 yarn dev
 ```
 
-For more options go to package.json 
+For more options go to package.json
 
 ## Code Styles & Formatting
 
@@ -61,7 +62,7 @@ Create a new query:
 dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
 ```
 
-If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try again:
+If you encounter the error _"No templates or subcommands found matching: 'ca-usecase'."_, install the template and try again:
 
 ```bash
 dotnet new install Clean.Architecture.Solution.Template::8.0.5
@@ -74,6 +75,7 @@ dotnet new install Clean.Architecture.Solution.Template::8.0.5
 The solution contains unit, integration, and functional tests.
 
 To run the tests:
+
 ```bash
 dotnet test
 ```
@@ -83,4 +85,5 @@ dotnet test
 Goto up app and run ng test
 
 ## Help
+
 To learn more about the template go to the [project website](https://github.com/jasontaylordev/CleanArchitecture). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.
