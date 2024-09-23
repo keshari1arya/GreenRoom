@@ -70,6 +70,12 @@ export const MENU: MenuItem[] = [
     icon: "bx-file",
     link: "/file-manager",
   },
+  {
+    id: 13,
+    label: "Subscriptions",
+    icon: "bx-bitcoin",
+    link: "/subscription",
+  },
   // {
   //   id: 13,
   //   label: "MENUITEMS.ECOMMERCE.TEXT",

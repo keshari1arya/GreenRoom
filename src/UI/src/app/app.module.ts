@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -91,6 +91,8 @@ export function createTranslateLoader(http: HttpClient): any {
       // CustomerEffects,
       // MailEffects
     ]),
+    StoreModule.forRoot({}, {}),
+    isDevMode() ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -98,4 +100,4 @@ export function createTranslateLoader(http: HttpClient): any {
     provideHttpClient(withInterceptorsFromDi()),
   ],
 })
-export class AppModule {}
+export class AppModule { }
