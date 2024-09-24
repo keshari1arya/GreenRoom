@@ -1,5 +1,8 @@
 using GreenRoom.Application.Tenants.Commands.AddTenantSubscription;
+using GreenRoom.Application.Tenants.Commands.AddTenantUsers;
 using GreenRoom.Application.Tenants.Commands.CreateTenant;
+using GreenRoom.Application.Tenants.Commands.RemoveTenantUsers;
+using GreenRoom.Application.Tenants.Commands.UpdateRole;
 using GreenRoom.Application.Tenants.Queries.GetTenants;
 using GreenRoom.Application.Tenants.Queries.TenantDetails;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +18,10 @@ public class Tenant : EndpointGroupBase
             .MapGet(GetTenants)
             .MapGet(GetTenantDetails, "{id}")
             .MapPost(CreateTenant)
-            .MapPost(AddTenantSubscription, "subscription");
+            .MapPost(AddTenantSubscription, "Subscription")
+            .MapPost(AddTenantUsers, "Users")
+            .MapDelete(RemoveTenantUsers, "Users")
+            .MapPatch(UpdateRole, "Users/Role");
     }
 
     private Task<IEnumerable<TenantDto>> GetTenants(ISender sender)
@@ -34,6 +40,21 @@ public class Tenant : EndpointGroupBase
     }
 
     private Task<int> AddTenantSubscription(ISender sender, AddTenantSubscriptionCommand command)
+    {
+        return sender.Send(command);
+    }
+
+    private Task<int> AddTenantUsers(ISender sender, [FromBody] AddTenantUsersCommand command)
+    {
+        return sender.Send(command);
+    }
+
+    private Task<int> RemoveTenantUsers(ISender sender, [FromBody] RemoveTenantUsersCommand command)
+    {
+        return sender.Send(command);
+    }
+
+    private Task<int> UpdateRole(ISender sender, [FromBody] UpdateRoleCommand command)
     {
         return sender.Send(command);
     }
