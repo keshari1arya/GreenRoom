@@ -23,16 +23,6 @@ export class SubscriptionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("subscription list called");
     this.store.dispatch(loadSubscription());
-    this.subscriptions$.subscribe(
-      (Data) => {
-        console.log('Subscription Data:', Data); // Check if this logs the correct data
-      },
-      (error) => {
-        console.error('Error fetching subscription data:', error); // Log any errors
-      }
-    );
   }
-
 }

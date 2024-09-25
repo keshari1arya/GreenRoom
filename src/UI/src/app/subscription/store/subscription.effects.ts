@@ -18,7 +18,6 @@ export class SubscriptionEffects {
     this.actions$.pipe(
       ofType(SubscriptionActions.loadSubscription),
       mergeMap(() => {
-        console.log("effect called");
         return this.service.getSubscriptions().pipe(
           map(data => SubscriptionActions.SubscriptionSuccess({ data })),
           catchError(error => of(SubscriptionActions.SubscriptionError({ error: error.message })))

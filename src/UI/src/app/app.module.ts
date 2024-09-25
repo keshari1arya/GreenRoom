@@ -44,6 +44,7 @@ import { AuthenticationEffects } from "./account/auth/store/authentication.effec
 
 import { SubscriptionReducer } from "./subscription/store/subscription.reducer";
 import { SubscriptionEffects } from "./subscription/store/subscription.effects";
+import { SUBSCRIPTION_STORE } from "./subscription/store/subscription.selectors";
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, "assets/i18n/", ".json");
 }
@@ -63,11 +64,10 @@ export function createTranslateLoader(http: HttpClient): any {
         deps: [HttpClient],
       },
     }),
-    StoreModule.forFeature('subscription', SubscriptionReducer),
+    StoreModule.forFeature(SUBSCRIPTION_STORE, SubscriptionReducer),
     EffectsModule.forRoot([SubscriptionEffects]),
     EffectsModule.forFeature([SubscriptionEffects]),
     StoreModule.forFeature('subscription', SubscriptionReducer),
-    HttpClientModule,
     LayoutsModule,
     AppRoutingModule,
     ExtrapagesModule,
