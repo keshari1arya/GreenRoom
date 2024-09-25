@@ -70,6 +70,12 @@ export const MENU: MenuItem[] = [
     icon: "bx-file",
     link: "/file-manager",
   },
+  {
+    id: 13,
+    label: "MENUITEMS.MULTITENANT.TEXT",
+    icon: "bx-file",
+    link: "/multitenant",
+  },
   // {
   //   id: 13,
   //   label: "MENUITEMS.ECOMMERCE.TEXT",

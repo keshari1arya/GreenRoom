@@ -34,6 +34,15 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+  {
+    path: "multitenant",
+    component: LayoutComponent,
+    loadChildren: () =>
+      import("./multitenant/multitenant.module").then(
+        (m) => m.MultitenantModule
+      ),
+    canActivate: [AuthGuard],
+  },
   // { path: '**', component: Page404Component },
 ];
 

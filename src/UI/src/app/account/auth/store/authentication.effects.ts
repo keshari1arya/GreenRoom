@@ -1,10 +1,11 @@
 import { Injectable, Inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, exhaustMap, tap, catchError } from "rxjs/operators";
+import { map, exhaustMap, tap, catchError, concatMap } from "rxjs/operators";
 import { of } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "src/app/core/services/auth.service";
 import { AuthActions } from "./authentication.actions";
+import { TenantService } from "src/app/lib/openapi-generated/services";
 
 @Injectable()
 export class AuthenticationEffects {
@@ -28,10 +29,10 @@ export class AuthenticationEffects {
       ofType(AuthActions.login),
       exhaustMap(({ email, password }) => {
         return this.authService.login(email, password).pipe(
-          map((user) => {
+          concatMap(() => {
             // TODO: Perform redirect outside of effects
 
-            return AuthActions.loginSuccess();
+            return [AuthActions.loginSuccess(), AuthActions.fetchMyTenants()];
           }),
           catchError((error) => {
             // TODO: Handle error in a more meaningful way
@@ -67,10 +68,26 @@ export class AuthenticationEffects {
     )
   );
 
+  fetchMyTenants$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.fetchMyTenants),
+      exhaustMap(() => {
+        return this.tenantService.myTenants().pipe(
+          map((tenants) => {
+            // TODO: Handle case where user has no tenants or multiple tenants
+            this.authService.setCurrentTenant(tenants[0].id);
+            return AuthActions.fetchMyTenantsSuccess({ tenants });
+          })
+        );
+      })
+    )
+  );
+
   constructor(
     @Inject(Actions) private actions$: Actions,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private tenantService: TenantService
   ) {}
 }

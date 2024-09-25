@@ -3,6 +3,8 @@ using GreenRoom.Application.Tenants.Commands.AddTenantUsers;
 using GreenRoom.Application.Tenants.Commands.CreateTenant;
 using GreenRoom.Application.Tenants.Commands.RemoveTenantUsers;
 using GreenRoom.Application.Tenants.Commands.UpdateRole;
+using GreenRoom.Application.Tenants.Queries.GetActiveTenants;
+using GreenRoom.Application.Tenants.Queries.GetCurrentTenant;
 using GreenRoom.Application.Tenants.Queries.GetTenants;
 using GreenRoom.Application.Tenants.Queries.TenantDetails;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +19,8 @@ public class Tenant : EndpointGroupBase
             .RequireAuthorization()
             .MapGet(GetTenants)
             .MapGet(GetTenantDetails, "{id}")
+            .MapGet(MyTenants, "Mine")
+            .MapGet(GetCurrentTenant, "Current")
             .MapPost(CreateTenant)
             .MapPost(AddTenantSubscription, "Subscription")
             .MapPost(AddTenantUsers, "Users")
@@ -29,7 +33,7 @@ public class Tenant : EndpointGroupBase
         return sender.Send(new GetTenantsQuery());
     }
 
-    private Task<IEnumerable<TenantDto>> GetTenantDetails(ISender sender, int id)
+    private Task<TenantDto> GetTenantDetails(ISender sender, int id)
     {
         return sender.Send(new TenantDetailsQuery(id));
     }
@@ -37,6 +41,16 @@ public class Tenant : EndpointGroupBase
     private Task<int> CreateTenant(ISender sender, CreateTenantCommand command)
     {
         return sender.Send(command);
+    }
+
+    private Task<TenantDto> GetCurrentTenant(ISender sender)
+    {
+        return sender.Send(new GetCurrentTenantQuery());
+    }
+
+    private Task<TenantDto[]> MyTenants(ISender sender)
+    {
+        return sender.Send(new GetActiveTenantsQuery());
     }
 
     private Task<int> AddTenantSubscription(ISender sender, AddTenantSubscriptionCommand command)
