@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectData, selectDataError, selectDataLoading } from '../store/subscription.selectors';
-import { Subscription } from '../store/subscription.actions';
+import { loadSubscription } from '../store/subscription.actions';
+import { Observable, of } from 'rxjs';
+import { SubscriptionDto } from 'src/app/lib/openapi-generated/models';
 
 
 @Component({
@@ -10,18 +12,27 @@ import { Subscription } from '../store/subscription.actions';
   styleUrl: './subscription-list.component.css'
 })
 export class SubscriptionListComponent implements OnInit {
-  data$: any;
-  loading$: any;
-  error$: any;
+  subscriptions$: Observable<SubscriptionDto[]> = of([]);
+  loading$: Observable<boolean>;
+  error$: Observable<string>;
+
   constructor(private store: Store) {
-    this.data$ = store.select(selectData);
+    this.subscriptions$ = store.select(selectData);
     this.loading$ = store.select(selectDataLoading);
     this.error$ = store.select(selectDataError);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(Subscription());
-    console.log(this.data$);
+    console.log("subscription list called");
+    this.store.dispatch(loadSubscription());
+    this.subscriptions$.subscribe(
+      (Data) => {
+        console.log('Subscription Data:', Data); // Check if this logs the correct data
+      },
+      (error) => {
+        console.error('Error fetching subscription data:', error); // Log any errors
+      }
+    );
   }
 
 }

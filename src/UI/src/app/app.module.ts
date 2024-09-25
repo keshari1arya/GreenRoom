@@ -31,6 +31,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
+  HttpClientModule,
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
@@ -41,6 +42,8 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AuthenticationEffects } from "./account/auth/store/authentication.effects";
 
+import { SubscriptionReducer } from "./subscription/store/subscription.reducer";
+import { SubscriptionEffects } from "./subscription/store/subscription.effects";
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, "assets/i18n/", ".json");
 }
@@ -60,6 +63,11 @@ export function createTranslateLoader(http: HttpClient): any {
         deps: [HttpClient],
       },
     }),
+    StoreModule.forFeature('subscription', SubscriptionReducer),
+    EffectsModule.forRoot([SubscriptionEffects]),
+    EffectsModule.forFeature([SubscriptionEffects]),
+    StoreModule.forFeature('subscription', SubscriptionReducer),
+    HttpClientModule,
     LayoutsModule,
     AppRoutingModule,
     ExtrapagesModule,
@@ -90,9 +98,8 @@ export function createTranslateLoader(http: HttpClient): any {
       // OrdersEffects,
       // CustomerEffects,
       // MailEffects
+
     ]),
-    StoreModule.forRoot({}, {}),
-    isDevMode() ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

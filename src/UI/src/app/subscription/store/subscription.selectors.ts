@@ -2,11 +2,13 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { SubscriptionState } from './subscription.reducer';
 import { state } from '@angular/animations';
 
-export const selectSubscriptionState = createFeatureSelector<SubscriptionState>('subscription');
+export const SUBSCRIPTION_STORE = "subscription";
+
+export const selectSubscriptionState = createFeatureSelector<SubscriptionState>(SUBSCRIPTION_STORE);
 
 export const selectData = createSelector(
     selectSubscriptionState,
-    (state: SubscriptionState) => state.data
+    (state: SubscriptionState) => state.subscriptions
 )
 
 export const selectDataLoading = createSelector(

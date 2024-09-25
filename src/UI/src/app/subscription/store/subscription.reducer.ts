@@ -1,34 +1,37 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SubscriptionActions from './subscription.actions';
+import { SubscriptionDto } from 'src/app/lib/openapi-generated/models';
 
 export interface SubscriptionState {
-  data: any[];
+  subscriptions: SubscriptionDto[];
   loading: boolean;
   error: string | null;
 }
 
 export const initialState: SubscriptionState = {
-  data: [],
+  subscriptions: [],
   loading: false,
   error: null,
 };
 
 export const SubscriptionReducer = createReducer(
   initialState,
-  on(SubscriptionActions.Subscription, state => ({
-    ...state,
-    loading: true,
-    error: null
-  })),
-  on(SubscriptionActions.SubscriptionSuccess, state => ({
-    ...state,
-    loading: false,
-    data: state.data
-  })),
-  on(SubscriptionActions.SubscriptionError, state => ({
-    ...state,
-    loading: false,
-    error: state.error
-  }))
+  on(SubscriptionActions.loadSubscription, (state) => {
+    return {
+      ...state,
+      loading: true,
+      error: null
+    }
+  }),
+  on(SubscriptionActions.SubscriptionSuccess, (state, { data }) => {
+    return { ...state, loading: false, subscriptions: data }
+  }),
+  on(SubscriptionActions.SubscriptionError, (state, { error }) => {
+    return {
+      ...state,
+      loading: false,
+      error: error
+    }
+  })
 );
 
