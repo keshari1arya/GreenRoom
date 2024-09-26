@@ -72,7 +72,7 @@ export const MENU: MenuItem[] = [
   },
   {
     id: 13,
-    label: "Subscriptions",
+    label: "MENUITEMS.SUBSCRIPTION.TEXT",
     icon: "bx-bitcoin",
     link: "/subscription",
   },
