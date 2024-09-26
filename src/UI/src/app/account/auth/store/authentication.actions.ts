@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { TenantDto } from "src/app/lib/openapi-generated/models";
 
 const setError = createAction(
   "[Authentication] Error",
@@ -23,6 +24,14 @@ const logout = createAction("[Authentication] Logout");
 
 const logoutSuccess = createAction("[Auth] Logout Success");
 
+// fetch my tenants action
+const fetchMyTenants = createAction("[Authentication] Fetch My Tenants");
+
+const fetchMyTenantsSuccess = createAction(
+  "[Authentication] Fetch My Tenants Success",
+  props<{ tenants: TenantDto[] }>()
+);
+
 export const AuthActions = {
   setError: setError,
   register,
@@ -31,4 +40,6 @@ export const AuthActions = {
   loginSuccess,
   logout,
   logoutSuccess,
+  fetchMyTenants,
+  fetchMyTenantsSuccess,
 };

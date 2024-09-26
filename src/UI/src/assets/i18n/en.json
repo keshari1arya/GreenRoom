@@ -109,6 +109,10 @@
       "TEXT": "File Manager",
       "BADGE": "New"
     },
+    "MULTITENANT": {
+      "TEXT": "Multitenant",
+      "BADGE": "New"
+    },
     "ECOMMERCE": {
       "TEXT": "Ecommerce",
       "LIST": {

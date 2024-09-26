@@ -18,10 +18,12 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     let token = this.authenticationService.token();
+    let tenantId = this.authenticationService.tenantId();
     if (token) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
+          "X-Tenant-Id": `${tenantId}`,
         },
       });
     }

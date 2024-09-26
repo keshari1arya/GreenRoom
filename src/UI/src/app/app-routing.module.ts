@@ -35,6 +35,15 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "multitenant",
+    component: LayoutComponent,
+    loadChildren: () =>
+      import("./multitenant/multitenant.module").then(
+        (m) => m.MultitenantModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'subscription',
     component: LayoutComponent,
     loadChildren: () =>

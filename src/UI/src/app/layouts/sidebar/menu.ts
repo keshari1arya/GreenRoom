@@ -76,6 +76,12 @@ export const MENU: MenuItem[] = [
     icon: "bx-bitcoin",
     link: "/subscription",
   },
+  {
+    id: 14,
+    label: "MENUITEMS.MULTITENANT.TEXT",
+    icon: "bx-file",
+    link: "/multitenant",
+  },
   // {
   //   id: 13,
   //   label: "MENUITEMS.ECOMMERCE.TEXT",

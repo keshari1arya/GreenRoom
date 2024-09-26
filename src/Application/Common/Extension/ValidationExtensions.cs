@@ -1,4 +1,5 @@
 
+using System.Linq.Expressions;
 using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Domain.Common;
 
@@ -46,5 +47,35 @@ public static class ValidationExtensions
 
              return Task.CompletedTask;
          });
+    }
+
+    public static IRuleBuilderOptions<T, string> ShouldBeUniqueInDatabase<T, TEntity>(
+        this IRuleBuilder<T, string> ruleBuilder,
+        DbSet<TEntity> dbSet) where TEntity : BaseEntity
+    {
+        return ruleBuilder
+        .MustAsync(async (name, cancellationToken) =>
+        {
+            return !await dbSet.AsNoTracking().AnyAsync(x => "a" == name, cancellationToken);
+        })
+        .WithMessage("'{PropertyName}' {PropertyValue} already exists.");
+    }
+    public static IRuleBuilderOptions<TEntity, TColumn> IsColumnUniqueInsideOfDbSetAsync<TEntity, TColumn>(
+        this IRuleBuilderOptions<TEntity, TColumn> ruleBuilder,
+        DbSet<TEntity> dbSet,
+        TColumn newValue
+        // CancellationToken cancellationToken
+        )
+        where TEntity : BaseEntity
+    {
+        // var exists = !await dbSet
+        //     .Select(getColumnSelector)
+        //     .AnyAsync(column => column != null && column.Equals(newValue), cancellationToken);
+
+        return ruleBuilder.MustAsync(async (entity, column, cancellationToken) =>
+        {
+            return !await dbSet.AsNoTracking().AnyAsync(x => column != null && column.Equals(newValue), cancellationToken);
+        })
+        .WithMessage("'{PropertyName}' {PropertyValue} already exists.");
     }
 }

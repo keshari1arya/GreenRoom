@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using GreenRoom.Domain.Constants;
 using GreenRoom.Domain.Entities;
+using GreenRoom.Domain.Entities.DigitalAssetManager;
 using GreenRoom.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -83,7 +84,7 @@ public class ApplicationDbContextInitialiser
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
@@ -102,6 +103,17 @@ public class ApplicationDbContextInitialiser
                     new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
                 }
             });
+
+            await _context.SaveChangesAsync();
+        }
+
+        // Seed Roles
+        if (!_context.TenantRoles.Any())
+        {
+            _context.TenantRoles.AddRange(
+                new TenantRole { RoleName = Roles.Administrator, Description = "Administrator" },
+                new TenantRole { RoleName = Roles.User, Description = "User" }
+            );
 
             await _context.SaveChangesAsync();
         }

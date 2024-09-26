@@ -26,6 +26,13 @@ export class AuthService {
   }
 
   /**
+   * Returns the current tenant id
+   */
+  public tenantId(): number {
+    return Number(localStorage.getItem("tenantId"));
+  }
+
+  /**
    * Performs the auth
    * @param email email of user
    * @param password password of user
@@ -106,6 +113,10 @@ export class AuthService {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("expiresIn");
     localStorage.removeItem("tokenType");
+  }
+
+  setCurrentTenant(tenantId: number) {
+    localStorage.setItem("tenantId", `${tenantId}`);
   }
 
   /**
