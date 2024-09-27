@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -31,6 +31,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
+  HttpClientModule,
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
@@ -41,6 +42,9 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AuthenticationEffects } from "./account/auth/store/authentication.effects";
 
+import { SubscriptionReducer } from "./subscription/store/subscription.reducer";
+import { SubscriptionEffects } from "./subscription/store/subscription.effects";
+import { SUBSCRIPTION_STORE } from "./subscription/store/subscription.selectors";
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, "assets/i18n/", ".json");
 }
@@ -60,6 +64,10 @@ export function createTranslateLoader(http: HttpClient): any {
         deps: [HttpClient],
       },
     }),
+    StoreModule.forFeature(SUBSCRIPTION_STORE, SubscriptionReducer),
+    EffectsModule.forRoot([SubscriptionEffects]),
+    EffectsModule.forFeature([SubscriptionEffects]),
+    StoreModule.forFeature('subscription', SubscriptionReducer),
     LayoutsModule,
     AppRoutingModule,
     ExtrapagesModule,
@@ -90,6 +98,7 @@ export function createTranslateLoader(http: HttpClient): any {
       // OrdersEffects,
       // CustomerEffects,
       // MailEffects
+
     ]),
   ],
   providers: [
@@ -98,4 +107,4 @@ export function createTranslateLoader(http: HttpClient): any {
     provideHttpClient(withInterceptorsFromDi()),
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -113,6 +113,10 @@
       "TEXT": "Multitenant",
       "BADGE": "New"
     },
+    "SUBSCRIPTION": {
+      "TEXT": "Subscription",
+      "BADGE": "New"
+    },
     "ECOMMERCE": {
       "TEXT": "Ecommerce",
       "LIST": {

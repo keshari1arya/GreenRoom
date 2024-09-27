@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row" id="candidate-list">
+        @for(subscription of subscriptions$ | async ;track $index){
+        <div class="col-xl-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-start mb-3">
+                        <div class="flex-grow-1">
+                            <span class="badge"> Data Type</span>
+                        </div>
+                        <button type="button" class="btn btn-light btn-sm  " data-bs-toggle="button"><i
+                                class="bx bx-heart"></i></button>
+                    </div>
+                    <div class="text-center mb-3">
+                        <img src="" alt="" class="avatar-sm rounded-circle" />
+                        <h6 class="font-size-15 mt-3 mb-1">{{subscription.name}}</h6>
+                        <p class="mb-0 text-muted">{{subscription.description}}</p>
+                    </div>
+                    <div class="d-flex mb-3 justify-content-center gap-2 text-muted">
+                        <div>
+                            <i class='bx bx-map align-middle text-primary'></i> Data Location
+                        </div>
+                        <p class="mb-0 text-center"><i class='bx bx-money align-middle text-primary'></i>
+                            $ {{subscription.price}} / year</p>
+                    </div>
+
+
+                    <div class="mt-4 pt-1">
+                        <a routerLink="/jobs/candidate-overview" class="btn btn-soft-primary d-block">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
