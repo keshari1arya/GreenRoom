@@ -43,11 +43,16 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
-  // { path: '**', component: Page404Component },
+  {
+    path: 'subscription',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./subscription/subscription.module').then(m => m.SubscriptionModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: "top" })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
