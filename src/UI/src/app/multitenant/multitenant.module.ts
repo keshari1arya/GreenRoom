@@ -9,20 +9,24 @@ import { EffectsModule } from "@ngrx/effects";
 import { MultitenantEffects } from "./store/multitenant.effects";
 import { StoreModule } from "@ngrx/store";
 import { MultitenantReducer } from "./store/multitenant.reducer";
-import { MULTITENANT_TEATURE_NAME } from "./store/multitenant.selector";
+import { MULTITENANT_FEATURE_NAME } from "./store/multitenant.selector";
+import { EditTenantComponent } from "./edit-tenant/edit-tenant.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
     TenantDetailsComponent,
     UserManagerComponent,
     PaymentHistoryComponent,
+    EditTenantComponent,
   ],
   imports: [
     CommonModule,
     MultitenantRoutingModule,
     UIModule,
-    StoreModule.forFeature(MULTITENANT_TEATURE_NAME, MultitenantReducer),
-
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forFeature(MULTITENANT_FEATURE_NAME, MultitenantReducer),
     EffectsModule.forFeature([MultitenantEffects]),
   ],
 })

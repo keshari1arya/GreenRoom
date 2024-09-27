@@ -40,9 +40,13 @@ public class AuditableEntityWithMultiTenancyInterceptor : SaveChangesInterceptor
     {
         if (context == null) return;
 
+        var utcNow = _dateTime.GetUtcNow();
+
         foreach (var entry in context.ChangeTracker.Entries<BaseAuditableEntityWithMultiTenancy>())
         {
-            var utcNow = _dateTime.GetUtcNow();
+            // TODO: Refactor this to use a generic method to check if the entity is TenantUser
+            if (entry.Entity.GetType().Name == "TenantUser") continue;
+
             if (entry.State is EntityState.Added or EntityState.Modified || entry.HasChangedOwnedEntities())
             {
                 if (entry.State == EntityState.Added)

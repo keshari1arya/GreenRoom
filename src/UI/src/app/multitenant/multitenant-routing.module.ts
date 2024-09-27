@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { TenantDetailsComponent } from "./tenant-details/tenant-details.component";
 import { PaymentHistoryComponent } from "./payment-history/payment-history.component";
 import { UserManagerComponent } from "./user-manager/user-manager.component";
+import { EditTenantComponent } from "./edit-tenant/edit-tenant.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,18 @@ const routes: Routes = [
   {
     path: "user-manager",
     component: UserManagerComponent,
+  },
+  {
+    path: "create",
+    component: EditTenantComponent,
+  },
+  {
+    path: ":id",
+    component: TenantDetailsComponent,
+  },
+  {
+    path: ":id/edit",
+    component: EditTenantComponent,
   },
 ];
 

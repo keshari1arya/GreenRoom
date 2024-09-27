@@ -1,10 +1,10 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { MultitenantState } from "./multitenant.reducer";
 
-export const MULTITENANT_TEATURE_NAME = "multitenant";
+export const MULTITENANT_FEATURE_NAME = "multitenant";
 
 export const selectMultitenantState = createFeatureSelector<MultitenantState>(
-  MULTITENANT_TEATURE_NAME
+  MULTITENANT_FEATURE_NAME
 );
 
 export const selectMultitenantLoading = createSelector(

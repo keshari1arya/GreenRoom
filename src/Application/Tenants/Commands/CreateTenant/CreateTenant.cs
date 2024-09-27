@@ -1,5 +1,4 @@
-﻿using GreenRoom.Application.Common.Extension;
-using GreenRoom.Application.Common.Interfaces;
+﻿using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Tenants.Commands.CreateTenant;
@@ -50,6 +49,7 @@ public class CreateTenantCommandHandler : IRequestHandler<CreateTenantCommand, i
             TenantUsers = [
                 new() {
                     UserId = _user.Id!,
+                    // TODO: Assign Admin role dynamically and remove hardcoding
                     TenantRoleId = 1
                 }
             ]

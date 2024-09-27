@@ -6,9 +6,18 @@
   ></app-page-title>
   <!-- end page title -->
 
-  <div class="row" *ngIf="currentTenant$ | async; let tenant">
+  <div
+    class="row"
+    *ngIf="currentTenant$ | async as tenant; else noCurrentTenantTemplate"
+  >
     <div class="col-lg-12">
       <div class="card">
+        <a
+          class="btn btn-outline-primary text-right position-absolute top-0 end-0 mt-3 me-3"
+          [routerLink]="['/multitenant', tenant.id, 'edit']"
+        >
+          <i class="fas fa-pen"></i
+        ></a>
         <div class="card-body">
           <div class="d-flex">
             <div class="flex-shrink-0 me-4">
@@ -48,13 +57,24 @@
             </p>
           </div>
 
+          @if (tenant.subscription) {
+          <h5 class="font-size-15 mt-4">Subscription :</h5>
+          <div class="text-muted mt-4">ssss</div>
+          <p>
+            <i class="mdi mdi-chevron-right text-primary me-1"></i>
+            {{ tenant?.subscription?.name }}
+          </p>
+
           <div class="row task-dates">
             <div class="col-sm-4 col-6">
               <div class="mt-4">
                 <h5 class="font-size-14">
                   <i class="bx bx-calendar me-1 text-primary"></i> Start Date
                 </h5>
-                <p class="text-muted mb-0">08 Sept, 2019</p>
+                <!-- <p class="text-muted mb-0">08 Sept, 2019</p> -->
+                <p class="text-muted mb-0">
+                  {{ tenant.subscription.startDate | date : "dd MMM, yyyy" }}
+                </p>
               </div>
             </div>
 
@@ -64,12 +84,36 @@
                   <i class="bx bx-calendar-check me-1 text-primary"></i> Due
                   Date
                 </h5>
-                <p class="text-muted mb-0">12 Oct, 2019</p>
+                <!-- <p class="text-muted mb-0">22 Sept, 2019</p> -->
+                <p class="text-muted mb-0">
+                  {{ tenant.subscription.endDate | date : "dd MMM, yyyy" }}
+                </p>
               </div>
             </div>
           </div>
+          } @else{
+          <div>
+            <h5 class="font-size- 15 mt-4">Subscription :</h5>
+            <p class="text-muted mt-4">
+              No subscription found for this tenant.
+            </p>
+          </div>
+          <a
+            [routerLink]="['/multitenant', 'tenant', tenant.id, 'subscription']"
+            class="btn btn-primary mt-4"
+            >Subscribe</a
+          >
+          }
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #noCurrentTenantTemplate>
+  <div>
+    <a [routerLink]="['/multitenant/create']" class="btn btn-primary mt-4"
+      >Create Tenant</a
+    >
+  </div>
+</ng-template>

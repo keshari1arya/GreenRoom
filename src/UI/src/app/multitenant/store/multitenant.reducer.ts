@@ -1,11 +1,14 @@
 import { createReducer, on } from "@ngrx/store";
-import { TenantDto } from "src/app/lib/openapi-generated/models";
+import {
+  TenantDetailsDto,
+  TenantDto,
+} from "src/app/lib/openapi-generated/models";
 import { multitenantActions } from "./multitenant.actions";
 
 export interface MultitenantState {
   loading: boolean;
   error: any;
-  tenant: TenantDto;
+  tenant: TenantDetailsDto;
 }
 
 export const initialState: MultitenantState = {
@@ -19,10 +22,19 @@ export const MultitenantReducer = createReducer(
   on(multitenantActions.setError, (state, { error }) => {
     return { ...state, error, loading: false };
   }),
-  on(multitenantActions.fetchTenant, (state) => {
+  on(multitenantActions.fetchCurrentTenantDetails, (state) => {
     return { ...state, loading: true, error: null };
   }),
-  on(multitenantActions.fetchTenantSuccess, (state, { tenant }) => {
+  on(
+    multitenantActions.fetchCurrentTenantDetailsSuccess,
+    (state, { tenant }) => {
+      return { ...state, tenant, loading: false };
+    }
+  ),
+  on(multitenantActions.fetchTenantById, (state) => {
+    return { ...state, loading: true, error: null };
+  }),
+  on(multitenantActions.fetchTenantByIdSuccess, (state, { tenant }) => {
     return { ...state, tenant, loading: false };
   })
 );

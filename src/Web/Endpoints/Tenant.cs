@@ -3,6 +3,7 @@ using GreenRoom.Application.Tenants.Commands.AddTenantUsers;
 using GreenRoom.Application.Tenants.Commands.CreateTenant;
 using GreenRoom.Application.Tenants.Commands.RemoveTenantUsers;
 using GreenRoom.Application.Tenants.Commands.UpdateRole;
+using GreenRoom.Application.Tenants.Commands.UpdateTenant;
 using GreenRoom.Application.Tenants.Queries.GetActiveTenants;
 using GreenRoom.Application.Tenants.Queries.GetCurrentTenant;
 using GreenRoom.Application.Tenants.Queries.GetTenants;
@@ -22,6 +23,7 @@ public class Tenant : EndpointGroupBase
             .MapGet(MyTenants, "Mine")
             .MapGet(GetCurrentTenant, "Current")
             .MapPost(CreateTenant)
+            .MapPut(UpdateTenant, "{id}")
             .MapPost(AddTenantSubscription, "Subscription")
             .MapPost(AddTenantUsers, "Users")
             .MapDelete(RemoveTenantUsers, "Users")
@@ -43,7 +45,12 @@ public class Tenant : EndpointGroupBase
         return sender.Send(command);
     }
 
-    private Task<TenantDto> GetCurrentTenant(ISender sender)
+    private Task<int> UpdateTenant(ISender sender, [FromRoute] int id, [FromBody] UpdateTenantCommand command)
+    {
+        return sender.Send(command);
+    }
+
+    private Task<TenantDetailsDto> GetCurrentTenant(ISender sender)
     {
         return sender.Send(new GetCurrentTenantQuery());
     }

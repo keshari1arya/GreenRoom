@@ -1,0 +1,116 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <form
+            [formGroup]="form"
+            (ngSubmit)="onSubmit()"
+            class="needs-validation"
+          >
+            <!-- <input
+              type="hidden"
+              class="form-control"
+              id="formAction"
+              name="formAction"
+              value="add"
+            />
+            <input
+              type="hidden"
+              class="form-control"
+              id="project-id-input"
+              [ngClass]="{ 'is-valid': form.get('name').errors }"
+            /> -->
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Tenant Name</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter tenant name..."
+                    formControlName="name"
+                    controlValidationClass
+                  />
+                  <app-error-message [control]="form.get('name')" />
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Project Image</label>
+
+              <div class="text-center">
+                <div class="position-relative d-inline-block">
+                  <div class="position-absolute bottom-0 end-0">
+                    <label
+                      for="project-image-input"
+                      class="mb-0"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="right"
+                      title="Select Image"
+                    >
+                      <div class="avatar-xs">
+                        <div
+                          class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16"
+                        >
+                          <i class="bx bxs-image-alt"></i>
+                        </div>
+                      </div>
+                    </label>
+                    <input
+                      class="form-control d-none"
+                      value=""
+                      id="logo"
+                      formControlName="logo"
+                      type="file"
+                      accept="image/png, image/gif, image/jpeg"
+                      (change)="fileChange($event)"
+                    />
+                  </div>
+                  <div class="avatar-lg">
+                    <div class="avatar-title bg-light rounded-circle">
+                      <img
+                        src=""
+                        id="projectlogo-img"
+                        class="avatar-md h-auto rounded-circle"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label
+                for="projectdesc-input"
+                class="form-label"
+                for="description"
+                >Description</label
+              >
+              <textarea
+                class="form-control"
+                rows="3"
+                placeholder="Enter project description..."
+                formControlName="description"
+                id="description"
+                controlValidationClass
+              ></textarea>
+              <app-error-message [control]="form.get('description')" />
+            </div>
+            <div class="col-lg-12">
+              <div class="text-end mb-4">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- end card body -->
+      </div>
+      <!-- end card -->
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end col -->
+
+  <!-- end row -->
+</div>

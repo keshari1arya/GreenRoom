@@ -8,8 +8,15 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 import { PagetitleComponent } from "./pagetitle/pagetitle.component";
 import { LoaderComponent } from "./loader/loader.component";
+import { ErrorMessageComponent } from "./error-message/error-message.component";
+import { ControlValidationClassDirective } from "./directives/control-validation-class.directive";
 @NgModule({
-  declarations: [PagetitleComponent, LoaderComponent],
+  declarations: [
+    PagetitleComponent,
+    LoaderComponent,
+    ErrorMessageComponent,
+    ControlValidationClassDirective,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,6 +25,11 @@ import { LoaderComponent } from "./loader/loader.component";
     BsDropdownModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [PagetitleComponent, LoaderComponent],
+  exports: [
+    PagetitleComponent,
+    LoaderComponent,
+    ErrorMessageComponent,
+    ControlValidationClassDirective,
+  ],
 })
 export class UIModule {}
