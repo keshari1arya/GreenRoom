@@ -16,6 +16,10 @@ export class JwtInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    // TODO: if the request is not an API request, then do not add the token and tenantId
+    if (!request.url.startsWith("/api")) {
+      return next.handle(request);
+    }
     // add authorization header with jwt token if available
     let token = this.authenticationService.token();
     let tenantId = this.authenticationService.tenantId();
