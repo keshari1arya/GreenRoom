@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     // TODO: Check if the token is expired
     // TODO: IF token expired then get new token from refresh token
     // TODO: If refresh token is also expired then redirect to login page
-    const token = this.authService.token();
+    const token = this.authService.getToken();
     // const expiresAt = this.authService.expiresAt();
     if (token) {
       // logged in so return true

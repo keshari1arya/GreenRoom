@@ -63,6 +63,7 @@ export class AuthenticationEffects {
       ofType(AuthActions.logout),
       tap(() => {
         // TODO: Perform any necessary cleanup or side effects before logging out
+        this.authService.logout();
       }),
       exhaustMap(() => of(AuthActions.logoutSuccess()))
     )

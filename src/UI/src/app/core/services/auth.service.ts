@@ -4,24 +4,21 @@ import { catchError, from, map, of } from "rxjs";
 import { UsersService } from "src/app/lib/openapi-generated/services";
 import { AccessTokenResponse } from "src/app/lib/openapi-generated/models";
 import { TokenStorageService } from "./token-storage.service";
+import { ActivatedRoute, Route, Router } from "@angular/router";
 
+// TODO: Remove AuthService from project and place it's code to token/tokenManagement service. Use userServices to get the token and register the user.
 @Injectable({ providedIn: "root" })
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private route: Router
   ) {}
 
   /**
    * Returns the current user
    */
-  public token(): string {
-    if (
-      !localStorage.getItem("expiresIn") ||
-      localStorage.getItem("expiresIn") < new Date().getTime().toString()
-    ) {
-      this.refreshToken();
-    }
+  public getToken(): string {
     return localStorage.getItem("token");
   }
 
@@ -111,7 +108,7 @@ export class AuthService {
     // logout the user
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
-    localStorage.removeItem("expiresIn");
+    localStorage.removeItem("expiresOn");
     localStorage.removeItem("tokenType");
   }
 
@@ -122,28 +119,16 @@ export class AuthService {
   /**
    * refreshToken if the token is expired
    */
-  private refreshToken() {
-    this.usersService
-      .postApiUsersRefresh({
-        body: { refreshToken: localStorage.getItem("refreshToken") },
-      })
-      .pipe(
-        map((response: AccessTokenResponse) => {
-          this.setAuthData(response);
-
-          return response;
-        }),
-        catchError((error) => {
-          this.logout();
-          return error;
-        })
-      );
+  getRefreshToken() {
+    return localStorage.getItem("refreshToken");
   }
 
-  private setAuthData(response: AccessTokenResponse) {
+  setAuthData(response: AccessTokenResponse) {
     localStorage.setItem("token", response.accessToken);
     localStorage.setItem("refreshToken", response.refreshToken);
-    localStorage.setItem("expiresIn", response.expiresIn.toString());
+
+    const expiresOn = new Date().getTime() + response.expiresIn * 1000;
+    localStorage.setItem("expiresOn", expiresOn.toString());
     localStorage.setItem("tokenType", response.tokenType);
   }
 }

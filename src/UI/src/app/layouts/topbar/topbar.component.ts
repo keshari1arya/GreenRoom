@@ -100,7 +100,7 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    // TODO: Need to call the logout API
+    // TODO: Implement the logout functionality using auth store
 
     this.router.navigate(["/auth/login"]);
   }
