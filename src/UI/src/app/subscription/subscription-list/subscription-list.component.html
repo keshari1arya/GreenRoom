@@ -8,8 +8,8 @@
                         <div class="flex-grow-1">
                             <span class="badge"> Data Type</span>
                         </div>
-                        <button type="button" class="btn btn-light btn-sm  " data-bs-toggle="button"><i
-                                class="bx bx-heart"></i></button>
+                        <button type="button" (click)="editSubscription($index)" class="btn btn-light btn-sm"
+                            data-bs-toggle="button"><i class="bx bx-heart"> edit</i></button>
                     </div>
                     <div class="text-center mb-3">
                         <img src="" alt="" class="avatar-sm rounded-circle" />
@@ -33,4 +33,5 @@
         </div>
         }
     </div>
+    <button type="button" (click)="createSubscription()" class="btn btn-primary">Create</button>
 </div>

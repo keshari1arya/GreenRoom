@@ -1,6 +1,7 @@
 import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { environment } from "../environments/environment";
 
@@ -53,6 +54,8 @@ export function createTranslateLoader(http: HttpClient): any {
   declarations: [AppComponent, CyptolandingComponent],
   bootstrap: [AppComponent],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

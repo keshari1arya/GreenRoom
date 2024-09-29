@@ -8,18 +8,24 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { SUBSCRIPTION_STORE } from './store/subscription.selectors';
+import { SubscriptionCreateComponent } from './subscription-create/subscription-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UIModule } from "../shared/ui/ui.module";
 
 
 
 @NgModule({
   declarations: [
-    SubscriptionListComponent
+    SubscriptionListComponent,
+    SubscriptionCreateComponent,
   ],
   imports: [
     CommonModule,
     SubscriptionRoutingModule,
     StoreModule.forFeature(SUBSCRIPTION_STORE, SubscriptionReducer),
     EffectsModule.forFeature([SubscriptionEffects]),
+    ReactiveFormsModule,
+    UIModule
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
