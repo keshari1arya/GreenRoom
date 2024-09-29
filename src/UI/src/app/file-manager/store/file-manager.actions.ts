@@ -93,3 +93,13 @@ export const searchFoldersAndAssets = createAction(
   "[FileManager] search Folders and Assets",
   props<{ searchQuery: string; parentId: number }>()
 );
+
+export const trashAssets = createAction(
+  "[FileManager] trash Asset",
+  props<{ assetIds: number[] }>()
+);
+
+export const restoreAssets = createAction(
+  "[FileManager] restore Asset",
+  props<{ assetIds: number[] }>()
+);

@@ -39,35 +39,12 @@
           </span>
         </td>
         <td>
-          <div class="dropdown" dropdown>
-            <a
-              class="font-size-16 text-muted dropdown-toggle"
-              role="button"
-              dropdownToggle
-              data-toggle="dropdown"
-              aria-haspopup="true"
-            >
-              <i class="mdi mdi-dots-horizontal"></i>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-              <!-- @for (item of data.actions; track $index) {
-                  <a
-                    class="dropdown-item"
-                    href="javascript: void(0);"
-                    >{{ item }}</a
-                  >
-                  } -->
-              @if(item.isFolder) {
-              <a
-                class="dropdown-item"
-                href="javascript: void(0);"
-                (click)="restoreFolders(item.id)"
-                >Restore</a
-              >
-              }
-            </div>
-          </div>
+          <a
+            href="javascript:void(0);"
+            class="text-success"
+            (click)="restoreItem(item)"
+            ><i class="mdi mdi-restore font-size-18"></i
+          ></a>
         </td>
       </tr>
       }

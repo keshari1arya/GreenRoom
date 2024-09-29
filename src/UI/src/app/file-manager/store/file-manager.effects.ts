@@ -12,10 +12,12 @@ import {
   fetchTrashedItemsSuccess,
   pathToRoot,
   pathToRootSuccess,
+  restoreAssets,
   restoreFolders,
   restoreFolderSuccess,
   searchFoldersAndAssets,
   setError,
+  trashAssets,
   trashFolder,
   trashFolderSuccess,
 } from "./file-manager.actions";
@@ -91,6 +93,42 @@ export class FileManagerEffects {
           .restoreFolder({ body: { ids: param.folderIds } })
           .pipe(
             concatMap(() => [restoreFolderSuccess(), fetchTrashedItems()]),
+            catchError((error) => of(setError({ error })))
+          )
+      )
+    )
+  );
+
+  trashAssets$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(trashAssets),
+      mergeMap((param) =>
+        this.assetsService
+          .trashAssets({
+            body: {
+              ids: param.assetIds,
+            },
+          })
+          .pipe(
+            map(() => fetchAssetsByFolderIdData({ folderId: null })),
+            catchError((error) => of(setError({ error })))
+          )
+      )
+    )
+  );
+
+  restoreAssets$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(restoreAssets),
+      mergeMap((param) =>
+        this.assetsService
+          .restoreAssets({
+            body: {
+              ids: param.assetIds,
+            },
+          })
+          .pipe(
+            map(() => fetchTrashedItems()),
             catchError((error) => of(setError({ error })))
           )
       )

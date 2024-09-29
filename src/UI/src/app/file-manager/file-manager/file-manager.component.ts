@@ -28,11 +28,12 @@ export class FileManagerViewComponent {
 
   @Output() setCurrentFolderIdEvent = new EventEmitter<number>();
   @Output() trashFoldersEvent = new EventEmitter<number[]>();
-  @Output() restoreFoldersEvent = new EventEmitter<number[]>();
+  @Output() restoreItemsEvent = new EventEmitter<TrashFolderAndFilesDto[]>();
   @Output() addFolderEvent = new EventEmitter<string>();
   @Output() fileUploadEvent = new EventEmitter<File>();
   @Output() fetchTrashedItemsEvent = new EventEmitter();
   @Output() searchEvent = new EventEmitter<string>();
+  @Output() trashAssetEvent = new EventEmitter<number>();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -176,8 +177,12 @@ export class FileManagerViewComponent {
     });
   }
 
-  restoreFolders(folderIds: number[]) {
-    this.restoreFoldersEvent.emit(folderIds);
+  restoreItems(items: TrashFolderAndFilesDto[]) {
+    this.restoreItemsEvent.emit(items);
+  }
+
+  trashAsset($event: number) {
+    this.trashAssetEvent.emit($event);
   }
 
   private hideAllComponents() {

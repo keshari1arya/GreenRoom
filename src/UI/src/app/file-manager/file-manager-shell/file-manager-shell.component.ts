@@ -22,8 +22,10 @@ import {
   fetchFoldersByParentIdData,
   fetchTrashedItems,
   pathToRoot,
+  restoreAssets,
   restoreFolders,
   searchFoldersAndAssets,
+  trashAssets,
   trashFolder,
 } from "../store/file-manager.actions";
 
@@ -84,25 +86,29 @@ export class FileManagerShellComponent implements OnInit {
     this.openCurrentFolder();
   }
 
-  restoreFolders(folderIds: number[]) {
-    this.store.dispatch(restoreFolders({ folderIds: folderIds }));
+  restoreItems(items: TrashFolderAndFilesDto[]): void {
+    const folderIds = items
+      .filter((item) => item.isFolder)
+      .map((item) => item.id);
+    const assetIds = items
+      .filter((item) => !item.isFolder)
+      .map((item) => item.id);
+    if (folderIds.length) {
+      this.store.dispatch(restoreFolders({ folderIds }));
+    }
+    if (assetIds.length) {
+      this.store.dispatch(restoreAssets({ assetIds }));
+    }
   }
 
   fetchTrashedItems(): void {
     this.store.dispatch(fetchTrashedItems());
   }
-  private openCurrentFolder(): void {
-    this.store.dispatch(
-      fetchFoldersByParentIdData({ parentId: this.currentFolderId })
-    );
-    this.store.dispatch(
-      fetchAssetsByFolderIdData({ folderId: this.currentFolderId })
-    );
 
-    if (this.currentFolderId) {
-      this.store.dispatch(pathToRoot({ folderId: this.currentFolderId }));
-    }
+  trashAsset($event: number) {
+    this.store.dispatch(trashAssets({ assetIds: [$event] }));
   }
+
   search(term: string) {
     if (!term) {
       this.openCurrentFolder();
@@ -115,5 +121,18 @@ export class FileManagerShellComponent implements OnInit {
         parentId: this.currentFolderId,
       })
     );
+  }
+
+  private openCurrentFolder(): void {
+    this.store.dispatch(
+      fetchFoldersByParentIdData({ parentId: this.currentFolderId })
+    );
+    this.store.dispatch(
+      fetchAssetsByFolderIdData({ folderId: this.currentFolderId })
+    );
+
+    if (this.currentFolderId) {
+      this.store.dispatch(pathToRoot({ folderId: this.currentFolderId }));
+    }
   }
 }

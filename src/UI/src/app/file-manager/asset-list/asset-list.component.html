@@ -32,7 +32,7 @@
         </td>
         <td>{{ data.lastModified | date }}</td>
         <td>{{ utility.getFileSize(data.sizeInKB) }}</td>
-        <td>
+        <!-- <td>
           <div class="dropdown" dropdown>
             <a
               class="font-size-16 text-muted dropdown-toggle"
@@ -45,15 +45,26 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-              <!-- @for (item of data.actions; track $index) {
+              @for (item of data.actions; track $index) {
                 <a
                   class="dropdown-item"
                   href="javascript: void(0);"
                   >{{ item }}</a
                 >
-                } -->
+                }
+              <a class="dropdown-item" href="javascript: void(0);">Rename</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="javascript: void(0);">Remove</a>
             </div>
           </div>
+        </td> -->
+        <td>
+          <a
+            href="javascript:void(0);"
+            class="text-danger"
+            (click)="trashAsset(data.id)"
+            ><i class="mdi mdi-delete font-size-18"></i
+          ></a>
         </td>
       </tr>
       }

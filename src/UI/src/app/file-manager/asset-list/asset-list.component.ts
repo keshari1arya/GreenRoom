@@ -1,6 +1,14 @@
-import { Component, Input } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { AssetDto } from "src/app/lib/openapi-generated/models";
 import { Utility } from "../shared/classes/utility";
+import { ModalDirective } from "ngx-bootstrap/modal";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-asset-list",
@@ -10,6 +18,11 @@ import { Utility } from "../shared/classes/utility";
 })
 export class AssetListComponent {
   @Input() assets: AssetDto[] = [];
+  @Output() trashAssetEvent = new EventEmitter<number>();
 
   constructor(public utility: Utility) {}
+
+  trashAsset(id: number) {
+    this.trashAssetEvent.emit(id);
+  }
 }

@@ -10,11 +10,11 @@ import { Utility } from "../shared/classes/utility";
 })
 export class TrashedItemsComponent {
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
-  @Output() restoreFoldersEvent = new EventEmitter<number[]>();
+  @Output() restoreItemsEvent = new EventEmitter<TrashFolderAndFilesDto[]>();
 
   constructor(public utility: Utility) {}
 
-  restoreFolders(folderId: number): void {
-    this.restoreFoldersEvent.emit([folderId]);
+  restoreItem(item: TrashFolderAndFilesDto): void {
+    this.restoreItemsEvent.emit([item]);
   }
 }

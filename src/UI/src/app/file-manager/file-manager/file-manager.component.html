@@ -289,13 +289,16 @@
               ></app-folder-list>
               } @if (componentVisibilityStatus.assets) {
               <div class="mt-4">
-                <app-asset-list [assets]="assets"></app-asset-list>
+                <app-asset-list
+                  [assets]="assets"
+                  (trashAssetEvent)="trashAsset($event)"
+                ></app-asset-list>
               </div>
               } @if (componentVisibilityStatus.trashedItems) {
               <div class="mt-4">
                 <app-trashed-items
                   [trashedItems]="trashedItems"
-                  (restoreFoldersEvent)="restoreFolders($event)"
+                  (restoreItemsEvent)="restoreItems($event)"
                 ></app-trashed-items>
               </div>
               }
