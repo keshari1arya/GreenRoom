@@ -172,6 +172,55 @@
         ]
       }
     },
+    "/api/Assets/Search": {
+      "get": {
+        "tags": [
+          "Assets"
+        ],
+        "operationId": "SearchAssets",
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssetDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Folders": {
       "get": {
         "tags": [
@@ -424,6 +473,56 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/TrashFolderAndFilesDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Folders/{folderId}/Search": {
+      "get": {
+        "tags": [
+          "Folders"
+        ],
+        "operationId": "SearchFolders",
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FolderDto"
                   }
                 }
               }

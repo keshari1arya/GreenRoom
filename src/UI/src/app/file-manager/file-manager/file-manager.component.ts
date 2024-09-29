@@ -5,8 +5,9 @@ import {
   Output,
   TemplateRef,
 } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormControl } from "@angular/forms";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { debounceTime, distinctUntilChanged, of } from "rxjs";
 import {
   FolderDto,
   AssetDto,
@@ -31,6 +32,7 @@ export class FileManagerViewComponent {
   @Output() addFolderEvent = new EventEmitter<string>();
   @Output() fileUploadEvent = new EventEmitter<File>();
   @Output() fetchTrashedItemsEvent = new EventEmitter();
+  @Output() searchEvent = new EventEmitter<string>();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -48,6 +50,7 @@ export class FileManagerViewComponent {
     assets: true,
     trashedItems: false,
   };
+  searchControl = new FormControl("");
 
   constructor(
     private modalService: BsModalService,
@@ -109,6 +112,12 @@ export class FileManagerViewComponent {
       },
       labels: ["Storage"],
     };
+
+    this.searchControl.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((value) => {
+        this.searchEvent.emit(value);
+      });
   }
 
   openModal(template: TemplateRef<any>) {
@@ -132,6 +141,9 @@ export class FileManagerViewComponent {
   }
 
   openFolder(folderId: number) {
+    if (folderId === null) {
+      this.pathToRoot = [];
+    }
     this.setCurrentFolderIdEvent.emit(folderId);
     this.showComponents(["folders", "assets"]);
   }

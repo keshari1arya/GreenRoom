@@ -23,6 +23,7 @@ import {
   fetchTrashedItems,
   pathToRoot,
   restoreFolders,
+  searchFoldersAndAssets,
   trashFolder,
 } from "../store/file-manager.actions";
 
@@ -71,6 +72,7 @@ export class FileManagerShellComponent implements OnInit {
         folder: {
           body: {
             name: name,
+            parentFolderId: this.currentFolderId,
           },
         },
       })
@@ -100,5 +102,18 @@ export class FileManagerShellComponent implements OnInit {
     if (this.currentFolderId) {
       this.store.dispatch(pathToRoot({ folderId: this.currentFolderId }));
     }
+  }
+  search(term: string) {
+    if (!term) {
+      this.openCurrentFolder();
+      return;
+    }
+
+    this.store.dispatch(
+      searchFoldersAndAssets({
+        searchQuery: term,
+        parentId: this.currentFolderId,
+      })
+    );
   }
 }

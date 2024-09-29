@@ -14,6 +14,7 @@ import {
   pathToRootSuccess,
   restoreFolders,
   restoreFolderSuccess,
+  searchFoldersAndAssets,
   setError,
   trashFolder,
   trashFolderSuccess,
@@ -123,6 +124,48 @@ export class FileManagerEffects {
           map((trashedItems) => fetchTrashedItemsSuccess({ trashedItems })),
           catchError((error) => of(setError({ error })))
         )
+      )
+    )
+  );
+
+  searchFolders$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(searchFoldersAndAssets),
+      mergeMap((param) =>
+        this.folderService
+          .searchFolders({
+            folderId: param.parentId,
+            searchTerm: param.searchQuery,
+          })
+          .pipe(
+            map((folders) => {
+              return fetchFoldersByParentIdSuccess({
+                folders,
+              });
+            }),
+            catchError((error) => of(setError({ error })))
+          )
+      )
+    )
+  );
+
+  searchAssets$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(searchFoldersAndAssets),
+      mergeMap((param) =>
+        this.assetsService
+          .searchAssets({
+            folderId: param.parentId,
+            searchTerm: param.searchQuery,
+          })
+          .pipe(
+            map((assets) => {
+              return fetchAssetsByFolderIdSuccess({
+                assets,
+              });
+            }),
+            catchError((error) => of(setError({ error })))
+          )
       )
     )
   );

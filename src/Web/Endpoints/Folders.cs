@@ -7,6 +7,7 @@ using GreenRoom.Application.Folders.Commands.RestoreFolders;
 using GreenRoom.Application.Folders.Commands.TrashFolders;
 using GreenRoom.Application.Folders.Queries.GetFolderPathToRoot;
 using GreenRoom.Application.Folders.Queries.GetFolders;
+using GreenRoom.Application.Folders.Queries.SearchFolders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenRoom.Web.Endpoints;
@@ -24,7 +25,8 @@ public class Folders : EndpointGroupBase
             .MapPut(RestoreFolder, "Restore")
             .MapPut(RenameFolder, "Rename")
             .MapGet(GetFolderPathToRoot, "PathToRoot/{folderId}")
-            .MapGet(GetTrashed, "Trashed");
+            .MapGet(GetTrashed, "Trashed")
+            .MapGet(SearchFolders, "{folderId}/Search");
     }
 
     private Task<IEnumerable<FolderDto>> GetFolders(ISender sender, [AsParameters] GetFoldersQuery query)
@@ -64,5 +66,15 @@ public class Folders : EndpointGroupBase
     private Task<TrashFolderAndFilesDto[]> GetTrashed(ISender sender)
     {
         return sender.Send(new GetTrashedCommand());
+    }
+
+    private Task<IEnumerable<FolderDto>> SearchFolders(ISender sender, [FromRoute] int? folderId, [FromQuery] string searchTerm)
+    {
+        var query = new SearchFoldersQuery
+        {
+            ParentFolderId = folderId,
+            SearchTerm = searchTerm
+        };
+        return sender.Send(query);
     }
 }

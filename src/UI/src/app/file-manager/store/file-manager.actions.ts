@@ -88,3 +88,8 @@ export const fetchTrashedItemsSuccess = createAction(
   "[FileManager] fetch TrashedItems success",
   props<{ trashedItems: TrashFolderAndFilesDto[] }>()
 );
+
+export const searchFoldersAndAssets = createAction(
+  "[FileManager] search Folders and Assets",
+  props<{ searchQuery: string; parentId: number }>()
+);
