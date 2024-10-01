@@ -486,7 +486,7 @@
         ]
       }
     },
-    "/api/Folders/{folderId}/Search": {
+    "/api/Folders/Search": {
       "get": {
         "tags": [
           "Folders"
@@ -495,8 +495,7 @@
         "parameters": [
           {
             "name": "folderId",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32",

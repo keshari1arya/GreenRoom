@@ -26,7 +26,7 @@ public class Folders : EndpointGroupBase
             .MapPut(RenameFolder, "Rename")
             .MapGet(GetFolderPathToRoot, "PathToRoot/{folderId}")
             .MapGet(GetTrashed, "Trashed")
-            .MapGet(SearchFolders, "{folderId}/Search");
+            .MapGet(SearchFolders, "Search");
     }
 
     private Task<IEnumerable<FolderDto>> GetFolders(ISender sender, [AsParameters] GetFoldersQuery query)
@@ -68,7 +68,7 @@ public class Folders : EndpointGroupBase
         return sender.Send(new GetTrashedCommand());
     }
 
-    private Task<IEnumerable<FolderDto>> SearchFolders(ISender sender, [FromRoute] int? folderId, [FromQuery] string searchTerm)
+    private Task<IEnumerable<FolderDto>> SearchFolders(ISender sender, [FromQuery] int? folderId, [FromQuery] string searchTerm)
     {
         var query = new SearchFoldersQuery
         {
