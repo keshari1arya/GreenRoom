@@ -54,7 +54,6 @@ export function createTranslateLoader(http: HttpClient): any {
   declarations: [AppComponent, CyptolandingComponent],
   bootstrap: [AppComponent],
   imports: [
-    ReactiveFormsModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,

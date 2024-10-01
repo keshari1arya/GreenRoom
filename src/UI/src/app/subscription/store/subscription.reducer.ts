@@ -10,7 +10,7 @@ export interface SubscriptionState {
 }
 
 export const initialState: SubscriptionState = {
-  subscriptions: null,
+  subscriptions: [],
   loading: false,
   error: null,
 };

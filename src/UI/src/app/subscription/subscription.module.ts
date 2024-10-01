@@ -20,6 +20,7 @@ import { UIModule } from "../shared/ui/ui.module";
     SubscriptionCreateComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     SubscriptionRoutingModule,
     StoreModule.forFeature(SUBSCRIPTION_STORE, SubscriptionReducer),

@@ -24,13 +24,7 @@ export class SubscriptionCreateComponent implements OnInit {
   }
 
 
-  createSubscriptionForm = new FormGroup({
-    id: new FormControl(0),
-    name: new FormControl(''),
-    description: new FormControl(''),
-    price: new FormControl(),
-    isActive: new FormControl(true)
-  });
+  createSubscriptionForm: FormGroup;
 
 
   ngOnInit(): void {
@@ -39,7 +33,7 @@ export class SubscriptionCreateComponent implements OnInit {
         this.store.dispatch(
           editSubscriptionById({ id: params.id })
         );
-        console.log(params.id);
+
         this.store.select(selectData).subscribe((subscriptions) => {
           if (subscriptions) {
             const subscription = subscriptions[params.id] as UpdateSubscriptionCommand;
@@ -85,14 +79,6 @@ export class SubscriptionCreateComponent implements OnInit {
     }
 
 
-  }
-
-  getValidationClass(controlName: string) {
-    const control = this.createSubscriptionForm.get(controlName);
-    if (control?.touched && control?.invalid) {
-      return "is-invalid";
-    }
-    return "is-valid";
   }
 
   private createForm() {
