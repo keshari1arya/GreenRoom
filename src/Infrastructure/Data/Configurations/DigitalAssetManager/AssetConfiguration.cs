@@ -24,5 +24,11 @@ public class AssetConfiguration : IEntityTypeConfiguration<Asset>
             .WithMany(b => b.Assets)
             .HasForeignKey(b => b.FolderId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasMany(b => b.AssetTags)
+            .WithOne(b => b.Asset)
+            .HasForeignKey(b => b.AssetId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

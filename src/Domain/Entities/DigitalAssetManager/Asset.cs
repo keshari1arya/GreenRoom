@@ -9,4 +9,5 @@ public class Asset : BaseAuditableEntityWithMultiTenancy
     public bool IsTrashed { get; set; }
     public int? FolderId { get; set; }
     public Folder? Folder { get; set; }
+    public ICollection<AssetTag> AssetTags { get; set; } = [];
 }

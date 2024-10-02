@@ -1,6 +1,7 @@
 ﻿using GreenRoom.Application.Assets.Queries.GetAssetsByFolderId;
 using GreenRoom.Application.Common.Extension;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Tags.Queries.GetAllTags;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Folders.Queries.GetFolders;
@@ -45,12 +46,14 @@ public class FolderDto
     public string? Thumbnail { get; set; }
     public ICollection<FolderDto>? Children { get; set; }
     public ICollection<AssetDto>? Assets { get; set; }
+    public TagDto[] Tags { get; set; } = [];
 
     private class Mapping : Profile
     {
         public Mapping()
         {
-            CreateMap<Folder, FolderDto>();
+            CreateMap<Folder, FolderDto>()
+                .ForMember(d => d.Tags, opt => opt.MapFrom(s => s.FolderTags.Select(x => x.Tag).ToArray()));
         }
     }
 }

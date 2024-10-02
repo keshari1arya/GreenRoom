@@ -27,6 +27,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Subscription> Subscriptions => Set<Subscription>();
     public DbSet<TenantSubscription> TenantSubscriptions => Set<TenantSubscription>();
     public DbSet<TenantRole> TenantRoles => Set<TenantRole>();
+    public DbSet<Tag> Tags => Set<Tag>();
+    public DbSet<AssetTag> AssetTags => Set<AssetTag>();
+    public DbSet<FolderTag> FolderTags => Set<FolderTag>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -55,6 +58,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
         builder
             .Entity<UserInvitation>()
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+
+        builder
+            .Entity<Tag>()
             .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
     }
 

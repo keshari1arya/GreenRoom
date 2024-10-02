@@ -4,28 +4,24 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GreenRoom.Infrastructure.Data.Configurations.DigitalAssetManager;
 
-public class FolderConfiguration : IEntityTypeConfiguration<Folder>
+public class TagConfiguration : IEntityTypeConfiguration<Tag>
 {
-    public void Configure(EntityTypeBuilder<Folder> builder)
+    public void Configure(EntityTypeBuilder<Tag> builder)
     {
         builder
             .Property(b => b.Name)
             .IsRequired();
 
         builder
-            .Property(b => b.Path)
-            .IsRequired();
-
-        builder
-            .HasMany(b => b.Assets)
-            .WithOne(b => b.Folder)
-            .HasForeignKey(b => b.FolderId)
+            .HasMany(b => b.AssetTags)
+            .WithOne(b => b.Tag)
+            .HasForeignKey(b => b.TagId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder
             .HasMany(b => b.FolderTags)
-            .WithOne(b => b.Folder)
-            .HasForeignKey(b => b.FolderId)
+            .WithOne(b => b.Tag)
+            .HasForeignKey(b => b.TagId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

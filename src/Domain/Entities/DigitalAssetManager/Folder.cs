@@ -10,4 +10,5 @@ public class Folder : BaseAuditableEntityWithMultiTenancy
     public Folder? Parent { get; set; }
     public ICollection<Folder>? Children { get; set; }
     public ICollection<Asset>? Assets { get; set; }
+    public ICollection<FolderTag> FolderTags { get; set; } = [];
 }

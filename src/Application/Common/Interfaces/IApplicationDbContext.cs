@@ -17,6 +17,9 @@ public interface IApplicationDbContext
     DbSet<Subscription> Subscriptions { get; }
     DbSet<TenantSubscription> TenantSubscriptions { get; }
     DbSet<TenantRole> TenantRoles { get; }
+    DbSet<Tag> Tags { get; }
+    DbSet<AssetTag> AssetTags { get; }
+    DbSet<FolderTag> FolderTags { get; }
 
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
