@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GreenRoom.Application.Tenants.Queries.GetUsersForTenant;
 
-public record GetUsersForTenantQuery(int tenantId) : IRequest<IEnumerable<TenantUsersDto>>;
+public record GetUsersForTenantQuery : IRequest<IEnumerable<TenantUsersDto>>;
 
 public class GetUsersForTenantQueryValidator : AbstractValidator<GetUsersForTenantQuery>
 {
     public GetUsersForTenantQueryValidator(IApplicationDbContext context)
     {
-        RuleFor(v => v.tenantId).GreaterThan(0).IdMustExistInDatabase(context.Tenants);
+
     }
 }
 
@@ -20,13 +20,14 @@ public class GetUsersForTenantQueryHandler : IRequestHandler<GetUsersForTenantQu
     private readonly IApplicationDbContext _context;
     private readonly IUser _user;
     private readonly IMapper _mapper;
+    private readonly IMultiTenancyService _multiTenancyService;
 
-    public GetUsersForTenantQueryHandler(IApplicationDbContext context, IMapper mapper, IUser user)
+    public GetUsersForTenantQueryHandler(IApplicationDbContext context, IMapper mapper, IUser user, IMultiTenancyService multiTenancyService)
     {
         _context = context;
         _mapper = mapper;
         _user = user;
-
+        _multiTenancyService = multiTenancyService;
     }
 
     public Task<IEnumerable<TenantUsersDto>> Handle(GetUsersForTenantQuery request, CancellationToken cancellationToken)

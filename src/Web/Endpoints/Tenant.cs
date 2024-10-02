@@ -26,7 +26,7 @@ public class Tenant : EndpointGroupBase
             .MapPost(CreateTenant)
             .MapPut(UpdateTenant, "{id}")
             .MapPost(AddTenantSubscription, "Subscription")
-            .MapGet(GetUsersForTenant, "{tenantId}/Users")
+            .MapGet(GetUsersForTenant, "Users")
             .MapPost(AddTenantUsers, "Users")
             .MapDelete(RemoveTenantUsers, "Users")
             .MapPatch(UpdateRole, "Users/Role");
@@ -67,9 +67,9 @@ public class Tenant : EndpointGroupBase
         return sender.Send(command);
     }
 
-    private Task<IEnumerable<TenantUsersDto>> GetUsersForTenant(ISender sender, int tenantId)
+    private Task<IEnumerable<TenantUsersDto>> GetUsersForTenant(ISender sender)
     {
-        return sender.Send(new GetUsersForTenantQuery(tenantId));
+        return sender.Send(new GetUsersForTenantQuery());
     }
 
     private Task<int> AddTenantUsers(ISender sender, [FromBody] AddTenantUsersCommand command)
