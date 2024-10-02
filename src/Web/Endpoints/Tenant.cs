@@ -7,6 +7,7 @@ using GreenRoom.Application.Tenants.Commands.UpdateTenant;
 using GreenRoom.Application.Tenants.Queries.GetActiveTenants;
 using GreenRoom.Application.Tenants.Queries.GetCurrentTenant;
 using GreenRoom.Application.Tenants.Queries.GetTenants;
+using GreenRoom.Application.Tenants.Queries.GetUsersForTenant;
 using GreenRoom.Application.Tenants.Queries.TenantDetails;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,7 @@ public class Tenant : EndpointGroupBase
             .MapPost(CreateTenant)
             .MapPut(UpdateTenant, "{id}")
             .MapPost(AddTenantSubscription, "Subscription")
+            .MapGet(GetUsersForTenant, "{tenantId}/Users")
             .MapPost(AddTenantUsers, "Users")
             .MapDelete(RemoveTenantUsers, "Users")
             .MapPatch(UpdateRole, "Users/Role");
@@ -63,6 +65,11 @@ public class Tenant : EndpointGroupBase
     private Task<int> AddTenantSubscription(ISender sender, AddTenantSubscriptionCommand command)
     {
         return sender.Send(command);
+    }
+
+    private Task<IEnumerable<TenantUsersDto>> GetUsersForTenant(ISender sender, int tenantId)
+    {
+        return sender.Send(new GetUsersForTenantQuery(tenantId));
     }
 
     private Task<int> AddTenantUsers(ISender sender, [FromBody] AddTenantUsersCommand command)
