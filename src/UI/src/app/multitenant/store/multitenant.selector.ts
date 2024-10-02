@@ -21,3 +21,8 @@ export const selectTenant = createSelector(
   selectMultitenantState,
   (state: MultitenantState) => state.tenant
 );
+
+export const selectTenantUsers = createSelector(
+  selectMultitenantState,
+  (state: MultitenantState) => state.tenantUsers
+);

@@ -59,6 +59,20 @@ export class MultitenantEffects {
     )
   );
 
+  fetchTenantUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.fetchTenantUsers),
+      switchMap(() =>
+        this.tenantService.getUsersForTenant().pipe(
+          map((tenantUsers) =>
+            multitenantActions.fetchTenantUsersSuccess({ tenantUsers })
+          ),
+          catchError((error) => of(multitenantActions.setError({ error })))
+        )
+      )
+    )
+  );
+
   updateTenant$ = createEffect(() =>
     this.actions$.pipe(
       ofType(multitenantActions.updateTenant),
@@ -101,5 +115,5 @@ export class MultitenantEffects {
     private actions$: Actions,
     private tenantService: TenantService,
     private router: Router
-  ) {}
+  ) { }
 }

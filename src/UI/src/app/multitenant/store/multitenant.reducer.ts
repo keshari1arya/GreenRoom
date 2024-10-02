@@ -2,6 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import {
   TenantDetailsDto,
   TenantDto,
+  TenantUsersDto,
 } from "src/app/lib/openapi-generated/models";
 import { multitenantActions } from "./multitenant.actions";
 
@@ -9,10 +10,12 @@ export interface MultitenantState {
   loading: boolean;
   error: any;
   tenant: TenantDetailsDto;
+  tenantUsers: TenantUsersDto[];
 }
 
 export const initialState: MultitenantState = {
   tenant: null,
+  tenantUsers: [],
   loading: false,
   error: null,
 };
@@ -36,5 +39,8 @@ export const MultitenantReducer = createReducer(
   }),
   on(multitenantActions.fetchTenantByIdSuccess, (state, { tenant }) => {
     return { ...state, tenant, loading: false };
+  }),
+  on(multitenantActions.fetchTenantUsersSuccess, (state, { tenantUsers }) => {
+    return { ...state, tenantUsers, loading: false };
   })
 );
