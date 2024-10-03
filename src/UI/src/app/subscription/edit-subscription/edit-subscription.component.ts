@@ -24,7 +24,7 @@ export class EditSubscriptionComponent implements OnInit {
   }
 
 
-  createSubscriptionForm: FormGroup;
+  SubscriptionForm: FormGroup;
 
 
   ngOnInit(): void {
@@ -36,9 +36,7 @@ export class EditSubscriptionComponent implements OnInit {
 
         this.store.select(selectSubscriptionDetails).subscribe((res) => {
           if (res) {
-            // const subscription = subscriptions[params.id] as UpdateSubscriptionCommand;
-
-            this.createSubscriptionForm.patchValue({
+            this.SubscriptionForm.patchValue({
               id: res.id,
               name: res.name,
               description: res.description,
@@ -53,28 +51,28 @@ export class EditSubscriptionComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.createSubscriptionForm.invalid) {
-      this.createSubscriptionForm.markAllAsTouched();
+    if (this.SubscriptionForm.invalid) {
+      this.SubscriptionForm.markAllAsTouched();
       return;
     }
-    if (this.createSubscriptionForm.value.id) {
+    if (this.SubscriptionForm.value.id) {
       this.store.dispatch(updateSubscription({
         subscriptions: {
-          id: this.createSubscriptionForm.value.id,
-          name: this.createSubscriptionForm.value.name,
-          description: this.createSubscriptionForm.value.description,
-          price: this.createSubscriptionForm.value.price,
-          isActive: this.createSubscriptionForm.value.isActive
+          id: this.SubscriptionForm.value.id,
+          name: this.SubscriptionForm.value.name,
+          description: this.SubscriptionForm.value.description,
+          price: this.SubscriptionForm.value.price,
+          isActive: this.SubscriptionForm.value.isActive
         },
       }))
       return;
     } else {
       this.store.dispatch(createSubscription({
         subscriptions: {
-          name: this.createSubscriptionForm.value.name,
-          description: this.createSubscriptionForm.value.description,
-          price: this.createSubscriptionForm.value.price,
-          isActive: this.createSubscriptionForm.value.isActive
+          name: this.SubscriptionForm.value.name,
+          description: this.SubscriptionForm.value.description,
+          price: this.SubscriptionForm.value.price,
+          isActive: this.SubscriptionForm.value.isActive
         },
       }))
     }
@@ -83,7 +81,7 @@ export class EditSubscriptionComponent implements OnInit {
   }
 
   private createForm() {
-    this.createSubscriptionForm = this.formBuilder.group({
+    this.SubscriptionForm = this.formBuilder.group({
       id: [0],
       name: ["", [Validators.required, Validators.minLength(3)]],
       description: ["", [Validators.required, Validators.minLength(5)]],

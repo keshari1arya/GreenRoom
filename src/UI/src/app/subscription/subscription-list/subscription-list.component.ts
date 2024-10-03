@@ -17,8 +17,8 @@ export class SubscriptionListComponent implements OnInit {
   error$: Observable<string>;
 
   constructor(
-    private store: Store
-    , private router: Router
+    private store: Store,
+    private router: Router
   ) {
     this.subscriptions$ = store.select(selectData);
     this.loading$ = store.select(selectDataLoading);

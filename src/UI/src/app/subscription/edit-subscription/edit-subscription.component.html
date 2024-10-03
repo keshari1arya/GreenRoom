@@ -4,26 +4,26 @@
             <div class="card-body">
                 <h4 class="card-title mb-4">Form grid layout</h4>
 
-                <form [formGroup]="createSubscriptionForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="SubscriptionForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <label for="formrow-name-input">Name</label>
                         <input type="text" class="form-control" placeholder="Enter Name" formControlName="name"
                             controlValidationClass>
-                        <app-error-message [control]="createSubscriptionForm.get('name')" />
+                        <app-error-message [control]="SubscriptionForm.get('name')" />
                     </div>
 
                     <div class="mb-3">
                         <label for="formrow-description-input">Description</label>
                         <input type="text" class="form-control" placeholder="Enter Description"
                             formControlName="description" controlValidationClass>
-                        <app-error-message [control]="createSubscriptionForm.get('description')" />
+                        <app-error-message [control]="SubscriptionForm.get('description')" />
                     </div>
 
                     <div class="mb-3">
                         <label for="formrow-price-input">Price</label>
                         <input type="number" class="form-control" placeholder="Enter Price" formControlName="price"
                             controlValidationClass>
-                        <app-error-message [control]="createSubscriptionForm.get('price')" />
+                        <app-error-message [control]="SubscriptionForm.get('price')" />
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
