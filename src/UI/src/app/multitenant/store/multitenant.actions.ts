@@ -2,6 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import {
   CreateTenantCommand,
   TenantDetailsDto,
+  TenantUsersDto,
   UpdateTenantCommand,
 } from "src/app/lib/openapi-generated/models";
 
@@ -41,5 +42,14 @@ export const multitenantActions = {
   updateTenantSuccess: createAction(
     "[Multitenant] update Tenant success",
     props<{ tenantId: number }>()
+  ),
+
+  // Tenant Users
+  fetchTenantUsers: createAction(
+    "[Multitenant] fetch Tenant Users"
+  ),
+  fetchTenantUsersSuccess: createAction(
+    "[Multitenant] fetch Tenant Users success",
+    props<{ tenantUsers: TenantUsersDto[] }>()
   ),
 };

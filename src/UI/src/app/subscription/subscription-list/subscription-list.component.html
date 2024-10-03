@@ -8,8 +8,8 @@
                         <div class="flex-grow-1">
                             <span class="badge"> Data Type</span>
                         </div>
-                        <button type="button" class="btn btn-light btn-sm  " data-bs-toggle="button"><i
-                                class="bx bx-heart"></i></button>
+                        <a type="button" [routerLink]="['/subscription', subscription.id,'edit'] "
+                            class="btn btn-light btn-sm" data-bs-toggle="button"><i class="bx bx-heart"> edit</i></a>
                     </div>
                     <div class="text-center mb-3">
                         <img src="" alt="" class="avatar-sm rounded-circle" />
@@ -33,4 +33,5 @@
         </div>
         }
     </div>
+    <a type="button" [routerLink]="['/subscription/create']" class="btn btn-primary">Create</a>
 </div>
