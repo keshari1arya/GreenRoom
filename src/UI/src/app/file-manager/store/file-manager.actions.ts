@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { FileManager } from "./file-manager.model";
 import {
+  AssetDetailsDto,
   AssetDto,
   FolderDto,
   PathToRootDto,
@@ -102,4 +103,14 @@ export const trashAssets = createAction(
 export const restoreAssets = createAction(
   "[FileManager] restore Asset",
   props<{ assetIds: number[] }>()
+);
+
+export const fetchAssetDetails = createAction(
+  "[FileManager] fetch Asset Details",
+  props<{ assetId: number }>()
+);
+
+export const fetchAssetDetailsSuccess = createAction(
+  "[FileManager] fetch Asset Details success",
+  props<{ assetDetails: AssetDetailsDto }>()
 );

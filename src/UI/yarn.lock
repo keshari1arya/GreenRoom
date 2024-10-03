@@ -5786,6 +5786,11 @@ dns-packet@^5.2.2:
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
 
+"docviewhelper@>= 0.0.1":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/docviewhelper/-/docviewhelper-0.0.2.tgz#acd4d7ed8394e5136668c79488fd82107c894203"
+  integrity sha512-4ETJdDT//5Q8qcEGY9UjYo6dZiFzn3CHXAoSli4w35uehVdkKschIoRjG3exesc5jyVc9Zrch3oZKZR/5i4ZQQ==
+
 dom-serialize@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npmjs.org/dom-serialize/-/dom-serialize-2.2.1.tgz"
@@ -8373,6 +8378,14 @@ ngx-cookie-service@^18.0.0:
   integrity sha512-hkkUckzZTXXWtFgvVkT2hg6mwYMLXioXDZWBsVCOy9gYkADjsj0N5VViO7eo2izQ0VcMPd/Etog1trf/T4oZMQ==
   dependencies:
     tslib "^2.6.2"
+
+ngx-doc-viewer@^15.0.1:
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-doc-viewer/-/ngx-doc-viewer-15.0.1.tgz#fec826ecfdb90318324c6c6ace3614e15087f5a9"
+  integrity sha512-8FtA79/cIQUVagSU+IAno00VKzkfs/ep3p4rzsa7RXCbEGzXhbtCFOaqzuJN18PTaV0h9q3gpCcs2YRQ9ppSQw==
+  dependencies:
+    docviewhelper ">= 0.0.1"
+    tslib "^2.3.0"
 
 ngx-drag-drop@^17.0.0:
   version "17.0.0"

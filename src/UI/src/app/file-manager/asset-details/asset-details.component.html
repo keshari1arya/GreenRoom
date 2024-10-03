@@ -1,0 +1,19 @@
+<div *ngIf="asset$ | async; let asset">
+  @if (canShow(asset.name)) {
+  <ngx-doc-viewer
+    [url]="asset.path"
+    [viewer]="'url'"
+    style="height: 80vh"
+  ></ngx-doc-viewer>
+  } @else {
+  <div class="text-center">
+    <h4 class="text-muted">No preview available</h4>
+  </div>
+  }
+</div>
+
+<!-- Add a back link to the asset details page -->
+
+<div class="d-flex align-items-center">
+  <a [routerLink]="['/file-manager']" class="btn btn-primary">Back</a>
+</div>

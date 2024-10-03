@@ -19,7 +19,7 @@
       @for (data of assets; track $index) {
       <tr>
         <td>
-          <a href="javascript: void(0);" class="text-dark fw-medium">
+          <a [routerLink]="['asset', data.id]" class="text-dark fw-medium">
             <div class="d-inline-block text-truncate name-column">
               <i
                 class="{{

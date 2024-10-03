@@ -4,6 +4,8 @@ import { catchError, mergeMap, map, concatMap } from "rxjs/operators";
 import {
   addFolder,
   addFolderSuccess,
+  fetchAssetDetails,
+  fetchAssetDetailsSuccess,
   fetchAssetsByFolderIdData,
   fetchAssetsByFolderIdSuccess,
   fetchFoldersByParentIdData,
@@ -204,6 +206,18 @@ export class FileManagerEffects {
             }),
             catchError((error) => of(setError({ error })))
           )
+      )
+    )
+  );
+
+  assetDetails$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchAssetDetails),
+      mergeMap((param) =>
+        this.assetsService.getAssetDetails({ id: param.assetId }).pipe(
+          map((asset) => fetchAssetDetailsSuccess({ assetDetails: asset })),
+          catchError((error) => of(setError({ error })))
+        )
       )
     )
   );

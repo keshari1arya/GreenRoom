@@ -11,6 +11,7 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { LightboxModule } from "ngx-lightbox";
 import { SimplebarAngularModule } from "simplebar-angular";
+import { NgxDocViewerModule } from "ngx-doc-viewer";
 import { UIModule } from "../shared/ui/ui.module";
 import {
   provideHttpClient,
@@ -21,8 +22,9 @@ import { FileManagerReducer } from "./store/file-manager.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { FileManagerEffects } from "./store/file-manager.effects";
 import { AssetListComponent } from "./asset-list/asset-list.component";
-import { FolderListComponent } from './folder-list/folder-list.component';
-import { TrashedItemsComponent } from './trashed-items/trashed-items.component';
+import { FolderListComponent } from "./folder-list/folder-list.component";
+import { TrashedItemsComponent } from "./trashed-items/trashed-items.component";
+import { AssetDetailsComponent } from "./asset-details/asset-details.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { TrashedItemsComponent } from './trashed-items/trashed-items.component';
     AssetListComponent,
     FolderListComponent,
     TrashedItemsComponent,
+    AssetDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +58,7 @@ import { TrashedItemsComponent } from './trashed-items/trashed-items.component';
     // PickerModule,
     StoreModule.forFeature("fileManager", FileManagerReducer),
     EffectsModule.forFeature([FileManagerEffects]),
+    NgxDocViewerModule,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })

@@ -2,6 +2,8 @@ import { Action, createReducer, on } from "@ngrx/store";
 import {
   addFolder,
   addFolderSuccess,
+  fetchAssetDetails,
+  fetchAssetDetailsSuccess,
   fetchAssetsByFolderIdData,
   fetchAssetsByFolderIdSuccess,
   fetchFoldersByParentIdData,
@@ -15,6 +17,7 @@ import {
   setError,
 } from "./file-manager.actions";
 import {
+  AssetDetailsDto,
   AssetDto,
   FolderDto,
   PathToRootDto,
@@ -28,6 +31,7 @@ export interface FileManagerState {
   assets: AssetDto[];
   pathToRoot: PathToRootDto[];
   trashedItems: TrashFolderAndFilesDto[];
+  assetDetails: AssetDetailsDto;
 }
 
 export const initialState: FileManagerState = {
@@ -37,6 +41,7 @@ export const initialState: FileManagerState = {
   assets: [],
   pathToRoot: [],
   trashedItems: [],
+  assetDetails: {},
 };
 
 export const FileManagerReducer = createReducer(
@@ -81,6 +86,12 @@ export const FileManagerReducer = createReducer(
   }),
   on(restoreFolderSuccess, (state) => {
     return { ...state, loading: false };
+  }),
+  on(fetchAssetDetails, (state) => {
+    return { ...state, loading: true, error: null };
+  }),
+  on(fetchAssetDetailsSuccess, (state, { assetDetails }) => {
+    return { ...state, assetDetails, loading: false };
   })
 );
 

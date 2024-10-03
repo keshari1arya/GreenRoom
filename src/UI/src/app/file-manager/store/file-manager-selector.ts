@@ -33,3 +33,8 @@ export const selectTrashedItems = createSelector(
   selectFileManagerState,
   (state: FileManagerState) => state.trashedItems
 );
+
+export const selectAssetDetails = createSelector(
+  selectFileManagerState,
+  (state: FileManagerState) => state.assetDetails
+);

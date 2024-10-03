@@ -2,6 +2,7 @@ using GreenRoom.Application.Assets.Commands.CreateAsset;
 using GreenRoom.Application.Assets.Commands.MoveAssets;
 using GreenRoom.Application.Assets.Commands.RestoreAssets;
 using GreenRoom.Application.Assets.Commands.TrashAssets;
+using GreenRoom.Application.Assets.Queries.GetAssetDetails;
 using GreenRoom.Application.Assets.Queries.GetAssetsByFolderId;
 using GreenRoom.Application.Assets.Queries.SearchAssets;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ public class Assets : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapGet(GetAssets)
+            .MapGet(GetAssetDetails, "{id}")
             .MapPost(CreateAsset)
             .MapPut(MoveAsset, "Move")
             .MapPut(TrashAssets, "Trash")
@@ -25,6 +27,11 @@ public class Assets : EndpointGroupBase
     private Task<IEnumerable<AssetDto>> GetAssets(ISender sender, [AsParameters] GetAssetsByFolderIdQuery query)
     {
         return sender.Send(query);
+    }
+
+    private Task<AssetDetailsDto> GetAssetDetails(ISender sender, int id)
+    {
+        return sender.Send(new GetAssetDetailsQuery(id));
     }
 
     private Task<int> CreateAsset(ISender sender, CreateAssetCommand command)
