@@ -1,11 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SubscriptionActions from './subscription.actions';
-import { SubscriptionDto } from 'src/app/lib/openapi-generated/models';
+import { SubscriptionDetailsDto, SubscriptionDto } from 'src/app/lib/openapi-generated/models';
+import { updateSubscription } from 'src/app/lib/openapi-generated/fn/subscription/update-subscription';
 
 export interface SubscriptionState {
   subscriptions: SubscriptionDto[];
   loading: boolean;
   error: string | null;
+  subscriptionDetails?: SubscriptionDetailsDto;
 }
 
 export const initialState: SubscriptionState = {
@@ -16,6 +18,14 @@ export const initialState: SubscriptionState = {
 
 export const SubscriptionReducer = createReducer(
   initialState,
+  on(SubscriptionActions.SubscriptionError, (state, { error }) => {
+    return {
+      ...state,
+      loading: false,
+      error: error
+    }
+  }),
+  //subscription-list
   on(SubscriptionActions.loadSubscription, (state) => {
     return {
       ...state,
@@ -23,15 +33,44 @@ export const SubscriptionReducer = createReducer(
       error: null
     }
   }),
-  on(SubscriptionActions.SubscriptionSuccess, (state, { data }) => {
-    return { ...state, loading: false, subscriptions: data }
+  on(SubscriptionActions.SubscriptionSuccess, (state, { subscriptions }) => {
+    return { ...state, loading: false, subscriptions }
   }),
-  on(SubscriptionActions.SubscriptionError, (state, { error }) => {
+  //create-subscription
+  on(SubscriptionActions.createSubscription, (state) => {
+    return {
+      ...state,
+      loading: true,
+      error: null
+    }
+  }),
+  on(SubscriptionActions.subscriptionCreateSuccess, (state, { subscriptionsId }) => {
     return {
       ...state,
       loading: false,
-      error: error
+      subscriptionsId
+    }
+  }),
+
+  on(SubscriptionActions.editSubscriptionByIdSuccess, (state, { subscriptionsById }) => {
+    return { ...state, loading: false, subscriptionDetails: subscriptionsById }
+  }),
+
+  //update-subscription
+  on(SubscriptionActions.updateSubscription, (state) => {
+    return {
+      ...state,
+      loading: true,
+      error: null
+    }
+  }),
+  on(SubscriptionActions.subscriptionUpdateSuccess, (state, { subscriptionsId }) => {
+    return {
+      ...state,
+      loading: false,
+      subscriptionsId
     }
   })
+
 );
 

@@ -4,7 +4,7 @@ import { selectData, selectDataError, selectDataLoading } from '../store/subscri
 import { loadSubscription } from '../store/subscription.actions';
 import { Observable, of } from 'rxjs';
 import { SubscriptionDto } from 'src/app/lib/openapi-generated/models';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subscription-list',
@@ -16,7 +16,10 @@ export class SubscriptionListComponent implements OnInit {
   loading$: Observable<boolean>;
   error$: Observable<string>;
 
-  constructor(private store: Store) {
+  constructor(
+    private store: Store,
+    private router: Router
+  ) {
     this.subscriptions$ = store.select(selectData);
     this.loading$ = store.select(selectDataLoading);
     this.error$ = store.select(selectDataError);

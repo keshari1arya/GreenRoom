@@ -47,7 +47,10 @@ const routes: Routes = [
     path: 'subscription',
     component: LayoutComponent,
     loadChildren: () =>
-      import('./subscription/subscription.module').then(m => m.SubscriptionModule),
+      import('./subscription/subscription.module').then(
+        m => m.SubscriptionModule
+      ),
+    canActivate: [AuthGuard],
   },
 ];
 

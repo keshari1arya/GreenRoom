@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, mergeMap, map, concatMap } from "rxjs/operators";
 import * as SubscriptionActions from './subscription.actions';
-import { of } from 'rxjs';
+import { from, of } from 'rxjs';
 import { SubscriptionService } from 'src/app/lib/openapi-generated/services';
 
 
@@ -19,11 +19,58 @@ export class SubscriptionEffects {
       ofType(SubscriptionActions.loadSubscription),
       mergeMap(() => {
         return this.service.getSubscriptions().pipe(
-          map(data => SubscriptionActions.SubscriptionSuccess({ data })),
+          map(data => SubscriptionActions.SubscriptionSuccess({ subscriptions: data })),
           catchError(error => of(SubscriptionActions.SubscriptionError({ error: error.message })))
         )
       })
     )
   )
 
+
+  updateSubscription$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubscriptionActions.updateSubscription),
+      mergeMap(({ subscriptions }) =>
+        from(this.service.updateSubscription({
+          body: subscriptions,
+          id: subscriptions.id
+        }))
+          .pipe(
+            map(() =>
+              SubscriptionActions.subscriptionUpdateSuccess({ subscriptionsId: subscriptions.id })),
+            catchError((error) => of(SubscriptionActions.SubscriptionError({ error: error.message })))
+          )
+      )
+    )
+  );
+
+  //create subscription
+  createSubscription$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubscriptionActions.createSubscription),
+      mergeMap(({ subscriptions }) =>
+        from(this.service.createSubscription({
+          body: subscriptions
+        }))
+          .pipe(
+            map((createdSubscriptionId) =>
+              SubscriptionActions.subscriptionCreateSuccess({ subscriptionsId: createdSubscriptionId })),
+            catchError((error) => of(SubscriptionActions.SubscriptionError({ error: error.message })))
+          )
+      )
+    )
+  );
+
+  //set details of Subscription
+  fetchSubscriptionById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubscriptionActions.editSubscriptionById),
+      mergeMap(({ id }) =>
+        from(this.service.getSubscriptionDetails({ id })).pipe(
+          map((data) => SubscriptionActions.editSubscriptionByIdSuccess({ subscriptionsById: data })),
+          catchError((error) => of(SubscriptionActions.SubscriptionError({ error: error.message })))
+        )
+      )
+    )
+  );
 }
