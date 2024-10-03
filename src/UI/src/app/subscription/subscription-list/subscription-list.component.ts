@@ -28,12 +28,4 @@ export class SubscriptionListComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadSubscription());
   }
-
-  createSubscription() {
-    this.router.navigate(['/subscription/create']);
-  }
-
-  editSubscription(id: number) {
-    this.router.navigate(['/subscription/' + id + '/edit']);
-  }
 }

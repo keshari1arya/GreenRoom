@@ -5,15 +5,15 @@ import { Store } from '@ngrx/store';
 import { SubscriptionState } from '../store/subscription.reducer';
 import { Subscription } from 'rxjs';
 import { createSubscription, editSubscriptionById, updateSubscription } from '../store/subscription.actions';
-import { selectData } from '../store/subscription.selectors';
+import { selectData, selectSubscriptionDetails } from '../store/subscription.selectors';
 import { UpdateSubscriptionCommand } from 'src/app/lib/openapi-generated/models';
 
 @Component({
   selector: 'app-subscription-create',
-  templateUrl: './subscription-create.component.html',
-  styleUrl: './subscription-create.component.css'
+  templateUrl: './edit-subscription.component.html',
+  styleUrl: './edit-subscription.component.scss'
 })
-export class SubscriptionCreateComponent implements OnInit {
+export class EditSubscriptionComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,15 +34,16 @@ export class SubscriptionCreateComponent implements OnInit {
           editSubscriptionById({ id: params.id })
         );
 
-        this.store.select(selectData).subscribe((subscriptions) => {
-          if (subscriptions) {
-            const subscription = subscriptions[params.id] as UpdateSubscriptionCommand;
+        this.store.select(selectSubscriptionDetails).subscribe((res) => {
+          if (res) {
+            // const subscription = subscriptions[params.id] as UpdateSubscriptionCommand;
+
             this.createSubscriptionForm.patchValue({
-              id: subscription.id,
-              name: subscription.name,
-              description: subscription.description,
-              price: subscription.price,
-              isActive: subscription.isActive
+              id: res.id,
+              name: res.name,
+              description: res.description,
+              price: res.price,
+              isActive: res.isActive
             });
           }
         });

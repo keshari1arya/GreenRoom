@@ -60,4 +60,17 @@ export class SubscriptionEffects {
       )
     )
   );
+
+  //set details of Subscription
+  fetchSubscriptionById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubscriptionActions.editSubscriptionById),
+      mergeMap(({ id }) =>
+        from(this.service.getSubscriptionDetails({ id })).pipe(
+          map((data) => SubscriptionActions.editSubscriptionByIdSuccess({ subscriptionsById: data })),
+          catchError((error) => of(SubscriptionActions.SubscriptionError({ error: error.message })))
+        )
+      )
+    )
+  );
 }

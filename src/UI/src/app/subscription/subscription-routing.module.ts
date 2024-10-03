@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SubscriptionListComponent } from './subscription-list/subscription-list.component';
-import { SubscriptionCreateComponent } from './subscription-create/subscription-create.component';
+import { EditSubscriptionComponent } from './edit-subscription/edit-subscription.component';
 
 const routes: Routes = [
     { path: "", component: SubscriptionListComponent },
-    { path: "create", component: SubscriptionCreateComponent },
-    { path: ":id/edit", component: SubscriptionCreateComponent },
+    { path: ":id/edit", component: EditSubscriptionComponent },
+    { path: "create", component: EditSubscriptionComponent },
 ];
 
 @NgModule({

@@ -20,3 +20,8 @@ export const selectDataError = createSelector(
     selectSubscriptionState,
     (state: SubscriptionState) => state.error
 )
+
+export const selectSubscriptionDetails = createSelector(
+    selectSubscriptionState,
+    (state: SubscriptionState) => state.subscriptionDetails
+)

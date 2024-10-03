@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { SUBSCRIPTION_STORE } from './store/subscription.selectors';
-import { SubscriptionCreateComponent } from './subscription-create/subscription-create.component';
+import { EditSubscriptionComponent } from './edit-subscription/edit-subscription.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIModule } from "../shared/ui/ui.module";
 
@@ -17,7 +17,7 @@ import { UIModule } from "../shared/ui/ui.module";
 @NgModule({
   declarations: [
     SubscriptionListComponent,
-    SubscriptionCreateComponent,
+    EditSubscriptionComponent,
   ],
   imports: [
     ReactiveFormsModule,

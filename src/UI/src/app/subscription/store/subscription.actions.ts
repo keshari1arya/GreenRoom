@@ -1,5 +1,5 @@
 import { Action, createAction, props } from "@ngrx/store";
-import { CreateSubscriptionCommand, SubscriptionDto, UpdateSubscriptionCommand } from "src/app/lib/openapi-generated/models";
+import { CreateSubscriptionCommand, SubscriptionDetailsDto, SubscriptionDto, UpdateSubscriptionCommand } from "src/app/lib/openapi-generated/models";
 
 export const SubscriptionError = createAction("[Subscription] Subscription Error", props<{ error: string }>());
 
@@ -9,7 +9,7 @@ export const SubscriptionSuccess = createAction("[Subscription] Subscription Suc
 
 //id state
 export const editSubscriptionById = createAction("[Subscription] Edit Subscription By Id", props<{ id: number }>());
-export const editSubscriptionByIdSuccess = createAction("[Subscription] Edit Subscription By Id Success", props<{ subscriptions: SubscriptionDto[] }>());
+export const editSubscriptionByIdSuccess = createAction("[Subscription] Edit Subscription By Id Success", props<{ subscriptionsById: SubscriptionDetailsDto }>());
 
 //subscription-create
 export const createSubscription = createAction("[Subscription] Create Subscription", props<{ subscriptions: CreateSubscriptionCommand }>());

@@ -1,12 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SubscriptionActions from './subscription.actions';
-import { SubscriptionDto } from 'src/app/lib/openapi-generated/models';
+import { SubscriptionDetailsDto, SubscriptionDto } from 'src/app/lib/openapi-generated/models';
 import { updateSubscription } from 'src/app/lib/openapi-generated/fn/subscription/update-subscription';
 
 export interface SubscriptionState {
   subscriptions: SubscriptionDto[];
   loading: boolean;
   error: string | null;
+  subscriptionDetails?: SubscriptionDetailsDto;
 }
 
 export const initialState: SubscriptionState = {
@@ -51,8 +52,8 @@ export const SubscriptionReducer = createReducer(
     }
   }),
 
-  on(SubscriptionActions.editSubscriptionByIdSuccess, (state, { subscriptions }) => {
-    return { ...state, loading: false, subscriptions }
+  on(SubscriptionActions.editSubscriptionByIdSuccess, (state, { subscriptionsById }) => {
+    return { ...state, loading: false, subscriptionDetails: subscriptionsById }
   }),
 
   //update-subscription
