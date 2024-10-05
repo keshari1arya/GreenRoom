@@ -1,38 +1,36 @@
 <div class="container-fluid">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Table head</h4>
-                <p class="card-title-desc">Use one of two modifier classes to make <code>&lt;thead&gt;</code>s appear
-                    light
-                    or
-                    dark gray.</p>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Table head</h4>
+        <p class="card-title-desc">
+          Use one of two modifier classes to make <code>&lt;thead&gt;</code>s
+          appear light or dark gray.
+        </p>
 
-                <div class="table-responsive">
-                    <table class="table mb-0">
-
-                        <thead class="table-light">
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(User of tenantUsers$ | async; track $index) {
-                            <tr>
-                                <th scope="row">{{User.id}}</th>
-                                <td>{{User.name}}</td>
-                                <td>{{User.email}}</td>
-                                <td>{{User.role}}</td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(User of tenantUsers$ | async; track $index) {
+              <tr>
+                <th scope="row">{{ User.userId }}</th>
+                <td>{{ User.firstName }} {{ User.lastName }}</td>
+                <td>{{ User.email }}</td>
+                <td>{{ User.roleId }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </div>

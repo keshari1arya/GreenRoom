@@ -1,5 +1,6 @@
 ﻿using GreenRoom.Application.Common.Extension;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Common.Models;
 using GreenRoom.Domain.Constants;
 using Microsoft.AspNetCore.Identity;
 
@@ -18,43 +19,54 @@ public class GetUsersForTenantQueryValidator : AbstractValidator<GetUsersForTena
 public class GetUsersForTenantQueryHandler : IRequestHandler<GetUsersForTenantQuery, IEnumerable<TenantUsersDto>>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IUser _user;
-    private readonly IMapper _mapper;
     private readonly IMultiTenancyService _multiTenancyService;
+    private readonly IIdentityService _identityService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public GetUsersForTenantQueryHandler(IApplicationDbContext context, IMapper mapper, IUser user, IMultiTenancyService multiTenancyService)
+    public GetUsersForTenantQueryHandler(IApplicationDbContext context, IMultiTenancyService multiTenancyService, IIdentityService identityService, UserManager<ApplicationUser> userManager)
     {
         _context = context;
-        _mapper = mapper;
-        _user = user;
         _multiTenancyService = multiTenancyService;
+        _identityService = identityService;
+        _userManager = userManager;
     }
 
-    public Task<IEnumerable<TenantUsersDto>> Handle(GetUsersForTenantQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TenantUsersDto>> Handle(GetUsersForTenantQuery request, CancellationToken cancellationToken)
     {
-        // mock and return 20 users
-        var users = new List<TenantUsersDto>();
-        for (int i = 0; i < 20; i++)
-        {
-            users.Add(new TenantUsersDto
-            {
-                Id = i,
-                Name = $"User {i}",
-                Email = "user" + i + "@example.com",
-                Role = i / 2 == 0 ? Roles.Administrator : Roles.User,
-                IsActive = true
-            });
+        var tenantUsers = await _context.TenantUsers
+             .Where(x => x.TenantId == _multiTenancyService.CurrentTenant)
+             .Select(x => new TenantUsersDto
+             {
+                 UserId = x.UserId,
+                 RoleId = x.TenantRoleId,
+             })
+             .ToListAsync(cancellationToken);
 
+        var users = _userManager.Users
+            .Where(x => tenantUsers.Select(x => x.UserId).Contains(x.Id));
+
+        foreach (var tenantUser in tenantUsers)
+        {
+            var user = users.FirstOrDefault(x => x.Id == tenantUser.UserId);
+            if (user != null)
+            {
+                tenantUser.UserName = user.UserName;
+                tenantUser.Email = user.Email;
+                tenantUser.FirstName = user.FirstName;
+                tenantUser.LastName = user.LastName;
+            }
         }
-        return Task.FromResult(users.AsEnumerable());
+
+        return tenantUsers;
     }
 }
 
 public class TenantUsersDto
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string Role { get; set; } = string.Empty;
-    public bool IsActive { get; set; }
+    public string UserId { get; set; } = string.Empty;
+    public string? UserName { get; set; } = string.Empty;
+    public string? Email { get; set; } = string.Empty;
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public int RoleId { get; set; }
 }

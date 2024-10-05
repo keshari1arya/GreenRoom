@@ -6,6 +6,7 @@ using GreenRoom.Application.Tenants.Commands.UpdateRole;
 using GreenRoom.Application.Tenants.Commands.UpdateTenant;
 using GreenRoom.Application.Tenants.Queries.GetActiveTenants;
 using GreenRoom.Application.Tenants.Queries.GetCurrentTenant;
+using GreenRoom.Application.Tenants.Queries.GetTenantRoles;
 using GreenRoom.Application.Tenants.Queries.GetTenants;
 using GreenRoom.Application.Tenants.Queries.GetUsersForTenant;
 using GreenRoom.Application.Tenants.Queries.TenantDetails;
@@ -29,7 +30,8 @@ public class Tenant : EndpointGroupBase
             .MapGet(GetUsersForTenant, "Users")
             .MapPost(AddTenantUsers, "Users")
             .MapDelete(RemoveTenantUsers, "Users")
-            .MapPatch(UpdateRole, "Users/Role");
+            .MapPatch(UpdateRole, "Users/Role")
+            .MapGet(GetRoles, "Roles");
     }
 
     private Task<IEnumerable<TenantDto>> GetTenants(ISender sender)
@@ -85,5 +87,10 @@ public class Tenant : EndpointGroupBase
     private Task<int> UpdateRole(ISender sender, [FromBody] UpdateRoleCommand command)
     {
         return sender.Send(command);
+    }
+
+    private Task<TenantRolesDto[]> GetRoles(ISender sender)
+    {
+        return sender.Send(new GetTenantRolesQuery());
     }
 }

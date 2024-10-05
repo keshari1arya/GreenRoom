@@ -1,8 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using GreenRoom.Application.Common.Models;
 using GreenRoom.Domain.Constants;
 using GreenRoom.Domain.Entities;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
-using GreenRoom.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

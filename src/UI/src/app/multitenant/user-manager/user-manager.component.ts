@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { multitenantActions } from '../store/multitenant.actions';
-import { selectMultitenantError, selectMultitenantLoading, selectTenant, selectTenantUsers } from '../store/multitenant.selector';
-import { Observable, of } from 'rxjs';
-import { TenantUsersDto } from 'src/app/lib/openapi-generated/models';
+import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { multitenantActions } from "../store/multitenant.actions";
+import {
+  selectMultitenantError,
+  selectMultitenantLoading,
+  selectTenant,
+  selectTenantUsers,
+} from "../store/multitenant.selector";
+import { Observable, of } from "rxjs";
+import { TenantUsersDto } from "src/app/lib/openapi-generated/models";
 
 @Component({
-  selector: 'app-user-manager',
-  templateUrl: './user-manager.component.html',
-  styleUrl: './user-manager.component.css'
+  selector: "app-user-manager",
+  templateUrl: "./user-manager.component.html",
+  styleUrl: "./user-manager.component.scss",
 })
 export class UserManagerComponent implements OnInit {
-
   tenantUsers$!: Observable<TenantUsersDto[]>;
   loading$!: Observable<boolean>;
   error$!: Observable<string>;
@@ -25,5 +29,4 @@ export class UserManagerComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(multitenantActions.fetchTenantUsers());
   }
-
 }
