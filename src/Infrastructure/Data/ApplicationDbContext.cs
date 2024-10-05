@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Common.Models;
 using GreenRoom.Domain.Entities;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
-using GreenRoom.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

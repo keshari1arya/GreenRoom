@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.S3;
 using GreenRoom.Application.Common.Configurations;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Common.Models;
 using GreenRoom.Application.Interfaces;
 using GreenRoom.Domain.Constants;
 using GreenRoom.Infrastructure.Data;

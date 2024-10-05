@@ -1410,6 +1410,34 @@
         ]
       }
     },
+    "/api/Tenant/Roles": {
+      "get": {
+        "tags": [
+          "Tenant"
+        ],
+        "operationId": "GetRoles",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TenantRolesDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -1744,6 +1772,40 @@
             "JWT": []
           }
         ]
+      }
+    },
+    "/api/Users/Search": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "SearchUsers",
+        "parameters": [
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchUserDto"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/Users/AddTenantClaim": {
@@ -2747,21 +2809,28 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
+          "userId": {
             "type": "string"
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
-          "role": {
-            "type": "string"
+          "firstName": {
+            "type": "string",
+            "nullable": true
           },
-          "isActive": {
-            "type": "boolean"
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -2812,6 +2881,22 @@
           "roleId": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "TenantRolesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
           }
         }
       },
@@ -3038,6 +3123,31 @@
             "format": "int32"
           },
           "title": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "SearchUserDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
             "type": "string",
             "nullable": true
           }
