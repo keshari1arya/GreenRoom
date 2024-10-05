@@ -80,7 +80,20 @@ export const MENU: MenuItem[] = [
     id: 14,
     label: "MENUITEMS.MULTITENANT.TEXT",
     icon: "bx-file",
-    link: "/multitenant",
+    subItems: [
+      {
+        id: 15,
+        label: "MENUITEMS.MULTITENANT.LIST.TENANT",
+        link: "/multitenant",
+        parentId: 14,
+      },
+      {
+        id: 16,
+        label: "MENUITEMS.MULTITENANT.LIST.USER",
+        link: "/multitenant/user-manager",
+        parentId: 14,
+      }
+    ]
   },
   // {
   //   id: 13,
