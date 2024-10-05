@@ -111,7 +111,11 @@
     },
     "MULTITENANT": {
       "TEXT": "Multitenant",
-      "BADGE": "New"
+      "BADGE": "New",
+      "LIST": {
+        "TENANT": "Tenant List",
+        "USER": "Tenant Users"
+      }
     },
     "SUBSCRIPTION": {
       "TEXT": "Subscription",

@@ -11,9 +11,9 @@ import { Observable, of } from "rxjs";
 import { TenantUsersDto } from "src/app/lib/openapi-generated/models";
 
 @Component({
-  selector: "app-user-manager",
-  templateUrl: "./user-manager.component.html",
-  styleUrl: "./user-manager.component.scss",
+  selector: 'app-user-manager',
+  templateUrl: './user-manager.component.html',
+  styleUrl: './user-manager.component.scss'
 })
 export class UserManagerComponent implements OnInit {
   tenantUsers$!: Observable<TenantUsersDto[]>;
