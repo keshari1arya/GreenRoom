@@ -1,8 +1,12 @@
 import { createAction, props } from "@ngrx/store";
 import {
+  AddTenantUserDto,
   CreateTenantCommand,
+  SearchUserDto,
   TenantDetailsDto,
+  TenantRolesDto,
   TenantUsersDto,
+  UpdateRoleCommand,
   UpdateTenantCommand,
 } from "src/app/lib/openapi-generated/models";
 
@@ -51,5 +55,44 @@ export const multitenantActions = {
   fetchTenantUsersSuccess: createAction(
     "[Multitenant] fetch Tenant Users success",
     props<{ tenantUsers: TenantUsersDto[] }>()
+  ),
+
+  //Search Users
+  searchUsers: createAction(
+    "[Multitenant] Search Users",
+    props<{ searchTerm: string }>()
+  ),
+  searchUsersSuccess: createAction(
+    "[Multitenant] Search Users success",
+    props<{ users: SearchUserDto[] }>()
+  ),
+
+  // Add User
+  addUser: createAction(
+    "[Multitenant] Add User",
+    props<{ user: AddTenantUserDto }>()
+  ),
+  addUserSuccess: createAction(
+    "[Multitenant] Add User success",
+    props<{ userId: number }>()
+  ),
+
+  // Edit Role
+  editRoleId: createAction(
+    "[Multitenant] Edit Role Id",
+    props<{ userRole: UpdateRoleCommand }>()
+  ),
+  editRoleIdSuccess: createAction(
+    "[Multitenant] Edit Role Id success",
+    props<{ userId: number }>()
+  ),
+
+  // Get Role
+  getRoleId: createAction(
+    "[Multitenant] Get Role Id"
+  ),
+  getRoleIdSuccess: createAction(
+    "[Multitenant] Get Role Id success",
+    props<{ userRole: TenantRolesDto[] }>()
   ),
 };

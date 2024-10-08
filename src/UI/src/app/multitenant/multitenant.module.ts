@@ -12,6 +12,7 @@ import { MultitenantReducer } from "./store/multitenant.reducer";
 import { MULTITENANT_FEATURE_NAME } from "./store/multitenant.selector";
 import { EditTenantComponent } from "./edit-tenant/edit-tenant.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ModalModule } from "ngx-bootstrap/modal";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     EditTenantComponent,
   ],
   imports: [
+    ModalModule.forRoot(),
     CommonModule,
     MultitenantRoutingModule,
     UIModule,
@@ -30,4 +32,4 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     EffectsModule.forFeature([MultitenantEffects]),
   ],
 })
-export class MultitenantModule {}
+export class MultitenantModule { }

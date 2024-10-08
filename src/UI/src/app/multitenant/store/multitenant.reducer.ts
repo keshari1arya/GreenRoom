@@ -1,7 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
 import {
+  SearchUserDto,
   TenantDetailsDto,
   TenantDto,
+  TenantRolesDto,
   TenantUsersDto,
 } from "src/app/lib/openapi-generated/models";
 import { multitenantActions } from "./multitenant.actions";
@@ -11,11 +13,15 @@ export interface MultitenantState {
   error: any;
   tenant: TenantDetailsDto;
   tenantUsers: TenantUsersDto[];
+  searchUsers: SearchUserDto[];
+  getRoleId: TenantRolesDto[];
 }
 
 export const initialState: MultitenantState = {
   tenant: null,
   tenantUsers: [],
+  searchUsers: [],
+  getRoleId: [],
   loading: false,
   error: null,
 };
@@ -42,5 +48,29 @@ export const MultitenantReducer = createReducer(
   }),
   on(multitenantActions.fetchTenantUsersSuccess, (state, { tenantUsers }) => {
     return { ...state, tenantUsers, loading: false };
+  }),
+  on(multitenantActions.searchUsersSuccess, (state, { users }) => {
+    return { ...state, searchUsers: users, loading: false };
+  }),
+  on(multitenantActions.addUserSuccess, (state, { userId }) => {
+    return {
+      ...state,
+      userId,
+      loading: false,
+    };
+  }),
+  on(multitenantActions.editRoleIdSuccess, (state, { userId }) => {
+    return {
+      ...state,
+      userId,
+      loading: false,
+    };
+  }),
+  on(multitenantActions.getRoleIdSuccess, (state, { userRole }) => {
+    return {
+      ...state,
+      getRoleId: userRole,
+      loading: false,
+    }
   })
 );
