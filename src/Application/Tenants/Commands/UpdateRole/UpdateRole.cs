@@ -42,11 +42,12 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, int>
         Guard.Against.Null(tenantUser, nameof(tenantUser), "You are not authorized to perform this action.");
 
         var user = _context.TenantUsers
-        .FirstOrDefault(x => x.UserId == request.userId && x.TenantId == _multiTenancyService.CurrentTenant);
+            .Include(x => x.TenantRole)
+            .FirstOrDefault(x => x.UserId == request.userId && x.TenantId == _multiTenancyService.CurrentTenant);
 
-        Guard.Against.Null(tenantUser, nameof(tenantUser), "User not found.");
+        Guard.Against.Null(user, nameof(user), "User not found.");
 
-        tenantUser.TenantRoleId = request.roleId;
+        user.TenantRoleId = request.roleId;
 
         return await _context.SaveChangesAsync(cancellationToken);
     }

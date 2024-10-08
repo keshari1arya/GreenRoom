@@ -1,4 +1,5 @@
-﻿using GreenRoom.Domain.Constants;
+﻿using GreenRoom.Application.Common.Models;
+using GreenRoom.Domain.Constants;
 using GreenRoom.Infrastructure.Data;
 using GreenRoom.Infrastructure.Identity;
 using MediatR;
@@ -99,7 +100,7 @@ public partial class Testing
         {
             await _database.ResetAsync();
         }
-        catch (Exception) 
+        catch (Exception)
         {
         }
 
