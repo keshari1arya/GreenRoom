@@ -78,11 +78,11 @@ export const multitenantActions = {
   ),
 
   // Edit Role
-  editRoleId: createAction(
+  updateRoleId: createAction(
     "[Multitenant] Edit Role Id",
     props<{ userRole: UpdateRoleCommand }>()
   ),
-  editRoleIdSuccess: createAction(
+  updateRoleIdSuccess: createAction(
     "[Multitenant] Edit Role Id success",
     props<{ userId: number }>()
   ),

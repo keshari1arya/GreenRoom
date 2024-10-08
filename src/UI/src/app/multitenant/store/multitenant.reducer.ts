@@ -13,15 +13,15 @@ export interface MultitenantState {
   error: any;
   tenant: TenantDetailsDto;
   tenantUsers: TenantUsersDto[];
-  searchUsers: SearchUserDto[];
-  getRoleId: TenantRolesDto[];
+  searchedUsers: SearchUserDto[];
+  tenantRoles: TenantRolesDto[];
 }
 
 export const initialState: MultitenantState = {
   tenant: null,
   tenantUsers: [],
-  searchUsers: [],
-  getRoleId: [],
+  searchedUsers: [],
+  tenantRoles: [],
   loading: false,
   error: null,
 };
@@ -50,7 +50,7 @@ export const MultitenantReducer = createReducer(
     return { ...state, tenantUsers, loading: false };
   }),
   on(multitenantActions.searchUsersSuccess, (state, { users }) => {
-    return { ...state, searchUsers: users, loading: false };
+    return { ...state, searchedUsers: users, loading: false };
   }),
   on(multitenantActions.addUserSuccess, (state, { userId }) => {
     return {
@@ -59,7 +59,7 @@ export const MultitenantReducer = createReducer(
       loading: false,
     };
   }),
-  on(multitenantActions.editRoleIdSuccess, (state, { userId }) => {
+  on(multitenantActions.updateRoleIdSuccess, (state, { userId }) => {
     return {
       ...state,
       userId,
@@ -69,7 +69,7 @@ export const MultitenantReducer = createReducer(
   on(multitenantActions.getRoleIdSuccess, (state, { userRole }) => {
     return {
       ...state,
-      getRoleId: userRole,
+      tenantRoles: userRole,
       loading: false,
     }
   })

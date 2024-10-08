@@ -29,10 +29,10 @@ export const selectTenantUsers = createSelector(
 
 export const selectSearchUsers = createSelector(
   selectMultitenantState,
-  (state: MultitenantState) => state.searchUsers
+  (state: MultitenantState) => state.searchedUsers
 )
 
 export const selectGetRoleId = createSelector(
   selectMultitenantState,
-  (state: MultitenantState) => state.getRoleId
+  (state: MultitenantState) => state.tenantRoles
 )

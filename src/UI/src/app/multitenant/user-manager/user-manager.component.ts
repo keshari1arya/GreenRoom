@@ -89,7 +89,7 @@ export class UserManagerComponent implements OnInit {
   selectRoleId: any = null;
   getId(event, User) {
     this.selectRoleId = +event.target.value;
-    this.store.dispatch(multitenantActions.editRoleId({
+    this.store.dispatch(multitenantActions.updateRoleId({
       userRole: {
         userId: User.userId,
         roleId: this.selectRoleId

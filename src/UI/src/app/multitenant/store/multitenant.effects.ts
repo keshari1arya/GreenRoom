@@ -127,13 +127,13 @@ export class MultitenantEffects {
 
   editTenantUserRole$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(multitenantActions.editRoleId),
+      ofType(multitenantActions.updateRoleId),
       switchMap(({ userRole }) =>
         this.tenantService
           .updateRole({ body: userRole })
           .pipe(
             map((userId) =>
-              multitenantActions.editRoleIdSuccess({ userId })
+              multitenantActions.updateRoleIdSuccess({ userId })
             ),
             catchError((error) => of(multitenantActions.setError({ error })))
           )
