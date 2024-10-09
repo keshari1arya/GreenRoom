@@ -79,20 +79,20 @@ export const multitenantActions = {
 
   // Edit Role
   updateRoleId: createAction(
-    "[Multitenant] Edit Role Id",
+    "[Multitenant] Update Role Id",
     props<{ userRole: UpdateRoleCommand }>()
   ),
   updateRoleIdSuccess: createAction(
-    "[Multitenant] Edit Role Id success",
+    "[Multitenant] Update Role Id success",
     props<{ userId: number }>()
   ),
 
   // Get Role
   getTenantRoles: createAction(
-    "[Multitenant] Get Role Id"
+    "[Multitenant] Get Tenant  Role Id"
   ),
   getTenantRolesSuccess: createAction(
-    "[Multitenant] Get Role Id success",
+    "[Multitenant] Get Tenant  Role Id success",
     props<{ userRole: TenantRolesDto[] }>()
   ),
 };

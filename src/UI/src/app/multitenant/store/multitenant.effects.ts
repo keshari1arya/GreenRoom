@@ -125,7 +125,7 @@ export class MultitenantEffects {
     )
   );
 
-  editTenantUserRole$ = createEffect(() =>
+  updateTenantUserRole$ = createEffect(() =>
     this.actions$.pipe(
       ofType(multitenantActions.updateRoleId),
       switchMap(({ userRole }) =>
