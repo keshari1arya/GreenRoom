@@ -1,5 +1,6 @@
 ﻿using GreenRoom.Application.Common.Extension;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Interfaces;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Assets.Queries.GetAssetDetails;
@@ -20,11 +21,13 @@ public class GetAssetDetailsQueryHandler : IRequestHandler<GetAssetDetailsQuery,
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IStorageManagementService _storageManagementService;
 
-    public GetAssetDetailsQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetAssetDetailsQueryHandler(IApplicationDbContext context, IMapper mapper, IStorageManagementService storageManagementService)
     {
         _context = context;
         _mapper = mapper;
+        _storageManagementService = storageManagementService;
     }
 
     public async Task<AssetDetailsDto> Handle(GetAssetDetailsQuery request, CancellationToken cancellationToken)
@@ -34,7 +37,10 @@ public class GetAssetDetailsQueryHandler : IRequestHandler<GetAssetDetailsQuery,
             .ThenInclude(at => at.Tag)
             .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
 
-        return _mapper.Map<AssetDetailsDto>(asset);
+        var mappedAsset = _mapper.Map<AssetDetailsDto>(asset);
+        var expiryInSeconds = Math.Abs(int.Parse(mappedAsset!.SizeInKB) / 1000);
+        mappedAsset.Path = _storageManagementService.GenerateUrlToDownload(asset!.Path!, expiryInSeconds);
+        return mappedAsset;
     }
 }
 
@@ -52,13 +58,15 @@ public class AssetDetailsDto
     public string Preview { get; set; } = string.Empty;
     public string Download { get; set; } = string.Empty;
     public string Share { get; set; } = string.Empty;
-    public string[] Tags { get; set; } = Array.Empty<string>();
+    public string[] Tags { get; set; } = [];
+    public int? FolderId { get; set; }
 
     private class AssetDetailsDtoProfile : Profile
     {
         public AssetDetailsDtoProfile()
         {
             CreateMap<Asset, AssetDetailsDto>()
+                .ForMember(d => d.FolderId, opt => opt.MapFrom(s => s.FolderId))
                 .ForMember(d => d.CreatedAt, opt => opt.MapFrom(s => s.Created))
                 .ForMember(d => d.UpdatedAt, opt => opt.MapFrom(s => s.LastModified))
                 .ForMember(d => d.Tags, opt => opt.MapFrom(s => s.AssetTags.Select(t => t.Tag!.Name).ToArray()));

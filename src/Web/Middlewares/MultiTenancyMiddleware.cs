@@ -14,8 +14,7 @@ public class MultiTenancyMiddleware : IMiddleware
     public Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         if (context.Request.Headers.TryGetValue("X-Tenant-Id", out var tenantId)
-            && int.TryParse(tenantId, out var tenant)
-            && tenant > 0)
+            && Guid.TryParse(tenantId, out var tenant))
         {
             _multiTenancyService.SetCurrentTenant(tenant);
         }

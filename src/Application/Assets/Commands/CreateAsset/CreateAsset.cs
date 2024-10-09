@@ -34,29 +34,25 @@ public class CreateAssetCommandValidator : AbstractValidator<CreateAssetCommand>
     }
 }
 
-public class CreateAssetCommandHandler : IRequestHandler<CreateAssetCommand, int>
+public class CreateAssetCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateAssetCommand, int>
 {
-    private readonly IApplicationDbContext _context;
-
-    public CreateAssetCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<int> Handle(CreateAssetCommand request, CancellationToken cancellationToken)
     {
+        var uri = new Uri(request.Url);
+        var segments = uri.AbsolutePath.Split('/');
+        var path = string.Join("/", segments.Skip(2));
         var entity = new Asset
         {
             Name = request.Name,
-            Path = request.Url,
+            Path = request.Name,
             SizeInKB = request.SizeInKB,
             ContentType = request.ContentType,
             FolderId = request.FolderId
         };
 
-        _context.Assets.Add(entity);
+        context.Assets.Add(entity);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
 
         return entity.Id;
     }

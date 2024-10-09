@@ -67,12 +67,12 @@ export class FileManagementService {
   }
 
   private generatePresignedUrl(file: File): Observable<PreSignedUrlDto> {
-    const expiryInSeconds = 60 * 60;
+    const expiryInSeconds = Math.floor(file.size / 102400) + 10;
     const contentType = file.type;
     const fileName = file.name;
     const body = {
-      fileName: "aFoldername/" + fileName,
-      contentType,
+      fileName: fileName,
+      contentType: contentType ?? "application/octet-stream",
       expiryInSeconds,
     };
     return this.storageManagementService.generateUrlToUploadFile({

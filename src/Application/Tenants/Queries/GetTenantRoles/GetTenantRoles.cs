@@ -27,7 +27,7 @@ public class GetTenantRolesQueryHandler : IRequestHandler<GetTenantRolesQuery, T
 
     public Task<TenantRolesDto[]> Handle(GetTenantRolesQuery request, CancellationToken cancellationToken)
     {
-        Guard.Against.Null(_multiTenancyService.CurrentTenant, nameof(_multiTenancyService.CurrentTenant));
+        Guard.Against.Null(_multiTenancyService.CurrentTenantId, nameof(_multiTenancyService.CurrentTenantId));
 
         // TODO: Only return roles that are available to the current tenant
 

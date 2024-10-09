@@ -4,16 +4,16 @@ using GreenRoom.Domain.Constants;
 
 namespace GreenRoom.Application.Tenants.Commands.UpdateRole;
 
-public record UpdateRoleCommand(string userId, int roleId) : IRequest<int>;
+public record UpdateRoleCommand(string UserId, int RoleId) : IRequest<int>;
 
 public class UpdateRoleCommandValidator : AbstractValidator<UpdateRoleCommand>
 {
     public UpdateRoleCommandValidator(IApplicationDbContext context)
     {
-        RuleFor(v => v.userId)
+        RuleFor(v => v.UserId)
             .NotEmpty();
 
-        RuleFor(v => v.roleId)
+        RuleFor(v => v.RoleId)
             .NotEmpty()
             .IdMustExistInDatabase(context.TenantRoles);
     }
@@ -37,17 +37,17 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, int>
         var tenantUser = _context.TenantUsers
             .Include(x => x.TenantRole)
             .AsNoTracking()
-            .FirstOrDefault(x => x.UserId == _user.Id && x.TenantId == _multiTenancyService.CurrentTenant && x.TenantRole.RoleName == Roles.Administrator);
+            .FirstOrDefault(x => x.UserId == _user.Id && x.TenantId == _multiTenancyService.CurrentTenantId && x.TenantRole.RoleName == Roles.Administrator);
 
         Guard.Against.Null(tenantUser, nameof(tenantUser), "You are not authorized to perform this action.");
 
         var user = _context.TenantUsers
             .Include(x => x.TenantRole)
-            .FirstOrDefault(x => x.UserId == request.userId && x.TenantId == _multiTenancyService.CurrentTenant);
+            .FirstOrDefault(x => x.UserId == request.UserId && x.TenantId == _multiTenancyService.CurrentTenantId);
 
         Guard.Against.Null(user, nameof(user), "User not found.");
 
-        user.TenantRoleId = request.roleId;
+        user.TenantRoleId = request.RoleId;
 
         return await _context.SaveChangesAsync(cancellationToken);
     }

@@ -34,7 +34,7 @@ public class GetCurrentTenantQueryHandler : IRequestHandler<GetCurrentTenantQuer
 
     public async Task<TenantDetailsDto> Handle(GetCurrentTenantQuery request, CancellationToken cancellationToken)
     {
-        var tenantId = _multiTenancyService.CurrentTenant;
+        var tenantId = _multiTenancyService.CurrentTenantId;
         var tenantDto = await _context.Tenants
             .Include(x => x.TenantSubscriptions)
             .ThenInclude(x => x.Subscription)
@@ -80,7 +80,7 @@ public class SubscriptionDetailsDto
                 .FirstOrDefault();
 
             // If there is no active subscription, return the latest subscription
-            return latest ?? tenant.TenantSubscriptions
+            return latest ?? tenant.TenantSubscriptions?
                 .OrderByDescending(x => x.StartDate)
                 .FirstOrDefault();
         }

@@ -11,6 +11,13 @@ export class Utility {
       jpeg: "mdi mdi-image text-muted",
       zip: "mdi mdi-folder-zip text-warning",
       folder: "mdi mdi-folder text-warning",
+      pdf: "mdi mdi-file-pdf",
+      doc: "mdi mdi-file-word",
+      docx: "mdi mdi-file-word",
+      xls: "mdi mdi-file-excel",
+      xlsx: "mdi mdi-file-excel",
+      ppt: "mdi mdi-file-powerpoint",
+      pptx: "mdi mdi-file-powerpoint",
     };
 
     return icons[extension.toLowerCase()] || "bx bxs-file";

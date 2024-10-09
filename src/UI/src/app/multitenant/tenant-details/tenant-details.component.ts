@@ -28,7 +28,7 @@ export class TenantDetailsComponent implements OnInit {
       const tenantId = params.get("id");
       if (tenantId) {
         this.store.dispatch(
-          multitenantActions.fetchTenantById({ tenantId: +tenantId })
+          multitenantActions.fetchTenantById({ tenantId: tenantId })
         );
       } else {
         this.store.dispatch(multitenantActions.fetchCurrentTenantDetails());

@@ -28,11 +28,30 @@ export class AssetDetailsComponent implements OnInit {
     });
   }
 
-  // TODO: send viewer dynamically based on file type
+  getViewerType(name: string) {
+    const d = {
+      pdf: ["pdf"],
+    };
+    return name.split(".").pop();
+  }
 
   canShow(name: string) {
     return this.supportedFileTypes.includes(name.split(".").pop());
   }
 
-  private supportedFileTypes = ["pdf", "jpg", "png"];
+  private supportedFileTypes = [
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png",
+    "docx",
+    "xlsx",
+    "pptx",
+    "doc",
+    "xls",
+    "ppt",
+  ];
+
+  tempUrl =
+    "https://docs.google.com/presentation/d/1bDRBcwnwGtm_80WX1uDE9sXwDPXQl7gnDAQpvbwtlwU/edit?usp=sharing";
 }

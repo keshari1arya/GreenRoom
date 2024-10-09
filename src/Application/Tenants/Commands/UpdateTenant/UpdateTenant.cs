@@ -1,11 +1,10 @@
-﻿using GreenRoom.Application.Common.Extension;
-using GreenRoom.Application.Common.Interfaces;
+﻿using GreenRoom.Application.Common.Interfaces;
 
 namespace GreenRoom.Application.Tenants.Commands.UpdateTenant;
 
-public record UpdateTenantCommand : IRequest<int>
+public record UpdateTenantCommand : IRequest<Guid>
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; init; } = string.Empty;
     public string? Description { get; init; }
 }
@@ -22,11 +21,11 @@ public class UpdateTenantCommandValidator : AbstractValidator<UpdateTenantComman
             .MaximumLength(200);
 
         RuleFor(v => v.Id)
-            .IdMustExistInDatabase(context.Tenants);
+            .NotEmpty();
     }
 }
 
-public class UpdateTenantCommandHandler : IRequestHandler<UpdateTenantCommand, int>
+public class UpdateTenantCommandHandler : IRequestHandler<UpdateTenantCommand, Guid>
 {
     private readonly IApplicationDbContext _context;
 
@@ -35,7 +34,7 @@ public class UpdateTenantCommandHandler : IRequestHandler<UpdateTenantCommand, i
         _context = context;
     }
 
-    public async Task<int> Handle(UpdateTenantCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateTenantCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.Tenants
             .FindAsync([request.Id], cancellationToken);

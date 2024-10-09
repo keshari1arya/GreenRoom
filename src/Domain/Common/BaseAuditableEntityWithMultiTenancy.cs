@@ -4,5 +4,5 @@ namespace GreenRoom.Domain.Common;
 
 public abstract class BaseAuditableEntityWithMultiTenancy : BaseAuditableEntity
 {
-    public int TenantId { get; set; }
+    public Guid TenantId { get; set; }
 }

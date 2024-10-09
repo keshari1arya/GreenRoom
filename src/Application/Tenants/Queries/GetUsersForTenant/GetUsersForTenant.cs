@@ -34,7 +34,7 @@ public class GetUsersForTenantQueryHandler : IRequestHandler<GetUsersForTenantQu
     public async Task<IEnumerable<TenantUsersDto>> Handle(GetUsersForTenantQuery request, CancellationToken cancellationToken)
     {
         var tenantUsers = await _context.TenantUsers
-             .Where(x => x.TenantId == _multiTenancyService.CurrentTenant)
+             .Where(x => x.TenantId == _multiTenancyService.CurrentTenantId)
              .Select(x => new TenantUsersDto
              {
                  UserId = x.UserId,

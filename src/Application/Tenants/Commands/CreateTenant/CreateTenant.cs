@@ -1,4 +1,6 @@
-﻿using GreenRoom.Application.Common.Interfaces;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Tenants.Commands.CreateTenant;
@@ -6,7 +8,7 @@ namespace GreenRoom.Application.Tenants.Commands.CreateTenant;
 public record CreateTenantCommand(
     string Name,
     string? Description
-) : IRequest<int>;
+) : IRequest<Guid>;
 
 public class CreateTenantCommandValidator : AbstractValidator<CreateTenantCommand>
 {
@@ -28,18 +30,9 @@ public class CreateTenantCommandValidator : AbstractValidator<CreateTenantComman
     }
 }
 
-public class CreateTenantCommandHandler : IRequestHandler<CreateTenantCommand, int>
+public class CreateTenantCommandHandler(IApplicationDbContext context, IUser user, IAmazonS3 s3Client) : IRequestHandler<CreateTenantCommand, Guid>
 {
-    private readonly IApplicationDbContext _context;
-    private readonly IUser _user;
-
-    public CreateTenantCommandHandler(IApplicationDbContext context, IUser user)
-    {
-        _context = context;
-        _user = user;
-    }
-
-    public async Task<int> Handle(CreateTenantCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateTenantCommand request, CancellationToken cancellationToken)
     {
         var entity = new Tenant
         {
@@ -48,16 +41,26 @@ public class CreateTenantCommandHandler : IRequestHandler<CreateTenantCommand, i
             IsActive = true,
             TenantUsers = [
                 new() {
-                    UserId = _user.Id!,
+                    UserId = user.Id!,
                     // TODO: Assign Admin role dynamically and remove hardcoding
                     TenantRoleId = 1
                 }
             ]
         };
 
-        _context.Tenants.Add(entity);
+        context.Tenants.Add(entity);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+
+
+        // TODO: Set permissions for the bucket based on the tenant's requirements
+        _ = await s3Client.PutBucketAsync(
+            new PutBucketRequest()
+            {
+                BucketName = entity.Id.ToString(),
+                UseClientRegion = true
+            }, cancellationToken);
+
         return entity.Id;
     }
 }

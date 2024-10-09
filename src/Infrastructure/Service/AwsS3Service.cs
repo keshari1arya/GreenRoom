@@ -1,35 +1,46 @@
 using Amazon.S3;
 using Amazon.S3.Model;
-using GreenRoom.Application.Common.Configurations;
+using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Application.Interfaces;
-using Microsoft.Extensions.Options;
 
 namespace GreenRoom.Infrastructure.Service;
-public class AwsS3Service : IStorageManagementService
+public class AwsS3Service(
+    IAmazonS3 s3Client,
+    IApplicationDbContext dbContext,
+    IMultiTenancyService multiTenancyService
+    ) : IStorageManagementService
 {
-    private readonly IAmazonS3 _s3Client;
-    private readonly AwsS3Settings _settings;
-
-    public AwsS3Service(IAmazonS3 s3Client, IOptions<AwsS3Settings> options)
+    private const string ASSET_CONTAINER = "AssetContainer";
+    public string GenerateUrlToUpload(string fileName, string contentType, int expiryInSeconds)
     {
-        _settings = options.Value;
-        _s3Client = s3Client;
-    }
+        var tenant = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId);
+        var bucketName = tenant!.Id.ToString();
 
-    public string GenerateUrlToUpload(string bucketName, string fileName, string contentType, int expiryInSeconds)
-    {
         var request = new GetPreSignedUrlRequest
         {
-            BucketName = _settings.BucketName,
-            Key = fileName,
+            BucketName = bucketName,
+            Key = $"{ASSET_CONTAINER}/{fileName}",
             Verb = HttpVerb.PUT,
             Expires = DateTime.Now.AddSeconds(expiryInSeconds),
             ContentType = contentType,
         };
 
-        // create the bucket first if it doesn't exist
-         _s3Client.PutBucketAsync(_settings.BucketName).Wait();
+        return s3Client.GetPreSignedURL(request);
+    }
 
-        return _s3Client.GetPreSignedURL(request);
+    public string GenerateUrlToDownload(string path, int expiryInSeconds)
+    {
+        var tenant = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId);
+        var bucketName = tenant!.Id.ToString();
+
+        var request = new GetPreSignedUrlRequest
+        {
+            BucketName = bucketName,
+            Key = $"{ASSET_CONTAINER}/{path}",
+            Verb = HttpVerb.GET,
+            Expires = DateTime.Now.AddSeconds(expiryInSeconds),
+        };
+
+        return s3Client.GetPreSignedURL(request);
     }
 }
