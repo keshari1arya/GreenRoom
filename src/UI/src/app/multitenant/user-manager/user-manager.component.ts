@@ -45,7 +45,7 @@ export class UserManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(multitenantActions.fetchTenantUsers());
-    this.store.dispatch(multitenantActions.getRoleId());
+    this.store.dispatch(multitenantActions.getTenantRoles());
   }
 
   openModal(template: TemplateRef<any>) {

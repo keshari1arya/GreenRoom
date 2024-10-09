@@ -66,7 +66,7 @@ export const MultitenantReducer = createReducer(
       loading: false,
     };
   }),
-  on(multitenantActions.getRoleIdSuccess, (state, { userRole }) => {
+  on(multitenantActions.getTenantRolesSuccess, (state, { userRole }) => {
     return {
       ...state,
       tenantRoles: userRole,

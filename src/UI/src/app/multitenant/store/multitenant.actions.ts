@@ -88,10 +88,10 @@ export const multitenantActions = {
   ),
 
   // Get Role
-  getRoleId: createAction(
+  getTenantRoles: createAction(
     "[Multitenant] Get Role Id"
   ),
-  getRoleIdSuccess: createAction(
+  getTenantRolesSuccess: createAction(
     "[Multitenant] Get Role Id success",
     props<{ userRole: TenantRolesDto[] }>()
   ),

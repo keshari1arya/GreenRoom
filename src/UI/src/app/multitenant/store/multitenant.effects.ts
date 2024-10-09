@@ -143,11 +143,11 @@ export class MultitenantEffects {
 
   getTenantRoles$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(multitenantActions.getRoleId),
+      ofType(multitenantActions.getTenantRoles),
       switchMap(() =>
         this.tenantService.getRoles().pipe(
           map((userRole) =>
-            multitenantActions.getRoleIdSuccess({ userRole })
+            multitenantActions.getTenantRolesSuccess({ userRole })
           ),
           catchError((error) => of(multitenantActions.setError({ error })))
         )
