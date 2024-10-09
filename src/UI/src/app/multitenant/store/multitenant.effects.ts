@@ -11,8 +11,9 @@ import {
   concatMap,
 } from "rxjs";
 import { multitenantActions } from "./multitenant.actions";
-import { TenantService } from "src/app/lib/openapi-generated/services";
+import { TenantService, UsersService } from "src/app/lib/openapi-generated/services";
 import { Router } from "@angular/router";
+import { add } from "ngx-bootstrap/chronos";
 import { AuthActions } from "src/app/account/auth/store/authentication.actions";
 
 @Injectable()
@@ -107,6 +108,64 @@ export class MultitenantEffects {
     )
   );
 
+  searchUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.searchUsers),
+      switchMap(({ searchTerm: searchTerm }) =>
+        this.userService.searchUsers({ searchTerm }).pipe(
+          map((users) =>
+            multitenantActions.searchUsersSuccess({ users })
+          ),
+          catchError((error) => of(multitenantActions.setError({ error })))
+        )
+      )
+    )
+  );
+
+  addTenantUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.addUser),
+      switchMap(({ user }) =>
+        this.tenantService.addTenantUsers({ body: { usersWithRole: [user] } }).pipe(
+          map((userId) =>
+            multitenantActions.addUserSuccess({ userId })
+          ),
+          catchError((error) => of(multitenantActions.setError({ error })))
+        )
+      )
+    )
+  );
+
+  updateTenantUserRole$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.updateRoleId),
+      switchMap(({ userRole }) =>
+        this.tenantService
+          .updateRole({ body: userRole })
+          .pipe(
+            map((userId) =>
+              multitenantActions.updateRoleIdSuccess({ userId })
+            ),
+            catchError((error) => of(multitenantActions.setError({ error })))
+          )
+      )
+    )
+  );
+
+  getTenantRoles$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.getTenantRoles),
+      switchMap(() =>
+        this.tenantService.getRoles().pipe(
+          map((userRole) =>
+            multitenantActions.getTenantRolesSuccess({ userRole })
+          ),
+          catchError((error) => of(multitenantActions.setError({ error })))
+        )
+      )
+    )
+  );
+
   createdOrUpdatedTenant$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -125,6 +184,7 @@ export class MultitenantEffects {
   constructor(
     private actions$: Actions,
     private tenantService: TenantService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private userService: UsersService,
+  ) { }
 }
