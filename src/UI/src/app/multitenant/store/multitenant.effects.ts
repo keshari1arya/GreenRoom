@@ -1,9 +1,19 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { switchMap, map, catchError, of, tap, take, exhaustMap } from "rxjs";
+import {
+  switchMap,
+  map,
+  catchError,
+  of,
+  tap,
+  take,
+  exhaustMap,
+  concatMap,
+} from "rxjs";
 import { multitenantActions } from "./multitenant.actions";
 import { TenantService } from "src/app/lib/openapi-generated/services";
 import { Router } from "@angular/router";
+import { AuthActions } from "src/app/account/auth/store/authentication.actions";
 
 @Injectable()
 export class MultitenantEffects {
@@ -46,13 +56,14 @@ export class MultitenantEffects {
             body: tenant,
           })
           .pipe(
-            exhaustMap((createdTenantId) =>
-              of(
+            concatMap((createdTenantId) => {
+              return [
                 multitenantActions.createTenantSuccess({
                   tenantId: createdTenantId,
-                })
-              )
-            ),
+                }),
+                AuthActions.fetchMyTenants(),
+              ];
+            }),
             catchError((error) => of(multitenantActions.setError({ error })))
           )
       )
@@ -115,5 +126,5 @@ export class MultitenantEffects {
     private actions$: Actions,
     private tenantService: TenantService,
     private router: Router
-  ) { }
+  ) {}
 }

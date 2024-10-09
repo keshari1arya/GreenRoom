@@ -25,8 +25,8 @@ export class AuthService {
   /**
    * Returns the current tenant id
    */
-  public tenantId(): number {
-    return Number(localStorage.getItem("tenantId"));
+  public tenantId(): string {
+    return localStorage.getItem("tenantId");
   }
 
   /**
@@ -112,8 +112,8 @@ export class AuthService {
     localStorage.removeItem("tokenType");
   }
 
-  setCurrentTenant(tenantId: number) {
-    localStorage.setItem("tenantId", `${tenantId}`);
+  setCurrentTenant(tenantId: string) {
+    localStorage.setItem("tenantId", tenantId);
   }
 
   /**

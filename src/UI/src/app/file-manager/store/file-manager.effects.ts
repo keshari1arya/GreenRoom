@@ -112,6 +112,7 @@ export class FileManagerEffects {
             },
           })
           .pipe(
+            // TODO: Pass the folderId to fetchAssetsByFolderIdData
             map(() => fetchAssetsByFolderIdData({ folderId: null })),
             catchError((error) => of(setError({ error })))
           )

@@ -3,13 +3,13 @@ using GreenRoom.Domain.Constants;
 
 namespace GreenRoom.Application.Tenants.Commands.RemoveTenantUsers;
 
-public record RemoveTenantUsersCommand(string[] userIds) : IRequest<int>;
+public record RemoveTenantUsersCommand(string[] UserIds) : IRequest<int>;
 
 public class RemoveTenantUsersCommandValidator : AbstractValidator<RemoveTenantUsersCommand>
 {
     public RemoveTenantUsersCommandValidator()
     {
-        RuleFor(v => v.userIds)
+        RuleFor(v => v.UserIds)
             .NotEmpty();
 
         // TODO: validate that the user ids exists in the database
@@ -34,12 +34,12 @@ public class RemoveTenantUsersCommandHandler : IRequestHandler<RemoveTenantUsers
         var tenantUser = _context.TenantUsers
         .Include(x => x.TenantRole)
         .AsNoTracking()
-        .FirstOrDefault(x => x.UserId == _user.Id && x.TenantId == _multiTenancyService.CurrentTenant && x.TenantRole.RoleName == Roles.Administrator);
+        .FirstOrDefault(x => x.UserId == _user.Id && x.TenantId == _multiTenancyService.CurrentTenantId && x.TenantRole.RoleName == Roles.Administrator);
 
         Guard.Against.Null(tenantUser, nameof(tenantUser), "You are not authorized to perform this action.");
 
         var tenantUsers = _context.TenantUsers
-            .Where(x => request.userIds.Contains(x.UserId) && x.TenantId == _multiTenancyService.CurrentTenant);
+            .Where(x => request.UserIds.Contains(x.UserId) && x.TenantId == _multiTenancyService.CurrentTenantId);
 
         _context.TenantUsers.RemoveRange(tenantUsers);
 

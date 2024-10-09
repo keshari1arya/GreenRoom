@@ -10,9 +10,15 @@ public record AddTenantUsersCommand(AddTenantUserDto[] UsersWithRole) : IRequest
 
 public class AddTenantUsersCommandValidator : AbstractValidator<AddTenantUsersCommand>
 {
-    public AddTenantUsersCommandValidator(IApplicationDbContext context)
+    public AddTenantUsersCommandValidator(IApplicationDbContext context, IMultiTenancyService multiTenancyService)
     {
         RuleFor(v => v.UsersWithRole)
+        .Must(users => context.TenantRoles.Any(x => users.Select(x => x.RoleId).Contains(x.Id)))
+        .WithMessage("Role does not exist.")
+        .Must(users => users.Select(x => x.UserId).Distinct().Count() == users.Length)
+        .WithMessage("Duplicate user found.")
+        .Must(users => context.TenantUsers.Any(x => users.Select(x => x.UserId).Contains(x.UserId) && x.TenantId == multiTenancyService.CurrentTenantId))
+        .WithMessage("User already exists in the tenant.")
         .NotEmpty();
     }
 }
@@ -35,7 +41,7 @@ public class AddTenantUsersCommandHandler : IRequestHandler<AddTenantUsersComman
         var tenantUser = _context.TenantUsers
         .Include(x => x.TenantRole)
         .AsNoTracking()
-        .FirstOrDefault(x => x.UserId == _user.Id && x.TenantId == _multiTenancyService.CurrentTenant && x.TenantRole.RoleName == Roles.Administrator);
+        .FirstOrDefault(x => x.UserId == _user.Id && x.TenantId == _multiTenancyService.CurrentTenantId && x.TenantRole.RoleName == Roles.Administrator);
 
         Guard.Against.Null(tenantUser, nameof(tenantUser), "You are not authorized to perform this action.");
 
@@ -43,7 +49,7 @@ public class AddTenantUsersCommandHandler : IRequestHandler<AddTenantUsersComman
         {
             _context.TenantUsers.Add(new TenantUser
             {
-                TenantId = _multiTenancyService.CurrentTenant,
+                TenantId = _multiTenancyService.CurrentTenantId,
                 UserId = record.UserId,
                 TenantRoleId = record.RoleId
             });

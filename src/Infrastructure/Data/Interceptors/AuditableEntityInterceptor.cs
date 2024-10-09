@@ -53,7 +53,7 @@ public class AuditableEntityWithMultiTenancyInterceptor : SaveChangesInterceptor
                 {
                     entry.Entity.CreatedBy = _user.Id;
                     entry.Entity.Created = utcNow;
-                    entry.Entity.TenantId = _multiTenancyService.CurrentTenant;
+                    entry.Entity.TenantId = _multiTenancyService.CurrentTenantId;
                 }
                 entry.Entity.LastModifiedBy = _user.Id;
                 entry.Entity.LastModified = utcNow;
