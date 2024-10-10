@@ -2,6 +2,7 @@ import { Action, createReducer, on } from "@ngrx/store";
 import {
   addFolder,
   addFolderSuccess,
+  clearAssetDetails,
   fetchAssetDetails,
   fetchAssetDetailsSuccess,
   fetchAssetsByFolderIdData,
@@ -92,6 +93,9 @@ export const FileManagerReducer = createReducer(
   }),
   on(fetchAssetDetailsSuccess, (state, { assetDetails }) => {
     return { ...state, assetDetails, loading: false };
+  }),
+  on(clearAssetDetails, (state) => {
+    return { ...state, assetDetails: {} };
   })
 );
 

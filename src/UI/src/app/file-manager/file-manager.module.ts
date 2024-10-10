@@ -25,6 +25,7 @@ import { AssetListComponent } from "./asset-list/asset-list.component";
 import { FolderListComponent } from "./folder-list/folder-list.component";
 import { TrashedItemsComponent } from "./trashed-items/trashed-items.component";
 import { AssetDetailsComponent } from "./asset-details/asset-details.component";
+import { TagInputModule } from "ngx-chips";
 
 @NgModule({
   declarations: [
@@ -59,6 +60,8 @@ import { AssetDetailsComponent } from "./asset-details/asset-details.component";
     StoreModule.forFeature("fileManager", FileManagerReducer),
     EffectsModule.forFeature([FileManagerEffects]),
     NgxDocViewerModule,
+    TagInputModule,
+    // BrowserAnimationsModule,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })

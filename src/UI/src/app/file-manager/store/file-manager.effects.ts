@@ -4,6 +4,7 @@ import { catchError, mergeMap, map, concatMap } from "rxjs/operators";
 import {
   addFolder,
   addFolderSuccess,
+  addTag,
   fetchAssetDetails,
   fetchAssetDetailsSuccess,
   fetchAssetsByFolderIdData,
@@ -14,6 +15,7 @@ import {
   fetchTrashedItemsSuccess,
   pathToRoot,
   pathToRootSuccess,
+  removeTag,
   restoreAssets,
   restoreFolders,
   restoreFolderSuccess,
@@ -220,6 +222,42 @@ export class FileManagerEffects {
           catchError((error) => of(setError({ error })))
         )
       )
+    )
+  );
+
+  addTag$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addTag),
+      mergeMap((param) =>
+        this.assetsService
+          .addTagToAsset({
+            assetId: param.assetId,
+            tag: param.tag,
+          })
+          .pipe(
+            map(() => fetchAssetDetails({ assetId: param.assetId })),
+            catchError((error) => of(setError({ error })))
+          )
+      )
+    )
+  );
+
+  removeTag$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(removeTag),
+      mergeMap((param) => {
+        console.log(param);
+
+        return this.assetsService
+          .removeTagFromAsset({
+            assetId: param.assetId,
+            tag: param.tag,
+          })
+          .pipe(
+            map(() => fetchAssetDetails({ assetId: param.assetId })),
+            catchError((error) => of(setError({ error })))
+          );
+      })
     )
   );
 
