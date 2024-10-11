@@ -38,31 +38,31 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
         builder
             .Entity<TodoList>()
-            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
 
         builder
             .Entity<TodoItem>()
-            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
 
         builder
             .Entity<Folder>()
-            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
 
         builder
             .Entity<Asset>()
-            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
 
         builder
             .Entity<ShareLink>()
-            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
 
         builder
             .Entity<UserInvitation>()
-            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
 
         builder
             .Entity<Tag>()
-            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenant);
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
     }
 
     DbSet<T> IApplicationDbContext.Set<T>()

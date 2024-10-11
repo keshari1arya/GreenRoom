@@ -114,3 +114,17 @@ export const fetchAssetDetailsSuccess = createAction(
   "[FileManager] fetch Asset Details success",
   props<{ assetDetails: AssetDetailsDto }>()
 );
+
+export const clearAssetDetails = createAction(
+  "[FileManager] clear Asset Details"
+);
+
+export const addTag = createAction(
+  "[FileManager] Add Tag",
+  props<{ assetId: number; tag: string }>()
+);
+
+export const removeTag = createAction(
+  "[FileManager] Remove Tag",
+  props<{ assetId: number; tag: string }>()
+);

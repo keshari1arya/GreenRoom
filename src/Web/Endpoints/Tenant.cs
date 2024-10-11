@@ -39,17 +39,17 @@ public class Tenant : EndpointGroupBase
         return sender.Send(new GetTenantsQuery());
     }
 
-    private Task<TenantDto> GetTenantDetails(ISender sender, int id)
+    private Task<TenantDto> GetTenantDetails(ISender sender, Guid id)
     {
         return sender.Send(new TenantDetailsQuery(id));
     }
 
-    private Task<int> CreateTenant(ISender sender, CreateTenantCommand command)
+    private Task<Guid> CreateTenant(ISender sender, CreateTenantCommand command)
     {
         return sender.Send(command);
     }
 
-    private Task<int> UpdateTenant(ISender sender, [FromRoute] int id, [FromBody] UpdateTenantCommand command)
+    private Task<Guid> UpdateTenant(ISender sender, [FromRoute] Guid id, [FromBody] UpdateTenantCommand command)
     {
         return sender.Send(command);
     }

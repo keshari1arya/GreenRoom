@@ -1,5 +1,7 @@
+using GreenRoom.Application.Assets.Commands.AddTagToAsset;
 using GreenRoom.Application.Assets.Commands.CreateAsset;
 using GreenRoom.Application.Assets.Commands.MoveAssets;
+using GreenRoom.Application.Assets.Commands.RemoveTagFromAsset;
 using GreenRoom.Application.Assets.Commands.RestoreAssets;
 using GreenRoom.Application.Assets.Commands.TrashAssets;
 using GreenRoom.Application.Assets.Queries.GetAssetDetails;
@@ -21,7 +23,9 @@ public class Assets : EndpointGroupBase
             .MapPut(MoveAsset, "Move")
             .MapPut(TrashAssets, "Trash")
             .MapPut(RestoreAssets, "Restore")
-            .MapGet(SearchAssets, "Search");
+            .MapGet(SearchAssets, "Search")
+            .MapPut(AddTagToAsset, "{assetId}/AddTag")
+            .MapDelete(RemoveTagFromAsset, "{assetId}/RemoveTag");
     }
 
     private Task<IEnumerable<AssetDto>> GetAssets(ISender sender, [AsParameters] GetAssetsByFolderIdQuery query)
@@ -62,5 +66,17 @@ public class Assets : EndpointGroupBase
             SearchTerm = searchTerm
         };
         return sender.Send(query);
+    }
+
+    private Task<int> AddTagToAsset(ISender sender, [FromRoute] int assetId, [FromQuery] string tag)
+    {
+        var command = new AddTagToAssetCommand(assetId, tag);
+        return sender.Send(command);
+    }
+
+    private Task<int> RemoveTagFromAsset(ISender sender, [FromRoute] int assetId, [FromQuery] string tag)
+    {
+        var command = new RemoveTagFromAssetCommand(assetId, tag);
+        return sender.Send(command);
     }
 }

@@ -4,23 +4,23 @@ namespace GreenRoom.Infrastructure.Identity;
 
 public class MultiTenancyService : IMultiTenancyService
 {
-    private int _tenant;
+    private Guid _tenantId;
 
-    public int CurrentTenant
+    public Guid CurrentTenantId
     {
-        get => _tenant;
+        get => _tenantId;
         private set
         {
-            if (_tenant != value)
+            if (_tenantId != value)
             {
-                var oldTenant = _tenant;
-                _tenant = value;
+                var oldTenant = _tenantId;
+                _tenantId = value;
             }
         }
     }
 
-    public void SetCurrentTenant(int tenant)
+    public void SetCurrentTenant(Guid tenant)
     {
-        CurrentTenant = tenant;
+        CurrentTenantId = tenant;
     }
 }

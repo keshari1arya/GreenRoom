@@ -6,14 +6,14 @@ using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Tenants.Queries.TenantDetails;
 
-public record TenantDetailsQuery(int Id) : IRequest<TenantDto>;
+public record TenantDetailsQuery(Guid Id) : IRequest<TenantDto>;
 
 public class TenantDetailsQueryValidator : AbstractValidator<TenantDetailsQuery>
 {
     public TenantDetailsQueryValidator(IApplicationDbContext context)
     {
         RuleFor(x => x.Id)
-            .IdMustExistInDatabase(context.Tenants);
+        .NotEmpty();
     }
 }
 

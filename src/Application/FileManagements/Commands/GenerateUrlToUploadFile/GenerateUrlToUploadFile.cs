@@ -29,8 +29,7 @@ public class GenerateUrlToUploadFileCommandHandler : IRequestHandler<GenerateUrl
 
     public async Task<PreSignedUrlDto> Handle(GenerateUrlToUploadFileCommand request, CancellationToken cancellationToken)
     {
-        var bucketName = "bucketName";
-        var url = _fileManagementService.GenerateUrlToUpload(bucketName, request.FileName, request.ContentType, request.ExpiryInSeconds);
+        var url = _fileManagementService.GenerateUrlToUpload(request.FileName, request.ContentType, request.ExpiryInSeconds);
         return await Task.FromResult(new PreSignedUrlDto { Url = url });
     }
 }

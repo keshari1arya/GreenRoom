@@ -1,19 +1,115 @@
-<div *ngIf="asset$ | async; let asset">
-  @if (canShow(asset.name)) {
-  <ngx-doc-viewer
-    [url]="asset.path"
-    [viewer]="'url'"
-    style="height: 80vh"
-  ></ngx-doc-viewer>
-  } @else {
-  <div class="text-center">
-    <h4 class="text-muted">No preview available</h4>
-  </div>
-  }
-</div>
-
 <!-- Add a back link to the asset details page -->
+<div class="container-fluid" *ngIf="asset$ | async; let asset">
+  <!-- <app-page-title title="Blog Details" [breadcrumbItems]="breadCrumbItems"></app-page-title> -->
 
-<div class="d-flex align-items-center">
-  <a [routerLink]="['/file-manager']" class="btn btn-primary">Back</a>
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="card">
+        <div class="card-body">
+          <div class="">
+            <div class="row justify-content-center">
+              <div class="col-xl-8">
+                <div>
+                  <div class="text-center">
+                    <div class="my-5">
+                      <div>
+                        @if (canShow(asset.name)) {
+                        <!-- TODO: Remove this replacement of http with https -->
+                        <ngx-doc-viewer
+                          [url]="asset.path.replace('http://', 'https://')"
+                          [viewer]="'url'"
+                          style="height: 80vh"
+                        ></ngx-doc-viewer>
+                        } @else {
+                        <div class="text-center">
+                          <h4 class="text-muted">No preview available</h4>
+                        </div>
+                        }
+                        <div class="d-flex align-items-center"></div>
+                      </div>
+                    </div>
+
+                    <div class="mt-4">
+                      <div class="mt-4">
+                        <div
+                          class="text-end d-flex justify-content-end list-inline"
+                        >
+                          <a
+                            *ngIf="asset.folderId"
+                            [routerLink]="['/file-manager']"
+                            [queryParams]="{ folderId: asset.folderId }"
+                            class="btn btn-primary list-inline-item"
+                            >Back</a
+                          >
+                          <a
+                            [routerLink]="['/file-manager']"
+                            class="btn btn-primary list-inline-item"
+                            >Home</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end card body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <div class="col-lg-3 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="fw-semibold">Overview</h5>
+
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="col">Name:</th>
+                  <td scope="col">{{ asset.name }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Size:</th>
+                  <td>{{ utility.getFileSize(+asset.sizeInKB) }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Uploaded On:</th>
+                  <td>{{ asset.createdAt | date }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Modified On</th>
+                  <td>
+                    <!-- <span class="badge badge-soft-success">Full Time</span> -->
+                    {{ asset.updatedAt | date }}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Tags:</th>
+                  <td>
+                    <!-- TODO: Make the background for dark mode compatible -->
+                    <tag-input
+                      class=""
+                      [ngModel]="asset.tags"
+                      (onAdd)="addTag($event)"
+                      (onRemove)="removeTag($event)"
+                    >
+                    </tag-input>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="hstack gap-2">
+            <button class="btn btn-soft-primary w-100">Apply Now</button>
+            <button class="btn btn-soft-danger w-100">Contact Us</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
 </div>

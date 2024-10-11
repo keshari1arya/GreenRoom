@@ -21,7 +21,7 @@ export const multitenantActions = {
   ),
   fetchTenantById: createAction(
     "[Multitenant] fetch Tenant by Id",
-    props<{ tenantId: number }>()
+    props<{ tenantId: string }>()
   ),
   fetchTenantByIdSuccess: createAction(
     "[Multitenant] fetch Tenant by Id success",
@@ -35,7 +35,7 @@ export const multitenantActions = {
   ),
   createTenantSuccess: createAction(
     "[Multitenant] create Tenant success",
-    props<{ tenantId: number }>()
+    props<{ tenantId: string }>()
   ),
 
   // Update Tenant
@@ -45,13 +45,11 @@ export const multitenantActions = {
   ),
   updateTenantSuccess: createAction(
     "[Multitenant] update Tenant success",
-    props<{ tenantId: number }>()
+    props<{ tenantId: string }>()
   ),
 
   // Tenant Users
-  fetchTenantUsers: createAction(
-    "[Multitenant] fetch Tenant Users"
-  ),
+  fetchTenantUsers: createAction("[Multitenant] fetch Tenant Users"),
   fetchTenantUsersSuccess: createAction(
     "[Multitenant] fetch Tenant Users success",
     props<{ tenantUsers: TenantUsersDto[] }>()
