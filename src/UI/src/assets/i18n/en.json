@@ -113,7 +113,8 @@
       "TEXT": "Multitenant",
       "BADGE": "New",
       "LIST": {
-        "TENANT": "Tenant List",
+        "TENANTDETAILS": "Tenant Details",
+        "TENANTLIST": "Tenant List",
         "USER": "Tenant Users"
       }
     },

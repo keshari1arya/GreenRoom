@@ -13,6 +13,7 @@ import { MULTITENANT_FEATURE_NAME } from "./store/multitenant.selector";
 import { EditTenantComponent } from "./edit-tenant/edit-tenant.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ModalModule } from "ngx-bootstrap/modal";
+import { TenantListComponent } from './tenant-list/tenant-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ModalModule } from "ngx-bootstrap/modal";
     UserManagerComponent,
     PaymentHistoryComponent,
     EditTenantComponent,
+    TenantListComponent,
   ],
   imports: [
     ModalModule.forRoot(),

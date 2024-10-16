@@ -4,6 +4,7 @@ import { TenantDetailsComponent } from "./tenant-details/tenant-details.componen
 import { PaymentHistoryComponent } from "./payment-history/payment-history.component";
 import { UserManagerComponent } from "./user-manager/user-manager.component";
 import { EditTenantComponent } from "./edit-tenant/edit-tenant.component";
+import { TenantListComponent } from "./tenant-list/tenant-list.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: "details",
     component: TenantDetailsComponent,
+  },
+  {
+    path: "list",
+    component: TenantListComponent,
   },
   {
     path: "payment-history",
@@ -40,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MultitenantRoutingModule {}
+export class MultitenantRoutingModule { }

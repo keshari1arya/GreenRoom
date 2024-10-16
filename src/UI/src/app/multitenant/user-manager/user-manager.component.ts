@@ -9,7 +9,7 @@ import {
   selectTenant,
   selectTenantUsers,
 } from "../store/multitenant.selector";
-import { Observable, of } from "rxjs";
+import { EMPTY, Observable, of } from "rxjs";
 import { SearchUserDto, TenantRolesDto, TenantUsersDto } from "src/app/lib/openapi-generated/models";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -56,11 +56,48 @@ export class UserManagerComponent implements OnInit {
     };
     this.modalRef = this.modalService.show(template, config);
   }
+  closeModal() {
+    this.modalRef?.hide();
+    this.store.dispatch(multitenantActions.clearSearchResults());
+    this.AddUserForm.reset();
+    this.isUserInvite = false;
+    this.isDataPresent = false;
+  }
+
+  isUserInvite: boolean = false;
+  isDataPresent: boolean = false;
+  validateEmail(email: string): boolean {
+    // Regex pattern for validating email
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    // Test if the email matches the pattern
+    return emailPattern.test(email);
+  }
+
+  invitedUser() {
+    if (this.validateEmail(this.AddUserForm.value.search)) {
+      console.log("This is Valid Email");
+      this.isUserInvite = true;
+    } else {
+      console.log('This is invalid Email');
+      this.isUserInvite = false;
+    }
+  }
 
   onSubmit() {
     if (this.AddUserForm.value.search) {
       this.store.dispatch(multitenantActions.searchUsers({ searchTerm: this.AddUserForm.value.search }))
+      this.searchUsers$.subscribe((res) => {
+        if (Array.isArray(res) && res.length === 0) {
+          console.log("no user found");
+          this.invitedUser();
+          this.isDataPresent = false;
+        } else {
+          this.isDataPresent = true;
+        }
+      })
     }
+
   }
 
   private createForm() {
