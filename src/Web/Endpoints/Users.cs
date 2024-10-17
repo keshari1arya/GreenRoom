@@ -1,5 +1,7 @@
 ﻿using GreenRoom.Application.Common.Models;
 using GreenRoom.Application.Users.Commands.AddTenantClaim;
+using GreenRoom.Application.Users.Commands.InviteUser;
+using GreenRoom.Application.Users.Commands.VerifyUserInvitation;
 using GreenRoom.Application.Users.Queries.SearchUser;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +14,7 @@ public class Users : EndpointGroupBase
         app.MapGroup(this)
             .MapGet(SearchUsers, "Search")
             .MapPost(AddTenantClaims, "AddTenantClaim")
+            .MapPost(VerifyUserInvitation, "VerifyUserInvitation")
             .MapIdentityApi<ApplicationUser>();
     }
     public Task AddTenantClaims(ISender sender, AddTenantClaimCommand command)
@@ -22,5 +25,10 @@ public class Users : EndpointGroupBase
     public Task<IEnumerable<SearchUserDto>> SearchUsers(ISender sender, [FromQuery] string searchTerm)
     {
         return sender.Send(new SearchUserQuery(searchTerm));
+    }
+
+    private Task<string> VerifyUserInvitation(ISender sender, VerifyUserInvitationCommand command)
+    {
+        return sender.Send(command);
     }
 }

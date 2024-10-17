@@ -63,6 +63,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         builder
             .Entity<Tag>()
             .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
+
+        builder
+            .Entity<UserInvitation>()
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
     }
 
     DbSet<T> IApplicationDbContext.Set<T>()
