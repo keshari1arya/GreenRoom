@@ -22,7 +22,8 @@
                                 <td>{{ tenant.name }}</td>
                                 <td>{{ tenant.description }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Details</button>
+                                    <a [routerLink]="['/multitenant', tenant.id]" type="button"
+                                        class="btn btn-primary btn-sm">Details</a>
                                 </td>
                             </tr>
                             }
