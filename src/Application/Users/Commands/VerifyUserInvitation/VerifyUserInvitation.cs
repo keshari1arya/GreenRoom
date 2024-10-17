@@ -36,6 +36,7 @@ public class VerifyUserInvitationCommandHandler : IRequestHandler<VerifyUserInvi
     public async Task<string> Handle(VerifyUserInvitationCommand request, CancellationToken cancellationToken)
     {
         var userInvitation = await _context.UserInvitations
+            .OrderByDescending(x => x.ExpiryDate)
             .FirstOrDefaultAsync(x => x.Email == request.Email && x.Token == request.Token, cancellationToken: cancellationToken);
 
         Guard.Against.Null(userInvitation, nameof(userInvitation), "User invitation not found.");

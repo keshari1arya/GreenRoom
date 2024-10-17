@@ -1,31 +1,29 @@
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Amazon.Runtime;
+using System.Net.Mail;
 using GreenRoom.Application.Common.Interfaces;
 
 namespace GreenRoom.Infrastructure.Service;
 
 public class NotificationService : INotificationService
 {
-    private readonly HttpClient _client;
+    private readonly SmtpClient _client;
 
-    public NotificationService(HttpClient client)
+    public NotificationService(SmtpClient client)
     {
         _client = client;
     }
 
-    public async void SendEmail(string email, string subject, string message)
+    public void SendEmail(string email, string subject, string message)
     {
-        var payload = new
+        var mail = new MailMessage()
         {
-            sender = new { email = "trial-pxkjn4100d5gz781.mlsender.net", name = "GreenRoom" },
-            to = new[] { new { email, name = "some name" } },
-            subject,
-            htmlContent = message
+            // TODO: Move to configuration or use api to send email
+            From = new MailAddress("bloggerrejo@gmail.com", "GreenRoom"),
+            To = { email },
+            Subject = subject,
+            Body = message,
+            IsBodyHtml = true
         };
-        var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-        var response = await _client.PostAsync("", content, default);
+
+        _client.Send(mail);
     }
 }
