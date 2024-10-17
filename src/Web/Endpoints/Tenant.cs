@@ -10,6 +10,7 @@ using GreenRoom.Application.Tenants.Queries.GetTenantRoles;
 using GreenRoom.Application.Tenants.Queries.GetTenants;
 using GreenRoom.Application.Tenants.Queries.GetUsersForTenant;
 using GreenRoom.Application.Tenants.Queries.TenantDetails;
+using GreenRoom.Application.Users.Commands.InviteUser;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenRoom.Web.Endpoints;
@@ -31,7 +32,8 @@ public class Tenant : EndpointGroupBase
             .MapPost(AddTenantUsers, "Users")
             .MapDelete(RemoveTenantUsers, "Users")
             .MapPatch(UpdateRole, "Users/Role")
-            .MapGet(GetRoles, "Roles");
+            .MapGet(GetRoles, "Roles")
+            .MapPost(InviteUser, "Invite");
     }
 
     private Task<IEnumerable<TenantDto>> GetTenants(ISender sender)
@@ -92,5 +94,10 @@ public class Tenant : EndpointGroupBase
     private Task<TenantRolesDto[]> GetRoles(ISender sender)
     {
         return sender.Send(new GetTenantRolesQuery());
+    }
+
+    private Task InviteUser(ISender sender, [FromBody] InviteUserCommand command)
+    {
+        return sender.Send(command);
     }
 }

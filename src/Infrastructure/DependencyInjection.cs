@@ -1,4 +1,5 @@
-﻿using Amazon;
+﻿using System.Net.Http.Headers;
+using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using GreenRoom.Application.Common.Configurations;
@@ -58,6 +59,17 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddScoped<IMultiTenancyService, MultiTenancyService>();
+
+        services.AddScoped<INotificationService, NotificationService>();
+
+        services.AddHttpClient<INotificationService, NotificationService>(client =>
+        {
+            // TODO: Setup email service provider
+            client.BaseAddress = new Uri("https://api.brevo.com/v3/smtp/email");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("X-Requested-With", "XMLHttpRequest");
+            client.DefaultRequestHeaders.Add("api-key", "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");
+        });
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));

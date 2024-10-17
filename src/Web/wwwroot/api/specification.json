@@ -1532,6 +1532,36 @@
         ]
       }
     },
+    "/api/Tenant/Invite": {
+      "post": {
+        "tags": [
+          "Tenant"
+        ],
+        "operationId": "InviteUser",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InviteUserCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -1914,6 +1944,31 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddTenantClaimCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Users/VerifyUserInvitation": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "VerifyUserInvitation",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyUserInvitationCommand"
               }
             }
           },
@@ -2999,6 +3054,15 @@
           }
         }
       },
+      "InviteUserCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        }
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,
@@ -3255,6 +3319,18 @@
       "AddTenantClaimCommand": {
         "type": "object",
         "additionalProperties": false
+      },
+      "VerifyUserInvitationCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
       },
       "HttpValidationProblemDetails": {
         "allOf": [

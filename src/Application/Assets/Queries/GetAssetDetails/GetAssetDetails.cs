@@ -69,7 +69,15 @@ public class AssetDetailsDto
                 .ForMember(d => d.FolderId, opt => opt.MapFrom(s => s.FolderId))
                 .ForMember(d => d.CreatedAt, opt => opt.MapFrom(s => s.Created))
                 .ForMember(d => d.UpdatedAt, opt => opt.MapFrom(s => s.LastModified))
-                .ForMember(d => d.Tags, opt => opt.MapFrom(s => s.AssetTags.Select(t => t.Tag!.Name).ToArray()));
+                .ForMember(d => d.Tags, opt => opt.MapFrom(s => s.AssetTags.Select(t => t.Tag!.Name).ToArray()))
+
+                .ForMember(d => d.Description, opt => opt.Ignore())
+                .ForMember(d => d.Thumbnail, opt => opt.Ignore())
+                .ForMember(d => d.Preview, opt => opt.Ignore())
+                .ForMember(d => d.Download, opt => opt.Ignore())
+                .ForMember(d => d.Share, opt => opt.Ignore())
+                .ForMember(d => d.DeletedAt, opt => opt.Ignore());
+
         }
     }
 }
