@@ -83,12 +83,18 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         id: 15,
-        label: "MENUITEMS.MULTITENANT.LIST.TENANT",
+        label: "MENUITEMS.MULTITENANT.LIST.TENANTDETAILS",
         link: "/multitenant",
         parentId: 14,
       },
       {
         id: 16,
+        label: "MENUITEMS.MULTITENANT.LIST.TENANTLIST",
+        link: "/multitenant/list",
+        parentId: 14,
+      },
+      {
+        id: 17,
         label: "MENUITEMS.MULTITENANT.LIST.USER",
         link: "/multitenant/user-manager",
         parentId: 14,

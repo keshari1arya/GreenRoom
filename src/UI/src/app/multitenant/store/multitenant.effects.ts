@@ -166,6 +166,20 @@ export class MultitenantEffects {
     )
   );
 
+  fetchTenantList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.fetchMyTenantList),
+      switchMap(() =>
+        this.tenantService.myTenants().pipe(
+          map((tenantList) =>
+            multitenantActions.fetchMyTenantListSuccess({ myTenantList: tenantList })
+          ),
+          catchError((error) => of(multitenantActions.setError({ error })))
+        )
+      )
+    )
+  );
+
   createdOrUpdatedTenant$ = createEffect(
     () =>
       this.actions$.pipe(

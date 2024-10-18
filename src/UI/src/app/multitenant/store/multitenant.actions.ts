@@ -4,6 +4,7 @@ import {
   CreateTenantCommand,
   SearchUserDto,
   TenantDetailsDto,
+  TenantDto,
   TenantRolesDto,
   TenantUsersDto,
   UpdateRoleCommand,
@@ -93,4 +94,14 @@ export const multitenantActions = {
     "[Multitenant] Get Tenant  Role Id success",
     props<{ userRole: TenantRolesDto[] }>()
   ),
+
+  // Tenant List
+  fetchMyTenantList: createAction("[Multitenant] fetch Tenant List"),
+  fetchMyTenantListSuccess: createAction(
+    "[Multitenant] fetch Tenant List success",
+    props<{ myTenantList: TenantDto[] }>()
+  ),
+
+  //clear searchResults
+  clearSearchResults: createAction("[Multitenant] clear search results"),
 };
