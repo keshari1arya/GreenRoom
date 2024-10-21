@@ -5,7 +5,7 @@ using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Tenants.Queries.GetCurrentTenant;
 
-public record GetCurrentTenantQuery : IRequest<TenantDetailsDto>
+public record GetCurrentTenantQuery : IRequest<TenantDetailsDto?>
 {
 }
 
@@ -16,7 +16,7 @@ public class GetCurrentTenantQueryValidator : AbstractValidator<GetCurrentTenant
     }
 }
 
-public class GetCurrentTenantQueryHandler : IRequestHandler<GetCurrentTenantQuery, TenantDetailsDto>
+public class GetCurrentTenantQueryHandler : IRequestHandler<GetCurrentTenantQuery, TenantDetailsDto?>
 {
     private readonly ISender _sender;
     private readonly IMultiTenancyService _multiTenancyService;
@@ -32,7 +32,7 @@ public class GetCurrentTenantQueryHandler : IRequestHandler<GetCurrentTenantQuer
         _mapper = mapper;
     }
 
-    public async Task<TenantDetailsDto> Handle(GetCurrentTenantQuery request, CancellationToken cancellationToken)
+    public async Task<TenantDetailsDto?> Handle(GetCurrentTenantQuery request, CancellationToken cancellationToken)
     {
         var tenantId = _multiTenancyService.CurrentTenantId;
         var tenantDto = await _context.Tenants
@@ -40,7 +40,8 @@ public class GetCurrentTenantQueryHandler : IRequestHandler<GetCurrentTenantQuer
             .ThenInclude(x => x.Subscription)
             .Where(x => x.Id == tenantId)
             .ProjectTo<TenantDetailsDto>(_mapper.ConfigurationProvider)
-            .FirstAsync(cancellationToken: cancellationToken);
+            .AsNoTracking()
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
         return tenantDto;
     }

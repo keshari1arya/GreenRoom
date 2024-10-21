@@ -71,6 +71,8 @@ export class AssetDetailsComponent implements OnInit {
     "doc",
     "xls",
     "ppt",
+    "html",
+    "txt",
   ];
 
   tempUrl =

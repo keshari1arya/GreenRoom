@@ -1,5 +1,7 @@
 ﻿using GreenRoom.Application.Common.Extension;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Folders.Queries.GetFolderPathToRoot;
+using GreenRoom.Application.Interfaces;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Folders.Commands.CreateFolder;
@@ -27,24 +29,39 @@ public class CreateFolderCommandValidator : AbstractValidator<CreateFolderComman
 public class CreateFolderCommandHandler : IRequestHandler<CreateFolderCommand, int>
 {
     private readonly IApplicationDbContext _context;
+    private readonly ISender _mediator;
+    private readonly IStorageManagementService _storageManagementService;
 
-    public CreateFolderCommandHandler(IApplicationDbContext context)
+    public CreateFolderCommandHandler(IApplicationDbContext context, ISender mediator, IStorageManagementService storageManagementService)
     {
         _context = context;
+        _mediator = mediator;
+        _storageManagementService = storageManagementService;
     }
 
     public async Task<int> Handle(CreateFolderCommand request, CancellationToken cancellationToken)
     {
+        var path = request.Name;
+        if (request.ParentFolderId != null)
+        {
+            var parentFolder = await _context.Folders.FindAsync([request.ParentFolderId], cancellationToken: cancellationToken);
+            Guard.Against.Null(parentFolder, nameof(parentFolder));
+            path = $"{parentFolder.Path}/{request.Name}";
+        }
+
         var entity = new Folder
         {
             Name = request.Name,
             ParentId = request.ParentFolderId,
             Thumbnail = request.ThumbnailUrl,
-            Path = request.Path ?? "/", // TODO: Implement path generation
+            Path = path
         };
 
         _context.Folders.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
+
+        await _storageManagementService.CreateFolderAsync(entity.Path);
+
         return entity.Id;
     }
 }

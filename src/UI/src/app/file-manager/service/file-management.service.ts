@@ -36,7 +36,7 @@ export class FileManagementService {
 
   // This method will be used to upload the file
   uploadFile(file: File, folderId: number) {
-    this.generatePresignedUrl(file).subscribe((res) => {
+    this.generatePresignedUrl(file, folderId).subscribe((res) => {
       //
       if (environment.production) {
         throw new Error(
@@ -66,17 +66,21 @@ export class FileManagementService {
     });
   }
 
-  private generatePresignedUrl(file: File): Observable<PreSignedUrlDto> {
+  private generatePresignedUrl(
+    file: File,
+    folderId: number
+  ): Observable<PreSignedUrlDto> {
     const expiryInSeconds = Math.floor(file.size / 102400) + 10;
     const contentType = file.type;
     const fileName = file.name;
-    const body = {
-      fileName: fileName,
-      contentType: contentType ?? "application/octet-stream",
-      expiryInSeconds,
-    };
+    const body = {};
     return this.storageManagementService.generateUrlToUploadFile({
-      body,
+      body: {
+        folderId: folderId,
+        fileName: fileName,
+        contentType: contentType ?? "application/octet-stream",
+        expiryInSeconds,
+      },
     });
   }
 }

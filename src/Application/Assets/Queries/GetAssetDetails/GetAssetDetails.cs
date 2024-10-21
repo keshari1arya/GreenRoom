@@ -33,13 +33,21 @@ public class GetAssetDetailsQueryHandler : IRequestHandler<GetAssetDetailsQuery,
     public async Task<AssetDetailsDto> Handle(GetAssetDetailsQuery request, CancellationToken cancellationToken)
     {
         var asset = await _context.Assets
+            .Include(a => a.Folder)
             .Include(a => a.AssetTags)
             .ThenInclude(at => at.Tag)
+            .AsNoTracking()
             .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
 
         var mappedAsset = _mapper.Map<AssetDetailsDto>(asset);
         var expiryInSeconds = Math.Abs(int.Parse(mappedAsset!.SizeInKB) / 1000);
-        mappedAsset.Path = _storageManagementService.GenerateUrlToDownload(asset!.Path!, expiryInSeconds);
+        var path = asset!.Name;
+        if (asset.FolderId != null)
+        {
+            path = $"{asset.Folder!.Path}/{asset.Name}";
+        }
+
+        mappedAsset.Path = _storageManagementService.GenerateUrlToDownload(path!, expiryInSeconds);
         return mappedAsset;
     }
 }

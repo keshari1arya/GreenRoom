@@ -1,6 +1,5 @@
-﻿using Amazon.S3;
-using Amazon.S3.Model;
-using GreenRoom.Application.Common.Interfaces;
+﻿using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Interfaces;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Tenants.Commands.CreateTenant;
@@ -30,7 +29,7 @@ public class CreateTenantCommandValidator : AbstractValidator<CreateTenantComman
     }
 }
 
-public class CreateTenantCommandHandler(IApplicationDbContext context, IUser user, IAmazonS3 s3Client) : IRequestHandler<CreateTenantCommand, Guid>
+public class CreateTenantCommandHandler(IApplicationDbContext context, IUser user, IStorageManagementService storageManagementService) : IRequestHandler<CreateTenantCommand, Guid>
 {
     public async Task<Guid> Handle(CreateTenantCommand request, CancellationToken cancellationToken)
     {
@@ -54,12 +53,7 @@ public class CreateTenantCommandHandler(IApplicationDbContext context, IUser use
 
 
         // TODO: Set permissions for the bucket based on the tenant's requirements
-        _ = await s3Client.PutBucketAsync(
-            new PutBucketRequest()
-            {
-                BucketName = entity.Id.ToString(),
-                UseClientRegion = true
-            }, cancellationToken);
+        await storageManagementService.CreateBucketAsync(entity.Id.ToString());
 
         return entity.Id;
     }

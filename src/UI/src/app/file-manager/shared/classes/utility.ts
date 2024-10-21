@@ -6,7 +6,7 @@ export class Utility {
     const extension = name.split(".").pop();
     const icons = {
       html: "mdi mdi-file-document",
-      txt: "mdi mdi-text-box text-muted",
+      txt: "mdi mdi-text-box",
       png: "mdi mdi-image text-success",
       jpeg: "mdi mdi-image text-muted",
       zip: "mdi mdi-folder-zip text-warning",

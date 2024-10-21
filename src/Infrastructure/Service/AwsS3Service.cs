@@ -10,8 +10,8 @@ public class AwsS3Service(
     IMultiTenancyService multiTenancyService
     ) : IStorageManagementService
 {
-    private const string ASSET_CONTAINER = "AssetContainer";
-    public string GenerateUrlToUpload(string fileName, string contentType, int expiryInSeconds)
+    private const string ASSET_CONTAINER_FOLDER_NAME = "AssetContainer";
+    public string GenerateUrlToUpload(string filePath, string contentType, int expiryInSeconds)
     {
         var tenant = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId);
         var bucketName = tenant!.Id.ToString();
@@ -19,7 +19,7 @@ public class AwsS3Service(
         var request = new GetPreSignedUrlRequest
         {
             BucketName = bucketName,
-            Key = $"{ASSET_CONTAINER}/{fileName}",
+            Key = $"{ASSET_CONTAINER_FOLDER_NAME}/{filePath}",
             Verb = HttpVerb.PUT,
             Expires = DateTime.Now.AddSeconds(expiryInSeconds),
             ContentType = contentType,
@@ -28,7 +28,7 @@ public class AwsS3Service(
         return s3Client.GetPreSignedURL(request);
     }
 
-    public string GenerateUrlToDownload(string path, int expiryInSeconds)
+    public string GenerateUrlToDownload(string filePath, int expiryInSeconds)
     {
         var tenant = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId);
         var bucketName = tenant!.Id.ToString();
@@ -36,11 +36,36 @@ public class AwsS3Service(
         var request = new GetPreSignedUrlRequest
         {
             BucketName = bucketName,
-            Key = $"{ASSET_CONTAINER}/{path}",
+            Key = $"{ASSET_CONTAINER_FOLDER_NAME}/{filePath}",
             Verb = HttpVerb.GET,
             Expires = DateTime.Now.AddSeconds(expiryInSeconds),
         };
 
         return s3Client.GetPreSignedURL(request);
+    }
+
+    public async Task CreateBucketAsync(string bucketName)
+    {
+        var request = new PutBucketRequest
+        {
+            BucketName = bucketName,
+        };
+
+        await s3Client.PutBucketAsync(request);
+    }
+
+    public async Task CreateFolderAsync(string folderName)
+    {
+        var tenant = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId);
+        var bucketName = tenant!.Id.ToString();
+
+        var request = new PutObjectRequest
+        {
+            BucketName = bucketName,
+            Key = $"{ASSET_CONTAINER_FOLDER_NAME}/{folderName}/",
+            ContentBody = string.Empty,
+        };
+
+        await s3Client.PutObjectAsync(request);
     }
 }

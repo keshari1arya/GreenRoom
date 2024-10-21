@@ -2752,6 +2752,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "folderId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "fileName": {
             "type": "string"
           },

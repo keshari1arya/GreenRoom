@@ -56,7 +56,7 @@ public class Tenant : EndpointGroupBase
         return sender.Send(command);
     }
 
-    private Task<TenantDetailsDto> GetCurrentTenant(ISender sender)
+    private Task<TenantDetailsDto?> GetCurrentTenant(ISender sender)
     {
         return sender.Send(new GetCurrentTenantQuery());
     }
