@@ -16,6 +16,7 @@ export interface MultitenantState {
   searchedUsers: SearchUserDto[];
   tenantRoles: TenantRolesDto[];
   tenantList: TenantDto[];
+  userInvited: boolean;
 }
 
 export const initialState: MultitenantState = {
@@ -26,6 +27,7 @@ export const initialState: MultitenantState = {
   tenantList: [],
   loading: false,
   error: null,
+  userInvited: false,
 };
 
 export const MultitenantReducer = createReducer(
@@ -73,12 +75,15 @@ export const MultitenantReducer = createReducer(
       ...state,
       tenantRoles: userRole,
       loading: false,
-    }
+    };
   }),
   on(multitenantActions.fetchMyTenantListSuccess, (state, { myTenantList }) => {
     return { ...state, tenantList: myTenantList, loading: false };
   }),
   on(multitenantActions.clearSearchResults, (state) => {
     return { ...state, searchedUsers: [] };
+  }),
+  on(multitenantActions.inviteUserSuccess, (state) => {
+    return { ...state, loading: false, userInvited: true };
   })
 );

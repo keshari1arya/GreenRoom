@@ -5,7 +5,10 @@ import { of } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "src/app/core/services/auth.service";
 import { AuthActions } from "./authentication.actions";
-import { TenantService } from "src/app/lib/openapi-generated/services";
+import {
+  TenantService,
+  UsersService,
+} from "src/app/lib/openapi-generated/services";
 
 @Injectable()
 export class AuthenticationEffects {
@@ -84,11 +87,30 @@ export class AuthenticationEffects {
     )
   );
 
+  verifyInvitation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.verifyInvitation),
+      exhaustMap(({ token }) => {
+        return this.userService.verifyUserInvitation({ body: { token } }).pipe(
+          map((response) => {
+            return AuthActions.verifyInvitationSuccess({
+              response: response,
+            });
+          }),
+          catchError((error) => {
+            return of(AuthActions.setError({ error }));
+          })
+        );
+      })
+    )
+  );
+
   constructor(
     @Inject(Actions) private actions$: Actions,
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private tenantService: TenantService
+    private tenantService: TenantService,
+    private userService: UsersService
   ) {}
 }

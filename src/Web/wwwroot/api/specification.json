@@ -1981,7 +1981,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/VerifyUserInvitationResponse"
                 }
               }
             }
@@ -3327,13 +3327,22 @@
         "type": "object",
         "additionalProperties": false
       },
+      "VerifyUserInvitationResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
       "VerifyUserInvitationCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "email": {
-            "type": "string"
-          },
           "token": {
             "type": "string"
           }

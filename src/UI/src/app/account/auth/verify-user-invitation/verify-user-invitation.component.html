@@ -1,0 +1,39 @@
+<div
+  *ngIf="
+    userVerificationResponse$ | async as data;
+    let userVerificationResponse
+  "
+>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header">
+            <h4>Verification</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="email">
+                    {{ userVerificationResponse?.message }}
+                  </label>
+
+                  <div class="form-group pull-right">
+                    <a
+                      [routerLink]="['/auth/login']"
+                      class="btn btn-sm btn-primary w-md"
+                      >Login</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+</div>

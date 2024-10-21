@@ -1,14 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
 import { AuthActions } from "./authentication.actions";
+import { VerifyUserInvitationResponse } from "src/app/lib/openapi-generated/models";
 
 export interface AuthenticationState {
   isLoggedIn: boolean;
   error: string | null;
+  userVerificationResponse: VerifyUserInvitationResponse | null;
 }
 
 const initialState: AuthenticationState = {
   isLoggedIn: false,
   error: null,
+  userVerificationResponse: null,
 };
 
 export const authenticationReducer = createReducer(
@@ -26,5 +29,9 @@ export const authenticationReducer = createReducer(
     isLoggedIn: true,
     error: null,
   })),
-  on(AuthActions.logout, (state) => ({ ...state, user: null }))
+  on(AuthActions.logout, (state) => ({ ...state, user: null })),
+  on(AuthActions.verifyInvitationSuccess, (state, { response }) => ({
+    ...state,
+    userVerificationResponse: response,
+  }))
 );

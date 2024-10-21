@@ -30,14 +30,19 @@ export const selectTenantUsers = createSelector(
 export const selectSearchUsers = createSelector(
   selectMultitenantState,
   (state: MultitenantState) => state.searchedUsers
-)
+);
 
 export const selectGetRoleId = createSelector(
   selectMultitenantState,
   (state: MultitenantState) => state.tenantRoles
-)
+);
 
 export const selectMyTenantList = createSelector(
   selectMultitenantState,
   (state: MultitenantState) => state.tenantList
-)
+);
+
+export const selectUserInvited = createSelector(
+  selectMultitenantState,
+  (state: MultitenantState) => state.userInvited
+);

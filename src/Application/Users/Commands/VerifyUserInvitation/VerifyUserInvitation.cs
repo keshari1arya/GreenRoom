@@ -1,28 +1,31 @@
 ﻿using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Application.Common.Models;
-using GreenRoom.Domain.Constants;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 using Microsoft.AspNetCore.Identity;
 
 namespace GreenRoom.Application.Users.Commands.VerifyUserInvitation;
 
-public record VerifyUserInvitationCommand(string Email, string Token) : IRequest<string>;
+public record VerifyUserInvitationCommand(string Token) : IRequest<VerifyUserInvitationResponse>;
 
 public class VerifyUserInvitationCommandValidator : AbstractValidator<VerifyUserInvitationCommand>
 {
     public VerifyUserInvitationCommandValidator(IApplicationDbContext context)
     {
-        RuleFor(v => v.Email)
-            .MustAsync(async (email, cancellationToken) =>
-            {
-                var userInvitation = await context.UserInvitations
-                    .FirstOrDefaultAsync(x => x.Email == email, cancellationToken: cancellationToken);
-                return userInvitation != null;
-            }).WithMessage("User invitation not found.");
+        RuleFor(v => v.Token)
+           .MustAsync(async (token, cancellationToken) =>
+           {
+               var userInvitation = await context.UserInvitations.FirstOrDefaultAsync(x => x.Token == token, cancellationToken);
+               return userInvitation != null;
+           }).WithMessage("Invalid token.")
+           .MustAsync(async (token, cancellationToken) =>
+           {
+               var userInvitation = await context.UserInvitations.FirstOrDefaultAsync(x => x.Token == token, cancellationToken);
+               return userInvitation!.ExpiryDate > DateTime.UtcNow;
+           }).WithMessage("Token has expired.");
     }
 }
 
-public class VerifyUserInvitationCommandHandler : IRequestHandler<VerifyUserInvitationCommand, string>
+public class VerifyUserInvitationCommandHandler : IRequestHandler<VerifyUserInvitationCommand, VerifyUserInvitationResponse>
 {
     private readonly IApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
@@ -33,22 +36,17 @@ public class VerifyUserInvitationCommandHandler : IRequestHandler<VerifyUserInvi
         _userManager = userManager;
     }
 
-    public async Task<string> Handle(VerifyUserInvitationCommand request, CancellationToken cancellationToken)
+    public async Task<VerifyUserInvitationResponse> Handle(VerifyUserInvitationCommand request, CancellationToken cancellationToken)
     {
         var userInvitation = await _context.UserInvitations
             .OrderByDescending(x => x.ExpiryDate)
-            .FirstOrDefaultAsync(x => x.Email == request.Email && x.Token == request.Token, cancellationToken: cancellationToken);
+            .FirstOrDefaultAsync(x => x.Token == request.Token, cancellationToken: cancellationToken);
 
-        Guard.Against.Null(userInvitation, nameof(userInvitation), "User invitation not found.");
 
-        if (userInvitation.ExpiryDate < DateTime.UtcNow)
+        if (userInvitation!.IsAccepted)
         {
-            return "User invitation has expired.";
-        }
-
-        if (userInvitation.IsAccepted)
-        {
-            return "User invitation has already been accepted. Please login or reset your password.";
+            // TODO: Move all magic strings to a separate class
+            return new VerifyUserInvitationResponse(false, "User invitation has already been accepted.");
         }
 
         var user = new ApplicationUser
@@ -71,9 +69,11 @@ public class VerifyUserInvitationCommandHandler : IRequestHandler<VerifyUserInvi
             });
             await _context.SaveChangesAsync(cancellationToken);
 
-            return "User invitation has been accepted.";
+            return new VerifyUserInvitationResponse(true, "User invitation accepted successfully.");
         }
 
-        return "User invitation could not be accepted.";
+        return new VerifyUserInvitationResponse(false, "Failed to accept user invitation.");
     }
 }
+
+public record VerifyUserInvitationResponse(bool IsSuccess, string Message);

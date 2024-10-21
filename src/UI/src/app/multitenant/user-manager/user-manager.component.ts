@@ -8,16 +8,21 @@ import {
   selectSearchUsers,
   selectTenant,
   selectTenantUsers,
+  selectUserInvited,
 } from "../store/multitenant.selector";
 import { EMPTY, Observable, of } from "rxjs";
-import { SearchUserDto, TenantRolesDto, TenantUsersDto } from "src/app/lib/openapi-generated/models";
+import {
+  SearchUserDto,
+  TenantRolesDto,
+  TenantUsersDto,
+} from "src/app/lib/openapi-generated/models";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-user-manager',
-  templateUrl: './user-manager.component.html',
-  styleUrl: './user-manager.component.scss'
+  selector: "app-user-manager",
+  templateUrl: "./user-manager.component.html",
+  styleUrl: "./user-manager.component.scss",
 })
 export class UserManagerComponent implements OnInit {
   tenantUsers$!: Observable<TenantUsersDto[]>;
@@ -52,7 +57,7 @@ export class UserManagerComponent implements OnInit {
     const config: any = {
       backdrop: true,
       ignoreBackdropClick: true,
-      class: "modal-lg"
+      class: "modal-lg",
     };
     this.modalRef = this.modalService.show(template, config);
   }
@@ -79,14 +84,18 @@ export class UserManagerComponent implements OnInit {
       console.log("This is Valid Email");
       this.isUserInvite = true;
     } else {
-      console.log('This is invalid Email');
+      console.log("This is invalid Email");
       this.isUserInvite = false;
     }
   }
 
   onSubmit() {
     if (this.AddUserForm.value.search) {
-      this.store.dispatch(multitenantActions.searchUsers({ searchTerm: this.AddUserForm.value.search }))
+      this.store.dispatch(
+        multitenantActions.searchUsers({
+          searchTerm: this.AddUserForm.value.search,
+        })
+      );
       this.searchUsers$.subscribe((res) => {
         if (Array.isArray(res) && res.length === 0) {
           console.log("no user found");
@@ -95,18 +104,30 @@ export class UserManagerComponent implements OnInit {
         } else {
           this.isDataPresent = true;
         }
-      })
+      });
     }
+  }
 
+  inviteUser() {
+    this.store.dispatch(
+      multitenantActions.inviteUser({
+        email: this.AddUserForm.value.search,
+        roleId: this.selectedOptionId,
+      })
+    );
+    this.store.select(selectUserInvited).subscribe((res) => {
+      if (res) {
+        this.closeModal();
+      }
+    });
   }
 
   private createForm() {
     this.AddUserForm = this.fromBuilder.group({
-      search: ['', [Validators.required]],
-      role: ['']
-    })
+      search: ["", [Validators.required]],
+      role: [""],
+    });
   }
-
 
   selectedOptionId: any = 1;
 
@@ -115,22 +136,26 @@ export class UserManagerComponent implements OnInit {
   }
 
   AddUsers(event) {
-    this.store.dispatch(multitenantActions.addUser({
-      user: {
-        userId: event.id,
-        roleId: this.selectedOptionId
-      }
-    }))
+    this.store.dispatch(
+      multitenantActions.addUser({
+        user: {
+          userId: event.id,
+          roleId: this.selectedOptionId,
+        },
+      })
+    );
   }
 
   selectRoleId: any = null;
   getId(event, User) {
     this.selectRoleId = +event.target.value;
-    this.store.dispatch(multitenantActions.updateRoleId({
-      userRole: {
-        userId: User.userId,
-        roleId: this.selectRoleId
-      }
-    }))
+    this.store.dispatch(
+      multitenantActions.updateRoleId({
+        userRole: {
+          userId: User.userId,
+          roleId: this.selectRoleId,
+        },
+      })
+    );
   }
 }

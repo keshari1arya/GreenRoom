@@ -63,6 +63,7 @@ public static class DependencyInjection
         services.AddScoped<INotificationService, NotificationService>();
 
         services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
+        services.Configure<UiSettings>(configuration.GetSection("UiSettings"));
 
         services.AddSingleton<SmtpClient>(provider =>
          {

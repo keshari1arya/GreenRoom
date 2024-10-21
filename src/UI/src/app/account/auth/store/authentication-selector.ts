@@ -13,3 +13,8 @@ export const getError = createSelector(
   getLayoutState,
   (state: AuthenticationState) => state.error
 );
+
+export const getUserVerificationResponse = createSelector(
+  getLayoutState,
+  (state: AuthenticationState) => state.userVerificationResponse
+);

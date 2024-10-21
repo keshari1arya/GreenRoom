@@ -87,9 +87,7 @@ export const multitenantActions = {
   ),
 
   // Get Role
-  getTenantRoles: createAction(
-    "[Multitenant] Get Tenant  Role Id"
-  ),
+  getTenantRoles: createAction("[Multitenant] Get Tenant  Role Id"),
   getTenantRolesSuccess: createAction(
     "[Multitenant] Get Tenant  Role Id success",
     props<{ userRole: TenantRolesDto[] }>()
@@ -104,4 +102,11 @@ export const multitenantActions = {
 
   //clear searchResults
   clearSearchResults: createAction("[Multitenant] clear search results"),
+
+  // Invite User
+  inviteUser: createAction(
+    "[Multitenant] Invite User",
+    props<{ email: string; roleId: number }>()
+  ),
+  inviteUserSuccess: createAction("[Multitenant] Invite User success"),
 };

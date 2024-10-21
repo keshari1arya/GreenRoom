@@ -1,5 +1,8 @@
 import { createAction, props } from "@ngrx/store";
-import { TenantDto } from "src/app/lib/openapi-generated/models";
+import {
+  TenantDto,
+  VerifyUserInvitationResponse,
+} from "src/app/lib/openapi-generated/models";
 
 const setError = createAction(
   "[Authentication] Error",
@@ -32,6 +35,17 @@ const fetchMyTenantsSuccess = createAction(
   props<{ tenants: TenantDto[] }>()
 );
 
+// verify user invitation action
+const verifyInvitation = createAction(
+  "[Authentication] Verify Invitation",
+  props<{ token: string }>()
+);
+
+const verifyInvitationSuccess = createAction(
+  "[Authentication] Verify Invitation Success",
+  props<{ response: VerifyUserInvitationResponse }>()
+);
+
 export const AuthActions = {
   setError: setError,
   register,
@@ -42,4 +56,6 @@ export const AuthActions = {
   logoutSuccess,
   fetchMyTenants,
   fetchMyTenantsSuccess,
+  verifyInvitation,
+  verifyInvitationSuccess,
 };
