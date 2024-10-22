@@ -3,7 +3,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { AuthGuard } from "./core/guards/auth.guard";
 import { LayoutComponent } from "./layouts/layout.component";
-import { CyptolandingComponent } from "./cyptolanding/cyptolanding.component";
 
 const routes: Routes = [
   {
@@ -24,7 +23,6 @@ const routes: Routes = [
       import("./extrapages/extrapages.module").then((m) => m.ExtrapagesModule),
     canActivate: [AuthGuard],
   },
-  { path: "crypto-ico-landing", component: CyptolandingComponent },
   {
     path: "file-manager",
     component: LayoutComponent,
@@ -44,11 +42,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'subscription',
+    path: "subscription",
     component: LayoutComponent,
     loadChildren: () =>
-      import('./subscription/subscription.module').then(
-        m => m.SubscriptionModule
+      import("./subscription/subscription.module").then(
+        (m) => m.SubscriptionModule
       ),
     canActivate: [AuthGuard],
   },
@@ -58,4 +56,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: "top" })],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
