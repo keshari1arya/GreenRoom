@@ -30,6 +30,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Tag> Tags => Set<Tag>();
     public DbSet<AssetTag> AssetTags => Set<AssetTag>();
     public DbSet<FolderTag> FolderTags => Set<FolderTag>();
+    public DbSet<FolderPin> FolderPins => Set<FolderPin>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -66,6 +67,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
         builder
             .Entity<UserInvitation>()
+            .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
+
+        builder
+            .Entity<FolderPin>()
             .HasQueryFilter(t => t.TenantId == _multiTenancyService.CurrentTenantId);
     }
 

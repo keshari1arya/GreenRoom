@@ -20,6 +20,7 @@ public interface IApplicationDbContext
     DbSet<Tag> Tags { get; }
     DbSet<AssetTag> AssetTags { get; }
     DbSet<FolderTag> FolderTags { get; }
+    DbSet<FolderPin> FolderPins { get; }
 
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
