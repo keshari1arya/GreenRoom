@@ -4,9 +4,11 @@ using GreenRoom.Application.Folders.Commands.GetTrashed;
 using GreenRoom.Application.Folders.Commands.MoveFolders;
 using GreenRoom.Application.Folders.Commands.RenameFolder;
 using GreenRoom.Application.Folders.Commands.RestoreFolders;
+using GreenRoom.Application.Folders.Commands.ToggleFolderPin;
 using GreenRoom.Application.Folders.Commands.TrashFolders;
 using GreenRoom.Application.Folders.Queries.GetFolderPathToRoot;
 using GreenRoom.Application.Folders.Queries.GetFolders;
+using GreenRoom.Application.Folders.Queries.GetPinnedFolders;
 using GreenRoom.Application.Folders.Queries.SearchFolders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +28,9 @@ public class Folders : EndpointGroupBase
             .MapPut(RenameFolder, "Rename")
             .MapGet(GetFolderPathToRoot, "PathToRoot/{folderId}")
             .MapGet(GetTrashed, "Trashed")
-            .MapGet(SearchFolders, "Search");
+            .MapGet(SearchFolders, "Search")
+            .MapGet(GetPinnedFolders, "Pinned")
+            .MapPut(ToggleFolderPin, "TogglePin");
     }
 
     private Task<IEnumerable<FolderDto>> GetFolders(ISender sender, [AsParameters] GetFoldersQuery query)
@@ -76,5 +80,15 @@ public class Folders : EndpointGroupBase
             SearchTerm = searchTerm
         };
         return sender.Send(query);
+    }
+
+    private Task<IEnumerable<FolderDto>> GetPinnedFolders(ISender sender)
+    {
+        return sender.Send(new GetPinnedFoldersQuery());
+    }
+
+    private Task<int> ToggleFolderPin(ISender sender, ToggleFolderPinCommand command)
+    {
+        return sender.Send(command);
     }
 }

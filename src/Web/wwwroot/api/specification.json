@@ -666,6 +666,72 @@
         ]
       }
     },
+    "/api/Folders/Pinned": {
+      "get": {
+        "tags": [
+          "Folders"
+        ],
+        "operationId": "GetPinnedFolders",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Folders/TogglePin": {
+      "put": {
+        "tags": [
+          "Folders"
+        ],
+        "operationId": "ToggleFolderPin",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleFolderPinCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/StorageManagements/GeneratePresignedUrl": {
       "post": {
         "tags": [
@@ -2734,6 +2800,16 @@
             "nullable": true
           },
           "sizeInKB": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ToggleFolderPinCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "folderId": {
             "type": "integer",
             "format": "int32"
           }
