@@ -7,39 +7,27 @@
           <div class="">
             <div class="float-end ms-2">
               <div class="dropdown mb-2" dropdown>
-                <a
-                  class="font-size-16 text-muted dropdown-toggle"
-                  dropdownToggle
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                >
+                <a class="font-size-16 text-muted dropdown-toggle" dropdownToggle role="button" data-toggle="dropdown"
+                  aria-haspopup="true">
                   <i class="mdi mdi-dots-horizontal"></i>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
                   <a class="dropdown-item" href="javascript: void(0);">Open</a>
                   <a class="dropdown-item" href="javascript: void(0);">Edit</a>
-                  <a class="dropdown-item" href="javascript: void(0);"
-                    >Rename</a
-                  >
+                  <a class="dropdown-item" href="javascript: void(0);">Rename</a>
+                  <a class="dropdown-item" href="javascript: void(0);" (click)="togglePinFolder(folder.id)">
+                    <!-- Dynamic label for Pin/Unpin -->
+                    {{ isFolderPinned(folder.id) ? 'Unpin' : 'Pin' }}
+                  </a>
                   <div class="dropdown-divider"></div>
-                  <a
-                    class="dropdown-item"
-                    href="javascript: void(0);"
-                    (click)="trashFolder(folder.id)"
-                    >Remove</a
-                  >
+                  <a class="dropdown-item" href="javascript: void(0);" (click)="trashFolder(folder.id)">Remove</a>
                 </div>
               </div>
             </div>
             <div class="avatar-xs me-3 mb-3">
               <div class="avatar-title bg-transparent rounded">
-                <a
-                  [routerLink]="[]"
-                  [queryParams]="{ folderId: folder.id }"
-                  (click)="openFolder(folder.id)"
-                >
+                <a [routerLink]="[]" [queryParams]="{ folderId: folder.id }" (click)="openFolder(folder.id)">
                   <i class="bx bxs-folder font-size-24 text-warning"></i>
                 </a>
               </div>
@@ -47,12 +35,8 @@
             <div class="d-flex">
               <div class="overflow-hidden me-auto">
                 <h5 class="font-size-14 text-truncate mb-1">
-                  <a
-                    [routerLink]="[]"
-                    [queryParams]="{ folderId: folder.id }"
-                    class="text-body"
-                    (click)="openFolder(folder.id)"
-                  >
+                  <a [routerLink]="[]" [queryParams]="{ folderId: folder.id }" class="text-body"
+                    (click)="openFolder(folder.id)">
                     {{ folder.name }}
                   </a>
                 </h5>

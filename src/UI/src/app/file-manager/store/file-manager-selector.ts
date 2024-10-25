@@ -38,3 +38,8 @@ export const selectAssetDetails = createSelector(
   selectFileManagerState,
   (state: FileManagerState) => state.assetDetails
 );
+
+export const selectPinnedFolders = createSelector(
+  selectFileManagerState,
+  (state: FileManagerState) => state.pinnedFolders
+);

@@ -6,14 +6,17 @@ import {
   TemplateRef,
 } from "@angular/core";
 import { FormBuilder, FormControl } from "@angular/forms";
+import { Store } from "@ngrx/store";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
-import { debounceTime, distinctUntilChanged, of } from "rxjs";
+import { debounceTime, distinctUntilChanged, Observable, of } from "rxjs";
 import {
   FolderDto,
   AssetDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
+import { pinnedFolderList } from "../store/file-manager.actions";
+import { selectPinnedFolders } from "../store/file-manager-selector";
 
 @Component({
   selector: "app-file-manager",
@@ -53,16 +56,26 @@ export class FileManagerViewComponent {
   };
   searchControl = new FormControl("");
 
+  pinnedFolderList$: Observable<FolderDto[]>
   constructor(
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private store: Store
+  ) {
+    this.pinnedFolderList$ = store.select(selectPinnedFolders);
+  }
 
   ngOnInit(): void {
     this.breadCrumbItems = [
       { label: "Apps" },
       { label: "File Manager", active: true },
     ];
+
+    this.store.dispatch(pinnedFolderList())
+    console.log("folder list component");
+    this.pinnedFolderList$.subscribe(folders => {
+      console.log(folders);
+    })
 
     // this.folders$ = this.store.select(selectFolders);
     // this.assets$ = this.store.select(selectAssets);

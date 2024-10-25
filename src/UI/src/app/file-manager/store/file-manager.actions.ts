@@ -128,3 +128,17 @@ export const removeTag = createAction(
   "[FileManager] Remove Tag",
   props<{ assetId: number; tag: string }>()
 );
+
+export const pinnedFolderList = createAction(
+  "[FileManager] Folder List"
+);
+
+export const pinnedFolderListSuccess = createAction(
+  "[FileManager] Folder List success",
+  props<{ pinnedFolders: FolderDto[] }>()
+);
+
+export const togglePinnedFolder = createAction(
+  "[FileManager] Toggle Pinned Folder",
+  props<{ folderId: number }>()
+);
