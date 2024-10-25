@@ -12,6 +12,7 @@ import {
   fetchRecentFilesData,
   fetchRecentFilesSuccess,
   fetchTrashedItemsSuccess,
+  pinnedFolderListSuccess,
   pathToRoot,
   pathToRootSuccess,
   restoreFolderSuccess,
@@ -33,6 +34,7 @@ export interface FileManagerState {
   pathToRoot: PathToRootDto[];
   trashedItems: TrashFolderAndFilesDto[];
   assetDetails: AssetDetailsDto;
+  pinnedFolders: FolderDto[];
 }
 
 export const initialState: FileManagerState = {
@@ -43,6 +45,7 @@ export const initialState: FileManagerState = {
   pathToRoot: [],
   trashedItems: [],
   assetDetails: {},
+  pinnedFolders: [],
 };
 
 export const FileManagerReducer = createReducer(
@@ -96,6 +99,9 @@ export const FileManagerReducer = createReducer(
   }),
   on(clearAssetDetails, (state) => {
     return { ...state, assetDetails: {} };
+  }),
+  on(pinnedFolderListSuccess, (state, { pinnedFolders }) => {
+    return { ...state, pinnedFolders, loading: false };
   })
 );
 

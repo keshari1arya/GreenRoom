@@ -13,6 +13,8 @@ import {
   fetchFoldersByParentIdSuccess,
   fetchTrashedItems,
   fetchTrashedItemsSuccess,
+  pinnedFolderList,
+  pinnedFolderListSuccess,
   pathToRoot,
   pathToRootSuccess,
   removeTag,
@@ -24,8 +26,9 @@ import {
   trashAssets,
   trashFolder,
   trashFolderSuccess,
+  togglePinnedFolder,
 } from "./file-manager.actions";
-import { of } from "rxjs";
+import { from, of } from "rxjs";
 import {
   AssetsService,
   FoldersService,
@@ -242,6 +245,35 @@ export class FileManagerEffects {
     )
   );
 
+  pinnedFolderList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(pinnedFolderList),
+      mergeMap(() =>
+        this.folderService.getPinnedFolders().pipe(
+          map((pinnedFolders) => {
+            return pinnedFolderListSuccess({ pinnedFolders });
+          }),
+          catchError((error) => of(setError({ error })))
+        )
+      )
+    )
+  );
+
+
+  toggleFolderPin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(togglePinnedFolder),
+      mergeMap((folderId) =>
+        from(this.folderService.toggleFolderPin({
+          body: folderId,
+        })).pipe(
+          map(() => pinnedFolderList()),
+          catchError((error) => of(setError({ error })))
+        )
+      )
+    )
+  );
+
   removeTag$ = createEffect(() =>
     this.actions$.pipe(
       ofType(removeTag),
@@ -265,5 +297,5 @@ export class FileManagerEffects {
     private actions$: Actions,
     private folderService: FoldersService,
     private assetsService: AssetsService
-  ) {}
+  ) { }
 }
