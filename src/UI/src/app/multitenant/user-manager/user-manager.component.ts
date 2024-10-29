@@ -158,4 +158,9 @@ export class UserManagerComponent implements OnInit {
       })
     );
   }
+
+  RemoveUser(userId: string) {
+    this.store.dispatch(multitenantActions.removeUser({ userId: userId }));
+    this.store.dispatch(multitenantActions.fetchTenantUsers());
+  }
 }

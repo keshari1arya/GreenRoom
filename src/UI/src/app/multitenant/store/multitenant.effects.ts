@@ -210,10 +210,29 @@ export class MultitenantEffects {
     )
   );
 
+  // Remove User
+  removeUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.removeUser),
+      switchMap(({ userId }) =>
+        this.tenantService
+          .removeTenantUsers({
+            body: {
+              userIds: [userId],
+            }
+          })
+          .pipe(
+            map(() => multitenantActions.removeUserSuccess()),
+            catchError((error) => of(multitenantActions.setError({ error })))
+          )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private tenantService: TenantService,
     private router: Router,
     private userService: UsersService
-  ) {}
+  ) { }
 }
