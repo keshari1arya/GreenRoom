@@ -109,4 +109,11 @@ export const multitenantActions = {
     props<{ email: string; roleId: number }>()
   ),
   inviteUserSuccess: createAction("[Multitenant] Invite User success"),
+
+  //Remove User
+  removeUser: createAction(
+    "[Multitenant] Remove User",
+    props<{ userId: string }>()
+  ),
+  removeUserSuccess: createAction("[Multitenant] Remove User success"),
 };
