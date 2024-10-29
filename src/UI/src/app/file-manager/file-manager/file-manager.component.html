@@ -35,10 +35,13 @@
                       <div class="collapse show" id="categories-collapse" [collapse]="isCollapsed">
                         <div class="card border-0 shadow-none ps-2 mb-0">
                           <ul class="list-unstyled mb-0">
-                            @for(pinnedFolder of pinnedFolderList$ | async;track $index){
+                            @for(pinnedFolder of pinnedFolderList$ | async;track
+                            $index){
                             <li>
-                              <a href="javascript: void(0);" class="d-flex align-items-center"><span class="me-auto">
-                                  {{pinnedFolder.name}}</span>
+                              <a [routerLink]="[]" [queryParams]="{ folderId: pinnedFolder.id }"
+                                (click)="openFolder(pinnedFolder.id)" class="d-flex align-items-center"><span
+                                  class="me-auto">
+                                  {{ pinnedFolder.name }}</span>
                                 <i class="mdi mdi-pin ms-auto"></i></a>
                             </li>
                             }
