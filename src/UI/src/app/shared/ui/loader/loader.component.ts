@@ -1,24 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { LoaderService } from "../../../core/services/loader.service";
+import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { selectIsLoading } from "../../store/shared.selector";
+import { SharedState } from "../../store/shared.reducer";
 
 @Component({
-  selector: 'app-loader',
-  templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.scss']
+  selector: "app-loader",
+  templateUrl: "./loader.component.html",
+  styleUrls: ["./loader.component.scss"],
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent {
+  isLoading = this.store.select(selectIsLoading);
 
-  loading: boolean = true;
-
-  constructor(private loaderService: LoaderService) {
-
-    this.loaderService.isLoading.subscribe((v) => {
-      setTimeout(() => {
-        this.loading = v;
-      }, 1500);     
-    });
-  }
-  ngOnInit(): void {
-  }
-
+  constructor(private store: Store<SharedState>) {}
 }

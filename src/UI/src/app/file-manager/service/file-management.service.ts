@@ -46,6 +46,8 @@ export class FileManagementService {
       const url = res.url.slice().replace("https://", "http://");
       // const url = res.url;
 
+      // TODO: For large file upload, it will take a lot of time to upload the file. We need to hide the loader after showing a message to the user that the file is being uploaded in the background.
+
       this.http.put(url, file).subscribe((response) => {
         console.log("File uploaded successfully", response);
         this.assetService

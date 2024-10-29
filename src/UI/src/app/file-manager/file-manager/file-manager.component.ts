@@ -56,7 +56,7 @@ export class FileManagerViewComponent {
   };
   searchControl = new FormControl("");
 
-  pinnedFolderList$: Observable<FolderDto[]>
+  pinnedFolderList$: Observable<FolderDto[]>;
   constructor(
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
@@ -71,15 +71,7 @@ export class FileManagerViewComponent {
       { label: "File Manager", active: true },
     ];
 
-    this.store.dispatch(pinnedFolderList())
-    console.log("folder list component");
-    this.pinnedFolderList$.subscribe(folders => {
-      console.log(folders);
-    })
-
-    // this.folders$ = this.store.select(selectFolders);
-    // this.assets$ = this.store.select(selectAssets);
-    // this.pathToRoot$ = this.store.select(selectPathToRoot);
+    this.store.dispatch(pinnedFolderList());
 
     this.showComponents(["folders", "assets"]);
 

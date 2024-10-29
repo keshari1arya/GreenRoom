@@ -34,13 +34,15 @@ import {
   withInterceptorsFromDi,
 } from "@angular/common/http";
 import { ErrorInterceptor } from "./core/helpers/error.interceptor";
-import { JwtInterceptor } from "./core/helpers/jwt.interceptor";
+import { jwtInterceptorProviders } from "./core/helpers/jwt.interceptor";
 import { rootReducer } from "./store";
 import { AuthenticationEffects } from "./account/auth/store/authentication.effects";
 
 import { SubscriptionReducer } from "./subscription/store/subscription.reducer";
 import { SubscriptionEffects } from "./subscription/store/subscription.effects";
 import { SUBSCRIPTION_STORE } from "./subscription/store/subscription.selectors";
+import { LoaderInterceptor } from "./core/helpers/loader.interceptor";
+import { UIModule } from "./shared/ui/ui.module";
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, "assets/i18n/", ".json");
 }
@@ -94,10 +96,12 @@ export function createTranslateLoader(http: HttpClient): any {
       // CustomerEffects,
       // MailEffects
     ]),
+    UIModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    jwtInterceptorProviders,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     provideHttpClient(withInterceptorsFromDi()),
   ],
 })
