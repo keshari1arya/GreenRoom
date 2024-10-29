@@ -12,12 +12,8 @@
           </div>
           <div class="col-sm-8">
             <div class="d-flex justify-content-end gap-2">
-              <button
-                type="button"
-                data-bs-toggle="modal"
-                (click)="openModal(addUserModal)"
-                class="btn btn-primary btn-rounded addContact-modal mb-2 btn-sm waves-effect waves-light"
-              >
+              <button type="button" data-bs-toggle="modal" (click)="openModal(addUserModal)"
+                class="btn btn-primary btn-rounded addContact-modal mb-2 btn-sm waves-effect waves-light">
                 <i class="mdi mdi-plus me-1">Add</i>
               </button>
             </div>
@@ -41,19 +37,17 @@
                 <td>{{ User.firstName }} {{ User.lastName }}</td>
                 <td>{{ User.email }}</td>
                 <td class="col-sm-auto">
-                  <select
-                    class="form-select"
-                    [(ngModel)]="User.roleId"
-                    (change)="getId($event, User)"
-                    id="autoSizingSelect"
-                  >
-                    <option
-                      *ngFor="let opt of getRoleId$ | async"
-                      [value]="opt.id"
-                    >
+                  <select class="form-select" [(ngModel)]="User.roleId" (change)="getId($event, User)"
+                    id="autoSizingSelect">
+                    <option *ngFor="let opt of getRoleId$ | async" [value]="opt.id">
                       {{ opt.name }}
                     </option>
                   </select>
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-danger btn-sm" (click)="RemoveUser(User.userId)" title="Delete User">
+                    <i class="bi bi-trash">Remove</i> <!-- Bootstrap icon -->
+                  </button>
                 </td>
               </tr>
               }
@@ -68,33 +62,17 @@
     <form [formGroup]="AddUserForm">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="closeModal()"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3 d-flex align-items-center justify-content-between">
           <div class="d-flex w-100">
-            <input
-              type="text"
-              class="form-control me-2"
-              formControlName="search"
-              placeholder="Search..."
-              controlValidationClass
-              (ngModelChange)="onSubmit()"
-            />
+            <input type="text" class="form-control me-2" formControlName="search" placeholder="Search..."
+              controlValidationClass (ngModelChange)="onSubmit()" />
             <app-error-message [control]="AddUserForm.get('search')" />
           </div>
-          <button
-            *ngIf="isUserInvite"
-            type="button"
-            class="btn btn-primary"
-            (click)="inviteUser()"
-          >
+          <button *ngIf="isUserInvite" type="button" class="btn btn-primary" (click)="inviteUser()">
             Invite
           </button>
         </div>
@@ -114,27 +92,15 @@
               <td>{{ Users.email }}</td>
               <td>{{ Users.userName }}</td>
               <td class="col-sm-auto">
-                <select
-                  class="form-select"
-                  id="autoSizingSelect"
-                  [(ngModel)]="selectedOptionId"
-                  formControlName="role"
-                  (change)="getValue($event)"
-                >
-                  <option
-                    *ngFor="let opt of getRoleId$ | async"
-                    [value]="opt.id"
-                  >
+                <select class="form-select" id="autoSizingSelect" [(ngModel)]="selectedOptionId" formControlName="role"
+                  (change)="getValue($event)">
+                  <option *ngFor="let opt of getRoleId$ | async" [value]="opt.id">
                     {{ opt.name }}
                   </option>
                 </select>
               </td>
               <td>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="AddUsers(Users)"
-                >
+                <button type="button" class="btn btn-primary" (click)="AddUsers(Users)">
                   Add
                 </button>
               </td>
