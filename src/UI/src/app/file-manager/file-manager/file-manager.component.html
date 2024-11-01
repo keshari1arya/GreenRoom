@@ -30,7 +30,8 @@
                         aria-controls="categories-collapse" (click)="openFolder(null)">
                         <i class="mdi mdi-folder font-size-16 text-warning me-2"></i>
                         Files
-                        <i class="mdi mdi-chevron-up accor-down-icon ms-auto" (click)="isCollapsed = !isCollapsed"></i>
+                        <i class="mdi ms-auto" [ngClass]="isCollapsed ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'"
+                          (click)="isCollapsed = !isCollapsed"></i>
                       </a>
                       <div class="collapse show" id="categories-collapse" [collapse]="isCollapsed">
                         <div class="card border-0 shadow-none ps-2 mb-0">
