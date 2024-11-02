@@ -7,6 +7,7 @@ public class Asset : BaseAuditableEntityWithMultiTenancy
     public string? Path { get; set; }
     public string? ContentType { get; set; }
     public bool IsTrashed { get; set; }
+    public string? Type { get; set; }
     public int? FolderId { get; set; }
     public Folder? Folder { get; set; }
     public ICollection<AssetTag> AssetTags { get; set; } = [];

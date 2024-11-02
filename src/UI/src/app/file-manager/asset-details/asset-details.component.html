@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                   <th scope="row">Size:</th>
-                  <td>{{ utility.getFileSize(+asset.sizeInKB) }}</td>
+                  <td>{{ +asset.sizeInKB | fileSize }}</td>
                 </tr>
                 <tr>
                   <th scope="row">Uploaded On:</th>

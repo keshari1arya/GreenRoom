@@ -6,6 +6,7 @@ import { FileManagerState } from "../store/file-manager.reducer";
 import { Observable, of } from "rxjs";
 import {
   AssetDto,
+  BucketStorageStatusByAssetTypeDto,
   FolderDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
@@ -15,11 +16,13 @@ import {
   selectAssets,
   selectPathToRoot,
   selectTrashedItems,
+  selectStorageStatusByAssetType,
 } from "../store/file-manager-selector";
 import {
   addFolder,
   fetchAssetsByFolderIdData,
   fetchFoldersByParentIdData,
+  fetchStorageStatusByAssetType,
   fetchTrashedItems,
   pathToRoot,
   restoreAssets,
@@ -39,6 +42,8 @@ export class FileManagerShellComponent implements OnInit {
   assets$: Observable<AssetDto[]> = of([]);
   pathToRoot$: Observable<PathToRootDto[]> = of([]);
   trashedItems$: Observable<TrashFolderAndFilesDto[]> = of([]);
+  storageStatusByAssetType$: Observable<BucketStorageStatusByAssetTypeDto[]> =
+    of([]);
 
   currentFolderId: number | null = null;
 
@@ -51,12 +56,16 @@ export class FileManagerShellComponent implements OnInit {
     this.assets$ = this.store.select(selectAssets);
     this.pathToRoot$ = this.store.select(selectPathToRoot);
     this.trashedItems$ = this.store.select(selectTrashedItems);
+    this.storageStatusByAssetType$ = this.store.select(
+      selectStorageStatusByAssetType
+    );
   }
 
   ngOnInit(): void {
     this.currentFolderId = this.route.snapshot.queryParams.folderId || null;
 
     this.openCurrentFolder();
+    this.store.dispatch(fetchStorageStatusByAssetType());
   }
 
   setCurrentFolderId(folderId: number): void {
@@ -83,7 +92,7 @@ export class FileManagerShellComponent implements OnInit {
 
   fileUpload(file: File): void {
     this.fileManagementService.uploadFile(file, this.currentFolderId);
-    this.openCurrentFolder();
+    // this.openCurrentFolder();
   }
 
   restoreItems(items: TrashFolderAndFilesDto[]): void {

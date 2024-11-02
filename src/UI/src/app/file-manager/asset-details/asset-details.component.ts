@@ -9,13 +9,11 @@ import {
   removeTag,
 } from "../store/file-manager.actions";
 import { selectAssetDetails } from "../store/file-manager-selector";
-import { Utility } from "../shared/classes/utility";
 
 @Component({
   selector: "app-asset-details",
   templateUrl: "./asset-details.component.html",
   styleUrl: "./asset-details.component.scss",
-  providers: [Utility],
 })
 export class AssetDetailsComponent implements OnInit {
   breadCrumbItems = [{ label: "Asset" }, { label: "Details", active: true }];
@@ -24,8 +22,7 @@ export class AssetDetailsComponent implements OnInit {
 
   constructor(
     private store: Store<FileManagerState>,
-    private route: ActivatedRoute,
-    public utility: Utility
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {

@@ -26,6 +26,8 @@ import { FolderListComponent } from "./folder-list/folder-list.component";
 import { TrashedItemsComponent } from "./trashed-items/trashed-items.component";
 import { AssetDetailsComponent } from "./asset-details/asset-details.component";
 import { TagInputModule } from "ngx-chips";
+import { FileIconPipe } from "./shared/pipes/file-icon.pipe";
+import { FileSizePipe } from "./shared/pipes/file-size.pipe";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { TagInputModule } from "ngx-chips";
     FolderListComponent,
     TrashedItemsComponent,
     AssetDetailsComponent,
+    FileIconPipe,
+    FileSizePipe,
   ],
   imports: [
     CommonModule,

@@ -59,6 +59,7 @@ public class AssetDetailsDto
     public string Path { get; set; } = string.Empty;
     public string ContentType { get; set; } = string.Empty;
     public string SizeInKB { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
     public DateTimeOffset DeletedAt { get; set; }
