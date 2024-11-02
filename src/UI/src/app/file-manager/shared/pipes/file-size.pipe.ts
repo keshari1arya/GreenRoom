@@ -4,13 +4,19 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: "fileSize",
 })
 export class FileSizePipe implements PipeTransform {
-  transform(sizeInKB: number): string {
-    if (sizeInKB < 1024) {
-      return `${sizeInKB} KB`;
-    } else if (sizeInKB >= 1024 && sizeInKB < 1048576) {
-      return `${(sizeInKB / 1024).toFixed(2)} MB`;
-    } else {
-      return `${(sizeInKB / 1048576).toFixed(2)} GB`;
+  transform(sizeInBytes: number): string {
+    if (sizeInBytes < 1024) {
+      return `${sizeInBytes} Bytes`;
     }
+
+    if (sizeInBytes >= 1024 && sizeInBytes < 1048576) {
+      return `${(sizeInBytes / 1024).toFixed(2)} KB`;
+    }
+
+    if (sizeInBytes >= 1048576 && sizeInBytes < 1073741824) {
+      return `${(sizeInBytes / 1048576).toFixed(2)} MB`;
+    }
+
+    return `${(sizeInBytes / 1073741824).toFixed(2)} GB`;
   }
 }

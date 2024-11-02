@@ -2536,9 +2536,9 @@
             "type": "string",
             "nullable": true
           },
-          "sizeInKB": {
+          "size": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "path": {
             "type": "string",
@@ -2593,8 +2593,9 @@
           "contentType": {
             "type": "string"
           },
-          "sizeInKB": {
-            "type": "string"
+          "size": {
+            "type": "integer",
+            "format": "int64"
           },
           "type": {
             "type": "string"
@@ -2646,9 +2647,9 @@
           "url": {
             "type": "string"
           },
-          "sizeInKB": {
+          "size": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "contentType": {
             "type": "string"
@@ -2860,9 +2861,9 @@
             "type": "string",
             "nullable": true
           },
-          "sizeInKB": {
+          "size": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         }
       },

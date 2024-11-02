@@ -9,7 +9,7 @@ public class AwsS3Service : IStorageManagementService
     private const string ASSET_CONTAINER_FOLDER_NAME = "AssetContainer";
     private readonly IAmazonS3 _s3Client;
 
-    private readonly string _bucketName;
+    private readonly string? _bucketName;
 
     public AwsS3Service(
         IAmazonS3 s3Client,
@@ -18,11 +18,15 @@ public class AwsS3Service : IStorageManagementService
     )
     {
         _s3Client = s3Client;
-        _bucketName = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId)!.Id.ToString().ToLower();
-        CreateBucketIfNotExistsAsync().Wait();
+        _bucketName = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId)?.Id.ToString().ToLower();
+
+        if (_bucketName != null)
+        {
+            CreateBucketIfNotExistsAsync().Wait();
+        }
     }
 
-    public string GenerateUrlToUpload(string filePath, string contentType, int expiryInSeconds)
+    public string GenerateUrlToUpload(string filePath, string contentType, long expiryInSeconds)
     {
         var request = new GetPreSignedUrlRequest
         {
@@ -36,7 +40,7 @@ public class AwsS3Service : IStorageManagementService
         return _s3Client.GetPreSignedURL(request);
     }
 
-    public string GenerateUrlToDownload(string filePath, int expiryInSeconds)
+    public string GenerateUrlToDownload(string filePath, long expiryInSeconds)
     {
         var request = new GetPreSignedUrlRequest
         {
@@ -49,7 +53,7 @@ public class AwsS3Service : IStorageManagementService
         return _s3Client.GetPreSignedURL(request);
     }
 
-    public async Task CreateBucketAsync(string bucketName)
+    public async Task CreateBucketAsync(string? bucketName)
     {
         var request = new PutBucketRequest
         {

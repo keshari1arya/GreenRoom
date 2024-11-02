@@ -27,7 +27,7 @@ public class GetBucketStorageStatusQueryHandler : IRequestHandler<GetBucketStora
                 .Select(x => new BucketStorageStatusByAssetTypeDto
                 {
                     Type = x.Key,
-                    Size = x.Sum(x => x.SizeInKB),
+                    Size = x.Sum(x => x.Size),
                     Count = x.Count()
                 })
                 .ToListAsync(cancellationToken);

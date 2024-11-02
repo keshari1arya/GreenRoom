@@ -33,7 +33,7 @@
         <td>{{ item.trashedAt | date }}</td>
         <td>
           <span class="d-inline-block text-truncate name-column">
-            {{ item.isFolder ? "" : (item.sizeInKB | fileSize) }}
+            {{ item.isFolder ? "" : (item.size | fileSize) }}
           </span>
         </td>
         <td>

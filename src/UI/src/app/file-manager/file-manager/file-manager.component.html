@@ -190,7 +190,7 @@
               <div>
                 <div class="row mb-3">
                   <div class="col-xl-3 col-sm-6">
-                    <div class="mt-4">
+                    <div class="mt-2">
                       <h5>Folders</h5>
                       <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -485,52 +485,10 @@
     </div>
     <!-- end row -->
   </div>
+</div>
 
-  <ng-template #createFolderModal role="document" let-modal>
-    <form
-      [formGroup]="createFolderForm"
-      (ngSubmit)="onCreateFolderFormSubmit()"
-    >
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="modalRef?.hide()"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="name" class="col-form-label">Name:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="folderName"
-            id="folderName"
-          />
-        </div>
-        <!-- <div class="mb-3">
-          <label for="message-text" class="col-form-label">Message:</label>
-          <textarea class="form-control" id="message-text"></textarea>
-        </div> -->
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          (click)="modalRef?.hide()"
-        >
-          Close
-        </button>
-        <button type="submit" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </ng-template>
-
-  <ng-template #fileUploadModal role="document" let-modal>
+<ng-template #createFolderModal role="document" let-modal>
+  <form [formGroup]="createFolderForm" (ngSubmit)="onCreateFolderFormSubmit()">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">New message</h5>
       <button
@@ -543,16 +501,18 @@
     </div>
     <div class="modal-body">
       <div class="mb-3">
-        <label class="form-label" for="customFile"
-          >Default file input example</label
-        >
+        <label for="name" class="col-form-label">Name:</label>
         <input
-          type="file"
+          type="text"
           class="form-control"
-          id="customFile"
-          (change)="onFileSelected($event)"
+          formControlName="folderName"
+          id="folderName"
         />
       </div>
+      <!-- <div class="mb-3">
+          <label for="message-text" class="col-form-label">Message:</label>
+          <textarea class="form-control" id="message-text"></textarea>
+        </div> -->
     </div>
     <div class="modal-footer">
       <button
@@ -563,7 +523,45 @@
       >
         Close
       </button>
-      <button class="btn btn-primary" (click)="onUpload()">Upload</button>
+      <button type="submit" class="btn btn-primary">Create</button>
     </div>
-  </ng-template>
-</div>
+  </form>
+</ng-template>
+
+<ng-template #fileUploadModal role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label" for="customFile"
+        >Default file input example</label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="customFile"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal"
+      (click)="modalRef?.hide()"
+    >
+      Close
+    </button>
+    <button class="btn btn-primary" (click)="onUpload()">Upload</button>
+  </div>
+</ng-template>
+<!-- </div> -->

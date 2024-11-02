@@ -27,7 +27,7 @@ public class GetBucketSizeQueryHandler : IRequestHandler<GetBucketSizeQuery, lon
 
     public async Task<long> Handle(GetBucketSizeQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Assets.SumAsync(x => x.SizeInKB, cancellationToken: cancellationToken);
+        return await _context.Assets.SumAsync(x => x.Size, cancellationToken: cancellationToken);
         // return await _storageManagementService.GetBucketSizeAsync();
     }
 }

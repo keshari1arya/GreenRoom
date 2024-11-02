@@ -56,7 +56,7 @@ public class GetTrashedCommandHandler : IRequestHandler<GetTrashedCommand, Trash
                 IsFolder = false,
                 TrashedAt = asset.LastModified,
                 TrashedBy = asset.LastModifiedBy,
-                SizeInKB = asset.SizeInKB
+                Size = asset.Size
             });
         }
 
@@ -71,5 +71,9 @@ public class TrashFolderAndFilesDto
     public bool IsFolder { get; set; }
     public DateTimeOffset TrashedAt { get; set; }
     public string? TrashedBy { get; set; }
-    public int SizeInKB { get; set; }
+
+    /// <summary>
+    /// Size of the file in bytes.
+    /// </summary>
+    public long Size { get; set; }
 }

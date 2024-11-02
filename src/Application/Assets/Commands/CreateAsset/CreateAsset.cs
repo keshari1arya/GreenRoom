@@ -7,7 +7,7 @@ namespace GreenRoom.Application.Assets.Commands.CreateAsset;
 public record CreateAssetCommand(
     string Name,
     string Url,
-    int SizeInKB,
+    long Size,
     string ContentType,
     int? FolderId
 ) : IRequest<int>;
@@ -22,7 +22,7 @@ public class CreateAssetCommandValidator : AbstractValidator<CreateAssetCommand>
         RuleFor(v => v.Url)
             .NotEmpty();
 
-        RuleFor(v => v.SizeInKB)
+        RuleFor(v => v.Size)
             .GreaterThan(0)
             .NotEmpty();
 
@@ -45,7 +45,7 @@ public class CreateAssetCommandHandler(IApplicationDbContext context) : IRequest
         {
             Name = request.Name,
             Path = request.Name,
-            SizeInKB = request.SizeInKB,
+            Size = request.Size,
             ContentType = request.ContentType,
             FolderId = request.FolderId,
             Type = this.GetFileType(path)
