@@ -6,4 +6,5 @@ public interface IStorageManagementService
     string GenerateUrlToDownload(string fileName, int expiryInSeconds);
     Task CreateBucketAsync(string bucketName);
     Task CreateFolderAsync(string folderName);
+    Task<long> GetBucketSizeAsync();
 }
