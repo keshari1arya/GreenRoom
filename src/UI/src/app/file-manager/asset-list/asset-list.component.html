@@ -23,7 +23,7 @@
             <div class="d-inline-block text-truncate name-column">
               <i
                 class="{{
-                  utility.getIconByExtension(data.name)
+                  data.name | fileIcon
                 }} font-size-16 align-middle text-primary me-2"
               ></i>
               {{ data.name }}
@@ -31,7 +31,7 @@
           </a>
         </td>
         <td>{{ data.lastModified | date }}</td>
-        <td>{{ utility.getFileSize(data.sizeInKB) }}</td>
+        <td>{{ data.size | fileSize }}</td>
         <!-- <td>
           <div class="dropdown" dropdown>
             <a

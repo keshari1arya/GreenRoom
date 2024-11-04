@@ -14,6 +14,7 @@ import {
   AssetDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
+  BucketStorageStatusByAssetTypeDto,
 } from "src/app/lib/openapi-generated/models";
 import { pinnedFolderList } from "../store/file-manager.actions";
 import { selectPinnedFolders } from "../store/file-manager-selector";
@@ -28,6 +29,7 @@ export class FileManagerViewComponent {
   @Input() assets: AssetDto[] = [];
   @Input() pathToRoot: PathToRootDto[] = [];
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
+  @Input() storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[] = [];
 
   @Output() setCurrentFolderIdEvent = new EventEmitter<number>();
   @Output() trashFoldersEvent = new EventEmitter<number[]>();
@@ -57,6 +59,7 @@ export class FileManagerViewComponent {
   searchControl = new FormControl("");
 
   pinnedFolderList$: Observable<FolderDto[]>;
+
   constructor(
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
@@ -76,7 +79,7 @@ export class FileManagerViewComponent {
     this.showComponents(["folders", "assets"]);
 
     this.radialoptions = {
-      series: [76],
+      series: [34],
       chart: {
         height: 150,
         type: "radialBar",
@@ -188,6 +191,12 @@ export class FileManagerViewComponent {
 
   trashAsset($event: number) {
     this.trashAssetEvent.emit($event);
+  }
+
+  totalStorageUsed(
+    storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[]
+  ) {
+    return storageStatusByAssetType?.reduce((acc, curr) => acc + curr.size, 0);
   }
 
   private hideAllComponents() {

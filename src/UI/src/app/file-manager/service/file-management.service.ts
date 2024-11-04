@@ -56,7 +56,7 @@ export class FileManagementService {
               contentType: file.type,
               name: file.name,
               folderId: folderId,
-              sizeInKB: file.size,
+              size: file.size,
               url: res.url,
             },
           })

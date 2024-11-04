@@ -43,3 +43,13 @@ export const selectPinnedFolders = createSelector(
   selectFileManagerState,
   (state: FileManagerState) => state.pinnedFolders
 );
+
+export const selectTotalOccupiedStorage = createSelector(
+  selectFileManagerState,
+  (state: FileManagerState) => state.totalOccupiedStorage
+);
+
+export const selectStorageStatusByAssetType = createSelector(
+  selectFileManagerState,
+  (state: FileManagerState) => state.storageStatusByAssetType
+);

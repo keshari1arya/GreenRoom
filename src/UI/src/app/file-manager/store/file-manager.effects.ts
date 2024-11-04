@@ -27,12 +27,18 @@ import {
   trashFolder,
   trashFolderSuccess,
   togglePinnedFolder,
+  fetchTotalOccupiedStorage,
+  fetchTotalOccupiedStorageSuccess,
+  fetchStorageStatusByAssetType,
+  fetchStorageStatusByAssetTypeSuccess,
 } from "./file-manager.actions";
 import { from, of } from "rxjs";
 import {
   AssetsService,
   FoldersService,
+  StorageManagementsService,
 } from "src/app/lib/openapi-generated/services";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class FileManagerEffects {
@@ -238,7 +244,9 @@ export class FileManagerEffects {
             tag: param.tag,
           })
           .pipe(
-            map(() => fetchAssetDetails({ assetId: param.assetId })),
+            map(() => {
+              return fetchAssetDetails({ assetId: param.assetId });
+            }),
             catchError((error) => of(setError({ error })))
           )
       )
@@ -259,14 +267,15 @@ export class FileManagerEffects {
     )
   );
 
-
   toggleFolderPin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(togglePinnedFolder),
       mergeMap((folderId) =>
-        from(this.folderService.toggleFolderPin({
-          body: folderId,
-        })).pipe(
+        from(
+          this.folderService.toggleFolderPin({
+            body: folderId,
+          })
+        ).pipe(
           map(() => pinnedFolderList()),
           catchError((error) => of(setError({ error })))
         )
@@ -293,9 +302,42 @@ export class FileManagerEffects {
     )
   );
 
+  totalOccupiedStorage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchTotalOccupiedStorage),
+      mergeMap(() =>
+        this.storageService.getBucketSize().pipe(
+          map((size) => {
+            return fetchTotalOccupiedStorageSuccess({
+              totalOccupiedStorage: size,
+            });
+          }),
+          catchError((error) => of(setError({ error })))
+        )
+      )
+    )
+  );
+
+  storageStatusByAssetType$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchStorageStatusByAssetType),
+      mergeMap(() =>
+        this.storageService.getBucketStorageStatus().pipe(
+          map((response) => {
+            return fetchStorageStatusByAssetTypeSuccess({
+              storageStatusByAssetType: response,
+            });
+          }),
+          catchError((error) => of(setError({ error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private folderService: FoldersService,
-    private assetsService: AssetsService
-  ) { }
+    private assetsService: AssetsService,
+    private storageService: StorageManagementsService
+  ) {}
 }

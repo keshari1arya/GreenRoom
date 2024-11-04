@@ -3,6 +3,7 @@
   [assets]="assets$ | async"
   [pathToRoot]="pathToRoot$ | async"
   [trashedItems]="trashedItems$ | async"
+  [storageStatusByAssetType]="storageStatusByAssetType$ | async"
   (setCurrentFolderIdEvent)="setCurrentFolderId($event)"
   (addFolderEvent)="addFolder($event)"
   (trashFoldersEvent)="trashFolders($event)"

@@ -769,6 +769,60 @@
         ]
       }
     },
+    "/api/StorageManagements/GetBucketSize": {
+      "get": {
+        "tags": [
+          "StorageManagements"
+        ],
+        "operationId": "GetBucketSize",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/StorageManagements/GetBucketStorageStatus": {
+      "get": {
+        "tags": [
+          "StorageManagements"
+        ],
+        "operationId": "GetBucketStorageStatus",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BucketStorageStatusByAssetTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Subscription": {
       "get": {
         "tags": [
@@ -2482,15 +2536,19 @@
             "type": "string",
             "nullable": true
           },
-          "sizeInKB": {
+          "size": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "path": {
             "type": "string",
             "nullable": true
           },
           "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
             "type": "string",
             "nullable": true
           },
@@ -2535,7 +2593,11 @@
           "contentType": {
             "type": "string"
           },
-          "sizeInKB": {
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
             "type": "string"
           },
           "createdAt": {
@@ -2585,9 +2647,9 @@
           "url": {
             "type": "string"
           },
-          "sizeInKB": {
+          "size": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "contentType": {
             "type": "string"
@@ -2799,9 +2861,9 @@
             "type": "string",
             "nullable": true
           },
-          "sizeInKB": {
+          "size": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         }
       },
@@ -2840,6 +2902,24 @@
             "type": "string"
           },
           "expiryInSeconds": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "BucketStorageStatusByAssetTypeDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
             "type": "integer",
             "format": "int32"
           }

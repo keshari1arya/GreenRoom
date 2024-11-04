@@ -17,10 +17,14 @@ import {
   pathToRootSuccess,
   restoreFolderSuccess,
   setError,
+  fetchTotalOccupiedStorageSuccess,
+  fetchStorageStatusByAssetType,
+  fetchStorageStatusByAssetTypeSuccess,
 } from "./file-manager.actions";
 import {
   AssetDetailsDto,
   AssetDto,
+  BucketStorageStatusByAssetTypeDto,
   FolderDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
@@ -35,6 +39,8 @@ export interface FileManagerState {
   trashedItems: TrashFolderAndFilesDto[];
   assetDetails: AssetDetailsDto;
   pinnedFolders: FolderDto[];
+  totalOccupiedStorage: number;
+  storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[];
 }
 
 export const initialState: FileManagerState = {
@@ -46,6 +52,8 @@ export const initialState: FileManagerState = {
   trashedItems: [],
   assetDetails: {},
   pinnedFolders: [],
+  totalOccupiedStorage: 0,
+  storageStatusByAssetType: [],
 };
 
 export const FileManagerReducer = createReducer(
@@ -102,7 +110,16 @@ export const FileManagerReducer = createReducer(
   }),
   on(pinnedFolderListSuccess, (state, { pinnedFolders }) => {
     return { ...state, pinnedFolders, loading: false };
-  })
+  }),
+  on(fetchTotalOccupiedStorageSuccess, (state, { totalOccupiedStorage }) => {
+    return { ...state, totalOccupiedStorage, loading: false };
+  }),
+  on(
+    fetchStorageStatusByAssetTypeSuccess,
+    (state, { storageStatusByAssetType }) => {
+      return { ...state, storageStatusByAssetType, loading: false };
+    }
+  )
 );
 
 // Selector

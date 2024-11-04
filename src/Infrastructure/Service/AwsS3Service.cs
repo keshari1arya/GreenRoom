@@ -4,18 +4,29 @@ using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Application.Interfaces;
 
 namespace GreenRoom.Infrastructure.Service;
-public class AwsS3Service(
-    IAmazonS3 s3Client,
-    IApplicationDbContext dbContext,
-    IMultiTenancyService multiTenancyService
-    ) : IStorageManagementService
+public class AwsS3Service : IStorageManagementService
 {
     private const string ASSET_CONTAINER_FOLDER_NAME = "AssetContainer";
-    private readonly IAmazonS3 _s3Client = s3Client;
+    private readonly IAmazonS3 _s3Client;
 
-    private readonly string _bucketName = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId)!.Id.ToString().ToLower();
+    private readonly string? _bucketName;
 
-    public string GenerateUrlToUpload(string filePath, string contentType, int expiryInSeconds)
+    public AwsS3Service(
+        IAmazonS3 s3Client,
+        IApplicationDbContext dbContext,
+        IMultiTenancyService multiTenancyService
+    )
+    {
+        _s3Client = s3Client;
+        _bucketName = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId)?.Id.ToString().ToLower();
+
+        if (_bucketName != null)
+        {
+            CreateBucketIfNotExistsAsync().Wait();
+        }
+    }
+
+    public string GenerateUrlToUpload(string filePath, string contentType, long expiryInSeconds)
     {
         var request = new GetPreSignedUrlRequest
         {
@@ -29,7 +40,7 @@ public class AwsS3Service(
         return _s3Client.GetPreSignedURL(request);
     }
 
-    public string GenerateUrlToDownload(string filePath, int expiryInSeconds)
+    public string GenerateUrlToDownload(string filePath, long expiryInSeconds)
     {
         var request = new GetPreSignedUrlRequest
         {
@@ -42,7 +53,7 @@ public class AwsS3Service(
         return _s3Client.GetPreSignedURL(request);
     }
 
-    public async Task CreateBucketAsync(string bucketName)
+    public async Task CreateBucketAsync(string? bucketName)
     {
         var request = new PutBucketRequest
         {
@@ -62,5 +73,30 @@ public class AwsS3Service(
         };
 
         await _s3Client.PutObjectAsync(request);
+    }
+
+
+    public async Task<long> GetBucketSizeAsync()
+    {
+        var request = new ListObjectsV2Request
+        {
+            BucketName = _bucketName,
+        };
+
+        var response = await _s3Client.ListObjectsV2Async(request);
+
+        var totalSize = response.S3Objects.Sum(x => x.Size);
+        return totalSize;
+    }
+
+    private async Task CreateBucketIfNotExistsAsync()
+    {
+        var request = new ListBucketsRequest();
+        var response = await _s3Client.ListBucketsAsync(request);
+
+        if (response.Buckets.All(x => x.BucketName != _bucketName))
+        {
+            await CreateBucketAsync(_bucketName);
+        }
     }
 }

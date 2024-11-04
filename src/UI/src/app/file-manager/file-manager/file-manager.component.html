@@ -1,5 +1,8 @@
 <div class="container-fluid">
-  <app-page-title title="File Manager" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title
+    title="File Manager"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
 
   <div class="d-xl-flex">
     <div class="w-100">
@@ -10,40 +13,72 @@
               <div class="mb-4">
                 <div class="mb-3">
                   <div class="dropdown" dropdown>
-                    <button class="btn btn-light dropdown-toggle w-100" dropdownToggle type="button"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button
+                      class="btn btn-light dropdown-toggle w-100"
+                      dropdownToggle
+                      type="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
                       <i class="mdi mdi-plus me-1"></i> Create New
                     </button>
                     <div class="dropdown-menu" *dropdownMenu>
-                      <a class="dropdown-item" href="javascript: void(0);" (click)="openModal(createFolderModal)"><i
-                          class="bx bx-folder me-1"></i> Folder</a>
-                      <a class="dropdown-item" href="javascript: void(0);" (click)="openModal(fileUploadModal)"><i
-                          class="bx bx-file me-1"></i> File</a>
+                      <a
+                        class="dropdown-item"
+                        href="javascript: void(0);"
+                        (click)="openModal(createFolderModal)"
+                        ><i class="bx bx-folder me-1"></i> Folder</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="javascript: void(0);"
+                        (click)="openModal(fileUploadModal)"
+                        ><i class="bx bx-file me-1"></i> File</a
+                      >
                     </div>
                   </div>
                 </div>
                 <ul class="list-unstyled categories-list">
                   <li>
                     <div class="custom-accordion">
-                      <a class="text-body fw-medium py-1 d-flex align-items-center" [attr.aria-expanded]="!isCollapsed"
-                        data-toggle="collapse" href="javascript:void(0);" role="button" aria-expanded="false"
-                        aria-controls="categories-collapse" (click)="openFolder(null)">
-                        <i class="mdi mdi-folder font-size-16 text-warning me-2"></i>
+                      <a
+                        class="text-body fw-medium py-1 d-flex align-items-center"
+                        [attr.aria-expanded]="!isCollapsed"
+                        data-toggle="collapse"
+                        href="javascript:void(0);"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="categories-collapse"
+                        (click)="openFolder(null)"
+                      >
+                        <i
+                          class="mdi mdi-folder font-size-16 text-warning me-2"
+                        ></i>
                         Files
                         <i class="mdi ms-auto" [ngClass]="isCollapsed ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'"
                           (click)="isCollapsed = !isCollapsed"></i>
                       </a>
-                      <div class="collapse show" id="categories-collapse" [collapse]="isCollapsed">
+                      <div
+                        class="collapse show"
+                        id="categories-collapse"
+                        [collapse]="isCollapsed"
+                      >
                         <div class="card border-0 shadow-none ps-2 mb-0">
                           <ul class="list-unstyled mb-0">
                             @for(pinnedFolder of pinnedFolderList$ | async;track
                             $index){
                             <li>
-                              <a [routerLink]="[]" [queryParams]="{ folderId: pinnedFolder.id }"
-                                (click)="openFolder(pinnedFolder.id)" class="d-flex align-items-center"><span
-                                  class="me-auto">
-                                  {{ pinnedFolder.name }}</span>
-                                <i class="mdi mdi-pin ms-auto"></i></a>
+                              <a
+                                [routerLink]="[]"
+                                [queryParams]="{ folderId: pinnedFolder.id }"
+                                (click)="openFolder(pinnedFolder.id)"
+                                class="d-flex align-items-center"
+                                ><span class="me-auto">
+                                  {{ pinnedFolder.name }}</span
+                                >
+                                <i class="mdi mdi-pin ms-auto"></i
+                              ></a>
                             </li>
                             }
                           </ul>
@@ -52,41 +87,70 @@
                     </div>
                   </li>
                   <li>
-                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                      <i class="mdi mdi-google-drive font-size-16 text-muted me-2"></i>
+                    <a
+                      href="javascript: void(0);"
+                      class="text-body d-flex align-items-center"
+                    >
+                      <i
+                        class="mdi mdi-google-drive font-size-16 text-muted me-2"
+                      ></i>
                       <span class="me-auto">Google Drive</span>
                     </a>
                   </li>
                   <li>
-                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                      <i class="mdi mdi-dropbox font-size-16 me-2 text-primary"></i>
+                    <a
+                      href="javascript: void(0);"
+                      class="text-body d-flex align-items-center"
+                    >
+                      <i
+                        class="mdi mdi-dropbox font-size-16 me-2 text-primary"
+                      ></i>
                       <span class="me-auto">Dropbox</span>
                     </a>
                   </li>
                   <li>
-                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
+                    <a
+                      href="javascript: void(0);"
+                      class="text-body d-flex align-items-center"
+                    >
                       <i class="mdi mdi-share-variant font-size-16 me-2"></i>
                       <span class="me-auto">Shared</span>
                       <i class="mdi mdi-circle-medium text-danger ms-2"></i>
                     </a>
                   </li>
                   <li>
-                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                      <i class="mdi mdi-star-outline text-muted font-size-16 me-2"></i>
+                    <a
+                      href="javascript: void(0);"
+                      class="text-body d-flex align-items-center"
+                    >
+                      <i
+                        class="mdi mdi-star-outline text-muted font-size-16 me-2"
+                      ></i>
                       <span class="me-auto">Starred</span>
                     </a>
                   </li>
                   <li>
-                    <a href="javascript: void(0);" (click)="onTrashedItemsClick()"
-                      class="text-body d-flex align-items-center">
-                      <i class="mdi mdi-trash-can text-danger font-size-16 me-2"></i>
+                    <a
+                      href="javascript: void(0);"
+                      (click)="onTrashedItemsClick()"
+                      class="text-body d-flex align-items-center"
+                    >
+                      <i
+                        class="mdi mdi-trash-can text-danger font-size-16 me-2"
+                      ></i>
                       <span class="me-auto">Trash</span>
                     </a>
                   </li>
                   <li>
-                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
+                    <a
+                      href="javascript: void(0);"
+                      class="text-body d-flex align-items-center"
+                    >
                       <i class="mdi mdi-cog text-muted font-size-16 me-2"></i>
-                      <span class="me-auto">Setting</span><span class="badge bg-success rounded-pill ms-2">01</span>
+                      <span class="me-auto">Setting</span
+                      ><span class="badge bg-success rounded-pill ms-2"
+                        >01</span
+                      >
                     </a>
                   </li>
                 </ul>
@@ -102,7 +166,10 @@
                     <h5 class="text-success">Upgrade Features</h5>
                     <p>Cum sociis natoque penatibus et</p>
                     <div class="text-center">
-                      <button type="button" class="btn btn-link text-decoration-none text-success">
+                      <button
+                        type="button"
+                        class="btn btn-link text-decoration-none text-success"
+                      >
                         Upgrade <i class="mdi mdi-arrow-right"></i>
                       </button>
                     </div>
@@ -126,17 +193,26 @@
                       <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item">
-                            <a [routerLink]="[]" (click)="openFolder(null)">Home</a>
+                            <a [routerLink]="[]" (click)="openFolder(null)"
+                              >Home</a
+                            >
                           </li>
                           @for (path of pathToRoot; track $index) { @if
                           (path.folderId == currentFolderId) {
-                          <li class="breadcrumb-item active" aria-current="page">
+                          <li
+                            class="breadcrumb-item active"
+                            aria-current="page"
+                          >
                             {{ path.folderName }}
                           </li>
                           } @else {
                           <li class="breadcrumb-item">
-                            <a [routerLink]="[]" [queryParams]="{ folderId: path.folderId }"
-                              (click)="openFolder(path.folderId)">{{ path.folderName }}</a>
+                            <a
+                              [routerLink]="[]"
+                              [queryParams]="{ folderId: path.folderId }"
+                              (click)="openFolder(path.folderId)"
+                              >{{ path.folderName }}</a
+                            >
                           </li>
                           } }
                         </ol>
@@ -144,41 +220,69 @@
                     </div>
                   </div>
                   <div class="col-xl-9 col-sm-6">
-                    <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
+                    <form
+                      class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center"
+                    >
                       <div class="search-box mb-2 me-2">
                         <div class="position-relative">
-                          <input type="text" class="form-control bg-light border-light rounded" placeholder="Search..."
-                            [formControl]="searchControl" />
+                          <input
+                            type="text"
+                            class="form-control bg-light border-light rounded"
+                            placeholder="Search..."
+                            [formControl]="searchControl"
+                          />
                           <i class="bx bx-search-alt search-icon"></i>
                         </div>
                       </div>
 
                       <div class="dropdown mb-0" dropdown>
-                        <a class="btn btn-link text-muted dropdown-toggle mt-n2" dropdownToggle role="button"
-                          data-toggle="dropdown" aria-haspopup="true">
+                        <a
+                          class="btn btn-link text-muted dropdown-toggle mt-n2"
+                          dropdownToggle
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                        >
                           <i class="mdi mdi-dots-vertical font-size-20"></i>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-                          <a class="dropdown-item" href="javascript: void(0);">Share Files</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Share with me</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Other Actions</a>
+                        <div
+                          class="dropdown-menu dropdown-menu-end"
+                          *dropdownMenu
+                        >
+                          <a class="dropdown-item" href="javascript: void(0);"
+                            >Share Files</a
+                          >
+                          <a class="dropdown-item" href="javascript: void(0);"
+                            >Share with me</a
+                          >
+                          <a class="dropdown-item" href="javascript: void(0);"
+                            >Other Actions</a
+                          >
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-              <app-folder-list [folders]="folders" (openFolderEvent)="openFolder($event)"
-                (trashFolderEvent)="trashFolder($event)"></app-folder-list>
+              <app-folder-list
+                [folders]="folders"
+                (openFolderEvent)="openFolder($event)"
+                (trashFolderEvent)="trashFolder($event)"
+              ></app-folder-list>
               } @if (componentVisibilityStatus.assets) {
               <div class="mt-4">
-                <app-asset-list [assets]="assets" (trashAssetEvent)="trashAsset($event)"></app-asset-list>
+                <app-asset-list
+                  [assets]="assets"
+                  (trashAssetEvent)="trashAsset($event)"
+                ></app-asset-list>
               </div>
               } @if (componentVisibilityStatus.trashedItems) {
               <div class="mt-4">
-                <app-trashed-items [trashedItems]="trashedItems"
-                  (restoreItemsEvent)="restoreItems($event)"></app-trashed-items>
+                <app-trashed-items
+                  [trashedItems]="trashedItems"
+                  (restoreItemsEvent)="restoreItems($event)"
+                ></app-trashed-items>
               </div>
               }
             </div>
@@ -186,135 +290,192 @@
           </div>
           <!-- end w-100 -->
         </div>
-      </div>
 
-      <div class="card filemanager-sidebar ms-lg-2">
-        <div class="card-body">
-          <div class="text-center">
-            <h5 class="font-size-15 mb-4">Storage</h5>
-            <!-- <div class="apex-charts" id="radial-chart"></div> -->
-            <apx-chart dir="ltr" class="apex-charts" [chart]="radialoptions.chart" [series]="radialoptions.series"
-              [labels]="radialoptions.labels" [colors]="radialoptions.colors" [grid]="radialoptions.grid"
-              [plotOptions]="radialoptions.plotOptions" [stroke]="radialoptions.stroke">
-            </apx-chart>
-
-            <p class="text-muted mt-4">48.02 GB (76%) of 64 GB used</p>
-          </div>
-
-          <div class="mt-4">
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div class="avatar-title rounded bg-transparent text-success font-size-20">
-                        <i class="mdi mdi-image"></i>
-                      </div>
-                    </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Images</h5>
-                      <p class="text-muted text-truncate mb-0">176 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">6 GB</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
+        <div class="card filemanager-sidebar ms-lg-2">
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="font-size-15 mb-4">Storage</h5>
+              <!-- <div class="apex-charts" id="radial-chart"></div> -->
+              <apx-chart
+                dir="ltr"
+                class="apex-charts"
+                [chart]="radialoptions.chart"
+                [series]="radialoptions.series"
+                [labels]="radialoptions.labels"
+                [colors]="radialoptions.colors"
+                [grid]="radialoptions.grid"
+                [plotOptions]="radialoptions.plotOptions"
+                [stroke]="radialoptions.stroke"
+              >
+              </apx-chart>
+              <p class="text-muted mt-4">
+                {{ totalStorageUsed(storageStatusByAssetType) | fileSize }}
+                (76%) of 64 GB used
+              </p>
             </div>
 
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div class="avatar-title rounded bg-transparent text-danger font-size-20">
-                        <i class="mdi mdi-play-circle-outline"></i>
+            <div class="mt-4">
+              @for (item of storageStatusByAssetType; track $index) {
+              <div class="card border shadow-none mb-2">
+                <a href="javascript: void(0);" class="text-body">
+                  <div class="p-2">
+                    <div class="d-flex">
+                      <div class="avatar-xs align-self-center me-2">
+                        @switch (item.type) { @case ('image') {
+                        <div
+                          class="avatar-title rounded bg-transparent text-success font-size-20"
+                        >
+                          <i class="mdi mdi-image"></i>
+                        </div>
+                        } @case('video') {
+                        <div
+                          class="avatar-title rounded bg-transparent text-danger font-size-20"
+                        >
+                          <i class="mdi mdi-play-circle-outline"></i>
+                        </div>
+                        } @case('audio') {
+                        <div
+                          class="avatar-title rounded bg-transparent text-info font-size-20"
+                        >
+                          <i class="mdi mdi-music"></i>
+                        </div>
+                        } @case ('text') {
+                        <div
+                          class="avatar-title rounded bg-transparent text-primary font-size-20"
+                        >
+                          <i class="mdi mdi-file-document"></i>
+                        </div>
+
+                        } @default {
+                        <div
+                          class="avatar-title rounded bg-transparent text-warning font-size-20"
+                        >
+                          <i class="mdi mdi-folder"></i>
+                        </div>
+                        } }
+                      </div>
+
+                      <div class="overflow-hidden me-auto">
+                        <h5 class="font-size-13 text-truncate mb-1">
+                          {{ item.type }}
+                        </h5>
+                        <p class="text-muted text-truncate mb-0">
+                          {{ item.count }} Files
+                        </p>
+                      </div>
+
+                      <div class="ms-2">
+                        <p class="text-muted">
+                          {{ item.size | fileSize }}
+                        </p>
                       </div>
                     </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Video</h5>
-                      <p class="text-muted text-truncate mb-0">45 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">4.1 GB</p>
-                    </div>
                   </div>
-                </div>
-              </a>
-            </div>
+                </a>
+              </div>
+              }
 
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div class="avatar-title rounded bg-transparent text-info font-size-20">
-                        <i class="mdi mdi-music"></i>
+              <!-- <div class="card border shadow-none mb-2">
+                <a href="javascript: void(0);" class="text-body">
+                  <div class="p-2">
+                    <div class="d-flex">
+                      <div class="avatar-xs align-self-center me-2">
+                        <div
+                          class="avatar-title rounded bg-transparent text-danger font-size-20"
+                        >
+                          <i class="mdi mdi-play-circle-outline"></i>
+                        </div>
+                      </div>
+
+                      <div class="overflow-hidden me-auto">
+                        <h5 class="font-size-13 text-truncate mb-1">Video</h5>
+                        <p class="text-muted text-truncate mb-0">45 Files</p>
+                      </div>
+
+                      <div class="ms-2">
+                        <p class="text-muted">4.1 GB</p>
                       </div>
                     </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Music</h5>
-                      <p class="text-muted text-truncate mb-0">21 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">3.2 GB</p>
-                    </div>
                   </div>
-                </div>
-              </a>
-            </div>
+                </a>
+              </div>
 
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div class="avatar-title rounded bg-transparent text-primary font-size-20">
-                        <i class="mdi mdi-file-document"></i>
+              <div class="card border shadow-none mb-2">
+                <a href="javascript: void(0);" class="text-body">
+                  <div class="p-2">
+                    <div class="d-flex">
+                      <div class="avatar-xs align-self-center me-2">
+                        <div
+                          class="avatar-title rounded bg-transparent text-info font-size-20"
+                        >
+                          <i class="mdi mdi-music"></i>
+                        </div>
+                      </div>
+
+                      <div class="overflow-hidden me-auto">
+                        <h5 class="font-size-13 text-truncate mb-1">Music</h5>
+                        <p class="text-muted text-truncate mb-0">21 Files</p>
+                      </div>
+
+                      <div class="ms-2">
+                        <p class="text-muted">3.2 GB</p>
                       </div>
                     </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Document</h5>
-                      <p class="text-muted text-truncate mb-0">21 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">2 GB</p>
-                    </div>
                   </div>
-                </div>
-              </a>
-            </div>
+                </a>
+              </div>
 
-            <div class="card border shadow-none">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div class="avatar-title rounded bg-transparent text-warning font-size-20">
-                        <i class="mdi mdi-folder"></i>
+              <div class="card border shadow-none mb-2">
+                <a href="javascript: void(0);" class="text-body">
+                  <div class="p-2">
+                    <div class="d-flex">
+                      <div class="avatar-xs align-self-center me-2">
+                        <div
+                          class="avatar-title rounded bg-transparent text-primary font-size-20"
+                        >
+                          <i class="mdi mdi-file-document"></i>
+                        </div>
+                      </div>
+
+                      <div class="overflow-hidden me-auto">
+                        <h5 class="font-size-13 text-truncate mb-1">
+                          Document
+                        </h5>
+                        <p class="text-muted text-truncate mb-0">21 Files</p>
+                      </div>
+
+                      <div class="ms-2">
+                        <p class="text-muted">2 GB</p>
                       </div>
                     </div>
+                  </div>
+                </a>
+              </div> 
 
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Others</h5>
-                      <p class="text-muted text-truncate mb-0">20 Files</p>
-                    </div>
+              <div class="card border shadow-none">
+                <a href="javascript: void(0);" class="text-body">
+                  <div class="p-2">
+                    <div class="d-flex">
+                      <div class="avatar-xs align-self-center me-2">
+                        <div
+                          class="avatar-title rounded bg-transparent text-warning font-size-20"
+                        >
+                          <i class="mdi mdi-folder"></i>
+                        </div>
+                      </div>
 
-                    <div class="ms-2">
-                      <p class="text-muted">1.4 GB</p>
+                      <div class="overflow-hidden me-auto">
+                        <h5 class="font-size-13 text-truncate mb-1">Others</h5>
+                        <p class="text-muted text-truncate mb-0">20 Files</p>
+                      </div>
+
+                      <div class="ms-2">
+                        <p class="text-muted">1.4 GB</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div> -->
             </div>
           </div>
         </div>
@@ -322,50 +483,83 @@
     </div>
     <!-- end row -->
   </div>
+</div>
 
-  <ng-template #createFolderModal role="document" let-modal>
-    <form [formGroup]="createFolderForm" (ngSubmit)="onCreateFolderFormSubmit()">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="modalRef?.hide()"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="name" class="col-form-label">Name:</label>
-          <input type="text" class="form-control" formControlName="folderName" id="folderName" />
-        </div>
-        <!-- <div class="mb-3">
-          <label for="message-text" class="col-form-label">Message:</label>
-          <textarea class="form-control" id="message-text"></textarea>
-        </div> -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modalRef?.hide()">
-          Close
-        </button>
-        <button type="submit" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </ng-template>
-
-  <ng-template #fileUploadModal role="document" let-modal>
+<ng-template #createFolderModal role="document" let-modal>
+  <form [formGroup]="createFolderForm" (ngSubmit)="onCreateFolderFormSubmit()">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-        (click)="modalRef?.hide()"></button>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="modalRef?.hide()"
+      ></button>
     </div>
     <div class="modal-body">
       <div class="mb-3">
-        <label class="form-label" for="customFile">Default file input example</label>
-        <input type="file" class="form-control" id="customFile" (change)="onFileSelected($event)" />
+        <label for="name" class="col-form-label">Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="folderName"
+          id="folderName"
+        />
       </div>
+      <!-- <div class="mb-3">
+          <label for="message-text" class="col-form-label">Message:</label>
+          <textarea class="form-control" id="message-text"></textarea>
+        </div> -->
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modalRef?.hide()">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        (click)="modalRef?.hide()"
+      >
         Close
       </button>
-      <button class="btn btn-primary" (click)="onUpload()">Upload</button>
+      <button type="submit" class="btn btn-primary">Create</button>
     </div>
-  </ng-template>
-</div>
+  </form>
+</ng-template>
+
+<ng-template #fileUploadModal role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label" for="customFile"
+        >Default file input example</label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="customFile"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal"
+      (click)="modalRef?.hide()"
+    >
+      Close
+    </button>
+    <button class="btn btn-primary" (click)="onUpload()">Upload</button>
+  </div>
+</ng-template>
+<!-- </div> -->

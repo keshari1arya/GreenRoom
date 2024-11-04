@@ -3,6 +3,7 @@ import { FileManager } from "./file-manager.model";
 import {
   AssetDetailsDto,
   AssetDto,
+  BucketStorageStatusByAssetTypeDto,
   FolderDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
@@ -129,9 +130,7 @@ export const removeTag = createAction(
   props<{ assetId: number; tag: string }>()
 );
 
-export const pinnedFolderList = createAction(
-  "[FileManager] Folder List"
-);
+export const pinnedFolderList = createAction("[FileManager] Folder List");
 
 export const pinnedFolderListSuccess = createAction(
   "[FileManager] Folder List success",
@@ -141,4 +140,22 @@ export const pinnedFolderListSuccess = createAction(
 export const togglePinnedFolder = createAction(
   "[FileManager] Toggle Pinned Folder",
   props<{ folderId: number }>()
+);
+
+export const fetchTotalOccupiedStorage = createAction(
+  "[FileManager] fetch Total Occupied Storage"
+);
+
+export const fetchTotalOccupiedStorageSuccess = createAction(
+  "[FileManager] fetch Total Occupied Storage success",
+  props<{ totalOccupiedStorage: number }>()
+);
+
+export const fetchStorageStatusByAssetType = createAction(
+  "[FileManager] fetch Storage Status By Asset Type"
+);
+
+export const fetchStorageStatusByAssetTypeSuccess = createAction(
+  "[FileManager] fetch Storage Status By Asset Type success",
+  props<{ storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[] }>()
 );

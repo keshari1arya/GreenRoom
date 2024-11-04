@@ -40,7 +40,7 @@ public class GetAssetDetailsQueryHandler : IRequestHandler<GetAssetDetailsQuery,
             .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
 
         var mappedAsset = _mapper.Map<AssetDetailsDto>(asset);
-        var expiryInSeconds = Math.Abs(int.Parse(mappedAsset!.SizeInKB) / 1000);
+        var expiryInSeconds = asset!.Size / 1000000;
         var path = asset!.Name;
         if (asset.FolderId != null)
         {
@@ -58,7 +58,8 @@ public class AssetDetailsDto
     public string Description { get; set; } = string.Empty;
     public string Path { get; set; } = string.Empty;
     public string ContentType { get; set; } = string.Empty;
-    public string SizeInKB { get; set; } = string.Empty;
+    public long Size { get; set; }
+    public string Type { get; set; } = string.Empty;
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
     public DateTimeOffset DeletedAt { get; set; }
@@ -85,7 +86,6 @@ public class AssetDetailsDto
                 .ForMember(d => d.Download, opt => opt.Ignore())
                 .ForMember(d => d.Share, opt => opt.Ignore())
                 .ForMember(d => d.DeletedAt, opt => opt.Ignore());
-
         }
     }
 }
