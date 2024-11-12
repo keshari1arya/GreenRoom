@@ -5,6 +5,7 @@ import {
   AssetDto,
   BucketStorageStatusByAssetTypeDto,
   FolderDto,
+  PaginatedListOfAssetDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
@@ -38,11 +39,11 @@ export const fetchFoldersByParentIdSuccess = createAction(
 // fetch AssetsByFolderId
 export const fetchAssetsByFolderIdData = createAction(
   "[FileManager] fetch AssetsByFolderId",
-  props<{ folderId: number | null }>()
+  props<{ folderId: number | null; pageNumber?: number; pageSize?: number }>()
 );
 export const fetchAssetsByFolderIdSuccess = createAction(
   "[FileManager] fetch AssetsByFolderId success",
-  props<{ assets: AssetDto[] }>()
+  props<{ assets: PaginatedListOfAssetDto }>()
 );
 
 // add Folder

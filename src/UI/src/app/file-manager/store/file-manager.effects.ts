@@ -58,10 +58,16 @@ export class FileManagerEffects {
     this.actions$.pipe(
       ofType(fetchAssetsByFolderIdData),
       mergeMap((param) =>
-        this.assetsService.getAssets({ FolderId: param.folderId }).pipe(
-          map((assets) => fetchAssetsByFolderIdSuccess({ assets })),
-          catchError((error) => of(setError({ error })))
-        )
+        this.assetsService
+          .getAssets({
+            FolderId: param.folderId,
+            PageNumber: param.pageNumber,
+            PageSize: param.pageSize,
+          })
+          .pipe(
+            map((assets) => fetchAssetsByFolderIdSuccess({ assets })),
+            catchError((error) => of(setError({ error })))
+          )
       )
     )
   );

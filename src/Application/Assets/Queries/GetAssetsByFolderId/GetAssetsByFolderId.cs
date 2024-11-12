@@ -1,11 +1,14 @@
 ﻿using GreenRoom.Application.Common.Extension;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Common.Mappings;
+using GreenRoom.Application.Common.Models;
 using GreenRoom.Application.Tags.Queries.GetAllTags;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Assets.Queries.GetAssetsByFolderId;
 
-public record GetAssetsByFolderIdQuery(int? FolderId) : IRequest<IEnumerable<AssetDto>>;
+public record GetAssetsByFolderIdQuery(int? FolderId, int PageNumber = 1, int PageSize = 10)
+: IRequest<PaginatedList<AssetDto>>;
 
 public class GetAssetsByFolderIdQueryValidator : AbstractValidator<GetAssetsByFolderIdQuery>
 {
@@ -16,7 +19,7 @@ public class GetAssetsByFolderIdQueryValidator : AbstractValidator<GetAssetsByFo
     }
 }
 
-public class GetAssetsByFolderIdQueryHandler : IRequestHandler<GetAssetsByFolderIdQuery, IEnumerable<AssetDto>>
+public class GetAssetsByFolderIdQueryHandler : IRequestHandler<GetAssetsByFolderIdQuery, PaginatedList<AssetDto>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -27,13 +30,13 @@ public class GetAssetsByFolderIdQueryHandler : IRequestHandler<GetAssetsByFolder
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<AssetDto>> Handle(GetAssetsByFolderIdQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<AssetDto>> Handle(GetAssetsByFolderIdQuery request, CancellationToken cancellationToken)
     {
         return await _context.Assets
             .Include(x => x.AssetTags)
             .Where(x => x.FolderId == request.FolderId && !x.IsTrashed)
             .ProjectTo<AssetDto>(_mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+            .PaginatedListAsync(request.PageNumber, request.PageSize);
     }
 }
 

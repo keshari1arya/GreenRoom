@@ -8,16 +8,17 @@ import {
 import { FormBuilder, FormControl } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
-import { debounceTime, distinctUntilChanged, Observable, of } from "rxjs";
+import { debounceTime, distinctUntilChanged, Observable } from "rxjs";
 import {
   FolderDto,
-  AssetDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
   BucketStorageStatusByAssetTypeDto,
+  PaginatedListOfAssetDto,
 } from "src/app/lib/openapi-generated/models";
 import { pinnedFolderList } from "../store/file-manager.actions";
 import { selectPinnedFolders } from "../store/file-manager-selector";
+import { PageChangedEvent } from "ngx-bootstrap/pagination";
 
 @Component({
   selector: "app-file-manager",
@@ -26,7 +27,7 @@ import { selectPinnedFolders } from "../store/file-manager-selector";
 })
 export class FileManagerViewComponent {
   @Input() folders: FolderDto[] = [];
-  @Input() assets: AssetDto[] = [];
+  @Input() assets: PaginatedListOfAssetDto = {};
   @Input() pathToRoot: PathToRootDto[] = [];
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
   @Input() storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[] = [];
@@ -39,6 +40,7 @@ export class FileManagerViewComponent {
   @Output() fetchTrashedItemsEvent = new EventEmitter();
   @Output() searchEvent = new EventEmitter<string>();
   @Output() trashAssetEvent = new EventEmitter<number>();
+  @Output() assetListPageChangedEvent = new EventEmitter<PageChangedEvent>();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -197,6 +199,10 @@ export class FileManagerViewComponent {
     storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[]
   ) {
     return storageStatusByAssetType?.reduce((acc, curr) => acc + curr.size, 0);
+  }
+
+  assetListPageChanged($event: PageChangedEvent) {
+    this.assetListPageChangedEvent.emit($event);
   }
 
   private hideAllComponents() {

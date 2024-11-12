@@ -8,6 +8,7 @@ import {
   AssetDto,
   BucketStorageStatusByAssetTypeDto,
   FolderDto,
+  PaginatedListOfAssetDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
@@ -31,6 +32,7 @@ import {
   trashAssets,
   trashFolder,
 } from "../store/file-manager.actions";
+import { PageChangedEvent } from "ngx-bootstrap/pagination";
 
 @Component({
   selector: "app-file-manager-shell",
@@ -39,7 +41,7 @@ import {
 })
 export class FileManagerShellComponent implements OnInit {
   folders$: Observable<FolderDto[]> = of([]);
-  assets$: Observable<AssetDto[]> = of([]);
+  assets$: Observable<PaginatedListOfAssetDto> = of({});
   pathToRoot$: Observable<PathToRootDto[]> = of([]);
   trashedItems$: Observable<TrashFolderAndFilesDto[]> = of([]);
   storageStatusByAssetType$: Observable<BucketStorageStatusByAssetTypeDto[]> =
@@ -128,6 +130,16 @@ export class FileManagerShellComponent implements OnInit {
       searchFoldersAndAssets({
         searchQuery: term,
         parentId: this.currentFolderId,
+      })
+    );
+  }
+
+  assetListPageChanged($event: PageChangedEvent) {
+    this.store.dispatch(
+      fetchAssetsByFolderIdData({
+        folderId: this.currentFolderId,
+        pageNumber: $event.page,
+        pageSize: $event.itemsPerPage,
       })
     );
   }

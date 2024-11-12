@@ -1,12 +1,16 @@
 ﻿using GreenRoom.Application.Assets.Queries.GetAssetsByFolderId;
 using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Common.Mappings;
+using GreenRoom.Application.Common.Models;
 
 namespace GreenRoom.Application.Assets.Queries.SearchAssets;
 
-public record SearchAssetsQuery : IRequest<IEnumerable<AssetDto>>
+public record SearchAssetsQuery : IRequest<PaginatedList<AssetDto>>
 {
     public int? ParentFolderId { get; set; }
     public string SearchTerm { get; set; } = string.Empty;
+    public int PageNumber { get; set; } = 1;
+    public int PageSize { get; set; } = 10;
 }
 
 public class SearchAssetsQueryValidator : AbstractValidator<SearchAssetsQuery>
@@ -17,7 +21,7 @@ public class SearchAssetsQueryValidator : AbstractValidator<SearchAssetsQuery>
     }
 }
 
-public class SearchAssetsQueryHandler : IRequestHandler<SearchAssetsQuery, IEnumerable<AssetDto>>
+public class SearchAssetsQueryHandler : IRequestHandler<SearchAssetsQuery, PaginatedList<AssetDto>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -28,13 +32,13 @@ public class SearchAssetsQueryHandler : IRequestHandler<SearchAssetsQuery, IEnum
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<AssetDto>> Handle(SearchAssetsQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<AssetDto>> Handle(SearchAssetsQuery request, CancellationToken cancellationToken)
     {
         return await _context.Assets
             .Where(x =>
                 x.FolderId == request.ParentFolderId
                 && x.Name!.Contains(request.SearchTerm))
             .ProjectTo<AssetDto>(_mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+            .PaginatedListAsync(request.PageNumber, request.PageSize);
     }
 }

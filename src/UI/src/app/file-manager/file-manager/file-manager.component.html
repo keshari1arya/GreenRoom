@@ -56,8 +56,15 @@
                           class="mdi mdi-folder font-size-16 text-warning me-2"
                         ></i>
                         Files
-                        <i class="mdi ms-auto" [ngClass]="isCollapsed ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'"
-                          (click)="isCollapsed = !isCollapsed"></i>
+                        <i
+                          class="mdi ms-auto"
+                          [ngClass]="
+                            isCollapsed
+                              ? 'mdi mdi-chevron-up'
+                              : 'mdi mdi-chevron-down'
+                          "
+                          (click)="isCollapsed = !isCollapsed"
+                        ></i>
                       </a>
                       <div
                         class="collapse show"
@@ -275,6 +282,7 @@
                 <app-asset-list
                   [assets]="assets"
                   (trashAssetEvent)="trashAsset($event)"
+                  (pageChangedEvent)="assetListPageChanged($event)"
                 ></app-asset-list>
               </div>
               } @if (componentVisibilityStatus.trashedItems) {
