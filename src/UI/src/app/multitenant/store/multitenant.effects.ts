@@ -16,6 +16,7 @@ import {
 } from "src/app/lib/openapi-generated/services";
 import { Router } from "@angular/router";
 import { AuthActions } from "src/app/account/auth/store/authentication.actions";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class MultitenantEffects {
@@ -59,6 +60,10 @@ export class MultitenantEffects {
           })
           .pipe(
             concatMap((createdTenantId) => {
+              this.toastr.success("Tenant created successfully", "Success", {
+                closeButton: true,
+                progressBar: true,
+              });
               return [
                 multitenantActions.createTenantSuccess({
                   tenantId: createdTenantId,
@@ -66,7 +71,13 @@ export class MultitenantEffects {
                 AuthActions.fetchMyTenants(),
               ];
             }),
-            catchError((error) => of(multitenantActions.setError({ error })))
+            catchError((error) => {
+              this.toastr.error("Failed to create tenant", "Error", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(multitenantActions.setError({ error }));
+            })
           )
       )
     )
@@ -96,14 +107,24 @@ export class MultitenantEffects {
             id: tenant.id,
           })
           .pipe(
-            exhaustMap(() =>
-              of(
+            exhaustMap(() => {
+              this.toastr.success("Tenant updated successfully", "Success", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(
                 multitenantActions.updateTenantSuccess({
                   tenantId: tenant.id,
                 })
-              )
-            ),
-            catchError((error) => of(multitenantActions.setError({ error })))
+              );
+            }),
+            catchError((error) => {
+              this.toastr.error("Failed to update tenant", "Error", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(multitenantActions.setError({ error }));
+            })
           )
       )
     )
@@ -128,8 +149,20 @@ export class MultitenantEffects {
         this.tenantService
           .addTenantUsers({ body: { usersWithRole: [user] } })
           .pipe(
-            map((userId) => multitenantActions.addUserSuccess({ userId })),
-            catchError((error) => of(multitenantActions.setError({ error })))
+            map((userId) => {
+              this.toastr.success("User added successfully", "Success", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return multitenantActions.addUserSuccess({ userId });
+            }),
+            catchError((error) => {
+              this.toastr.error("Failed to add user", "Error", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(multitenantActions.setError({ error }));
+            })
           )
       )
     )
@@ -140,8 +173,20 @@ export class MultitenantEffects {
       ofType(multitenantActions.updateRoleId),
       switchMap(({ userRole }) =>
         this.tenantService.updateRole({ body: userRole }).pipe(
-          map((userId) => multitenantActions.updateRoleIdSuccess({ userId })),
-          catchError((error) => of(multitenantActions.setError({ error })))
+          map((userId) => {
+            this.toastr.success("User role updated successfully", "Success", {
+              closeButton: true,
+              progressBar: true,
+            });
+            return multitenantActions.updateRoleIdSuccess({ userId });
+          }),
+          catchError((error) => {
+            this.toastr.error("Failed to update user role", "Error", {
+              closeButton: true,
+              progressBar: true,
+            });
+            return of(multitenantActions.setError({ error }));
+          })
         )
       )
     )
@@ -203,8 +248,20 @@ export class MultitenantEffects {
             },
           })
           .pipe(
-            map(() => multitenantActions.inviteUserSuccess()),
-            catchError((error) => of(multitenantActions.setError({ error })))
+            map(() => {
+              this.toastr.success("User invited successfully", "Success", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return multitenantActions.inviteUserSuccess();
+            }),
+            catchError((error) => {
+              this.toastr.error("Failed to invite user", "Error", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(multitenantActions.setError({ error }));
+            })
           )
       )
     )
@@ -219,11 +276,23 @@ export class MultitenantEffects {
           .removeTenantUsers({
             body: {
               userIds: [userId],
-            }
+            },
           })
           .pipe(
-            map(() => multitenantActions.removeUserSuccess()),
-            catchError((error) => of(multitenantActions.setError({ error })))
+            map(() => {
+              this.toastr.success("User removed successfully", "Success", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return multitenantActions.removeUserSuccess();
+            }),
+            catchError((error) => {
+              this.toastr.error("Failed to remove user", "Error", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(multitenantActions.setError({ error }));
+            })
           )
       )
     )
@@ -233,6 +302,7 @@ export class MultitenantEffects {
     private actions$: Actions,
     private tenantService: TenantService,
     private router: Router,
-    private userService: UsersService
-  ) { }
+    private userService: UsersService,
+    private toastr: ToastrService
+  ) {}
 }
