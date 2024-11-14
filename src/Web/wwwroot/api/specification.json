@@ -2766,6 +2766,14 @@
             "type": "string",
             "nullable": true
           },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "assetCount": {
+            "type": "integer",
+            "format": "int32"
+          },
           "children": {
             "type": "array",
             "nullable": true,
