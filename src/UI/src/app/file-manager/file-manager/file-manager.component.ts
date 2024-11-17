@@ -25,6 +25,7 @@ import { selectPinnedFolders } from "../store/file-manager-selector";
   styleUrl: "./file-manager.component.scss",
 })
 export class FileManagerViewComponent {
+  @Input() subFolders: FolderDto[] = [];
   @Input() folders: FolderDto[] = [];
   @Input() assets: AssetDto[] = [];
   @Input() pathToRoot: PathToRootDto[] = [];
@@ -39,11 +40,14 @@ export class FileManagerViewComponent {
   @Output() fetchTrashedItemsEvent = new EventEmitter();
   @Output() searchEvent = new EventEmitter<string>();
   @Output() trashAssetEvent = new EventEmitter<number>();
+  @Output() openSubFolderEvent = new EventEmitter<number>();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
   radialoptions: any;
-  public isCollapsed: boolean = false;
+  public isCollapsed: boolean = true;
+  public isExpanded: boolean = true;
+  // public isSubMenuExpanded: { [key: number]: boolean } = {};
   dismissible = true;
 
   modalRef?: BsModalRef;
@@ -149,6 +153,13 @@ export class FileManagerViewComponent {
     this.trashFoldersEvent.emit([folderId]);
   }
 
+  openSubFolder(folderId: number) {
+    if (folderId === null) {
+      this.pathToRoot = [];
+    }
+    this.openSubFolderEvent.emit(folderId);
+  }
+
   openFolder(folderId: number) {
     if (folderId === null) {
       this.pathToRoot = [];
@@ -170,7 +181,7 @@ export class FileManagerViewComponent {
   }
 
   onTrashedItemsClick() {
-    this.isCollapsed = true;
+    // this.isCollapsed = true;
     this.fetchTrashedItemsEvent.emit();
     this.showComponents(["trashedItems"]);
   }

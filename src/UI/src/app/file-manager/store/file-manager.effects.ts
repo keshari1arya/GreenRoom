@@ -31,6 +31,8 @@ import {
   fetchTotalOccupiedStorageSuccess,
   fetchStorageStatusByAssetType,
   fetchStorageStatusByAssetTypeSuccess,
+  fetchSubFoldersByParentIdData,
+  fetchSubFoldersByParentIdSuccess,
 } from "./file-manager.actions";
 import { from, of } from "rxjs";
 import {
@@ -48,6 +50,18 @@ export class FileManagerEffects {
       mergeMap((param) =>
         this.folderService.getFolders({ FolderId: param.parentId }).pipe(
           map((folders) => fetchFoldersByParentIdSuccess({ folders })),
+          catchError((error) => of(setError({ error })))
+        )
+      )
+    )
+  );
+
+  fetchSubFolders$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchSubFoldersByParentIdData),
+      mergeMap((param) =>
+        this.folderService.getFolders({ FolderId: param.parentId }).pipe(
+          map((subFolders) => fetchSubFoldersByParentIdSuccess({ subFolders })),
           catchError((error) => of(setError({ error })))
         )
       )

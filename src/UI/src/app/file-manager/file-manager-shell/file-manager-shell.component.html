@@ -1,4 +1,5 @@
 <app-file-manager
+  [subFolders]="subFolders$ | async"
   [folders]="folders$ | async"
   [assets]="assets$ | async"
   [pathToRoot]="pathToRoot$ | async"
@@ -12,5 +13,6 @@
   (fetchTrashedItemsEvent)="fetchTrashedItems()"
   (searchEvent)="search($event)"
   (trashAssetEvent)="trashAsset($event)"
+  (openSubFolderEvent)="openSubFolder($event)"
 >
 </app-file-manager>

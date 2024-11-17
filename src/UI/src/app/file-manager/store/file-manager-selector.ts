@@ -19,6 +19,11 @@ export const selectFolders = createSelector(
   (state: FileManagerState) => state.folders
 );
 
+export const selectSubFolders = createSelector(
+  selectFileManagerState,
+  (state: FileManagerState) => state.subFolders
+);
+
 export const selectAssets = createSelector(
   selectFileManagerState,
   (state: FileManagerState) => state.assets

@@ -17,12 +17,14 @@ import {
   selectPathToRoot,
   selectTrashedItems,
   selectStorageStatusByAssetType,
+  selectSubFolders,
 } from "../store/file-manager-selector";
 import {
   addFolder,
   fetchAssetsByFolderIdData,
   fetchFoldersByParentIdData,
   fetchStorageStatusByAssetType,
+  fetchSubFoldersByParentIdData,
   fetchTrashedItems,
   pathToRoot,
   restoreAssets,
@@ -38,6 +40,7 @@ import {
   styleUrl: "./file-manager-shell.component.scss",
 })
 export class FileManagerShellComponent implements OnInit {
+  subFolders$: Observable<FolderDto[]> = of([]);
   folders$: Observable<FolderDto[]> = of([]);
   assets$: Observable<AssetDto[]> = of([]);
   pathToRoot$: Observable<PathToRootDto[]> = of([]);
@@ -52,6 +55,7 @@ export class FileManagerShellComponent implements OnInit {
     private route: ActivatedRoute,
     private fileManagementService: FileManagementService
   ) {
+    this.subFolders$ = this.store.select(selectSubFolders);
     this.folders$ = this.store.select(selectFolders);
     this.assets$ = this.store.select(selectAssets);
     this.pathToRoot$ = this.store.select(selectPathToRoot);
@@ -108,6 +112,10 @@ export class FileManagerShellComponent implements OnInit {
     if (assetIds.length) {
       this.store.dispatch(restoreAssets({ assetIds }));
     }
+  }
+
+  openSubFolder(folderId: number): void {
+    this.store.dispatch(fetchSubFoldersByParentIdData({ parentId: folderId }));
   }
 
   fetchTrashedItems(): void {

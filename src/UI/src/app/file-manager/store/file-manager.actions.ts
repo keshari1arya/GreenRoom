@@ -35,6 +35,15 @@ export const fetchFoldersByParentIdSuccess = createAction(
   props<{ folders: FolderDto[] }>()
 );
 
+export const fetchSubFoldersByParentIdData = createAction(
+  "[FileManager] fetch SubFoldersByParentId",
+  props<{ parentId: number | null }>()
+);
+export const fetchSubFoldersByParentIdSuccess = createAction(
+  "[FileManager] fetch SubFoldersByParentId success",
+  props<{ subFolders: FolderDto[] }>()
+);
+
 // fetch AssetsByFolderId
 export const fetchAssetsByFolderIdData = createAction(
   "[FileManager] fetch AssetsByFolderId",

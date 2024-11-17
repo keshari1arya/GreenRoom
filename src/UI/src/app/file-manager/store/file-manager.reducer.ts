@@ -20,6 +20,8 @@ import {
   fetchTotalOccupiedStorageSuccess,
   fetchStorageStatusByAssetType,
   fetchStorageStatusByAssetTypeSuccess,
+  fetchSubFoldersByParentIdSuccess,
+  fetchSubFoldersByParentIdData,
 } from "./file-manager.actions";
 import {
   AssetDetailsDto,
@@ -34,6 +36,7 @@ export interface FileManagerState {
   loading: boolean;
   error: any;
   folders: FolderDto[];
+  subFolders: FolderDto[];
   assets: AssetDto[];
   pathToRoot: PathToRootDto[];
   trashedItems: TrashFolderAndFilesDto[];
@@ -45,6 +48,7 @@ export interface FileManagerState {
 
 export const initialState: FileManagerState = {
   folders: [],
+  subFolders: [],
   loading: false,
   error: null,
   assets: [],
@@ -77,6 +81,12 @@ export const FileManagerReducer = createReducer(
   }),
   on(fetchAssetsByFolderIdSuccess, (state, { assets }) => {
     return { ...state, assets, loading: false };
+  }),
+  on(fetchSubFoldersByParentIdData, (state) => {
+    return { ...state, loading: true, error: null };
+  }),
+  on(fetchSubFoldersByParentIdSuccess, (state, { subFolders }) => {
+    return { ...state, subFolders, loading: false };
   }),
   on(addFolder, (state) => {
     return { ...state, loading: true, error: null };
