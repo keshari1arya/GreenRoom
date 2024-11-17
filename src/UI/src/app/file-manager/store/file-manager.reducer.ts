@@ -26,6 +26,7 @@ import {
   AssetDto,
   BucketStorageStatusByAssetTypeDto,
   FolderDto,
+  PaginatedListOfAssetDto,
   PathToRootDto,
   TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
@@ -34,7 +35,7 @@ export interface FileManagerState {
   loading: boolean;
   error: any;
   folders: FolderDto[];
-  assets: AssetDto[];
+  assets: PaginatedListOfAssetDto;
   pathToRoot: PathToRootDto[];
   trashedItems: TrashFolderAndFilesDto[];
   assetDetails: AssetDetailsDto;
@@ -47,7 +48,7 @@ export const initialState: FileManagerState = {
   folders: [],
   loading: false,
   error: null,
-  assets: [],
+  assets: {},
   pathToRoot: [],
   trashedItems: [],
   assetDetails: {},

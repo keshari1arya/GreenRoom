@@ -58,10 +58,16 @@ export class FileManagerEffects {
     this.actions$.pipe(
       ofType(fetchAssetsByFolderIdData),
       mergeMap((param) =>
-        this.assetsService.getAssets({ FolderId: param.folderId }).pipe(
-          map((assets) => fetchAssetsByFolderIdSuccess({ assets })),
-          catchError((error) => of(setError({ error })))
-        )
+        this.assetsService
+          .getAssets({
+            FolderId: param.folderId,
+            PageNumber: param.pageNumber,
+            PageSize: param.pageSize,
+          })
+          .pipe(
+            map((assets) => fetchAssetsByFolderIdSuccess({ assets })),
+            catchError((error) => of(setError({ error })))
+          )
       )
     )
   );
@@ -72,12 +78,22 @@ export class FileManagerEffects {
       mergeMap((param) =>
         this.folderService.createFolder(param.folder).pipe(
           map((createdFolderId) => {
+            this.toastr.success("Folder created successfully", "Success", {
+              closeButton: true,
+              progressBar: true,
+            });
             addFolderSuccess({ folderId: createdFolderId });
             return fetchFoldersByParentIdData({
               parentId: param.folder.body.parentFolderId,
             });
           }),
-          catchError((error) => of(setError({ error })))
+          catchError((error) => {
+            this.toastr.error("Failed to create folder", "Error", {
+              closeButton: true,
+              progressBar: true,
+            });
+            return of(setError({ error }));
+          })
         )
       )
     )
@@ -89,10 +105,20 @@ export class FileManagerEffects {
       mergeMap((param) =>
         this.folderService.trashFolder({ body: { ids: param.folderIds } }).pipe(
           map(() => {
+            this.toastr.success("Deleted successfully", "Success", {
+              closeButton: true,
+              progressBar: true,
+            });
             trashFolderSuccess();
             return fetchFoldersByParentIdData({ parentId: null });
           }),
-          catchError((error) => of(setError({ error })))
+          catchError((error) => {
+            this.toastr.error("Failed to delete", "Error", {
+              closeButton: true,
+              progressBar: true,
+            });
+            return of(setError({ error }));
+          })
         )
       )
     )
@@ -105,8 +131,20 @@ export class FileManagerEffects {
         this.folderService
           .restoreFolder({ body: { ids: param.folderIds } })
           .pipe(
-            concatMap(() => [restoreFolderSuccess(), fetchTrashedItems()]),
-            catchError((error) => of(setError({ error })))
+            concatMap(() => {
+              this.toastr.success("Restored successfully", "Success", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return [restoreFolderSuccess(), fetchTrashedItems()];
+            }),
+            catchError((error) => {
+              this.toastr.error("Failed to restore", "Error", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(setError({ error }));
+            })
           )
       )
     )
@@ -245,9 +283,19 @@ export class FileManagerEffects {
           })
           .pipe(
             map(() => {
+              this.toastr.success("Tag added successfully", "Success", {
+                closeButton: true,
+                progressBar: true,
+              });
               return fetchAssetDetails({ assetId: param.assetId });
             }),
-            catchError((error) => of(setError({ error })))
+            catchError((error) => {
+              this.toastr.error("Failed to add tag", "Error", {
+                closeButton: true,
+                progressBar: true,
+              });
+              return of(setError({ error }));
+            })
           )
       )
     )
@@ -338,6 +386,7 @@ export class FileManagerEffects {
     private actions$: Actions,
     private folderService: FoldersService,
     private assetsService: AssetsService,
-    private storageService: StorageManagementsService
+    private storageService: StorageManagementsService,
+    private toastr: ToastrService
   ) {}
 }

@@ -62,10 +62,13 @@
                   {{ folder.name }}
                 </a>
               </h5>
-              <p class="text-muted text-truncate mb-0">12 Files</p>
+              <p class="text-muted text-truncate mb-0">
+                @if(folder.assetCount) {
+                {{ folder.assetCount }} Files }
+              </p>
             </div>
             <div class="align-self-end ms-2">
-              <p class="text-muted mb-0">6GB</p>
+              <p class="text-muted mb-0">{{ folder.size | fileSize }}</p>
             </div>
           </div>
         </div>

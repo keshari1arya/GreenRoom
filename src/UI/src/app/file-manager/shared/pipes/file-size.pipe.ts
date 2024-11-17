@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class FileSizePipe implements PipeTransform {
   transform(sizeInBytes: number): string {
     if (sizeInBytes < 1024) {
-      return `${sizeInBytes} Bytes`;
+      return `${sizeInBytes} B`;
     }
 
     if (sizeInBytes >= 1024 && sizeInBytes < 1048576) {

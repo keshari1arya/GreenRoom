@@ -2,7 +2,7 @@
   <h5 class="font-size-16 me-3">Assets</h5>
 
   <div class="ms-auto">
-    <a href="javascript: void(0);" class="fw-medium text-reset">View All</a>
+    <!-- <a href="javascript: void(0);" class="fw-medium text-reset">View All</a> -->
   </div>
 </div>
 <hr class="mt-2" />
@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (data of assets; track $index) {
+      @if(assets) { @for (data of assets.items; track $index) {
       <tr>
         <td>
           <a [routerLink]="['asset', data.id]" class="text-dark fw-medium">
@@ -67,7 +67,34 @@
           ></a>
         </td>
       </tr>
-      }
+      } }
     </tbody>
   </table>
+</div>
+<div class="row justify-content-md-between align-items-md-center mt-2">
+  <div class="col-sm-12 col-md-5">
+    <div
+      class="dataTables_info mb-2"
+      id="tickets-table_info"
+      role="status"
+      aria-live="polite"
+    >
+      Showing {{ (assets.pageNumber - 1) * 10 + 1 }} to
+      {{ (assets.pageNumber - 1) * 10 + 10 }} of
+      {{ assets.totalCount }}
+      Assets
+    </div>
+  </div>
+  <!-- Pagination -->
+  <div class="col-sm-12 col-md-5">
+    <div class="text-md-right float-md-end pagination-rounded">
+      <pagination
+        [totalItems]="assets.totalCount"
+        previousText="Prev"
+        (pageChanged)="pageChanged($event)"
+      >
+      </pagination>
+    </div>
+  </div>
+  <!-- End Pagination -->
 </div>

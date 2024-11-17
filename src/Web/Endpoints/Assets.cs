@@ -7,6 +7,7 @@ using GreenRoom.Application.Assets.Commands.TrashAssets;
 using GreenRoom.Application.Assets.Queries.GetAssetDetails;
 using GreenRoom.Application.Assets.Queries.GetAssetsByFolderId;
 using GreenRoom.Application.Assets.Queries.SearchAssets;
+using GreenRoom.Application.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenRoom.Web.Endpoints;
@@ -28,7 +29,7 @@ public class Assets : EndpointGroupBase
             .MapDelete(RemoveTagFromAsset, "{assetId}/RemoveTag");
     }
 
-    private Task<IEnumerable<AssetDto>> GetAssets(ISender sender, [AsParameters] GetAssetsByFolderIdQuery query)
+    private Task<PaginatedList<AssetDto>> GetAssets(ISender sender, [AsParameters] GetAssetsByFolderIdQuery query)
     {
         return sender.Send(query);
     }
@@ -58,7 +59,7 @@ public class Assets : EndpointGroupBase
         return sender.Send(command);
     }
 
-    private Task<IEnumerable<AssetDto>> SearchAssets(ISender sender, [FromQuery] int? folderId, [FromQuery] string searchTerm)
+    private Task<PaginatedList<AssetDto>> SearchAssets(ISender sender, [FromQuery] int? folderId, [FromQuery] string searchTerm)
     {
         var query = new SearchAssetsQuery
         {

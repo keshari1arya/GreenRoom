@@ -31,6 +31,7 @@ public class GetFoldersQueryHandler : IRequestHandler<GetFoldersQuery, IEnumerab
     public async Task<IEnumerable<FolderDto>> Handle(GetFoldersQuery request, CancellationToken cancellationToken)
     {
         var folders = await _context.Folders
+            .Include(x => x.Assets)
             .Where(x => x.ParentId == request.FolderId && !x.IsTrashed)
             .ProjectTo<FolderDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
@@ -44,6 +45,8 @@ public class FolderDto
     public string? Name { get; set; }
     public string? Path { get; set; }
     public string? Thumbnail { get; set; }
+    public long Size { get; set; }
+    public int AssetCount { get; set; }
     public ICollection<FolderDto>? Children { get; set; }
     public ICollection<AssetDto>? Assets { get; set; }
     public TagDto[] Tags { get; set; } = [];
@@ -53,7 +56,9 @@ public class FolderDto
         public Mapping()
         {
             CreateMap<Folder, FolderDto>()
-                .ForMember(d => d.Tags, opt => opt.MapFrom(s => s.FolderTags.Select(x => x.Tag).ToArray()));
+                .ForMember(d => d.Tags, opt => opt.MapFrom(s => s.FolderTags.Select(x => x.Tag).ToArray()))
+                .ForMember(x => x.AssetCount, opt => opt.MapFrom(x => x.Assets == null ? 0 : x.Assets.Count))
+                .ForMember(x => x.Size, opt => opt.MapFrom(x => x.Assets == null ? 0 : x.Assets.Sum(x => x.Size)));
         }
     }
 }

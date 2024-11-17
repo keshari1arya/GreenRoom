@@ -56,8 +56,15 @@
                           class="mdi mdi-folder font-size-16 text-warning me-2"
                         ></i>
                         Files
-                        <i class="mdi ms-auto" [ngClass]="isCollapsed ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'"
-                          (click)="isCollapsed = !isCollapsed"></i>
+                        <i
+                          class="mdi ms-auto"
+                          [ngClass]="
+                            isCollapsed
+                              ? 'mdi mdi-chevron-up'
+                              : 'mdi mdi-chevron-down'
+                          "
+                          (click)="isCollapsed = !isCollapsed"
+                        ></i>
                       </a>
                       <div
                         class="collapse show"
@@ -186,43 +193,31 @@
             <div class="card-body">
               @if (componentVisibilityStatus.folders) {
               <div>
-                <div class="row mb-3">
+                <div class="row">
                   <div class="col-xl-3 col-sm-6">
                     <div class="mt-2">
                       <h5>Folders</h5>
-                      <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item">
-                            <a [routerLink]="[]" (click)="openFolder(null)"
-                              >Home</a
-                            >
-                          </li>
-                          @for (path of pathToRoot; track $index) { @if
-                          (path.folderId == currentFolderId) {
-                          <li
-                            class="breadcrumb-item active"
-                            aria-current="page"
-                          >
-                            {{ path.folderName }}
-                          </li>
-                          } @else {
-                          <li class="breadcrumb-item">
-                            <a
-                              [routerLink]="[]"
-                              [queryParams]="{ folderId: path.folderId }"
-                              (click)="openFolder(path.folderId)"
-                              >{{ path.folderName }}</a
-                            >
-                          </li>
-                          } }
-                        </ol>
-                      </nav>
                     </div>
                   </div>
+
                   <div class="col-xl-9 col-sm-6">
                     <form
                       class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center"
                     >
+                      <button
+                        type="button"
+                        class="btn btn-link mb-2"
+                        (click)="openModal(createFolderModal)"
+                      >
+                        <i class="mdi mdi-folder-plus font-size-16"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-link mb-2 me-2"
+                        (click)="openModal(fileUploadModal)"
+                      >
+                        <i class="mdi mdi-upload font-size-16"></i>
+                      </button>
                       <div class="search-box mb-2 me-2">
                         <div class="position-relative">
                           <input
@@ -264,6 +259,28 @@
                     </form>
                   </div>
                 </div>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a [routerLink]="[]" (click)="openFolder(null)">Home</a>
+                    </li>
+                    @for (path of pathToRoot; track $index) { @if (path.folderId
+                    == currentFolderId) {
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {{ path.folderName }}
+                    </li>
+                    } @else {
+                    <li class="breadcrumb-item">
+                      <a
+                        [routerLink]="[]"
+                        [queryParams]="{ folderId: path.folderId }"
+                        (click)="openFolder(path.folderId)"
+                        >{{ path.folderName }}</a
+                      >
+                    </li>
+                    } }
+                  </ol>
+                </nav>
               </div>
               <app-folder-list
                 [folders]="folders"
@@ -275,6 +292,7 @@
                 <app-asset-list
                   [assets]="assets"
                   (trashAssetEvent)="trashAsset($event)"
+                  (pageChangedEvent)="assetListPageChanged($event)"
                 ></app-asset-list>
               </div>
               } @if (componentVisibilityStatus.trashedItems) {

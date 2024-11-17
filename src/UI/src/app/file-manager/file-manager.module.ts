@@ -28,6 +28,7 @@ import { AssetDetailsComponent } from "./asset-details/asset-details.component";
 import { TagInputModule } from "ngx-chips";
 import { FileIconPipe } from "./shared/pipes/file-icon.pipe";
 import { FileSizePipe } from "./shared/pipes/file-size.pipe";
+import { PaginationModule } from "ngx-bootstrap/pagination";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { FileSizePipe } from "./shared/pipes/file-size.pipe";
     NgxDocViewerModule,
     TagInputModule,
     // BrowserAnimationsModule,
+    PaginationModule,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
