@@ -51,7 +51,7 @@
                         role="button"
                         aria-expanded="false"
                         aria-controls="categories-collapse"
-                        (click)="openSubFolder(null)"
+                        (click)="getSubFolder(null)"
                       >
                         <i
                           class="mdi mdi-folder font-size-16 text-warning me-2"
@@ -79,7 +79,7 @@
                               <a
                                 [routerLink]="[]"
                                 class="d-flex align-items-center"
-                                (click)="openSubFolder(subFolder.id)"
+                                (click)="getSubFolder(subFolder.id)"
                                 ><span class="me-auto">
                                   {{ subFolder.name }}</span
                                 >

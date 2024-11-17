@@ -40,7 +40,7 @@ export class FileManagerViewComponent {
   @Output() fetchTrashedItemsEvent = new EventEmitter();
   @Output() searchEvent = new EventEmitter<string>();
   @Output() trashAssetEvent = new EventEmitter<number>();
-  @Output() openSubFolderEvent = new EventEmitter<number>();
+  @Output() getSubFolderEvent = new EventEmitter<number>();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -153,11 +153,11 @@ export class FileManagerViewComponent {
     this.trashFoldersEvent.emit([folderId]);
   }
 
-  openSubFolder(folderId: number) {
+  getSubFolder(folderId: number) {
     if (folderId === null) {
       this.pathToRoot = [];
     }
-    this.openSubFolderEvent.emit(folderId);
+    this.getSubFolderEvent.emit(folderId);
   }
 
   openFolder(folderId: number) {

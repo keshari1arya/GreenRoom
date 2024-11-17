@@ -114,7 +114,7 @@ export class FileManagerShellComponent implements OnInit {
     }
   }
 
-  openSubFolder(folderId: number): void {
+  getSubFolder(folderId: number): void {
     this.store.dispatch(fetchSubFoldersByParentIdData({ parentId: folderId }));
   }
 
