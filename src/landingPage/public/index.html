@@ -63,14 +63,7 @@
               <a class="nav-link fw-medium" href="#faq">FAQ</a>
             </li>
           </ul>
-          <!-- <form class="ps-lg-5">
-              <button
-                class="btn btn-lg btn-primary rounded-pill order-0"
-                type="submit"
-              >
-                Try for free
-              </button>
-            </form> -->
+
         </div>
       </div>
     </nav>
@@ -91,7 +84,8 @@
             <span
               class="badge bg-light rounded-pill text-dark align-items-center d-flex flex-row-reverse justify-content-end mx-auto mx-md-0 ps-0 w-75 w-sm-50 w-md-75 w-xl-50 mb-3">Take
               Control of Your Digital Assets in Minutes<img class="img-fluid float-start me-3"
-                src="assets/img/illustrations/arrow-right.png" alt="" /></span>
+                src="assets/img/illustrations/arrow-right.png" alt="" />
+            </span>
             <h1 class="mb-4 display-3 fw-bold lh-sm">
               Start your journey
               <br class="d-block d-lg-none d-xl-block" />today with BrandSync
@@ -103,7 +97,7 @@
               team. Focus on what matters most—your creativity and growth.
               <br class="d-none d-lg-block" />
             </p>
-            <a class="btn btn-lg btn-primary rounded-pill hover-top startTrial" href="#" role="button"
+            <a class="btn btn-lg btn-warning rounded-pill hover-top startTrial" href="#" role="button"
               onclick="showComingSoonAlert()">Try for free</a>
             <!-- <a class="btn btn-link ps-md-4" href="#" role="button">
                 Watch demo video</a
@@ -569,7 +563,7 @@
                   </li>
                   <li class="text-700 py-2 text-secondary">Full Support</li>
                 </ul>
-                <button class="btn btn-lg btn-primary rounded-pill mb-3" onclick="showComingSoonAlert()">Start 7 Day
+                <button class="btn btn-lg btn-warning rounded-pill mb-3" onclick="showComingSoonAlert()">Start 7 Day
                   Trial</button>
               </div>
             </div>
@@ -603,7 +597,7 @@
                   </li>
                 </ul>
                 <div class="d-flex flex-column">
-                  <button class="btn btn-lg btn-primary rounded-pill mb-3" onclick="showComingSoonAlert()">Start 7 Day
+                  <button class="btn btn-lg btn-warning rounded-pill mb-3" onclick="showComingSoonAlert()">Start 7 Day
                     Trial</button>
                 </div>
               </div>
@@ -788,10 +782,10 @@
             <form>
               <div class="row">
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="Full Name" />
+                  <input type="text" class="form-control" placeholder="Full Name" required />
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="Email" />
+                  <input type="email" class="form-control" placeholder="Email" required/>
                 </div>
               </div>
               <div class="form-group mt-4">
@@ -799,15 +793,14 @@
                   placeholder="Address (Country, City, Street)" />
               </div>
               <div class="form-group mt-4">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required
                   placeholder="Message"></textarea>
-                <button type="submit" class="btn btn-primary mt-4">
+                <button type="submit" class="btn btn-warning mt-4">
                   Submit
                 </button>
             </form>
           </div>
         </div>
-      </div>
     </section>
 
     <!-- ============================================-->
@@ -919,7 +912,7 @@
           </div>
           <span class="mt-2 pt-2">
             Thanks for your interest in BrandSync! We're working hard to bring you some amazing new features.
-            Hang tight, your awesome experience is just around the corner. Leave your email and We'll let you know when
+            Hang tight, your awesome experience is just around the corner. Leave your email and message and We'll let you know when
             it's ready!
           </span>
           <p class="list-content pt-2"></p>
@@ -928,12 +921,29 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Got it!</button>
+          <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Got it!</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Modal for Contact Us Form Submission -->
+  <div class="modal fade" id="contactUsModal" tabindex="-1" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactUsModalLabel">Message Sent</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Thank you for reaching out to us!. We have added you to our list and you will be the first to know when we go live.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ===============================================-->
   <!--    End of Modal Popup-->
@@ -974,14 +984,15 @@
         .then(response => response.json())
         .then(data => {
           console.log('Success:', data);
-          alert('Your message has been sent successfully!');
+          const contactUsModal = new bootstrap.Modal(document.getElementById('contactUsModal'));
+          contactUsModal.show();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('There was an error sending your message. Please try again.');
+          const contactUsModal = new bootstrap.Modal(document.getElementById('contactUsModal'));
+          contactUsModal.show();
         });
     });
-
 
 
 
@@ -1020,45 +1031,36 @@
       let progress = 0;
       let step = 0;
 
-      // Calculate the time interval to achieve smooth and nearly equal intervals
-      const totalSteps = progressMessages.length; // 8 stages
-      const totalDuration = 3200; // Total duration for the animation (in ms)
-      const intervalTime = totalDuration / totalSteps; // Divide time equally for each step
-
       const interval = setInterval(() => {
-        // Calculate progress for this step
-        if (step < totalSteps) {
-          progress = progressMessages[step].percentage;
+        // Increment progress
+        progress++;
 
-          if (progress <= 72) {
-            // Primary progress bar (up to 72%)
-            primaryProgressBar.style.width = `${progress}%`;
-            primaryProgressBar.setAttribute('aria-valuenow', progress);
-          } else {
-            // Secondary progress bar (after 72%)
-            secondaryProgressBar.style.width = `${progress - 72}%`;
-            secondaryProgressBar.setAttribute('aria-valuenow', progress - 72);
-          }
-
-          // Show the corresponding check icon when the progress matches a percentage
-          const message = progressMessages[step];
-          const listItemIndex = progressMessages.indexOf(message) + 1;
-          const listItem = messageContainer.querySelector(`ul li:nth-child(${listItemIndex}) i`);
-          if (listItem) {
-            listItem.style.visibility = 'visible';  // Show icon when the step is complete
-          }
-
-          // Move to the next step
-          step++;
+        if (progress <= 72) {
+          // Primary progress bar (up to 72%)
+          primaryProgressBar.style.width = `${progress}%`;
+          primaryProgressBar.setAttribute('aria-valuenow', progress);
+        } else {
+          // Secondary progress bar (after 72%)
+          secondaryProgressBar.style.width = `${progress - 72}%`;
+          secondaryProgressBar.setAttribute('aria-valuenow', progress - 72);
         }
+
+        // Show the corresponding check icon when the progress matches a percentage
+        progressMessages.forEach((msg, index) => {
+          if (progress === msg.percentage) {
+            const listItem = messageContainer.querySelector(`ul li:nth-child(${index + 1}) i`);
+            if (listItem) {
+              listItem.style.visibility = 'visible';  // Show icon when the step is complete
+            }
+          }
+        });
 
         // Stop the progress when it reaches 100
-        if (step >= totalSteps) {
+        if (progress >= 100) {
           clearInterval(interval);
         }
-      }, intervalTime); // Smooth progress based on total duration
+      }, 50); // Smooth progress based on total duration
     }
-
 
 
 
