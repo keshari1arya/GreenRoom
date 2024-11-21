@@ -8,6 +8,7 @@ using GreenRoom.Application.Folders.Commands.ToggleFolderPin;
 using GreenRoom.Application.Folders.Commands.TrashFolders;
 using GreenRoom.Application.Folders.Queries.GetFolderPathToRoot;
 using GreenRoom.Application.Folders.Queries.GetFolders;
+using GreenRoom.Application.Folders.Queries.GetFoldersWithStructure;
 using GreenRoom.Application.Folders.Queries.GetPinnedFolders;
 using GreenRoom.Application.Folders.Queries.SearchFolders;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,8 @@ public class Folders : EndpointGroupBase
             .MapGet(GetTrashed, "Trashed")
             .MapGet(SearchFolders, "Search")
             .MapGet(GetPinnedFolders, "Pinned")
-            .MapPut(ToggleFolderPin, "TogglePin");
+            .MapPut(ToggleFolderPin, "TogglePin")
+            .MapGet(GetFoldersWithStructure, "WithStructure");
     }
 
     private Task<IEnumerable<FolderDto>> GetFolders(ISender sender, [AsParameters] GetFoldersQuery query)
@@ -90,5 +92,10 @@ public class Folders : EndpointGroupBase
     private Task<int> ToggleFolderPin(ISender sender, ToggleFolderPinCommand command)
     {
         return sender.Send(command);
+    }
+
+    private Task<List<FolderDto>> GetFoldersWithStructure(ISender sender)
+    {
+        return sender.Send(new GetFoldersWithStructureQuery());
     }
 }

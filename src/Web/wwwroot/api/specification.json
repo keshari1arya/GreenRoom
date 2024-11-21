@@ -744,6 +744,34 @@
         ]
       }
     },
+    "/api/Folders/Tree": {
+      "get": {
+        "tags": [
+          "Folders"
+        ],
+        "operationId": "GetFoldersWithStructure",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/StorageManagements/GeneratePresignedUrl": {
       "post": {
         "tags": [
