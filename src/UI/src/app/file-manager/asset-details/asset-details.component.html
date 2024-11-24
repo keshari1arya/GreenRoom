@@ -16,7 +16,7 @@
                         @if (canShow(asset.name)) {
                         <!-- TODO: Remove this replacement of http with https -->
                         <ngx-doc-viewer
-                          [url]="asset.path.replace('http://', 'https://')"
+                          [url]="asset.path"
                           [viewer]="'url'"
                           style="height: 80vh"
                         ></ngx-doc-viewer>

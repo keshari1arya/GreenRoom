@@ -1,7 +1,9 @@
 using Amazon.S3;
 using Amazon.S3.Model;
+using GreenRoom.Application.Common.Configurations;
 using GreenRoom.Application.Common.Interfaces;
 using GreenRoom.Application.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace GreenRoom.Infrastructure.Service;
 public class AwsS3Service : IStorageManagementService
@@ -10,15 +12,19 @@ public class AwsS3Service : IStorageManagementService
     private readonly IAmazonS3 _s3Client;
 
     private readonly string? _bucketName;
+    private readonly UiSettings _uiSettings;
+
 
     public AwsS3Service(
         IAmazonS3 s3Client,
         IApplicationDbContext dbContext,
-        IMultiTenancyService multiTenancyService
+        IMultiTenancyService multiTenancyService,
+        IOptions<UiSettings> uiSettingsOptions
     )
     {
         _s3Client = s3Client;
         _bucketName = dbContext.Tenants.Find(multiTenancyService.CurrentTenantId)?.Id.ToString().ToLower();
+        _uiSettings = uiSettingsOptions.Value;
 
         if (_bucketName != null)
         {
@@ -55,12 +61,34 @@ public class AwsS3Service : IStorageManagementService
 
     public async Task CreateBucketAsync(string? bucketName)
     {
+        var corsConfiguration = new CORSConfiguration
+        {
+            Rules =
+            [
+                new CORSRule
+                {
+                    AllowedHeaders = ["*"],
+                    AllowedMethods = ["GET", "PUT", "POST", "DELETE"],
+                    AllowedOrigins = [_uiSettings.BaseUrl],
+                    ExposeHeaders = ["ETag"],
+                    MaxAgeSeconds = 3000
+                }
+            ]
+        };
+
+        var putCorsRequest = new PutCORSConfigurationRequest
+        {
+            BucketName = bucketName,
+            Configuration = corsConfiguration
+        };
+
         var request = new PutBucketRequest
         {
             BucketName = bucketName,
         };
 
         await _s3Client.PutBucketAsync(request);
+        await _s3Client.PutCORSConfigurationAsync(putCorsRequest);
     }
 
     public async Task CreateFolderAsync(string folderName)

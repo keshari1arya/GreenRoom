@@ -744,7 +744,7 @@
         ]
       }
     },
-    "/api/Folders/Tree": {
+    "/api/Folders/WithStructure": {
       "get": {
         "tags": [
           "Folders"

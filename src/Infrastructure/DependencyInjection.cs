@@ -98,7 +98,7 @@ public static class DependencyInjection
             var credentials = new BasicAWSCredentials(awsS3Settings.AccessKey, awsS3Settings.Secret);
             var config = new AmazonS3Config
             {
-                ServiceURL = awsS3Settings.InstanceUrl,
+                // ServiceURL = awsS3Settings.InstanceUrl,
                 UseHttp = true
             };
             return new AmazonS3Client(credentials, config);
