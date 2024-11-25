@@ -31,6 +31,7 @@ export class FileManagerViewComponent {
   @Input() pathToRoot: PathToRootDto[] = [];
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
   @Input() storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[] = [];
+  @Input() treeFolders: FolderDto[] = [];
 
   @Output() setCurrentFolderIdEvent = new EventEmitter<number>();
   @Output() trashFoldersEvent = new EventEmitter<number[]>();
@@ -41,11 +42,13 @@ export class FileManagerViewComponent {
   @Output() searchEvent = new EventEmitter<string>();
   @Output() trashAssetEvent = new EventEmitter<number>();
   @Output() assetListPageChangedEvent = new EventEmitter<PageChangedEvent>();
+  @Output() fetchStructuredFoldersEvent = new EventEmitter();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
   radialoptions: any;
-  public isCollapsed: boolean = false;
+  public isCollapsed: boolean = true;
+  // public isExpand: { [key: number]: boolean } = {};
   dismissible = true;
 
   modalRef?: BsModalRef;
@@ -137,6 +140,10 @@ export class FileManagerViewComponent {
       ignoreBackdropClick: true,
     };
     this.modalRef = this.modalService.show(template, config);
+  }
+
+  showTreeFolders() {
+    this.fetchStructuredFoldersEvent.emit();
   }
 
   onCreateFolderFormSubmit() {

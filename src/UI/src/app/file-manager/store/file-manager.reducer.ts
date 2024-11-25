@@ -20,6 +20,7 @@ import {
   fetchTotalOccupiedStorageSuccess,
   fetchStorageStatusByAssetType,
   fetchStorageStatusByAssetTypeSuccess,
+  fetchStructuredFoldersSuccess,
 } from "./file-manager.actions";
 import {
   AssetDetailsDto,
@@ -42,6 +43,7 @@ export interface FileManagerState {
   pinnedFolders: FolderDto[];
   totalOccupiedStorage: number;
   storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[];
+  structuredFolders: FolderDto[];
 }
 
 export const initialState: FileManagerState = {
@@ -55,6 +57,7 @@ export const initialState: FileManagerState = {
   pinnedFolders: [],
   totalOccupiedStorage: 0,
   storageStatusByAssetType: [],
+  structuredFolders: [],
 };
 
 export const FileManagerReducer = createReducer(
@@ -120,7 +123,10 @@ export const FileManagerReducer = createReducer(
     (state, { storageStatusByAssetType }) => {
       return { ...state, storageStatusByAssetType, loading: false };
     }
-  )
+  ),
+  on(fetchStructuredFoldersSuccess, (state, { structuredFolders }) => {
+    return { ...state, structuredFolders, loading: false };
+  })
 );
 
 // Selector

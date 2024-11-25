@@ -8,9 +8,7 @@
   "paths": {
     "/api/Assets": {
       "get": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "GetAssets",
         "parameters": [
           {
@@ -61,9 +59,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "CreateAsset",
         "requestBody": {
           "x-name": "command",
@@ -99,9 +95,7 @@
     },
     "/api/Assets/{id}": {
       "get": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "GetAssetDetails",
         "parameters": [
           {
@@ -136,9 +130,7 @@
     },
     "/api/Assets/Move": {
       "put": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "MoveAsset",
         "requestBody": {
           "x-name": "command",
@@ -166,9 +158,7 @@
     },
     "/api/Assets/Trash": {
       "put": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "TrashAssets",
         "requestBody": {
           "x-name": "command",
@@ -196,9 +186,7 @@
     },
     "/api/Assets/Restore": {
       "put": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "RestoreAssets",
         "requestBody": {
           "x-name": "command",
@@ -226,9 +214,7 @@
     },
     "/api/Assets/Search": {
       "get": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "SearchAssets",
         "parameters": [
           {
@@ -272,9 +258,7 @@
     },
     "/api/Assets/{assetId}/AddTag": {
       "put": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "AddTagToAsset",
         "parameters": [
           {
@@ -319,9 +303,7 @@
     },
     "/api/Assets/{assetId}/RemoveTag": {
       "delete": {
-        "tags": [
-          "Assets"
-        ],
+        "tags": ["Assets"],
         "operationId": "RemoveTagFromAsset",
         "parameters": [
           {
@@ -366,9 +348,7 @@
     },
     "/api/Folders": {
       "get": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "GetFolders",
         "parameters": [
           {
@@ -404,9 +384,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "CreateFolder",
         "requestBody": {
           "x-name": "command",
@@ -442,9 +420,7 @@
     },
     "/api/Folders/Move": {
       "put": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "MoveFolder",
         "requestBody": {
           "x-name": "command",
@@ -472,9 +448,7 @@
     },
     "/api/Folders/Trash": {
       "put": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "TrashFolder",
         "requestBody": {
           "x-name": "command",
@@ -502,9 +476,7 @@
     },
     "/api/Folders/Restore": {
       "put": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "RestoreFolder",
         "requestBody": {
           "x-name": "command",
@@ -532,9 +504,7 @@
     },
     "/api/Folders/Rename": {
       "put": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "RenameFolder",
         "requestBody": {
           "x-name": "command",
@@ -562,9 +532,7 @@
     },
     "/api/Folders/PathToRoot/{folderId}": {
       "get": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "GetFolderPathToRoot",
         "parameters": [
           {
@@ -603,9 +571,7 @@
     },
     "/api/Folders/Trashed": {
       "get": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "GetTrashed",
         "responses": {
           "200": {
@@ -631,9 +597,7 @@
     },
     "/api/Folders/Search": {
       "get": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "SearchFolders",
         "parameters": [
           {
@@ -680,9 +644,7 @@
     },
     "/api/Folders/Pinned": {
       "get": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "GetPinnedFolders",
         "responses": {
           "200": {
@@ -708,9 +670,7 @@
     },
     "/api/Folders/TogglePin": {
       "put": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "ToggleFolderPin",
         "requestBody": {
           "x-name": "command",
@@ -744,11 +704,9 @@
         ]
       }
     },
-    "/api/Folders/Tree": {
+    "/api/Folders/WithStructure": {
       "get": {
-        "tags": [
-          "Folders"
-        ],
+        "tags": ["Folders"],
         "operationId": "GetFoldersWithStructure",
         "responses": {
           "200": {
@@ -774,9 +732,7 @@
     },
     "/api/StorageManagements/GeneratePresignedUrl": {
       "post": {
-        "tags": [
-          "StorageManagements"
-        ],
+        "tags": ["StorageManagements"],
         "operationId": "GenerateUrlToUploadFile",
         "requestBody": {
           "x-name": "command",
@@ -811,9 +767,7 @@
     },
     "/api/StorageManagements/GetBucketSize": {
       "get": {
-        "tags": [
-          "StorageManagements"
-        ],
+        "tags": ["StorageManagements"],
         "operationId": "GetBucketSize",
         "responses": {
           "200": {
@@ -837,9 +791,7 @@
     },
     "/api/StorageManagements/GetBucketStorageStatus": {
       "get": {
-        "tags": [
-          "StorageManagements"
-        ],
+        "tags": ["StorageManagements"],
         "operationId": "GetBucketStorageStatus",
         "responses": {
           "200": {
@@ -865,9 +817,7 @@
     },
     "/api/Subscription": {
       "get": {
-        "tags": [
-          "Subscription"
-        ],
+        "tags": ["Subscription"],
         "operationId": "GetSubscriptions",
         "responses": {
           "200": {
@@ -886,9 +836,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Subscription"
-        ],
+        "tags": ["Subscription"],
         "operationId": "CreateSubscription",
         "requestBody": {
           "x-name": "command",
@@ -919,9 +867,7 @@
     },
     "/api/Subscription/{id}": {
       "get": {
-        "tags": [
-          "Subscription"
-        ],
+        "tags": ["Subscription"],
         "operationId": "GetSubscriptionDetails",
         "parameters": [
           {
@@ -949,9 +895,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Subscription"
-        ],
+        "tags": ["Subscription"],
         "operationId": "UpdateSubscription",
         "parameters": [
           {
@@ -986,9 +930,7 @@
     },
     "/api/Subscription/{id}/UpdateStatus/{status}": {
       "put": {
-        "tags": [
-          "Subscription"
-        ],
+        "tags": ["Subscription"],
         "operationId": "UpdateSubscriptionStatus",
         "parameters": [
           {
@@ -1020,9 +962,7 @@
     },
     "/api/Tags": {
       "get": {
-        "tags": [
-          "Tags"
-        ],
+        "tags": ["Tags"],
         "operationId": "GetAllTags",
         "responses": {
           "200": {
@@ -1036,9 +976,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Tags"
-        ],
+        "tags": ["Tags"],
         "operationId": "CreateTag",
         "requestBody": {
           "x-name": "command",
@@ -1074,9 +1012,7 @@
     },
     "/api/Tags/Search": {
       "get": {
-        "tags": [
-          "Tags"
-        ],
+        "tags": ["Tags"],
         "operationId": "SearchTags",
         "parameters": [
           {
@@ -1113,9 +1049,7 @@
     },
     "/api/Tags/{id}": {
       "put": {
-        "tags": [
-          "Tags"
-        ],
+        "tags": ["Tags"],
         "operationId": "UpdateTag",
         "parameters": [
           {
@@ -1158,9 +1092,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Tags"
-        ],
+        "tags": ["Tags"],
         "operationId": "DeleteTag",
         "parameters": [
           {
@@ -1188,9 +1120,7 @@
     },
     "/api/Tags/{id}/Attach": {
       "put": {
-        "tags": [
-          "Tags"
-        ],
+        "tags": ["Tags"],
         "operationId": "AttachTag",
         "parameters": [
           {
@@ -1238,9 +1168,7 @@
     },
     "/api/Tags/{id}/Detach": {
       "put": {
-        "tags": [
-          "Tags"
-        ],
+        "tags": ["Tags"],
         "operationId": "DetachTag",
         "parameters": [
           {
@@ -1288,9 +1216,7 @@
     },
     "/api/Tenant": {
       "get": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "GetTenants",
         "responses": {
           "200": {
@@ -1314,9 +1240,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "CreateTenant",
         "requestBody": {
           "x-name": "command",
@@ -1352,9 +1276,7 @@
     },
     "/api/Tenant/{id}": {
       "get": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "GetTenantDetails",
         "parameters": [
           {
@@ -1387,9 +1309,7 @@
         ]
       },
       "put": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "UpdateTenant",
         "parameters": [
           {
@@ -1437,9 +1357,7 @@
     },
     "/api/Tenant/Mine": {
       "get": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "MyTenants",
         "responses": {
           "200": {
@@ -1465,9 +1383,7 @@
     },
     "/api/Tenant/Current": {
       "get": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "GetCurrentTenant",
         "responses": {
           "200": {
@@ -1490,9 +1406,7 @@
     },
     "/api/Tenant/Subscription": {
       "post": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "AddTenantSubscription",
         "requestBody": {
           "x-name": "command",
@@ -1528,9 +1442,7 @@
     },
     "/api/Tenant/Users": {
       "get": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "GetUsersForTenant",
         "responses": {
           "200": {
@@ -1554,9 +1466,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "AddTenantUsers",
         "requestBody": {
           "x-name": "command",
@@ -1590,9 +1500,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "RemoveTenantUsers",
         "requestBody": {
           "x-name": "command",
@@ -1628,9 +1536,7 @@
     },
     "/api/Tenant/Users/Role": {
       "patch": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "UpdateRole",
         "requestBody": {
           "x-name": "command",
@@ -1666,9 +1572,7 @@
     },
     "/api/Tenant/Roles": {
       "get": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "GetRoles",
         "responses": {
           "200": {
@@ -1694,9 +1598,7 @@
     },
     "/api/Tenant/Invite": {
       "post": {
-        "tags": [
-          "Tenant"
-        ],
+        "tags": ["Tenant"],
         "operationId": "InviteUser",
         "requestBody": {
           "x-name": "command",
@@ -1724,9 +1626,7 @@
     },
     "/api/TodoItems": {
       "get": {
-        "tags": [
-          "TodoItems"
-        ],
+        "tags": ["TodoItems"],
         "operationId": "GetTodoItemsWithPagination",
         "parameters": [
           {
@@ -1779,9 +1679,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "TodoItems"
-        ],
+        "tags": ["TodoItems"],
         "operationId": "CreateTodoItem",
         "requestBody": {
           "x-name": "command",
@@ -1817,9 +1715,7 @@
     },
     "/api/TodoItems/{id}": {
       "put": {
-        "tags": [
-          "TodoItems"
-        ],
+        "tags": ["TodoItems"],
         "operationId": "UpdateTodoItem",
         "parameters": [
           {
@@ -1857,9 +1753,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "TodoItems"
-        ],
+        "tags": ["TodoItems"],
         "operationId": "DeleteTodoItem",
         "parameters": [
           {
@@ -1887,9 +1781,7 @@
     },
     "/api/TodoItems/UpdateDetail/{id}": {
       "put": {
-        "tags": [
-          "TodoItems"
-        ],
+        "tags": ["TodoItems"],
         "operationId": "UpdateTodoItemDetail",
         "parameters": [
           {
@@ -1929,9 +1821,7 @@
     },
     "/api/TodoLists": {
       "get": {
-        "tags": [
-          "TodoLists"
-        ],
+        "tags": ["TodoLists"],
         "operationId": "GetTodoLists",
         "responses": {
           "200": {
@@ -1952,9 +1842,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "TodoLists"
-        ],
+        "tags": ["TodoLists"],
         "operationId": "CreateTodoList",
         "requestBody": {
           "x-name": "command",
@@ -1990,9 +1878,7 @@
     },
     "/api/TodoLists/{id}": {
       "put": {
-        "tags": [
-          "TodoLists"
-        ],
+        "tags": ["TodoLists"],
         "operationId": "UpdateTodoList",
         "parameters": [
           {
@@ -2030,9 +1916,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "TodoLists"
-        ],
+        "tags": ["TodoLists"],
         "operationId": "DeleteTodoList",
         "parameters": [
           {
@@ -2060,9 +1944,7 @@
     },
     "/api/Users/Search": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "SearchUsers",
         "parameters": [
           {
@@ -2094,9 +1976,7 @@
     },
     "/api/Users/AddTenantClaim": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "AddTenantClaims",
         "requestBody": {
           "x-name": "command",
@@ -2119,9 +1999,7 @@
     },
     "/api/Users/VerifyUserInvitation": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "VerifyUserInvitation",
         "requestBody": {
           "x-name": "command",
@@ -2151,9 +2029,7 @@
     },
     "/api/Users/register": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersRegister",
         "requestBody": {
           "x-name": "registration",
@@ -2185,9 +2061,7 @@
     },
     "/api/Users/login": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersLogin",
         "parameters": [
           {
@@ -2236,9 +2110,7 @@
     },
     "/api/Users/refresh": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersRefresh",
         "requestBody": {
           "x-name": "refreshRequest",
@@ -2267,9 +2139,7 @@
     },
     "/api/Users/confirmEmail": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "GetApiUsersConfirmEmail",
         "parameters": [
           {
@@ -2309,9 +2179,7 @@
     },
     "/api/Users/resendConfirmationEmail": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersResendConfirmationEmail",
         "requestBody": {
           "x-name": "resendRequest",
@@ -2333,9 +2201,7 @@
     },
     "/api/Users/forgotPassword": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersForgotPassword",
         "requestBody": {
           "x-name": "resetRequest",
@@ -2367,9 +2233,7 @@
     },
     "/api/Users/resetPassword": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersResetPassword",
         "requestBody": {
           "x-name": "resetRequest",
@@ -2401,9 +2265,7 @@
     },
     "/api/Users/manage/2fa": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersManage2fa",
         "requestBody": {
           "x-name": "tfaRequest",
@@ -2450,9 +2312,7 @@
     },
     "/api/Users/manage/info": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "GetApiUsersManageInfo",
         "responses": {
           "200": {
@@ -2486,9 +2346,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "operationId": "PostApiUsersManageInfo",
         "requestBody": {
           "x-name": "infoRequest",
@@ -2535,9 +2393,7 @@
     },
     "/api/WeatherForecasts": {
       "get": {
-        "tags": [
-          "WeatherForecasts"
-        ],
+        "tags": ["WeatherForecasts"],
         "operationId": "GetWeatherForecasts",
         "responses": {
           "200": {
@@ -3415,18 +3271,8 @@
       "PriorityLevel": {
         "type": "integer",
         "description": "",
-        "x-enumNames": [
-          "None",
-          "Low",
-          "Medium",
-          "High"
-        ],
-        "enum": [
-          0,
-          1,
-          2,
-          3
-        ]
+        "x-enumNames": ["None", "Low", "Medium", "High"],
+        "enum": [0, 1, 2, 3]
       },
       "TodosVm": {
         "type": "object",
