@@ -17,7 +17,7 @@ public class AddTenantUsersCommandValidator : AbstractValidator<AddTenantUsersCo
         .WithMessage("Role does not exist.")
         .Must(users => users.Select(x => x.UserId).Distinct().Count() == users.Length)
         .WithMessage("Duplicate user found.")
-        .Must(users => context.TenantUsers.Any(x => users.Select(x => x.UserId).Contains(x.UserId) && x.TenantId == multiTenancyService.CurrentTenantId))
+        .Must(users => !context.TenantUsers.Any(x => users.Select(x => x.UserId).Contains(x.UserId) && x.TenantId == multiTenancyService.CurrentTenantId))
         .WithMessage("User already exists in the tenant.")
         .NotEmpty();
     }

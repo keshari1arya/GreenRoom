@@ -156,12 +156,16 @@ export class MultitenantEffects {
               });
               return multitenantActions.addUserSuccess({ userId });
             }),
-            catchError((error) => {
-              this.toastr.error("Failed to add user", "Error", {
+            catchError((response) => {
+              const message =
+                response?.error?.errors?.UsersWithRole?.toString() ||
+                "Error adding user";
+
+              this.toastr.error(message, "Error", {
                 closeButton: true,
                 progressBar: true,
               });
-              return of(multitenantActions.setError({ error }));
+              return of(multitenantActions.setError({ error: response }));
             })
           )
       )
