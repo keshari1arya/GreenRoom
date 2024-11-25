@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Stripe;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +31,7 @@ public static class DependencyInjection
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
         services.AddAwsS3Storage(configuration);
+        services.AddPaymentGateway(configuration);
 
         services.AddScoped<IStorageManagementService, AwsS3Service>();
 
@@ -57,7 +59,7 @@ public static class DependencyInjection
             .AddApiEndpoints();
 
         services.AddSingleton(TimeProvider.System);
-        services.AddTransient<IIdentityService, IdentityService>();
+        services.AddTransient<IIdentityService, AppIdentityService>();
         services.AddScoped<IMultiTenancyService, MultiTenancyService>();
 
         services.AddScoped<INotificationService, NotificationService>();
@@ -103,5 +105,19 @@ public static class DependencyInjection
             };
             return new AmazonS3Client(credentials, config);
         });
+    }
+
+    private static void AddPaymentGateway(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<StripeSettings>(configuration.GetSection("StripeSettings"));
+        services.AddScoped<StripeClient>(provider =>
+        {
+            var stripeSettings = configuration.GetSection("StripeSettings").Get<StripeSettings>();
+            Guard.Against.Null(stripeSettings, "StripeSettings not found in configuration");
+
+            return new StripeClient(stripeSettings.SecretKey);
+        });
+
+        services.AddScoped<IPaymentGatewayService, StripeService>();
     }
 }

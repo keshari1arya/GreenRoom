@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, mergeMap, map, concatMap } from "rxjs/operators";
+import { catchError, mergeMap, map } from "rxjs/operators";
 import * as SubscriptionActions from "./subscription.actions";
 import { from, of } from "rxjs";
 import { SubscriptionService } from "src/app/lib/openapi-generated/services";

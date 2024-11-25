@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GreenRoom.Infrastructure.Identity;
 
-public class IdentityService : IIdentityService
+public class AppIdentityService : IIdentityService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
 
-    public IdentityService(
+    public AppIdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService)

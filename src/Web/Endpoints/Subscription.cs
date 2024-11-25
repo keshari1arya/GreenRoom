@@ -3,7 +3,6 @@ using GreenRoom.Application.Subscriptions.Commands.UpdateSubscription;
 using GreenRoom.Application.Subscriptions.Commands.UpdateSubscriptionStatus;
 using GreenRoom.Application.Subscriptions.Queries.GetSubscriptions;
 using GreenRoom.Application.Subscriptions.Queries.GetSubscriptionDetails;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GreenRoom.Web.Endpoints;
 

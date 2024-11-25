@@ -1,4 +1,5 @@
 ﻿using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Interfaces;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Subscriptions.Commands.UpdateSubscription;
@@ -31,10 +32,12 @@ public class UpdateSubscriptionCommandValidator : AbstractValidator<UpdateSubscr
 public class UpdateSubscriptionCommandHandler : IRequestHandler<UpdateSubscriptionCommand, int>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IPaymentGatewayService _paymentGatewayService;
 
-    public UpdateSubscriptionCommandHandler(IApplicationDbContext context)
+    public UpdateSubscriptionCommandHandler(IApplicationDbContext context, IPaymentGatewayService paymentGatewayService)
     {
         _context = context;
+        _paymentGatewayService = paymentGatewayService;
     }
 
     public async Task<int> Handle(UpdateSubscriptionCommand request, CancellationToken cancellationToken)
@@ -47,6 +50,10 @@ public class UpdateSubscriptionCommandHandler : IRequestHandler<UpdateSubscripti
         entity.Description = request.Description;
         entity.Price = request.Price;
         entity.IsActive = request.IsActive;
+
+        // TODO: Raise an event and handle this in a background
+        _paymentGatewayService.UpdateProduct(entity.StripeProductId!, request.Name, request.Description, request.Price);
+
 
         await _context.SaveChangesAsync(cancellationToken);
 

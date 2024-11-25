@@ -1,4 +1,5 @@
 ﻿using GreenRoom.Application.Common.Interfaces;
+using GreenRoom.Application.Interfaces;
 using GreenRoom.Domain.Entities.DigitalAssetManager;
 
 namespace GreenRoom.Application.Subscriptions.Commands.CreateSubscription;
@@ -29,10 +30,12 @@ public class CreateSubscriptionCommandValidator : AbstractValidator<CreateSubscr
 public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscriptionCommand, int>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IPaymentGatewayService _paymentGatewayService;
 
-    public CreateSubscriptionCommandHandler(IApplicationDbContext context)
+    public CreateSubscriptionCommandHandler(IApplicationDbContext context, IPaymentGatewayService paymentGatewayService)
     {
         _context = context;
+        _paymentGatewayService = paymentGatewayService;
     }
 
     public async Task<int> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
@@ -42,9 +45,11 @@ public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscripti
             Name = request.Name,
             Description = request.Description,
             Price = request.Price,
-            IsActive = request.IsActive
-        };
+            IsActive = request.IsActive,
 
+            // TODO: Raise an event and handle this in a background
+            StripeProductId = _paymentGatewayService.CreateProduct(request.Name, request.Description, request.Price)
+        };
         _context.Subscriptions.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
         return entity.Id;

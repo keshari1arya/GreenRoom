@@ -116,4 +116,14 @@ export const multitenantActions = {
     props<{ userId: string }>()
   ),
   removeUserSuccess: createAction("[Multitenant] Remove User success"),
+
+  // Prepare Subscription Purchase
+  prepareSubscriptionPurchase: createAction(
+    "[Multitenant] Prepare Subscription Purchase",
+    props<{ subscriptionId: number }>()
+  ),
+  prepareSubscriptionPurchaseSuccess: createAction(
+    "[Multitenant] Prepare Subscription Purchase success",
+    props<{ paymentUrl: string }>()
+  ),
 };

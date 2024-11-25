@@ -302,6 +302,38 @@ export class MultitenantEffects {
     )
   );
 
+  // purchase subscription
+  purchaseSubscription$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(multitenantActions.prepareSubscriptionPurchase),
+      concatMap(({ subscriptionId }) =>
+        this.tenantService.preparePayment({ body: { subscriptionId } }).pipe(
+          map((response) => {
+            this.toastr.success(
+              "Subscription purchased successfully",
+              "Success",
+              {
+                closeButton: true,
+                progressBar: true,
+              }
+            );
+            window.location.href = response.paymentUrl;
+            return multitenantActions.prepareSubscriptionPurchaseSuccess({
+              paymentUrl: response.paymentUrl,
+            });
+          }),
+          catchError((error) => {
+            this.toastr.error("Failed to purchase subscription", "Error", {
+              closeButton: true,
+              progressBar: true,
+            });
+            return of(multitenantActions.setError({ error: error.message }));
+          })
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private tenantService: TenantService,

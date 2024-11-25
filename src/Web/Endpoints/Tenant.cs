@@ -1,6 +1,7 @@
 using GreenRoom.Application.Tenants.Commands.AddTenantSubscription;
 using GreenRoom.Application.Tenants.Commands.AddTenantUsers;
 using GreenRoom.Application.Tenants.Commands.CreateTenant;
+using GreenRoom.Application.Tenants.Commands.PrepareSubscriptionPurchase;
 using GreenRoom.Application.Tenants.Commands.RemoveTenantUsers;
 using GreenRoom.Application.Tenants.Commands.UpdateRole;
 using GreenRoom.Application.Tenants.Commands.UpdateTenant;
@@ -33,7 +34,8 @@ public class Tenant : EndpointGroupBase
             .MapDelete(RemoveTenantUsers, "Users")
             .MapPatch(UpdateRole, "Users/Role")
             .MapGet(GetRoles, "Roles")
-            .MapPost(InviteUser, "Invite");
+            .MapPost(InviteUser, "Invite")
+            .MapPost(PreparePayment, "PreparePayment");
     }
 
     private Task<IEnumerable<TenantDto>> GetTenants(ISender sender)
@@ -97,6 +99,11 @@ public class Tenant : EndpointGroupBase
     }
 
     private Task InviteUser(ISender sender, [FromBody] InviteUserCommand command)
+    {
+        return sender.Send(command);
+    }
+
+    private Task<PrepareSubscriptionPurchaseDto> PreparePayment(ISender sender, [FromBody] PrepareSubscriptionPurchaseCommand command)
     {
         return sender.Send(command);
     }
