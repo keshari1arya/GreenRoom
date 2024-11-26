@@ -19,6 +19,7 @@ public class TestcontainersTestDatabase : ITestDatabase
     {
         _container = new MsSqlBuilder()
             .WithAutoRemove(true)
+            .WithCleanUp(true)
             .Build();
     }
 

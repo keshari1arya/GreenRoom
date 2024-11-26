@@ -34,7 +34,7 @@
     <PackageVersion Include="NUnit.Analyzers" Version="3.9.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageVersion Include="Respawn" Version="6.1.0" />
-    <PackageVersion Include="Testcontainers.MsSql" Version="3.6.0" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="4.0.0" />
     <PackageVersion Include="AWSSDK.S3" Version="3.7.402.6" />
     <PackageVersion Include="Stripe.net" Version="47.0.0" />
   </ItemGroup>

@@ -1,8 +1,8 @@
 name: CICD
 
-on: 
+on:
   push:
-    branches: [ main ]
+    branches: [test/deployments]
     paths-ignore:
       - .gitignore
       - CODE_OF_CONDUCT.md
@@ -14,29 +14,28 @@ permissions:
   contents: read
 
 jobs:
-
   build:
     uses: ./.github/workflows/build.yml
     with:
       build-artifacts: true
 
   deploy-development:
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy-aws.yml
     secrets: inherit
-    needs: [ build ]
+    needs: [build]
     with:
       environmentName: Development
 
-  deploy-staging:
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
-    needs: [ deploy-development ]
-    with:
-      environmentName: Staging
+  # deploy-staging:
+  #   uses: ./.github/workflows/deploy.yml
+  #   secrets: inherit
+  #   needs: [ deploy-development ]
+  #   with:
+  #     environmentName: Staging
 
-  deploy-production:
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
-    needs: [ deploy-staging ]
-    with:
-      environmentName: Production
+  # deploy-production:
+  #   uses: ./.github/workflows/deploy.yml
+  #   secrets: inherit
+  #   needs: [ deploy-staging ]
+  #   with:
+  #     environmentName: Production
