@@ -44,33 +44,15 @@
                     <div class="custom-accordion">
                       <a
                         class="text-body fw-medium py-1 d-flex align-items-center"
-                        [attr.aria-expanded]="!isCollapsed"
-                        data-toggle="collapse"
                         href="javascript:void(0);"
                         role="button"
-                        aria-expanded="false"
-                        aria-controls="categories-collapse"
-                        (click)="openFolder(null)"
                       >
                         <i
                           class="mdi mdi-folder font-size-16 text-warning me-2"
                         ></i>
-                        Files
-                        <i
-                          class="mdi ms-auto"
-                          [ngClass]="
-                            isCollapsed
-                              ? 'mdi mdi-chevron-up'
-                              : 'mdi mdi-chevron-down'
-                          "
-                          (click)="isCollapsed = !isCollapsed"
-                        ></i>
+                        Pinned Folders
                       </a>
-                      <div
-                        class="collapse show"
-                        id="categories-collapse"
-                        [collapse]="isCollapsed"
-                      >
+                      <div>
                         <div class="card border-0 shadow-none ps-2 mb-0">
                           <ul class="list-unstyled mb-0">
                             @for(pinnedFolder of pinnedFolderList$ | async;track
@@ -93,7 +75,7 @@
                       </div>
                     </div>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a
                       href="javascript: void(0);"
                       class="text-body d-flex align-items-center"
@@ -135,7 +117,7 @@
                       ></i>
                       <span class="me-auto">Starred</span>
                     </a>
-                  </li>
+                  </li> -->
                   <li>
                     <a
                       href="javascript: void(0);"
@@ -148,7 +130,7 @@
                       <span class="me-auto">Trash</span>
                     </a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a
                       href="javascript: void(0);"
                       class="text-body d-flex align-items-center"
@@ -159,7 +141,7 @@
                         >01</span
                       >
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
 
