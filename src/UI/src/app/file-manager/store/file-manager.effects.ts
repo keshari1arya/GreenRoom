@@ -31,8 +31,8 @@ import {
   fetchTotalOccupiedStorageSuccess,
   fetchStorageStatusByAssetType,
   fetchStorageStatusByAssetTypeSuccess,
-  fetchStructuredFolders,
-  fetchStructuredFoldersSuccess,
+  fetchFolderTree,
+  fetchFolderTreeSuccess,
 } from "./file-manager.actions";
 import { from, of } from "rxjs";
 import {
@@ -382,14 +382,14 @@ export class FileManagerEffects {
     )
   );
 
-  fetchStructuredFolders = createEffect(() =>
+  fetchFolderTree = createEffect(() =>
     this.actions$.pipe(
-      ofType(fetchStructuredFolders),
+      ofType(fetchFolderTree),
       mergeMap(() =>
         this.folderService.getFoldersWithStructure().pipe(
           map((structuredFolders) => {
-            return fetchStructuredFoldersSuccess({
-              structuredFolders,
+            return fetchFolderTreeSuccess({
+              folderTree: structuredFolders,
             });
           }),
           catchError((error) => of(setError({ error })))

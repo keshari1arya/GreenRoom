@@ -18,14 +18,14 @@ import {
   selectPathToRoot,
   selectTrashedItems,
   selectStorageStatusByAssetType,
-  selectTreeFolders,
+  selectFolderTree,
 } from "../store/file-manager-selector";
 import {
   addFolder,
   fetchAssetsByFolderIdData,
   fetchFoldersByParentIdData,
   fetchStorageStatusByAssetType,
-  fetchStructuredFolders,
+  fetchFolderTree,
   fetchTrashedItems,
   pathToRoot,
   restoreAssets,
@@ -48,7 +48,7 @@ export class FileManagerShellComponent implements OnInit {
   trashedItems$: Observable<TrashFolderAndFilesDto[]> = of([]);
   storageStatusByAssetType$: Observable<BucketStorageStatusByAssetTypeDto[]> =
     of([]);
-  treeFolders$: Observable<FolderDto[]>;
+  folderTree$: Observable<FolderDto[]>;
 
   currentFolderId: number | null = null;
 
@@ -64,7 +64,7 @@ export class FileManagerShellComponent implements OnInit {
     this.storageStatusByAssetType$ = this.store.select(
       selectStorageStatusByAssetType
     );
-    this.treeFolders$ = this.store.select(selectTreeFolders);
+    this.folderTree$ = this.store.select(selectFolderTree);
   }
 
   ngOnInit(): void {
@@ -147,9 +147,9 @@ export class FileManagerShellComponent implements OnInit {
     );
   }
 
-  getStructuredFolders() {
+  fetchFolderTree() {
     console.log("this from shell event emit");
-    this.store.dispatch(fetchStructuredFolders());
+    this.store.dispatch(fetchFolderTree());
   }
 
   private openCurrentFolder(): void {

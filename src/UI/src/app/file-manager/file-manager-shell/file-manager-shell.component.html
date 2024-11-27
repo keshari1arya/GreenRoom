@@ -1,5 +1,5 @@
 <app-file-manager
-  [treeFolders]="treeFolders$ | async"
+  [folderTree]="folderTree$ | async"
   [folders]="folders$ | async"
   [assets]="assets$ | async"
   [pathToRoot]="pathToRoot$ | async"
@@ -14,6 +14,6 @@
   (searchEvent)="search($event)"
   (trashAssetEvent)="trashAsset($event)"
   (assetListPageChangedEvent)="assetListPageChanged($event)"
-  (fetchStructuredFoldersEvent)="getStructuredFolders()"
+  (fetchFolderTreeEvent)="fetchFolderTree()"
 >
 </app-file-manager>

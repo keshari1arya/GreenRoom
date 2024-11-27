@@ -161,11 +161,11 @@ export const fetchStorageStatusByAssetTypeSuccess = createAction(
   props<{ storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[] }>()
 );
 
-export const fetchStructuredFolders = createAction(
+export const fetchFolderTree = createAction(
   "[FileManager] fetch Structured Folders"
-)
+);
 
-export const fetchStructuredFoldersSuccess = createAction(
+export const fetchFolderTreeSuccess = createAction(
   "[FileManager] fetch Structured Folders success",
-  props<{structuredFolders:FolderDto[]}>()
-)
+  props<{ folderTree: FolderDto[] }>()
+);

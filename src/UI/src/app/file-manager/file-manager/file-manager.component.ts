@@ -31,7 +31,7 @@ export class FileManagerViewComponent {
   @Input() pathToRoot: PathToRootDto[] = [];
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
   @Input() storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[] = [];
-  @Input() treeFolders: FolderDto[] = [];
+  @Input() folderTree: FolderDto[] = [];
 
   @Output() setCurrentFolderIdEvent = new EventEmitter<number>();
   @Output() trashFoldersEvent = new EventEmitter<number[]>();
@@ -42,7 +42,7 @@ export class FileManagerViewComponent {
   @Output() searchEvent = new EventEmitter<string>();
   @Output() trashAssetEvent = new EventEmitter<number>();
   @Output() assetListPageChangedEvent = new EventEmitter<PageChangedEvent>();
-  @Output() fetchStructuredFoldersEvent = new EventEmitter();
+  @Output() fetchFolderTreeEvent = new EventEmitter();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -143,7 +143,7 @@ export class FileManagerViewComponent {
   }
 
   showTreeFolders() {
-    this.fetchStructuredFoldersEvent.emit();
+    this.fetchFolderTreeEvent.emit();
   }
 
   onCreateFolderFormSubmit() {
