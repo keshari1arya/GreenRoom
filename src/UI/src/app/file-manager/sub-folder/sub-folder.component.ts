@@ -4,7 +4,7 @@ import { FolderDto } from "src/app/lib/openapi-generated/models";
 @Component({
   selector: "app-sub-folder",
   templateUrl: "./sub-folder.component.html",
-  styleUrl: "./sub-folder.component.css",
+  styleUrl: "./sub-folder.component.scss",
 })
 export class SubFolderComponent {
   @Input() folders: FolderDto[] = [];

@@ -44,7 +44,7 @@
                     <div class="custom-accordion">
                       <a
                         class="text-body fw-medium py-1 d-flex align-items-center"
-                        [attr.aria-expanded]="!isCollapsed"
+                        [attr.aria-expanded]="!isExpanded"
                         data-toggle="collapse"
                         href="javascript:void(0);"
                         role="button"
@@ -59,19 +59,21 @@
                         <i
                           class="mdi ms-auto"
                           [ngClass]="
-                            isCollapsed
+                            isExpanded
                               ? 'mdi mdi-chevron-up'
                               : 'mdi mdi-chevron-down'
                           "
-                          (click)="isCollapsed = !isCollapsed"
+                          (click)="isExpanded = !isExpanded"
                         ></i>
                       </a>
                       <div
                         class="collapse show"
                         id="categories-collapse"
-                        [collapse]="isCollapsed"
+                        [collapse]="isExpanded"
                       >
-                        <div class="card border-0 shadow-none ps-2 mb-0">
+                        <div
+                          class="card border-0 shadow-none mb-0 custom-padding"
+                        >
                           <li>
                             <app-sub-folder
                               [folders]="treeFolders"

@@ -1,40 +1,42 @@
-<div class="custom-accordion">
-  <div *ngFor="let folders of folders; let i = index">
-    <a
-      class=""
-      [attr.aria-expanded]="!isCollapsed"
-      data-toggle="collapse"
-      aria-expanded="false"
-      aria-controls="categories-collapse"
-    >
-      <div>
-        {{ folders.name }}
-        <i
-          class="mdi ms-auto"
-          [ngClass]="
-            isCollapsed[folders.id]
-              ? 'mdi mdi-chevron-down'
-              : 'mdi mdi-chevron-up'
-          "
-          (click)="isCollapsed[folders.id] = !isCollapsed[folders.id]"
-        ></i>
-      </div>
-    </a>
-    <div
-      class="collapse show"
-      id="categories-collapse"
-      *ngIf="isCollapsed[folders.id]"
-    >
-      <div class="card border-0 shadow-none ps-2 mb-0">
-        <ul class="list-unstyled mb-0">
-          <li *ngIf="folders.children">
-            <a [routerLink]="[]" class="d-flex align-items-center"
-              ><span class="me-auto">
-                <app-sub-folder [folders]="folders.children"></app-sub-folder>
-              </span>
-            </a>
-          </li>
-        </ul>
+<div class="container-fluid">
+  <div class="custom-accordion">
+    <div *ngFor="let folders of folders; let i = index">
+      <a
+        class="text-decoration-none"
+        [attr.aria-expanded]="!isCollapsed[folders.id]"
+        data-toggle="collapse"
+        aria-expanded="false"
+        aria-controls="categories-collapse"
+      >
+        <div class="d-flex align-items-center w-100">
+          <span class="text-truncate overflow-hidden" style="max-width: 200px">
+            {{ folders.name }}
+          </span>
+          <i
+            class="mdi"
+            [ngClass]="
+              isCollapsed[folders.id] ? 'mdi-chevron-down' : 'mdi-chevron-up'
+            "
+            (click)="isCollapsed[folders.id] = !isCollapsed[folders.id]"
+          ></i>
+        </div>
+      </a>
+      <div
+        class="collapse"
+        id="categories-collapse-{{ folders.id }}"
+        [class.show]="isCollapsed[folders.id]"
+      >
+        <div class="card border-0 shadow-none ps-2 mb-0">
+          <ul class="list-unstyled mb-0">
+            <li *ngIf="folders.children">
+              <a [routerLink]="[]" class="d-flex align-items-center">
+                <span class="me-auto">
+                  <app-sub-folder [folders]="folders.children"></app-sub-folder>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

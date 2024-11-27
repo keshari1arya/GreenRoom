@@ -48,7 +48,7 @@ export class FileManagerViewComponent {
   breadCrumbItems: Array<{}>;
   radialoptions: any;
   public isCollapsed: boolean = true;
-  // public isExpand: { [key: number]: boolean } = {};
+  public isExpanded: boolean = true;
   dismissible = true;
 
   modalRef?: BsModalRef;
