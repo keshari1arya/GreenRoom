@@ -82,7 +82,7 @@ jobs:
 
       - name: Deploy infrastructure
         run: |
-          aws cloudformation deploy --stack-name ${{ vars.AWS_STACK_NAME }} --template-file ./.aws/cloudformation/main.yaml --parameter-overrides EnvironmentName=${{ inputs.environmentName }} SQLAdminUsername=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }} SQLAdminPassword=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }} ProjectName=${{ vars.PROJECT_NAME }} ResourceNameSuffix=${{ vars.AWS_RESOURCE_NAME_SUFFIX }} KeyName=${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws cloudformation deploy --stack-name ${{ vars.AWS_STACK_NAME }} --template-file ./.aws/cloudformation/main.yaml --parameter-overrides EnvironmentName=${{ inputs.environmentName }} SQLAdminUsername=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }} SQLAdminPassword=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }} ProjectName=${{ vars.PROJECT_NAME }} ResourceNameSuffix=${{ vars.AWS_RESOURCE_NAME_SUFFIX }} KeyName=${{ vars.AWS_EC2_SSH_KEY_NAME }}
 
       - name: Initialise database
         run: |
