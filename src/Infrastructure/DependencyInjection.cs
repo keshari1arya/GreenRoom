@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using GreenRoom.Application.Common.Configurations;
@@ -101,7 +102,8 @@ public static class DependencyInjection
             var config = new AmazonS3Config
             {
                 // ServiceURL = awsS3Settings.InstanceUrl,
-                UseHttp = true
+                UseHttp = true,
+                RegionEndpoint = RegionEndpoint.GetBySystemName(awsS3Settings.Region)
             };
             return new AmazonS3Client(credentials, config);
         });
