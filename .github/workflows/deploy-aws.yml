@@ -88,7 +88,7 @@ jobs:
         run: |
           unzip -o ./efbundle/efbundle.zip
           echo '{ "ConnectionStrings": { "DefaultConnection": "" } }' > appsettings.json
-          ./efbundle.exe --connection "Server=${{ steps.deploy.outputs.SQLServerInstanceEndpoint }};Initial Catalog=${{ steps.deploy.outputs.SqlServerDatabaseName }};Persist Security Info=False;User ID=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }};Password=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" --verbose
+          ./efbundle.exe --connection "Server=${{ steps.deploy.outputs.SQLServerInstanceEndpoint }};Initial Catalog=${{ vars.AWS_RDS_SQLSERVER_DB_NAME }};Persist Security Info=False;User ID=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }};Password=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" --verbose
 
       - name: Deploy website
         run: |
