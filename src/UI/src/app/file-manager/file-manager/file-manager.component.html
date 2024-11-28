@@ -41,47 +41,7 @@
                 </div>
                 <ul class="list-unstyled categories-list">
                   <li>
-                    <div class="custom-accordion">
-                      <a
-                        class="text-body fw-medium py-1 d-flex align-items-center"
-                        [attr.aria-expanded]="!isExpanded"
-                        data-toggle="collapse"
-                        href="javascript:void(0);"
-                        role="button"
-                        aria-expanded="false"
-                        aria-controls="categories-collapse"
-                        (click)="showTreeFolders()"
-                      >
-                        <i
-                          class="mdi mdi-folder font-size-16 text-warning me-2"
-                        ></i>
-                        Home
-                        <i
-                          class="mdi ms-auto"
-                          [ngClass]="
-                            isExpanded
-                              ? 'mdi mdi-chevron-up'
-                              : 'mdi mdi-chevron-down'
-                          "
-                          (click)="isExpanded = !isExpanded"
-                        ></i>
-                      </a>
-                      <div
-                        class="collapse show"
-                        id="categories-collapse"
-                        [collapse]="isExpanded"
-                      >
-                        <div
-                          class="card border-0 shadow-none mb-0 custom-padding"
-                        >
-                          <li>
-                            <app-sub-folder
-                              [folders]="folderTree"
-                            ></app-sub-folder>
-                          </li>
-                        </div>
-                      </div>
-                    </div>
+                    <app-folder-tree [folders]="folderTree"></app-folder-tree>
                   </li>
                   <!-- pinned folders  -->
                   <li>

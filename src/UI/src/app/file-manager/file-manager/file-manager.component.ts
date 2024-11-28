@@ -42,13 +42,11 @@ export class FileManagerViewComponent {
   @Output() searchEvent = new EventEmitter<string>();
   @Output() trashAssetEvent = new EventEmitter<number>();
   @Output() assetListPageChangedEvent = new EventEmitter<PageChangedEvent>();
-  @Output() fetchFolderTreeEvent = new EventEmitter();
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
   radialoptions: any;
   public isCollapsed: boolean = true;
-  public isExpanded: boolean = true;
   dismissible = true;
 
   modalRef?: BsModalRef;
@@ -140,10 +138,6 @@ export class FileManagerViewComponent {
       ignoreBackdropClick: true,
     };
     this.modalRef = this.modalService.show(template, config);
-  }
-
-  showTreeFolders() {
-    this.fetchFolderTreeEvent.emit();
   }
 
   onCreateFolderFormSubmit() {
