@@ -1,4 +1,5 @@
 <app-file-manager
+  [folderTree]="folderTree$ | async"
   [folders]="folders$ | async"
   [assets]="assets$ | async"
   [pathToRoot]="pathToRoot$ | async"
