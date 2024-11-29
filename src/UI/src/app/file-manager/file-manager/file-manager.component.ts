@@ -159,14 +159,20 @@ export class FileManagerViewComponent {
     this.showComponents(["folders", "assets"]);
   }
 
-  selectedFile: File | null = null;
+  selectedFile: File[] = [];
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedFile = Array.from(input.files);
+      console.log(this.selectedFile);
+    }
   }
 
   onUpload() {
     if (this.selectedFile) {
-      this.fileUploadEvent.emit(this.selectedFile);
+      this.selectedFile.forEach((file) => {
+        this.fileUploadEvent.emit(file);
+      });
       this.modalRef?.hide();
     }
   }

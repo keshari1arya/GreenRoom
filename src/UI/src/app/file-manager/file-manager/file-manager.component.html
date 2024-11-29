@@ -528,7 +528,7 @@
 
 <ng-template #fileUploadModal role="document" let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Upload Only files</h5>
     <button
       type="button"
       class="btn-close"
@@ -540,12 +540,13 @@
   <div class="modal-body">
     <div class="mb-3">
       <label class="form-label" for="customFile"
-        >Default file input example</label
+        >select single or multiple files</label
       >
       <input
         type="file"
         class="form-control"
         id="customFile"
+        multiple
         (change)="onFileSelected($event)"
       />
     </div>
