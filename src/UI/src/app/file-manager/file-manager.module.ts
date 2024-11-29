@@ -29,6 +29,7 @@ import { TagInputModule } from "ngx-chips";
 import { FileIconPipe } from "./shared/pipes/file-icon.pipe";
 import { FileSizePipe } from "./shared/pipes/file-size.pipe";
 import { PaginationModule } from "ngx-bootstrap/pagination";
+import { SubFolderComponent } from "./folder-tree/folder-tree.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PaginationModule } from "ngx-bootstrap/pagination";
     AssetDetailsComponent,
     FileIconPipe,
     FileSizePipe,
+    SubFolderComponent,
   ],
   imports: [
     CommonModule,

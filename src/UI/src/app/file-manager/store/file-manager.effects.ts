@@ -31,6 +31,8 @@ import {
   fetchTotalOccupiedStorageSuccess,
   fetchStorageStatusByAssetType,
   fetchStorageStatusByAssetTypeSuccess,
+  fetchFolderTree,
+  fetchFolderTreeSuccess,
 } from "./file-manager.actions";
 import { from, of } from "rxjs";
 import {
@@ -335,8 +337,6 @@ export class FileManagerEffects {
     this.actions$.pipe(
       ofType(removeTag),
       mergeMap((param) => {
-        console.log(param);
-
         return this.assetsService
           .removeTagFromAsset({
             assetId: param.assetId,
@@ -374,6 +374,22 @@ export class FileManagerEffects {
           map((response) => {
             return fetchStorageStatusByAssetTypeSuccess({
               storageStatusByAssetType: response,
+            });
+          }),
+          catchError((error) => of(setError({ error })))
+        )
+      )
+    )
+  );
+
+  fetchFolderTree = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchFolderTree),
+      mergeMap(() =>
+        this.folderService.getFoldersWithStructure().pipe(
+          map((structuredFolders) => {
+            return fetchFolderTreeSuccess({
+              folderTree: structuredFolders,
             });
           }),
           catchError((error) => of(setError({ error })))
