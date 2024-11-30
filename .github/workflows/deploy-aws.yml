@@ -73,7 +73,7 @@ jobs:
       # - name: Install .NET
       #   uses: actions/setup-dotnet@v4
       #   with:
-      #     global-json-file: ./src/Web/global.json
+      #     global-json-file: ./global.json
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -86,22 +86,29 @@ jobs:
       #   run: |
       #     aws cloudformation deploy --stack-name ${{ vars.AWS_STACK_NAME }} --template-file ./.aws/cloudformation/main.yaml --parameter-overrides EnvironmentName=${{ inputs.environmentName }} SQLAdminUsername=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }} SQLAdminPassword=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }} ProjectName=${{ vars.PROJECT_NAME }} ResourceNameSuffix=${{ vars.AWS_RESOURCE_NAME_SUFFIX }} KeyName=${{ vars.AWS_EC2_SSH_KEY_NAME }}
 
-      - name: Create database if not exists
-        run: |
-          aws rds describe-db-instances --db-instance-identifier ${{ vars.AWS_RDS_SQLSERVER_DB_NAME }} || \
-          aws rds create-db-instance --db-instance-identifier ${{ vars.AWS_RDS_SQLSERVER_DB_NAME }} --db-instance-class db.t2.micro --engine sqlserver-ex --master-username ${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }} --master-user-password ${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }} --allocated-storage 20
+      # - name: Create database if not exists
+      #   run: |
+      #     aws rds describe-db-instances --db-instance-identifier ${{ vars.AWS_RDS_SQLSERVER_DB_NAME }} || \
+      #     aws rds create-db-instance --db-instance-identifier ${{ vars.AWS_RDS_SQLSERVER_DB_NAME }} --db-instance-class db.t2.micro --engine sqlserver-ex --master-username ${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }} --master-user-password ${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }} --allocated-storage 20
 
-      - name: Deploy database migration
-        run: |
-          unzip -o ./efbundle/efbundle.zip
-          echo '{ "ConnectionStrings": { "DefaultConnection": "" } }' > appsettings.json
-          ./efbundle.exe --connection "Server=${{ vars.AWS_SQL_SERVER_ENDPOINT }};Initial Catalog=${{ vars.AWS_RDS_SQLSERVER_DB_NAME }};Persist Security Info=False;User ID=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }};Password=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" --migrate --verbose
+      # - name: Deploy database migration
+      #   run: |
+      #     unzip -o ./efbundle/efbundle.zip
+      #     echo '{ "ConnectionStrings": { "DefaultConnection": "" } }' > appsettings.json
+      #     ./efbundle.exe --connection "Server=${{ vars.AWS_SQL_SERVER_ENDPOINT }};Initial Catalog=${{ vars.AWS_RDS_SQLSERVER_DB_NAME }};Persist Security Info=False;User ID=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }};Password=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" --migrate --verbose
 
-      - name: Deploy .NET WebAPI to EC2
+      # - name: Deploy .NET WebAPI to EC2
+      #   run: |
+      #     aws ec2 describe-instances --filters "Name=tag:Name,Values=${{ vars.EC2_INSTANCE_NAME }}" --query "Reservations[*].Instances[*].InstanceId" --output text > instance_id.txt
+      #     INSTANCE_ID=$(cat instance_id.txt)
+      #     aws ssm send-command --instance-ids $INSTANCE_ID --document-name "AWS-RunShellScript" --comment "Deploy .NET WebAPI" --parameters commands="cd /var/www/${{ vars.PROJECT_NAME }} && git pull && dotnet publish -c Release -o out && sudo systemctl restart kestrel-${{ vars.PROJECT_NAME }}.service"
+
+      - name: Run dotnet publish
         run: |
-          aws ec2 describe-instances --filters "Name=tag:Name,Values=${{ vars.EC2_INSTANCE_NAME }}" --query "Reservations[*].Instances[*].InstanceId" --output text > instance_id.txt
-          INSTANCE_ID=$(cat instance_id.txt)
-          aws ssm send-command --instance-ids $INSTANCE_ID --document-name "AWS-RunShellScript" --comment "Deploy .NET WebAPI" --parameters commands="cd /var/www/${{ vars.PROJECT_NAME }} && git pull && dotnet publish -c Release -o out && sudo systemctl restart kestrel-${{ vars.PROJECT_NAME }}.service"
+          dotnet publish --configuration Release --runtime win-x86 --self-contained --output ./publish
+          cd publish
+          zip -r ./publish.zip .
+        working-directory: ./src/Web/
 
       - name: Notify deployment success
         run: echo "Deployment to ${{ inputs.environmentName }} environment was successful!"
