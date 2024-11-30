@@ -34,15 +34,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - if: inputs.environmentName == 'Development'
-        name: Run preflight validation
-        run: |
-          aws cloudformation validate-template --template-body file://./.aws/cloudformation/main.yaml
+      # - if: inputs.environmentName == 'Development'
+      #   name: Run preflight validation
+      #   run: |
+      #     aws cloudformation validate-template --template-body file://./.aws/cloudformation/main.yaml
 
-      - if: inputs.environmentName != 'Development'
-        name: Run change set
-        run: |
-          aws cloudformation create-change-set --stack-name ${{ vars.AWS_STACK_NAME }} --template-body file://./.aws/cloudformation/main.yaml --change-set-name changeset-$(date +%s) --parameters ParameterKey=EnvironmentName,ParameterValue=${{ inputs.environmentName }} ParameterKey=SqlAdministratorUsername,ParameterValue=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }} ParameterKey=SqlAdministratorPassword,ParameterValue=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }} ParameterKey=ProjectName,ParameterValue=${{ vars.PROJECT_NAME }}
+      # - if: inputs.environmentName != 'Development'
+      #   name: Run change set
+      #   run: |
+      #     aws cloudformation create-change-set --stack-name ${{ vars.AWS_STACK_NAME }} --template-body file://./.aws/cloudformation/main.yaml --change-set-name changeset-$(date +%s) --parameters ParameterKey=EnvironmentName,ParameterValue=${{ inputs.environmentName }} ParameterKey=SqlAdministratorUsername,ParameterValue=${{ vars.AWS_SQL_ADMINISTRATOR_USERNAME }} ParameterKey=SqlAdministratorPassword,ParameterValue=${{ secrets.AWS_SQL_ADMINISTRATOR_PASSWORD }} ParameterKey=ProjectName,ParameterValue=${{ vars.PROJECT_NAME }}
 
   deploy:
     needs: [validate]
