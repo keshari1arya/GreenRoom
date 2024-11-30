@@ -70,10 +70,10 @@ jobs:
       - uses: actions/download-artifact@v4
         name: Download artifacts
 
-      - name: Install .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: ./src/Web/global.json
+      # - name: Install .NET
+      #   uses: actions/setup-dotnet@v4
+      #   with:
+      #     global-json-file: ./src/Web/global.json
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
