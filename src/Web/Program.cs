@@ -16,7 +16,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    await app.InitialiseDatabaseAsync();
+    // Uncomment the following line to use the local environment
+    // await app.InitialiseDatabaseAsync();
 }
 else
 {
