@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: /src/Web/publish/publish.zip
-    destination: /var/www/yourapp
+  - source: /src/Web/publish
+    destination: /var/www/greenroom
 
 hooks:
   ApplicationStart:
