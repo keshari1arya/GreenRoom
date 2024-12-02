@@ -1,0 +1,21 @@
+version: 0.0
+os: linux
+files:
+  - source: /src/Web/publish/publish.zip
+    destination: /var/www/yourapp
+
+hooks:
+  ApplicationStart:
+    - script: |
+        #!/bin/bash
+        echo "Starting server"
+        systemctl start yourapp.service
+      timeout: 300
+      runas: root
+  ValidateService:
+    - script: |
+        #!/bin/bash
+        echo "Validating service"
+        systemctl status yourapp.service
+      timeout: 300
+      runas: root
