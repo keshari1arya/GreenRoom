@@ -6,16 +6,10 @@ files:
 
 hooks:
   ApplicationStart:
-    - script: |
-        #!/bin/bash
-        echo "Starting server"
-        systemctl start yourapp.service
+    - location: ./.aws/scripts/app-start.sh
       timeout: 300
       runas: root
-  ValidateService:
-    - script: |
-        #!/bin/bash
-        echo "Validating service"
-        systemctl status yourapp.service
-      timeout: 300
-      runas: root
+  # ValidateService:
+  #   - location: ./.aws/scripts/validate-service.sh
+  #     timeout: 300
+  #     runas: root
