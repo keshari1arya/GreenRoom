@@ -6,7 +6,7 @@ files:
 
 hooks:
   ApplicationStart:
-    - location: ./.aws/scripts/app-start.sh
+    - location: ./.aws/deployment-scripts/app-start.sh
       timeout: 300
       runas: root
   # ValidateService:
