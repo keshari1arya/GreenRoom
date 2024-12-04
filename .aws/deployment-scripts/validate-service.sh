@@ -4,7 +4,7 @@
 
 # Check if the application is running
 APP_NAME="GreenRoom"
-APP_PORT=8080
+APP_PORT=5000
 
 if lsof -i:$APP_PORT | grep -q $APP_NAME; then
     echo "Application $APP_NAME is running on port $APP_PORT."
