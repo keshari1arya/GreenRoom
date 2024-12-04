@@ -32,5 +32,5 @@ artifacts:
   files:
     - src/Web/publish/**/*
     - appspec.yml
-    - .aws/deployment-scripts/**/*
+    - aws/deployment-scripts/**/*
     - README.md

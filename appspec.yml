@@ -5,7 +5,7 @@ files:
     destination: /var/www
   - source: /src/deployment-scripts/greenroom-api.service
     destination: /etc/systemd/system
-  - source: /.aws/deployment-scripts
+  - source: /aws/deployment-scripts
   - destination: /deployment-scripts
 
 hooks:
@@ -22,7 +22,7 @@ hooks:
       timeout: 300
       runas: root
   # ValidateService:
-  #   - location: ./.aws/scripts/validate-service.sh
+  #   - location: ./aws/scripts/validate-service.sh
   #     timeout: 300
   #     runas: root
   # AfterInstall:
