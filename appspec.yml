@@ -6,7 +6,7 @@ files:
   - source: src/deployment-scripts/greenroom-api.service
     destination: /etc/systemd/system
   - source: aws/deployment-scripts
-  - destination: /deployment-scripts
+    destination: /deployment-scripts
 
 hooks:
   BeforeInstall:
