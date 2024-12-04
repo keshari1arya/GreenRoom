@@ -1,11 +1,11 @@
 version: 0.0
 os: linux
 files:
-  - source: /src/Web/publish
+  - source: src/Web/publish
     destination: /var/www
-  - source: /src/deployment-scripts/greenroom-api.service
+  - source: src/deployment-scripts/greenroom-api.service
     destination: /etc/systemd/system
-  - source: /aws/deployment-scripts
+  - source: aws/deployment-scripts
   - destination: /deployment-scripts
 
 hooks:
