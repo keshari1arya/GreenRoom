@@ -8,15 +8,15 @@ files:
 
 hooks:
   BeforeInstall:
-    - location: ./.aws/deployment-scripts/before-install.sh
+    - location: /src/deployment-scripts/before-install.sh
       timeout: 300
       runas: root
   ApplicationStop:
-    - location: ./.aws/deployment-scripts/app-stop.sh
+    - location: /src/deployment-scripts/app-stop.sh
       timeout: 300
       runas: root
   ApplicationStart:
-    - location: ./.aws/deployment-scripts/app-start.sh
+    - location: /src/deployment-scripts/app-start.sh
       timeout: 300
       runas: root
   # ValidateService:
