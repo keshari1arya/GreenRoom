@@ -1,0 +1,80 @@
+<div>
+  <div class="custom-accordion">
+    <!-- Root Level -->
+    <a
+      class="text-body fw-medium py-1 d-flex align-items-center"
+      [attr.aria-expanded]="!isExpanded"
+      data-toggle="collapse"
+      href="javascript:void(0);"
+      role="button"
+      aria-expanded="false"
+      aria-controls="categories-collapse"
+      (click)="showTreeFolders()"
+    >
+      <i class="mdi mdi-folder font-size-16 text-warning me-2"></i>
+      Home
+      <i
+        class="mdi ms-auto"
+        [ngClass]="isExpanded ? 'mdi mdi-chevron-down' : 'mdi mdi-chevron-up'"
+        (click)="isExpanded = !isExpanded"
+      ></i>
+    </a>
+    <div
+      class="collapse show"
+      id="categories-collapse"
+      [class.show]="isExpanded"
+    >
+      <ul class="list-unstyled mb-0">
+        <ng-container
+          *ngTemplateOutlet="
+            folderTreeTemplate;
+            context: { $implicit: folders }
+          "
+        ></ng-container>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Recursive Template -->
+<ng-template #folderTreeTemplate let-folderList>
+  <li *ngFor="let folder of folderList">
+    <a
+      class="text-decoration-none d-flex align-items-center w-100"
+      [attr.aria-expanded]="!isCollapsed[folder.id]"
+      data-toggle="collapse"
+      aria-expanded="false"
+      (click)="isCollapsed[folder.id] = !isCollapsed[folder.id]"
+    >
+      <i class="mdi mdi-folder font-size-16 text-warning me-2"></i>
+      <span class="text-truncate overflow-hidden" style="max-width: 200px">
+        {{ folder.name }}
+      </span>
+      <i
+        class="mdi ms-auto"
+        [ngClass]="
+          isCollapsed[folder.id] ? 'mdi mdi-chevron-down' : 'mdi mdi-chevron-up'
+        "
+      ></i>
+    </a>
+    <!-- Child Folders -->
+    <div
+      class="collapse"
+      id="categories-collapse-{{ folder.id }}"
+      [class.show]="isCollapsed[folder.id]"
+    >
+      <div class="card border-0 shadow-none ps-3 mb-0">
+        <ul class="list-unstyled mb-0">
+          <li *ngIf="folder.children && folder.children.length > 0">
+            <ng-container
+              *ngTemplateOutlet="
+                folderTreeTemplate;
+                context: { $implicit: folder.children }
+              "
+            ></ng-container>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </li>
+</ng-template>

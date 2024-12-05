@@ -31,6 +31,7 @@ export class FileManagerViewComponent {
   @Input() pathToRoot: PathToRootDto[] = [];
   @Input() trashedItems: TrashFolderAndFilesDto[] = [];
   @Input() storageStatusByAssetType: BucketStorageStatusByAssetTypeDto[] = [];
+  @Input() folderTree: FolderDto[] = [];
 
   @Output() setCurrentFolderIdEvent = new EventEmitter<number>();
   @Output() trashFoldersEvent = new EventEmitter<number[]>();
@@ -45,7 +46,7 @@ export class FileManagerViewComponent {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   radialoptions: any;
-  public isCollapsed: boolean = false;
+  public isCollapsed: boolean = true;
   dismissible = true;
 
   modalRef?: BsModalRef;
@@ -159,14 +160,20 @@ export class FileManagerViewComponent {
     this.showComponents(["folders", "assets"]);
   }
 
-  selectedFile: File | null = null;
+  selectedFile: File[] = [];
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedFile = Array.from(input.files);
+      console.log(this.selectedFile);
+    }
   }
 
   onUpload() {
     if (this.selectedFile) {
-      this.fileUploadEvent.emit(this.selectedFile);
+      this.selectedFile.forEach((file) => {
+        this.fileUploadEvent.emit(file);
+      });
       this.modalRef?.hide();
     }
   }

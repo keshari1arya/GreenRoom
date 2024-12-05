@@ -53,3 +53,8 @@ export const selectStorageStatusByAssetType = createSelector(
   selectFileManagerState,
   (state: FileManagerState) => state.storageStatusByAssetType
 );
+
+export const selectFolderTree = createSelector(
+  selectFileManagerState,
+  (state: FileManagerState) => state.folderTree
+);
