@@ -31,9 +31,21 @@ public class GetFoldersQueryHandler : IRequestHandler<GetFoldersQuery, IEnumerab
     public async Task<IEnumerable<FolderDto>> Handle(GetFoldersQuery request, CancellationToken cancellationToken)
     {
         var folders = await _context.Folders
-            .Include(x => x.Assets)
             .Where(x => x.ParentId == request.FolderId && !x.IsTrashed)
-            .ProjectTo<FolderDto>(_mapper.ConfigurationProvider)
+            .Select(x => new FolderDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Path = x.Path,
+                Thumbnail = x.Thumbnail,
+                Size = x.Assets != null ? x.Assets.Sum(a => a.Size) : 0,
+                AssetCount = x.Assets != null ? x.Assets.Count : 0,
+                Tags = x.FolderTags.Select(ft => new TagDto
+                {
+                    Id = ft.Tag != null ? ft.Tag.Id : 0,
+                    Name = ft.Tag != null ? ft.Tag.Name ?? "" : ""
+                }).ToArray()
+            })
             .ToListAsync(cancellationToken);
         return folders;
     }
