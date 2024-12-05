@@ -13,7 +13,6 @@ hooks:
     - location: /var/www/deployment-scripts/before-install.sh
       timeout: 300
       runas: root
-      script: sudo chmod +x /var/www/deployment-scripts/before-install.sh
   ApplicationStop:
     - location: /var/www/deployment-scripts/app-stop.sh
       timeout: 300
