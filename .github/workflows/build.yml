@@ -2,7 +2,7 @@ name: Build
 
 on:
   pull_request:
-    branches: [test/deployments]
+    branches: [main]
     paths-ignore:
       - ".scripts/**"
       - .gitignore

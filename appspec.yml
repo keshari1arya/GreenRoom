@@ -6,19 +6,19 @@ files:
   - source: aws/deployment-scripts/greenroom-api.service
     destination: /etc/systemd/system
   - source: aws/deployment-scripts
-    destination: /deployment-scripts
+    destination: /var/www/deployment-scripts
 
 hooks:
   BeforeInstall:
-    - location: /deployment-scripts/before-install.sh
+    - location: /var/www/deployment-scripts/before-install.sh
       timeout: 300
       runas: root
   ApplicationStop:
-    - location: /deployment-scripts/app-stop.sh
+    - location: /var/www/deployment-scripts/app-stop.sh
       timeout: 300
       runas: root
   ApplicationStart:
-    - location: /deployment-scripts/app-start.sh
+    - location: /var/www/deployment-scripts/app-start.sh
       timeout: 300
       runas: root
   # ValidateService:
