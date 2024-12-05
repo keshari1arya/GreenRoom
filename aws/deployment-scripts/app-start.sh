@@ -14,7 +14,7 @@
 # echo "Application started successfully."
 
 echo "Stopping the GreenRoom API service..."
-systemctl stop greenroom-api.service
+sudo systemctl stop greenroom-api.service
 
 echo "Starting the GreenRoom API service..."
-systemctl start greenroom-api.service
+sudo systemctl start greenroom-api.service
