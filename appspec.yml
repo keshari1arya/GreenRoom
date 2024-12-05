@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: aws/deployment-scripts
-    destination: /var/www/deployment-scripts
+    destination: /var/www
   - source: src/Web/publish
     destination: /var/www
   - source: aws/deployment-scripts/greenroom-api.service
