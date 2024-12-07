@@ -40,7 +40,7 @@ public class GetAssetDetailsQueryHandler : IRequestHandler<GetAssetDetailsQuery,
             .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
 
         var mappedAsset = _mapper.Map<AssetDetailsDto>(asset);
-        var expiryInSeconds = asset!.Size / 1000000;
+        var expiryInSeconds = asset!.Size / 1000;
         var path = asset!.Name;
         if (asset.FolderId != null)
         {
