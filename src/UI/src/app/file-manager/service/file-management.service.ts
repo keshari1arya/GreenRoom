@@ -10,6 +10,7 @@ import {
 import { RootReducerState } from "src/app/store";
 import { fetchAssetsByFolderIdData } from "../store/file-manager.actions";
 import { environment } from "src/environments/environment";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
   providedIn: "root",
@@ -19,7 +20,8 @@ export class FileManagementService {
     private storageManagementService: StorageManagementsService,
     private assetService: AssetsService,
     private http: HttpClient,
-    private store: Store<{ data: RootReducerState }>
+    private store: Store<{ data: RootReducerState }>,
+    private toastr: ToastrService
   ) {}
 
   // This method will be used to download the file
@@ -63,6 +65,10 @@ export class FileManagementService {
           .subscribe((res) => {
             this.store.dispatch(fetchAssetsByFolderIdData({ folderId }));
             console.log("Asset created successfully", res);
+            this.toastr.success("File uploaded successfully", "Success", {
+              closeButton: true,
+              progressBar: true,
+            });
           });
       });
     });
