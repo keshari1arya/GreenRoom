@@ -33,15 +33,17 @@ import {
   fetchStorageStatusByAssetTypeSuccess,
   fetchFolderTree,
   fetchFolderTreeSuccess,
+  uploadFolderWithFolderAndFiles,
 } from "./file-manager.actions";
-import { from, of } from "rxjs";
+import { firstValueFrom, from, of } from "rxjs";
 import {
   AssetsService,
   FoldersService,
   StorageManagementsService,
 } from "src/app/lib/openapi-generated/services";
 import { ToastrService } from "ngx-toastr";
-
+import BulkFolder from "../model/bulkfolder.model";
+import { FileManagementService } from "../service/file-management.service";
 @Injectable()
 export class FileManagerEffects {
   fetchFolders$ = createEffect(() =>
@@ -398,11 +400,47 @@ export class FileManagerEffects {
     )
   );
 
+  uploadFolderWithFolderAndFiles = createEffect(() =>
+    this.actions$.pipe(
+      ofType(uploadFolderWithFolderAndFiles),
+      mergeMap((param) =>
+        from(this.BulkUploadFolderAndFiles(param.parentId, param.folder)).pipe(
+          map(() => {
+            return {
+              type: "Folder uploaded successfully",
+            };
+          })
+        )
+      )
+    )
+  );
+
+  async BulkUploadFolderAndFiles(parentId: number, folder: BulkFolder) {
+    let parentFolderId = await firstValueFrom(
+      this.folderService.createFolder({
+        body: {
+          name: folder.name,
+          parentFolderId: parentId,
+        },
+      })
+    );
+    folder.children.forEach(async (child) => {
+      if (child.type === "folder") {
+        await this.BulkUploadFolderAndFiles(parentFolderId, child);
+      }
+
+      if (child.type === "file") {
+        this.fileManagementService.uploadFile(child.files, parentFolderId);
+      }
+    });
+  }
+
   constructor(
     private actions$: Actions,
     private folderService: FoldersService,
     private assetsService: AssetsService,
     private storageService: StorageManagementsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private fileManagementService: FileManagementService
   ) {}
 }

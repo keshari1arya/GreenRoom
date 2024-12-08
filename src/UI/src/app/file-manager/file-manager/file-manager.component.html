@@ -543,15 +543,47 @@
   </div>
   <div class="modal-body">
     <div class="mb-3">
-      <label class="form-label" for="customFile"
-        >select single or multiple files</label
-      >
+      <div class="d-flex">
+        <label class="form-label" for="customFile"
+          >Select File or Folder 📂</label
+        >
+        <div class="d-flex ms-auto">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="file"
+              name="fileFolder"
+              [(ngModel)]="selectedOption"
+              [value]="'file'"
+            />
+            <label class="form-check-label" for="file">File</label>
+          </div>
+
+          <div class="form-check ms-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="folder"
+              name="fileFolder"
+              [(ngModel)]="selectedOption"
+              [value]="'folder'"
+            />
+            <label class="form-check-label" for="folder">Folder</label>
+          </div>
+        </div>
+      </div>
       <input
         type="file"
         class="form-control"
         id="customFile"
-        multiple
-        (change)="onFileSelected($event)"
+        [multiple]="selectedOption === 'file' ? true : null"
+        [attr.webkitdirectory]="selectedOption === 'folder' ? true : null"
+        (change)="
+          selectedOption === 'file'
+            ? onFileSelected($event)
+            : onFolderSelected($event)
+        "
       />
     </div>
   </div>
@@ -564,7 +596,12 @@
     >
       Close
     </button>
-    <button class="btn btn-primary" (click)="onUpload()">Upload</button>
+    <button
+      class="btn btn-primary"
+      (click)="selectedOption === 'file' ? onUploadFiles() : onUploadFolder()"
+    >
+      Upload
+    </button>
   </div>
 </ng-template>
 <!-- </div> -->
