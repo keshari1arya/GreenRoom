@@ -35,8 +35,8 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   getViewerUrl(asset: string): viewerType {
-    for (const key in this.supportFileTypes2) {
-      if (this.supportFileTypes2[key].includes(asset)) {
+    for (const key in this.CheckViewerSupportedFiles) {
+      if (this.CheckViewerSupportedFiles[key].includes(asset)) {
         return key as viewerType;
       }
     }
@@ -50,7 +50,7 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   canShow(name: string) {
-    return this.supportedFileTypes.includes(name?.split(".").pop());
+    return this.availablePreviewFileType.includes(name?.split(".").pop());
   }
 
   ngOnDestroy(): void {
@@ -65,7 +65,7 @@ export class AssetDetailsComponent implements OnInit {
     this.store.dispatch(addTag({ tag: $event.value, assetId: this.assetId }));
   }
 
-  private supportedFileTypes = [
+  private availablePreviewFileType = [
     "pdf",
     "jpg",
     "jpeg",
@@ -84,7 +84,7 @@ export class AssetDetailsComponent implements OnInit {
     "gif",
   ];
 
-  private supportFileTypes2 = {
+  private CheckViewerSupportedFiles = {
     url: [
       "pdf",
       "jpg",
@@ -99,7 +99,4 @@ export class AssetDetailsComponent implements OnInit {
     ],
     google: ["docx", "xlsx", "pptx", "doc", "xls", "ppt"],
   };
-
-  tempUrl =
-    "https://docs.google.com/presentation/d/1bDRBcwnwGtm_80WX1uDE9sXwDPXQl7gnDAQpvbwtlwU/edit?usp=sharing";
 }
