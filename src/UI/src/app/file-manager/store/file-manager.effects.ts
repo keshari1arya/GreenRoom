@@ -42,7 +42,7 @@ import {
   StorageManagementsService,
 } from "src/app/lib/openapi-generated/services";
 import { ToastrService } from "ngx-toastr";
-import BulkFolder from "../model/bulkfolder.model";
+import BulkFolder from "../model/bulkFolder.model";
 import { FileManagementService } from "../service/file-management.service";
 @Injectable()
 export class FileManagerEffects {
@@ -400,7 +400,7 @@ export class FileManagerEffects {
     )
   );
 
-  uploadFolderWithFolderAndFiles = createEffect(() =>
+  uploadFolderWithFolderAndFiles$ = createEffect(() =>
     this.actions$.pipe(
       ofType(uploadFolderWithFolderAndFiles),
       mergeMap((param) =>
@@ -415,7 +415,7 @@ export class FileManagerEffects {
     )
   );
 
-  async BulkUploadFolderAndFiles(parentId: number, folder: BulkFolder) {
+  private async BulkUploadFolderAndFiles(parentId: number, folder: BulkFolder) {
     let parentFolderId = await firstValueFrom(
       this.folderService.createFolder({
         body: {

@@ -9,6 +9,7 @@ import {
   removeTag,
 } from "../store/file-manager.actions";
 import { selectAssetDetails } from "../store/file-manager-selector";
+import { viewerType } from "ngx-doc-viewer";
 
 @Component({
   selector: "app-asset-details",
@@ -19,7 +20,6 @@ export class AssetDetailsComponent implements OnInit {
   breadCrumbItems = [{ label: "Asset" }, { label: "Details", active: true }];
   asset$ = this.store.select(selectAssetDetails);
   assetId: number;
-
   constructor(
     private store: Store<FileManagerState>,
     private route: ActivatedRoute
@@ -32,6 +32,14 @@ export class AssetDetailsComponent implements OnInit {
         this.store.dispatch(fetchAssetDetails({ assetId: this.assetId }));
       }
     });
+  }
+
+  getViewerUrl(asset: string): viewerType {
+    for (const key in this.supportFileTypes2) {
+      if (this.supportFileTypes2[key].includes(asset)) {
+        return key as viewerType;
+      }
+    }
   }
 
   getViewerType(name: string) {
@@ -70,7 +78,27 @@ export class AssetDetailsComponent implements OnInit {
     "ppt",
     "html",
     "txt",
+    "bmp",
+    "svg",
+    "ico",
+    "gif",
   ];
+
+  private supportFileTypes2 = {
+    url: [
+      "pdf",
+      "jpg",
+      "jpeg",
+      "png",
+      "gif",
+      "bmp",
+      "svg",
+      "ico",
+      "html",
+      "txt",
+    ],
+    google: ["docx", "xlsx", "pptx", "doc", "xls", "ppt"],
+  };
 
   tempUrl =
     "https://docs.google.com/presentation/d/1bDRBcwnwGtm_80WX1uDE9sXwDPXQl7gnDAQpvbwtlwU/edit?usp=sharing";

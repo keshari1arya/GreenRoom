@@ -577,7 +577,7 @@
         type="file"
         class="form-control"
         id="customFile"
-        [multiple]="selectedOption === 'file' ? true : null"
+        [multiple]="selectedOption === 'file'"
         [attr.webkitdirectory]="selectedOption === 'folder' ? true : null"
         (change)="
           selectedOption === 'file'

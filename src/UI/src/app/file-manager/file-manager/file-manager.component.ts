@@ -23,7 +23,7 @@ import {
 import { selectPinnedFolders } from "../store/file-manager-selector";
 import { PageChangedEvent } from "ngx-bootstrap/pagination";
 import { ActivatedRoute } from "@angular/router";
-import BulkFolder from "../model/bulkfolder.model";
+import BulkFolder from "../model/bulkFolder.model";
 @Component({
   selector: "app-file-manager",
   templateUrl: "./file-manager.component.html",
@@ -68,6 +68,7 @@ export class FileManagerViewComponent {
   pinnedFolderList$: Observable<FolderDto[]>;
 
   selectedOption: string = "file";
+  folderStructure: BulkFolder;
   constructor(
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
@@ -78,7 +79,6 @@ export class FileManagerViewComponent {
   }
 
   ngOnInit(): void {
-    this.currentFolderId = this.route.snapshot.queryParams.folderId || null;
     this.breadCrumbItems = [
       { label: "Apps" },
       { label: "File Manager", active: true },
@@ -175,7 +175,6 @@ export class FileManagerViewComponent {
     }
   }
 
-  folderStructure: BulkFolder;
   onFolderSelected(event: any) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
@@ -211,10 +210,10 @@ export class FileManagerViewComponent {
       });
     });
 
-    return this.objectToArray(root);
+    return this.fileListToArray(root);
   }
 
-  objectToArray(obj: Record<string, BulkFolder>): BulkFolder {
+  private fileListToArray(obj: Record<string, BulkFolder>): BulkFolder {
     const [key, node] = Object.entries(obj)[0];
 
     if (!node) {
@@ -226,7 +225,7 @@ export class FileManagerViewComponent {
       children: node.children
         ? Object.values(
             node.children as unknown as Record<string, BulkFolder>
-          ).map((child) => this.objectToArray({ [child.name]: child }))
+          ).map((child) => this.fileListToArray({ [child.name]: child }))
         : undefined,
     };
   }

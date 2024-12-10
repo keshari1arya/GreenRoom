@@ -13,27 +13,11 @@
                   <div class="text-center">
                     <div class="my-5">
                       <div>
-                        @if (asset.name.split(".").pop() == "png" ||
-                        asset.name.split(".").pop() == "jpg" ||
-                        asset.name.split(".").pop() == "jpeg" ||
-                        asset.name.split(".").pop() == "pdf" ||
-                        asset.name.split(".").pop() == "txt" ||
-                        asset.name.split(".").pop() == "gif") {
+                        @if ( canShow(asset.name) ) {
                         <!-- TODO: Remove this replacement of http with https -->
                         <ngx-doc-viewer
                           [url]="asset.path"
-                          [viewer]="'url'"
-                          style="height: 80vh"
-                        ></ngx-doc-viewer>
-                        } @if(asset.name.split(".").pop() == "ppt" ||
-                        asset.name.split(".").pop() == "pptx" ||
-                        asset.name.split(".").pop() == "doc" ||
-                        asset.name.split(".").pop() == "docx" ||
-                        asset.name.split(".").pop() == "xls" ||
-                        asset.name.split(".").pop() == "xlsx") {
-                        <ngx-doc-viewer
-                          [url]="asset.path"
-                          [viewer]="'google'"
+                          [viewer]="getViewerUrl(asset.name.split('.').pop())"
                           style="height: 80vh"
                         ></ngx-doc-viewer>
                         } @else {

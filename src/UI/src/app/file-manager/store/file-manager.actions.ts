@@ -10,7 +10,7 @@ import {
   TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
 import { CreateFolder$Params } from "src/app/lib/openapi-generated/fn/folders/create-folder";
-import BulkFolder from "../model/bulkfolder.model";
+import BulkFolder from "../model/bulkFolder.model";
 
 // set error
 export const setError = createAction(
