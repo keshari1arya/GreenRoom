@@ -9,6 +9,7 @@ import {
   removeTag,
 } from "../store/file-manager.actions";
 import { selectAssetDetails } from "../store/file-manager-selector";
+import { viewerType } from "ngx-doc-viewer";
 
 @Component({
   selector: "app-asset-details",
@@ -20,6 +21,21 @@ export class AssetDetailsComponent implements OnInit {
   asset$ = this.store.select(selectAssetDetails);
   assetId: number;
 
+  private viewerSupportedFileFormat = {
+    url: [
+      "pdf",
+      "jpg",
+      "jpeg",
+      "png",
+      "gif",
+      "bmp",
+      "svg",
+      "ico",
+      "html",
+      "txt",
+    ],
+    google: ["docx", "xlsx", "pptx", "doc", "xls", "ppt"],
+  };
   constructor(
     private store: Store<FileManagerState>,
     private route: ActivatedRoute
@@ -34,6 +50,14 @@ export class AssetDetailsComponent implements OnInit {
     });
   }
 
+  getViewerUrl(asset: string): viewerType {
+    for (const key in this.viewerSupportedFileFormat) {
+      if (this.viewerSupportedFileFormat[key].includes(asset)) {
+        return key as viewerType;
+      }
+    }
+  }
+
   getViewerType(name: string) {
     const d = {
       pdf: ["pdf"],
@@ -42,7 +66,11 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   canShow(name: string) {
-    return this.supportedFileTypes.includes(name?.split(".").pop());
+    for (const key in this.viewerSupportedFileFormat) {
+      if (this.viewerSupportedFileFormat[key].includes(name.split(".").pop())) {
+        return true;
+      }
+    }
   }
 
   ngOnDestroy(): void {
@@ -56,22 +84,4 @@ export class AssetDetailsComponent implements OnInit {
   addTag($event: any) {
     this.store.dispatch(addTag({ tag: $event.value, assetId: this.assetId }));
   }
-
-  private supportedFileTypes = [
-    "pdf",
-    "jpg",
-    "jpeg",
-    "png",
-    "docx",
-    "xlsx",
-    "pptx",
-    "doc",
-    "xls",
-    "ppt",
-    "html",
-    "txt",
-  ];
-
-  tempUrl =
-    "https://docs.google.com/presentation/d/1bDRBcwnwGtm_80WX1uDE9sXwDPXQl7gnDAQpvbwtlwU/edit?usp=sharing";
 }

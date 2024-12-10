@@ -13,11 +13,11 @@
                   <div class="text-center">
                     <div class="my-5">
                       <div>
-                        @if (canShow(asset.name)) {
+                        @if ( canShow(asset.name) ) {
                         <!-- TODO: Remove this replacement of http with https -->
                         <ngx-doc-viewer
                           [url]="asset.path"
-                          [viewer]="'url'"
+                          [viewer]="getViewerUrl(asset.name.split('.').pop())"
                           style="height: 80vh"
                         ></ngx-doc-viewer>
                         } @else {
