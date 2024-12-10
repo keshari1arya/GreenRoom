@@ -16,10 +16,14 @@ import {
   BucketStorageStatusByAssetTypeDto,
   PaginatedListOfAssetDto,
 } from "src/app/lib/openapi-generated/models";
-import { pinnedFolderList } from "../store/file-manager.actions";
+import {
+  pinnedFolderList,
+  uploadFolderWithFolderAndFiles,
+} from "../store/file-manager.actions";
 import { selectPinnedFolders } from "../store/file-manager-selector";
 import { PageChangedEvent } from "ngx-bootstrap/pagination";
-
+import { ActivatedRoute } from "@angular/router";
+import BulkFolder from "../model/bulkFolder.model";
 @Component({
   selector: "app-file-manager",
   templateUrl: "./file-manager.component.html",
@@ -63,10 +67,13 @@ export class FileManagerViewComponent {
 
   pinnedFolderList$: Observable<FolderDto[]>;
 
+  selectedOption: string = "file";
+  folderStructure: BulkFolder;
   constructor(
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
-    private store: Store
+    private store: Store,
+    private route: ActivatedRoute
   ) {
     this.pinnedFolderList$ = store.select(selectPinnedFolders);
   }
@@ -165,17 +172,82 @@ export class FileManagerViewComponent {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       this.selectedFile = Array.from(input.files);
-      console.log(this.selectedFile);
     }
   }
 
-  onUpload() {
+  onFolderSelected(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      const fileList = Array.from(input.files);
+      const tree = this.generateTreeStructure(fileList);
+      this.folderStructure = tree;
+    }
+  }
+
+  generateTreeStructure(files: File[]): BulkFolder {
+    const root: Record<string, BulkFolder> = {};
+
+    files.forEach((file) => {
+      const parts = file.webkitRelativePath.split("/");
+      let currentLevel = root;
+
+      parts.forEach((part, index) => {
+        const isFile = index === parts.length - 1;
+        if (!currentLevel[part]) {
+          currentLevel[part] = {
+            name: part,
+            type: isFile ? "file" : "folder",
+            ...(isFile ? { files: file } : { children: [] }),
+          };
+        }
+
+        if (!isFile) {
+          currentLevel = currentLevel[part].children as unknown as Record<
+            string,
+            BulkFolder
+          >;
+        }
+      });
+    });
+
+    return this.fileListToArray(root);
+  }
+
+  private fileListToArray(obj: Record<string, BulkFolder>): BulkFolder {
+    const [key, node] = Object.entries(obj)[0];
+
+    if (!node) {
+      throw new Error("Input object is empty or invalid.");
+    }
+
+    return {
+      ...node,
+      children: node.children
+        ? Object.values(
+            node.children as unknown as Record<string, BulkFolder>
+          ).map((child) => this.fileListToArray({ [child.name]: child }))
+        : undefined,
+    };
+  }
+
+  onUploadFiles() {
     if (this.selectedFile) {
       this.selectedFile.forEach((file) => {
         this.fileUploadEvent.emit(file);
       });
       this.modalRef?.hide();
     }
+  }
+
+  onUploadFolder() {
+    this.currentFolderId = this.route.snapshot.queryParams.folderId || null;
+    this.store.dispatch(
+      uploadFolderWithFolderAndFiles({
+        parentId: this.currentFolderId,
+        folder: this.folderStructure,
+      })
+    );
+    this.modalRef?.hide();
   }
 
   onTrashedItemsClick() {

@@ -10,6 +10,7 @@ import {
   TrashFolderAndFilesDto,
 } from "src/app/lib/openapi-generated/models";
 import { CreateFolder$Params } from "src/app/lib/openapi-generated/fn/folders/create-folder";
+import BulkFolder from "../model/bulkFolder.model";
 
 // set error
 export const setError = createAction(
@@ -168,4 +169,9 @@ export const fetchFolderTree = createAction(
 export const fetchFolderTreeSuccess = createAction(
   "[FileManager] fetch Structured Folders success",
   props<{ folderTree: FolderDto[] }>()
+);
+
+export const uploadFolderWithFolderAndFiles = createAction(
+  "[FileManager] upload Folder with Folder and Files",
+  props<{ parentId: number; folder: BulkFolder }>()
 );
