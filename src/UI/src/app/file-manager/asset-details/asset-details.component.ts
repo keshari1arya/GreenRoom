@@ -20,6 +20,22 @@ export class AssetDetailsComponent implements OnInit {
   breadCrumbItems = [{ label: "Asset" }, { label: "Details", active: true }];
   asset$ = this.store.select(selectAssetDetails);
   assetId: number;
+
+  private viewerSupportedFileFormat = {
+    url: [
+      "pdf",
+      "jpg",
+      "jpeg",
+      "png",
+      "gif",
+      "bmp",
+      "svg",
+      "ico",
+      "html",
+      "txt",
+    ],
+    google: ["docx", "xlsx", "pptx", "doc", "xls", "ppt"],
+  };
   constructor(
     private store: Store<FileManagerState>,
     private route: ActivatedRoute
@@ -35,8 +51,8 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   getViewerUrl(asset: string): viewerType {
-    for (const key in this.CheckViewerSupportedFiles) {
-      if (this.CheckViewerSupportedFiles[key].includes(asset)) {
+    for (const key in this.viewerSupportedFileFormat) {
+      if (this.viewerSupportedFileFormat[key].includes(asset)) {
         return key as viewerType;
       }
     }
@@ -50,7 +66,11 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   canShow(name: string) {
-    return this.availablePreviewFileType.includes(name?.split(".").pop());
+    for (const key in this.viewerSupportedFileFormat) {
+      if (this.viewerSupportedFileFormat[key].includes(name.split(".").pop())) {
+        return true;
+      }
+    }
   }
 
   ngOnDestroy(): void {
@@ -64,39 +84,4 @@ export class AssetDetailsComponent implements OnInit {
   addTag($event: any) {
     this.store.dispatch(addTag({ tag: $event.value, assetId: this.assetId }));
   }
-
-  private availablePreviewFileType = [
-    "pdf",
-    "jpg",
-    "jpeg",
-    "png",
-    "docx",
-    "xlsx",
-    "pptx",
-    "doc",
-    "xls",
-    "ppt",
-    "html",
-    "txt",
-    "bmp",
-    "svg",
-    "ico",
-    "gif",
-  ];
-
-  private CheckViewerSupportedFiles = {
-    url: [
-      "pdf",
-      "jpg",
-      "jpeg",
-      "png",
-      "gif",
-      "bmp",
-      "svg",
-      "ico",
-      "html",
-      "txt",
-    ],
-    google: ["docx", "xlsx", "pptx", "doc", "xls", "ppt"],
-  };
 }
