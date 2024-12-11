@@ -10,7 +10,7 @@ public class Payments : EndpointGroupBase
             .MapPost(PaymentSuccess, "PaymentSuccess");
     }
 
-    public async Task PaymentSuccess(ISender sender, HttpContext httpContext)
+    private async Task PaymentSuccess(HttpContext httpContext, ISender sender)
     {
         var json = await new StreamReader(httpContext.Request.Body).ReadToEndAsync();
         var sigHeader = httpContext.Request.Headers["Stripe-Signature"];
