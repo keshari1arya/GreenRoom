@@ -19,5 +19,9 @@ public class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
             .Property(b => b.Price)
             .HasPrecision(18, 2)
             .IsRequired();
+
+        builder
+            .HasIndex(b => b.StripeProductId)
+            .IsUnique();
     }
 }

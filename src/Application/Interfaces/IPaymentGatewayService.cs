@@ -9,4 +9,5 @@ public interface IPaymentGatewayService
     void UpdateProduct(string productId, string productName, string? description, decimal price);
     void DeleteProduct(string productId);
     string PreparePayment(string productId, string customerId);
+    string ValidatePaymentAndGetProductId(string? signature, string? json, string? stripeWebhookSecret);
 }

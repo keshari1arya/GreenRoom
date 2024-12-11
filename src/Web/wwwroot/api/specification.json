@@ -772,6 +772,19 @@
         ]
       }
     },
+    "/api/Payments/PaymentSuccess": {
+      "post": {
+        "tags": [
+          "Payments"
+        ],
+        "operationId": "PaymentSuccess",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/StorageManagements/GeneratePresignedUrl": {
       "post": {
         "tags": [

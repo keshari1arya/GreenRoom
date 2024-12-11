@@ -32,7 +32,6 @@ export class SubscriptionListComponent implements OnInit {
   }
 
   purchase(id: number) {
-    // window.location.href = "https://www.google.com";
     this.store.dispatch(
       multitenantActions.prepareSubscriptionPurchase({ subscriptionId: id })
     );

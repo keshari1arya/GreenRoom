@@ -80,11 +80,42 @@ public class StripeService : IPaymentGatewayService
             SuccessUrl = "http://localhost:4200/subscription/success",
             CancelUrl = "http://localhost:4200/subscription",
             CustomerEmail = customerEmail,
+            Metadata = new Dictionary<string, string>
+            {
+                { "productId", productId },
+            },
         };
 
         var service = new SessionService();
         var session = service.Create(opt);
 
         return session.Url;
+    }
+
+    public string ValidatePaymentAndGetProductId(string? signature, string? json, string? stripeWebhookSecret)
+    {
+        try
+        {
+            var stripeEvent = EventUtility.ConstructEvent(json, signature, stripeWebhookSecret) ?? throw new Exception("Failed to construct event");
+
+            if (stripeEvent.Type == EventTypes.CheckoutSessionAsyncPaymentSucceeded
+                || stripeEvent.Type == EventTypes.PaymentIntentSucceeded)
+            {
+                if (stripeEvent.Data.Object is not Session session)
+                {
+                    throw new Exception("Failed to cast event data to session");
+                }
+
+                return session.Metadata["productId"];
+            }
+
+            throw new Exception("PaymentIntentSucceeded event not found");
+        }
+        catch (StripeException e)
+        {
+            // TODO: Log the exception e.Message
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 }

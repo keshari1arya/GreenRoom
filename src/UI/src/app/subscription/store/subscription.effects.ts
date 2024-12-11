@@ -5,13 +5,15 @@ import * as SubscriptionActions from "./subscription.actions";
 import { from, of } from "rxjs";
 import { SubscriptionService } from "src/app/lib/openapi-generated/services";
 import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class SubscriptionEffects {
   constructor(
     private actions$: Actions,
     private service: SubscriptionService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   loadSubscription$ = createEffect(() =>
@@ -86,6 +88,8 @@ export class SubscriptionEffects {
                 progressBar: true,
               }
             );
+
+            this.router.navigate(["/subscription"]);
             return SubscriptionActions.subscriptionCreateSuccess({
               subscriptionsId: createdSubscriptionId,
             });

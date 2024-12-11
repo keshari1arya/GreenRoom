@@ -21,6 +21,8 @@ public interface IApplicationDbContext
     DbSet<AssetTag> AssetTags { get; }
     DbSet<FolderTag> FolderTags { get; }
     DbSet<FolderPin> FolderPins { get; }
+    DbSet<Payment> Payments { get; }
+    DbSet<ApplicationConfigurations> ApplicationConfigurations { get; }
 
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
