@@ -31,19 +31,19 @@ public class SubscriptionPurchaseSuccessCommandHandler : IRequestHandler<Subscri
 
     public async Task Handle(SubscriptionPurchaseSuccessCommand request, CancellationToken cancellationToken)
     {
-        var stripeWebhookSecret = await _context.ApplicationConfigurations.FirstOrDefaultAsync(x => x.Key == ConfigurationKeys.StripeCheckoutSuccessWebhookKey, cancellationToken);
+        var stripeWebhookSecret = await _context.ApplicationConfigurations.AsNoTracking().FirstOrDefaultAsync(x => x.Key == ConfigurationKeys.StripeCheckoutSuccessWebhookKey, cancellationToken);
         Guard.Against.Null(stripeWebhookSecret, nameof(stripeWebhookSecret));
-
-        var stripeProductId = _paymentGatewayService.ValidatePaymentAndGetProductId(request.Signature, request.JsonBody, stripeWebhookSecret.Value);
-        var subscription = _context.Subscriptions.FirstOrDefault(x => x.StripeProductId == stripeProductId);
+        var metaData = _paymentGatewayService.ValidatePaymentAndGetSessionMetadata(request.Signature, request.JsonBody, stripeWebhookSecret.Value);
         TenantSubscription tenantSubscription = new()
         {
-            SubscriptionId = subscription!.Id,
-            TenantId = _multiTenancyService.CurrentTenantId,
+            SubscriptionId = Convert.ToInt32(metaData["subscriptionId"]),
+            TenantId = Guid.Parse(metaData["tenantId"]),
             StartDate = DateTime.Now,
             // TODO: For now we are giving a month of subscription
             // We need to change this to variable subscription period
             EndDate = DateTime.Now.AddMonths(1)
         };
+        await _context.TenantSubscriptions.AddAsync(tenantSubscription, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }
