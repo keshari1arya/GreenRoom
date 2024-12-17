@@ -31,6 +31,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<AssetTag> AssetTags => Set<AssetTag>();
     public DbSet<FolderTag> FolderTags => Set<FolderTag>();
     public DbSet<FolderPin> FolderPins => Set<FolderPin>();
+    public DbSet<Payment> Payments => Set<Payment>();
+    public DbSet<ApplicationConfigurations> ApplicationConfigurations => Set<ApplicationConfigurations>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
