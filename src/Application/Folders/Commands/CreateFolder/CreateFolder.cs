@@ -29,13 +29,11 @@ public class CreateFolderCommandValidator : AbstractValidator<CreateFolderComman
 public class CreateFolderCommandHandler : IRequestHandler<CreateFolderCommand, int>
 {
     private readonly IApplicationDbContext _context;
-    private readonly ISender _mediator;
     private readonly IStorageManagementService _storageManagementService;
 
-    public CreateFolderCommandHandler(IApplicationDbContext context, ISender mediator, IStorageManagementService storageManagementService)
+    public CreateFolderCommandHandler(IApplicationDbContext context, IStorageManagementService storageManagementService)
     {
         _context = context;
-        _mediator = mediator;
         _storageManagementService = storageManagementService;
     }
 
@@ -45,8 +43,7 @@ public class CreateFolderCommandHandler : IRequestHandler<CreateFolderCommand, i
         if (request.ParentFolderId != null)
         {
             var parentFolder = await _context.Folders.FindAsync([request.ParentFolderId], cancellationToken: cancellationToken);
-            Guard.Against.Null(parentFolder, nameof(parentFolder));
-            path = $"{parentFolder.Path}/{request.Name}";
+            path = $"{parentFolder!.Path}/{request.Name}";
         }
 
         var entity = new Folder

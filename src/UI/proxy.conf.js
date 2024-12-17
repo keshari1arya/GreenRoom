@@ -1,6 +1,6 @@
 module.exports = {
   "/api": {
-    "target": "https://localhost:5001",
-    "secure": false,    
-  }
+    target: "http://54.89.122.101",
+    secure: false,
+  },
 };

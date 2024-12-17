@@ -30,6 +30,18 @@ export class AuthService {
   }
 
   /**
+   * @returns true if the token is expired
+   */
+  public isTokenExpired(): boolean {
+    const expiresOn = localStorage.getItem("expiresOn");
+    if (!expiresOn) {
+      return true;
+    }
+
+    return new Date().getTime() > parseInt(expiresOn, 10);
+  }
+
+  /**
    * Performs the auth
    * @param email email of user
    * @param password password of user
@@ -123,6 +135,10 @@ export class AuthService {
     return localStorage.getItem("refreshToken");
   }
 
+  /**
+   * Set the auth data
+   * @param response
+   */
   setAuthData(response: AccessTokenResponse) {
     localStorage.setItem("token", response.accessToken);
     localStorage.setItem("refreshToken", response.refreshToken);
@@ -130,5 +146,20 @@ export class AuthService {
     const expiresOn = new Date().getTime() + response.expiresIn * 1000;
     localStorage.setItem("expiresOn", expiresOn.toString());
     localStorage.setItem("tokenType", response.tokenType);
+  }
+
+  refreshAuthDataWithRefreshToken() {
+    return this.usersService
+      .postApiUsersRefresh({
+        body: {
+          refreshToken: this.getRefreshToken(),
+        },
+      })
+      .pipe(
+        map((response) => {
+          this.setAuthData(response);
+          return response;
+        })
+      );
   }
 }

@@ -22,9 +22,10 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
     // add authorization header with jwt token if available
-    let token = this.authenticationService.getToken();
-    let tenantId = this.authenticationService.tenantId();
-    if (token) {
+    const isTokenExpired = this.authenticationService.isTokenExpired();
+    if (!isTokenExpired) {
+      let token = this.authenticationService.getToken();
+      let tenantId = this.authenticationService.tenantId();
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,

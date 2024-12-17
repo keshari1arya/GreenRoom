@@ -11,6 +11,7 @@ import { catchError, filter, take, switchMap } from "rxjs/operators";
 import { AuthService } from "../services/auth.service";
 import { UsersService } from "src/app/lib/openapi-generated/services";
 import { AccessTokenResponse } from "src/app/lib/openapi-generated/models";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -21,7 +22,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
-    private userService: UsersService
+    private userService: UsersService,
+    private route: Router
   ) {}
 
   intercept(
@@ -58,6 +60,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           catchError((err) => {
             this.isRefreshing = false;
             this.authService.logout();
+            const returnUrl = this.route.url;
+            this.route.navigate(["/auth/login"], {
+              queryParams: { returnUrl },
+            });
             return throwError(() => err);
           })
         );

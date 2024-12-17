@@ -54,7 +54,8 @@ export class AuthenticationEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         tap(() => {
-          const returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+          const returnUrl =
+            this.route.snapshot.queryParams["returnUrl"] || "/file-manager";
           this.router.navigateByUrl(returnUrl);
         })
       ),
