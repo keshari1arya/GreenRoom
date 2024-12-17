@@ -8,6 +8,7 @@ public class TenantSubscription : BaseAuditableEntity
     public Subscription Subscription { get; set; } = null!;
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public int PaymentId { get; set; }
+    public int? PaymentId { get; set; }
     public ICollection<Tenant> Tenants { get; set; } = [];
+    public Payment Payment { get; set; } = null!;
 }

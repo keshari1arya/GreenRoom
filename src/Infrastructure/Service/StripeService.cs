@@ -62,7 +62,7 @@ public class StripeService : IPaymentGatewayService
         service.Delete(productId);
     }
 
-    public string PreparePayment(string productId, string customerEmail)
+    public string PreparePayment(string productId, string customerEmail, Dictionary<string, string> metadata = null!)
     {
         var productService = new ProductService();
         var product = productService.Get(productId);
@@ -80,11 +80,45 @@ public class StripeService : IPaymentGatewayService
             SuccessUrl = "http://localhost:4200/subscription/success",
             CancelUrl = "http://localhost:4200/subscription",
             CustomerEmail = customerEmail,
+            Metadata = metadata
         };
 
         var service = new SessionService();
         var session = service.Create(opt);
 
         return session.Url;
+    }
+
+    public Dictionary<string, string> ValidatePaymentAndGetSessionMetadata(string? signature, string? json, string? stripeWebhookSecret)
+    {
+        try
+        {
+            // TODO: replace exception throw with custom return type
+            var stripeEvent = EventUtility.ConstructEvent(json, signature, stripeWebhookSecret) ?? throw new Exception("Failed to construct event");
+
+            if (stripeEvent.Type == EventTypes.CheckoutSessionCompleted)
+            {
+                if (stripeEvent.Data.Object is not Session session)
+                {
+                    throw new Exception("Payment made through checkout session not found");
+                }
+
+                if (session.PaymentStatus != "paid")
+                {
+                    // TODO: Log the exception "Payment not paid" and send an email to the customer to retry the payment
+
+                    throw new Exception("Payment not paid");
+                }
+
+                return session.Metadata;
+            }
+            throw new Exception("PaymentIntentSucceeded event not found");
+        }
+        catch (StripeException e)
+        {
+            // TODO: Log the exception e.Message
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 }

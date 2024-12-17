@@ -19,5 +19,11 @@ public class TenantSubscriptionConfiguration : IEntityTypeConfiguration<TenantSu
             .WithMany(b => b.TenantSubscriptions)
             .HasForeignKey(b => b.SubscriptionId)
             .OnDelete(DeleteBehavior.ClientSetNull);
+
+        builder
+            .HasOne(b => b.Payment)
+            .WithMany()
+            .HasForeignKey(b => b.PaymentId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
     }
 }
